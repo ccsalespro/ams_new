@@ -1,47 +1,61 @@
 class ComparisonPdf < Prawn::Document
 
-	def initialize(prospect, statement, comparison, view)
+	def initialize(prospect, statement, comparison, view, user)
 		super(top_margin: 70)
 		@prospect = prospect
 		@statement = statement
 		@comparison = comparison
 		@view = view
+		@user = user
 		prospect_name
 		card_types
-		savings
+		savings_amounts
+		user_labels
+		user_contact
+
 		
 	end
 
 	def prospect_name
-		text "Proposal for #{@prospect.business_name}", size: 30, style: :bold
+		text "Savings Summary: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	end
+
+	def user_labels
+		bounding_box([45,385], :width => 50, :height => 200) do
+		text "Contact:", style: :bold
+		move_down 5 
+		text "Phone:", style: :bold
+		move_down 5
+		text "Email:", style: :bold
+	   	end
+	end
+
+	def user_contact
+		bounding_box([100,385], :width => 300, :height => 300) do
+		text "#{@user.first_name} #{@user.last_name}"
+		move_down 5
+		text "#{@user.phone_number}"
+		move_down 5
+		text "#{@user.email}"
+	   	end
 	end
 
 	def card_types
 		move_down 20
 		table card_type_rows do
+			row(0..6).border_width = 0.3
 			row(0).font_style = :bold
+			row(6).font_style = :bold
 			columns(0..3).align = :left
 			row(0).align = :center
 			columns(0).width = 75
 			columns(1..3).width = 125
-			self.row_colors = ["DDDDDD", "FFFFFF"]
+			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-
+			self.row(0).background_color = '002D64'
+			self.row(0).text_color = 'FFFFFF'
+			self.position = :center
 		end
-	end
-
-	def savings
-		table [[2, 3], [4, 5]]
-	end
-
-	def interchange
-		move_down 20
-		table interchange_items
-	end
-
-	def interchange_items
-		@interchange_items = Inttableitems.where(statement_id: @statement.id)
-		[["Description", "Volume", "Savings"]]
 	end
 
 	def card_type_rows
@@ -59,6 +73,39 @@ class ComparisonPdf < Prawn::Document
 		["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@total_amex_fees)],
 		["Totals", to_currency(@statement.total_vol), to_integer(@transactions), to_currency(@comparison.total_program_fees)]]
 
+	end
+
+	def savings_amounts
+		move_down 20
+		table savings_row do
+			row(0..1).border_width = 0.3
+			row(0).font_style = :bold
+			row(1).font_style = :bold
+			columns(0..1).align = :left
+			row(0).align = :center
+			columns(0..3).width = 150
+			self.header = true
+			self.row(0).background_color = '002D64'
+			self.row(0).text_color = 'FFFFFF'
+			self.position = :center
+
+		end
+	end
+
+	def savings_row
+		[["Monthly Savings", "Annual Savings", "3 Year Savings"], 
+		[to_currency(@comparison.total_program_savings), to_currency(@comparison.total_program_savings * 12), to_currency(@comparison.total_program_savings * 36)]]
+
+	end
+
+	def interchange
+		move_down 20
+		table interchange_items
+	end
+
+	def interchange_items
+		@interchange_items = Inttableitems.where(statement_id: @statement.id)
+		[["Description", "Volume", "Savings"]]
 	end
 
 	def to_currency(var)
