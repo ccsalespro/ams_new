@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   
+
+
   resources :processors do
     resources :programs
   end
   
   resources :prospects do
-    resources :statements
+    resources :statements do 
+      resources :comparisons
+    end  
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

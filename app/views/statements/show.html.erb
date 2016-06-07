@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Compare', prospect_statement_comparisons_path(@prospect, @statement) %>
+
 <p>
   <strong>Month:</strong>
   <%= @statement.month %>
