@@ -11,7 +11,6 @@ class StatementsController < ApplicationController
   # GET /statements/1
   # GET /statements/1.json
   def show
-    @statement = @prospect.statements.find(params[:id])
   end
 
   # GET /statements/new
@@ -42,7 +41,6 @@ class StatementsController < ApplicationController
   # PATCH/PUT /statements/1
   # PATCH/PUT /statements/1.json
   def update
-    @statement = @prospect.statements.find(params[:id])
     respond_to do |format|
       if @statement.update(statement_params)
         format.html { redirect_to [@prospect, @statement], notice: 'Statement was successfully updated.' }
@@ -57,7 +55,6 @@ class StatementsController < ApplicationController
   # DELETE /statements/1
   # DELETE /statements/1.json
   def destroy
-    @statement = @prospect.statements.find(params[:id])
     @statement.destroy
     respond_to do |format|
       format.html { redirect_to prospect_statements_path(@prospect), notice: 'Statement was successfully destroyed.' }

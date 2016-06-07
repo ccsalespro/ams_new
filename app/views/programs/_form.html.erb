@@ -1,0 +1,33 @@
+<%= form_for([@processor, @program]) do |f| %>
+  <% if @program.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@program.errors.count, "error") %> prohibited this program from being saved:</h2>
+
+      <ul>
+      <% @program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :per_item_cost %><br>
+    <%= f.text_field :per_item_cost %>
+  </div>
+  <div class="field">
+    <%= f.label :min_per_item_fee %><br>
+    <%= f.text_field :min_per_item_fee %>
+  </div>
+  <div class="field">
+    <%= f.label :processor_id %><br>
+    <%= f.text_field :processor_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

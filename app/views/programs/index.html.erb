@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Programs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Per item cost</th>
+      <th>Min per item fee</th>
+      <th>Processor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+        <td><%= program.name %></td>
+        <td><%= program.per_item_cost %></td>
+        <td><%= program.min_per_item_fee %></td>
+        <td><%= program.Processor %></td>
+        <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
+        <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
+        <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Program', new_processor_program_path(@processor) %>

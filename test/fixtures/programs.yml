@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  per_item_cost: 9.99
+  min_per_item_fee: 9.99
+  Processor_id: 
+
+two:
+  name: MyString
+  per_item_cost: 9.99
+  min_per_item_fee: 9.99
+  Processor_id: 

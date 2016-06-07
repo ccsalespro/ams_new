@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :processors do
+    resources :programs
+  end
+  
   resources :prospects do
     resources :statements
   end
