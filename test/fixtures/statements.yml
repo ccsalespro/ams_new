@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: MyString
+  trans_fee: 9.99
+  prospect_id: 
+
+two:
+  month: MyString
+  trans_fee: 9.99
+  prospect_id: 

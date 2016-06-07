@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @statement.month %>
+</p>
+
+<p>
+  <strong>Trans fee:</strong>
+  <%= @statement.trans_fee %>
+</p>
+
+<p>
+  <strong>Prospect:</strong>
+  <%= @statement.prospect %>
+</p>
+
+<%= link_to 'Edit', edit_prospect_statement_path(@prospect, @statement) %> |
+<%= link_to 'Back', prospect_statements_path(@prospect) %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Statements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Trans fee</th>
+      <th>Prospect</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @statements.each do |statement| %>
+      <tr>
+        <td><%= statement.month %></td>
+        <td><%= statement.trans_fee %></td>
+        <td><%= statement.prospect %></td>
+        <td><%= link_to 'Show', prospect_statement_path(@prospect, statement) %></td>
+        <td><%= link_to 'Edit', edit_prospect_statement_path(@prospect, statement) %></td>
+        <td><%= link_to 'Destroy', [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Statement', new_prospect_statement_path(@prospect) %>

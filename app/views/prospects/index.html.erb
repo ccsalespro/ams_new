@@ -19,6 +19,7 @@
         <td><%= link_to 'Show', prospect %></td>
         <td><%= link_to 'Edit', edit_prospect_path(prospect) %></td>
         <td><%= link_to 'Destroy', prospect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'New Statement', new_prospect_statement_path(prospect_id: prospect.id) %></td>
       </tr>
     <% end %>
   </tbody>
