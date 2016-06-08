@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_type: MyString
+  payment_type: MyString
+  low_ticket: 9.99
+  high_ticket: 9.99
+  per_item_value: 9.99
+  percentage_value: 9.99
+
+two:
+  business_type: MyString
+  payment_type: MyString
+  low_ticket: 9.99
+  high_ticket: 9.99
+  per_item_value: 9.99
+  percentage_value: 9.99

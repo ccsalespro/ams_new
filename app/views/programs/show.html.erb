@@ -6,18 +6,23 @@
 </p>
 
 <p>
-  <strong>Per item cost:</strong>
-  <%= @program.per_item_cost %>
+  <strong>Min volume:</strong>
+  <%= @program.min_volume %>
 </p>
 
 <p>
-  <strong>Min per item fee:</strong>
-  <%= @program.min_per_item_fee %>
+  <strong>Max volume:</strong>
+  <%= @program.max_volume %>
 </p>
 
 <p>
-  <strong>Processor:</strong>
-  <%= @program.Processor %>
+  <strong>Up front bonus:</strong>
+  <%= @program.up_front_bonus %>
+</p>
+
+<p>
+  <strong>Residual split:</strong>
+  <%= @program.residual_split %>
 </p>
 
 <%= link_to 'Edit', edit_processor_program_path(@processor, @program) %> |

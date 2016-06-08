@@ -1,0 +1,41 @@
+<%= form_for(@cost) do |f| %>
+  <% if @cost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cost.errors.count, "error") %> prohibited this cost from being saved:</h2>
+
+      <ul>
+      <% @cost.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :business_type %><br>
+    <%= f.text_field :business_type, :class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :payment_type %><br>
+    <%= f.text_field :payment_type, :class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :low_ticket %><br>
+    <%= f.text_field :low_ticket, :class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :high_ticket %><br>
+    <%= f.text_field :high_ticket, :class => "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :per_item_value %><br>
+    <%= f.text_field :per_item_value, :class => "form-control" %>
+  </div>
+  <div class="field">
+      <%= f.label :percentage_value %><br>
+      <%= f.text_field :percentage_value, :class => "form-control" %>
+  </div>
+  <div class ="form-buttons">
+        <%= submit_tag("Submit", :class => 'btn btn-default') %>
+  </div>
+<% end %>

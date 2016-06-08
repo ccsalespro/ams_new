@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607144753) do
+ActiveRecord::Schema.define(version: 20160608190813) do
+
+  create_table "costs", force: :cascade do |t|
+    t.string   "business_type"
+    t.string   "payment_type"
+    t.decimal  "low_ticket"
+    t.decimal  "high_ticket"
+    t.decimal  "per_item_value"
+    t.decimal  "percentage_value"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "processors", force: :cascade do |t|
     t.string   "name"
@@ -20,12 +31,45 @@ ActiveRecord::Schema.define(version: 20160607144753) do
   end
 
   create_table "programs", force: :cascade do |t|
-    t.string   "name"
-    t.decimal  "per_item_cost"
-    t.decimal  "min_per_item_fee"
     t.integer  "processor_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "name"
+    t.decimal  "min_volume"
+    t.decimal  "max_volume"
+    t.decimal  "up_front_bonus"
+    t.decimal  "residual_split"
+    t.decimal  "min_bp_mark_up"
+    t.decimal  "min_per_item_fee"
+    t.string   "cost_structure"
+    t.string   "terminal_type"
+    t.string   "terminal_ownership_type"
+    t.decimal  "per_item_cost"
+    t.decimal  "bin_sponsorship"
+    t.decimal  "visa_access_per_item"
+    t.decimal  "visa_access_percentage"
+    t.decimal  "mc_access_per_item"
+    t.decimal  "mc_access_percentage"
+    t.decimal  "disc_access_per_item"
+    t.decimal  "disc_access_percentage"
+    t.decimal  "min_monthly_fees"
+    t.decimal  "monthly_fee_costs"
+    t.decimal  "monthly_pci_fee"
+    t.decimal  "monthly_pci_cost"
+    t.decimal  "annual_pci_fee"
+    t.decimal  "annual_pci_cost"
+    t.decimal  "min_pin_debit_per_item_fee"
+    t.decimal  "pin_debit_per_item_cost"
+    t.decimal  "monthly_debit_fee_cost"
+    t.decimal  "min_monthly_debit_fee"
+    t.decimal  "next_day_funding_monthly_cost"
+    t.decimal  "next_day_funding_monthly_fee"
+    t.decimal  "amex_per_item_cost"
+    t.decimal  "min_amex_per_item_fee"
+    t.decimal  "amex_bp_cost"
+    t.decimal  "min_amex_bp_fee"
+    t.decimal  "application_fee_cost"
+    t.decimal  "min_application_fee"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :costs
   root to: 'prospects#index'
 
   resources :processors do

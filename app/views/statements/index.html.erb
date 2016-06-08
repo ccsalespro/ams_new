@@ -15,8 +15,7 @@
   <tbody>
     <% @statements.each do |statement| %>
       <tr>
-        <td><%= statement.month %></td>
-        <td><%= statement.trans_fee %></td>
+        <td><%= statement.statement_month %></td>
         <td><%= statement.prospect %></td>
         <td><%= link_to 'Show', prospect_statement_path(@prospect, statement) %></td>
         <td><%= link_to 'Edit', edit_prospect_statement_path(@prospect, statement) %></td>

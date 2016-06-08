@@ -2,13 +2,19 @@
 
 <h1>Listing Programs</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Per item cost</th>
-      <th>Min per item fee</th>
       <th>Processor</th>
+      <th>Name</th>
+      <th>volume+</th>
+      <th>Bonus</th>
+      <th>split</th>
+      <th>Basis Points</th>
+      <th>Trans Fee</th>
+      <th>Cost structure</th>
+      <th>Terminal</th>
+      <th>Actions</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +22,15 @@
   <tbody>
     <% @programs.each do |program| %>
       <tr>
+        <td><%= @processor.name %></td>
         <td><%= program.name %></td>
-        <td><%= program.per_item_cost %></td>
+        <td><%= program.min_volume %></td>
+        <td><%= program.up_front_bonus %></td>
+        <td><%= program.residual_split %></td>
+        <td><%= program.min_bp_mark_up %></td>
         <td><%= program.min_per_item_fee %></td>
-        <td><%= program.Processor %></td>
+        <td><%= program.cost_structure %></td>
+        <td><%= program.terminal_ownership_type %></td>
         <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
         <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
         <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>

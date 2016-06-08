@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Costs</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Business type</th>
+      <th>Payment type</th>
+      <th>Low ticket</th>
+      <th>High ticket</th>
+      <th>Per Item Value</th>
+      <th>Percentage Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @costs.each do |cost| %>
+      <tr>
+        <td><%= cost.business_type %></td>
+        <td><%= cost.payment_type %></td>
+          <td><%= number_to_currency(cost.low_ticket) %></td>
+          <td><%= number_to_currency(cost.high_ticket) %></td>
+          <td><%= number_to_currency(cost.per_item_value, precision: 2) %></td>
+          <td><%= number_to_percentage(cost.percentage_value, precision: 2) %></td>
+          
+          <td><%= link_to 'Show', cost, :class => 'btn btn-default' %></td>
+        <td><%= link_to 'Edit', edit_cost_path(cost), :class => 'btn btn-default' %></td>
+        <td><%= link_to 'Destroy', cost, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cost', new_cost_path %>

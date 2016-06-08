@@ -11,23 +11,156 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<div class="container">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_volume %><br>
+      <%= f.text_field :min_volume, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :max_volume %><br>
+      <%= f.text_field :max_volume, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :up_front_bonus %><br>
+      <%= f.text_field :up_front_bonus, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :residual_split %><br>
+      <%= f.text_field :residual_split, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_bp_mark_up %><br>
+      <%= f.text_field :min_bp_mark_up, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_per_item_fee %><br>
+      <%= f.text_field :min_per_item_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :cost_structure %><br>
+      <%= f.text_field :cost_structure, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :terminal_type %><br>
+      <%= f.text_field :terminal_type, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :terminal_ownership_type %><br>
+      <%= f.text_field :terminal_ownership_type, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :per_item_cost %><br>
+      <%= f.text_field :per_item_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :bin_sponsorship %><br>
+      <%= f.text_field :bin_sponsorship, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :visa_access_per_item %><br>
+      <%= f.text_field :visa_access_per_item, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :visa_access_percentage %><br>
+      <%= f.text_field :visa_access_percentage, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mc_access_per_item %><br>
+      <%= f.text_field :mc_access_per_item, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :mc_access_percentage %><br>
+      <%= f.text_field :mc_access_percentage, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :disc_access_per_item %><br>
+      <%= f.text_field :disc_access_per_item, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :disc_access_percentage %><br>
+      <%= f.text_field :disc_access_percentage, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_monthly_fees %><br>
+      <%= f.text_field :min_monthly_fees, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :monthly_fee_costs %><br>
+      <%= f.text_field :monthly_fee_costs, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :monthly_pci_fee %><br>
+      <%= f.text_field :monthly_pci_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :monthly_pci_cost %><br>
+      <%= f.text_field :monthly_pci_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :annual_pci_fee %><br>
+      <%= f.text_field :annual_pci_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :annual_pci_cost %><br>
+      <%= f.text_field :annual_pci_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_pin_debit_per_item_fee %><br>
+      <%= f.text_field :min_pin_debit_per_item_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :pin_debit_per_item_cost %><br>
+      <%= f.text_field :pin_debit_per_item_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :monthly_debit_fee_cost %><br>
+      <%= f.text_field :monthly_debit_fee_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_monthly_debit_fee %><br>
+      <%= f.text_field :min_monthly_debit_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :next_day_funding_monthly_cost %><br>
+      <%= f.text_field :next_day_funding_monthly_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :next_day_funding_monthly_fee %><br>
+      <%= f.text_field :next_day_funding_monthly_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :amex_per_item_cost %><br>
+      <%= f.text_field :amex_per_item_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_amex_per_item_fee %><br>
+      <%= f.text_field :min_amex_per_item_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :amex_bp_cost %><br>
+      <%= f.text_field :amex_bp_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_amex_bp_fee %><br>
+      <%= f.text_field :min_amex_bp_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :application_fee_cost %><br>
+      <%= f.text_field :application_fee_cost, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :min_application_fee %><br>
+      <%= f.text_field :min_application_fee, class: "form-control" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-lg btn-primary" %>
+    </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :per_item_cost %><br>
-    <%= f.text_field :per_item_cost %>
-  </div>
-  <div class="field">
-    <%= f.label :min_per_item_fee %><br>
-    <%= f.text_field :min_per_item_fee %>
-  </div>
-  <div class="field">
-    <%= f.label :processor_id %><br>
-    <%= f.text_field :processor_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+
