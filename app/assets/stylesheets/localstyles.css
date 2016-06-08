@@ -1,0 +1,137 @@
+* {
+        margin: 0;
+        border: 0;
+        padding: 0;
+    }
+    body {
+        background: #f0f0f0;
+        font: 14px/20px Arial, San-Serif;
+        color: #555;
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    a:hover {
+        color: #405580;
+        text-decoration: underline;
+    }
+    header {
+        background: #405580;
+        width: 100%;
+        height: 86px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        opacity: 0.90;
+    }
+    #logo {
+        margin: 9px 20px;
+        float: left;
+        width: 140px;
+        height: 65px;
+    }
+    nav {
+        float: right;
+        padding: 35px 20px 20px 0;
+    }
+    #menu-icon {
+        display: hidden;
+        width: 40px;
+        height: 40px;
+        background: url(http://www.w3newbie.com/wp-content/uploads/icon.png) center;
+    }
+    a:hover#menu-icon {
+        border-radius: 4px 4px 0 0;  
+    }
+    ul {
+        list-style: none;   
+    }
+    nav ul li {
+        display: inline-block;
+        float: left;
+        padding: 10px;
+    }
+    .listing {
+    top: 110px;
+    }
+    .notice {
+    margin-top: 100px;
+    text-align: center;
+    border: 2px;
+    background: #405580;
+    width: 200px;
+    color: #FFF;
+    }
+.header {
+    color: #405580;
+}
+.actions {
+    color: #405580;
+}
+.button {
+    background: #405580;
+    color: #FFF;
+    margin: 10px;
+    margin-top: 20px;
+}
+.border-form-div {
+    width: 275px;
+    padding: 20px;
+    margin: 0 auto;
+    background: #405580;
+    opacity: 0.9;
+}
+div.border-form-div label {
+    color: #FFF;
+}
+div.border-form-div h2 {
+    color: #FFF;
+    text-align: center;
+}
+.panel-primary>.panel-heading {
+    background: #405580;
+    opacity: 0.9;
+}
+.panel-primary>.panel-footer {
+    text-align: center;
+}
+
+/*------------MEDIA------------*/
+    @media screen and (max-width: 300px) {
+        body {
+            position: absolute;
+        }
+    }
+    @media screen and (max-width: 742px) {
+        header {
+            position: absolute;
+        }
+        #menu-icon {
+            display: inline-block;
+        }
+        nav ul, nav:active ul {
+            display: none;
+            position: absolute;
+            padding: 20px;
+            background: #405580;
+            border: 1px solid #FFF;
+            right: 20px;
+            top: 60px;
+            width: 50%;
+            border-radius: 2px 0 2px 2px;
+        }
+        nav li {
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            margin: 0;
+        }
+        nav:hover ul {
+            display: block;
+        }
+}

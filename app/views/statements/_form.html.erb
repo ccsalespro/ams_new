@@ -12,18 +12,41 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :month %><br>
-    <%= f.text_field :month %>
-  </div>
-  <div class="field">
-    <%= f.label :trans_fee %><br>
-    <%= f.text_field :trans_fee %>
-  </div>
-  <div class="field">
-    <%= f.label :prospect_id %><br>
-    <%= f.text_field :prospect_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.label "Statement Month" %>
+    <%= f.text_field(:statement_month, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "Business Type" %>
+    <%= f.text_field(:business_type, :class => "form-control") %>
+</div>
+<div class="field">
+     <%= f.label "Total Volume" %>
+     <%= f.text_field(:total_vol, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "Average Ticket Size" %>
+    <%= f.text_field(:avg_ticket, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "American Express Volume" %>
+    <%= f.text_field(:amex_vol, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "Pin Debit Volume" %>
+    <%= f.text_field(:debit_vol, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "Check Card Volume" %>
+    <%= f.text_field(:check_card_vol, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.label "Total Fees" %>
+    <%= f.text_field(:total_fees, :class => "form-control") %>
+</div>
+<div class="field">
+    <%= f.hidden_field(:prospect_id) %>
+</div>
+<div class="actions">
+  <%= submit_tag("Submit", :class => 'btn btn-default') %>
+</div>
 <% end %>

@@ -2,20 +2,47 @@
 
 <%= link_to 'Compare', prospect_statement_comparisons_path(@prospect, @statement) %>
 
-<p>
-  <strong>Month:</strong>
-  <%= @statement.month %>
-</p>
-
-<p>
-  <strong>Trans fee:</strong>
-  <%= @statement.trans_fee %>
-</p>
-
-<p>
-  <strong>Prospect:</strong>
-  <%= @statement.prospect %>
-</p>
+<table summary="Statement Detail View" class="table">
+  <tr>
+    <th>ID</th>
+    <td><%= @statement.id %></td>
+  </tr>
+    <th>Total Fees</th>
+	<td><%= @statement.total_fees %></td>
+  </tr>
+    <th>Business Type</th>
+    <td><%= @statement.business_type %></td>
+  </tr>
+	<th>Visa/MC/Disc Volume</th>
+	<td><%= @statement.vmd_vol %></td>
+  </tr>
+    <th>Visa/MC/Disc Trans</th>
+	<td><%= @statement.vmd_trans %></td>
+  </tr>
+    <th>Number of Batches</th>
+	<td><%= @statement.batches %></td>
+  </tr>
+    <th>American Express Transactions</th>
+	<td><%= @statement.amex_trans %></td>
+  </tr>
+    <th>American Express Volume</th>
+	<td><%= @statement.amex_vol %></td>
+  </tr>
+    <th>Pin Debit Volume</th>
+	<td><%= @statement.debit_vol %></td>
+  </tr>
+    <th>Pin Debit Transactions</th>
+	<td><%= @statement.debit_trans %></td>
+  </tr>
+    <th>Vs/Mc/Dis Interchange Costs</th>
+	<td><%= @statement.interchange %></td>
+  </tr>
+    <th>Statement Month</th>
+	<td><%= @statement.statement_month %></td>
+	<tr>
+	  <th>Updated</th>
+	  <td><%= @statement.updated_at %></td>
+	</tr>
 
 <%= link_to 'Edit', edit_prospect_statement_path(@prospect, @statement) %> |
 <%= link_to 'Back', prospect_statements_path(@prospect) %>

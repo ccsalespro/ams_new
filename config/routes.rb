@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-
+  root to: 'prospects#index'
 
   resources :processors do
     resources :programs

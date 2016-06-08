@@ -13,13 +13,21 @@
 
   <div class="field">
     <%= f.label :business_name %><br>
-    <%= f.text_field :business_name %>
+    <%= f.text_field(:business_name, :class => "form-control") %>
   </div>
   <div class="field">
     <%= f.label :contact_name %><br>
-    <%= f.text_field :contact_name %>
+    <%= f.text_field(:contact_name, :class => "form-control") %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.phone_field(:phone, :class => "form-control") %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field(:email, :class => "form-control") %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag("Submit", :class => 'btn btn-default') %>
   </div>
 <% end %>
