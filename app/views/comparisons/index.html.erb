@@ -4,30 +4,7 @@
 
 <h1>Programs</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Per item cost</th>
-      <th>Min per item fee</th>
-      <th>Transaction Profit</th>
-      <th>Processor</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @programs.each do |program| %>
-      <tr>
-        <td><%= program.name %></td>
-        <td><%= program.per_item_cost %></td>
-        <td><%= program.min_per_item_fee %></td>
-        <td><%= program.min_per_item_fee - program.per_item_cost %></td>
-        <td><%= program.Processor %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
     <% @programs.each do |program| %>
         
@@ -36,9 +13,9 @@
         <% @vs_mc_disc_transactions = ( @vs_mc_disc_volume / @statement.avg_ticket ) %>
         <% @total_transactions = ( @statement.total_vol / @statement.avg_ticket ) %>
         <% @amex_transactions = ( @statement.amex_vol / @statement.avg_ticket ) %>
-        <% @vs_mc_disc_mark_up = ( @vs_mc_disc_volume * (program.min_bp_mark_up / 1000 ) ) %>
-        <% @amex_mark_up = ( @amex_monthly_volume * ( program.min_amex_bp_fee / 1000 ) ) %>
-        <% @vs_mc_disc_trans_fees = ( @vs_mc_disc_transactions * program.min_per_item_fee ) %>
+        <% @vs_mc_disc_mark_up = ( @vmd_vol * (program.min_bp_mark_up / 1000 ) ) %>
+        <% @amex_mark_up = ( @amex_vol * ( program.min_amex_bp_fee / 1000 ) ) %>
+        <% @vs_mc_disc_trans_fees = ( @vmd_trans * program.min_per_item_fee ) %>
         <% @amex_trans_fees = ( @amex_transactions * program.min_amex_per_item_fee ) %>
         
         <% @avg_access_per_item = (((program.visa_access_per_item * 4) + (program.mc_access_per_item * 4) + (program.disc_access_per_item * 2)) / 10) %>
@@ -46,34 +23,48 @@
         <% @access_fees = (((@vs_mc_disc_volume * (@avg_access_bp / 1000)) + (@vs_mc_disc_transactions * @avg_access_per_item) %>)
         
 
-        <% @debit_fees = (@statement.pin_debit_transactions * program.min_pin_debit_per_item_fee) + (@statement.pin_debit_acquiring_fees) %>
+        <% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>
       <% if @debit_fees > 0 %>
         <% @debit_fees += program.min_monthly_debit_fee %> 
       <% end %>
 
 
-        <% @total_program_fees = @statement.total_interchange + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
+        <% @total_program_fees = @statement.interchange + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
 
-        <% @batch_costs = @statement.number_of_daily_batches * program.per_batch_cost %>
-        
-        <% @bin_costs = @vs_mc_disc_volume * program.bin_sponsorship %>
-        <% @vs_mc_disc_per_item_costs = @vs_mc_disc_transactions * program.per_item_cost  %>
-        
+        <% @batch_costs = @statement.batches * program.per_batch_cost %>
+        <% @bin_costs = @vmd_vol * program.bin_sponsorship %>
+        <% @vs_mc_disc_per_item_costs = @vmd_trans * program.per_item_cost  %>        
         <% @amex_per_item_costs = @amex_transactions * program.amex_per_item_cost %>
-        <% @amex_bp_costs = @amex_monthly_volume * program.amex_per_item_cost %>
+        <% @amex_bp_costs = @statement.amex_vol * program.amex_per_item_cost %>
         
-        <% @pin_debit_costs = @pin_debit_transactions * program.pin_debit_per_item_cost %>
+        <% @pin_debit_costs = @statement.debit_trans * program.pin_debit_per_item_cost %>
       <% if @debit_fees > 0 %>
         <% @pin_debit_costs += program.monthly_debit_fee_cost %> 
       <% end %>           
 
        <%  @total_program_costs = @batch_costs + @bin_costs + @vs_mc_disc_per_item_costs + @amex_per_item_costs + @amex_bp_costs + @pin_debit_costs + program.monthly_fee_costs + program.monthly_pci_cost %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total Current Fees</th>
+      <th>Projected Fees</th>
+      <th>Savings</th>
+      <th>Gross Margin</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-
-        <% @comparison.program_id = program.id %>
-        <% @comparison.statement_id = @statement.id %>
-        <% @comparison.monthly_savings = @total_program_fees - @statement.total_monthly_fees %>
-        <% @comparison.monthly_residual = ( @total_monthly_fees - @statement.total_interchange - @total_program_costs ) * program.residual_split %>
-        <% @comparison. %>
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+        <td><%= @processor.name %></td>
+        <td><%= @statement.total_fees %></td>
+        <td><%= @total_program_fees %></td>
+        <td><%= @statement.total_fees - @total_program_costs %></td>
+        <td><%= @total_program_fees - @total_program_costs %></td>
+      </tr>
     <% end %>
+  </tbody>
+</table>
   <% end %>
