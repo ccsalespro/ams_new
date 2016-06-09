@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608213408) do
+ActiveRecord::Schema.define(version: 20160609014916) do
 
   create_table "costs", force: :cascade do |t|
     t.string   "business_type"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20160608213408) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.decimal  "min_per_batch_fee"
+    t.decimal  "per_batch_cost"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"

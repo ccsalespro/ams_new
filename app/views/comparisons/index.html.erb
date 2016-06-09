@@ -1,8 +1,7 @@
-<h1>Comparisons#index</h1>
-<p><%= @prospect %></p>
-<p><%= @statement %></p>
+<h1>Compare Programs</h1>
+<p><%= @prospect.business_name %></p>
+<p><%= @statement.statement_month %> Statement</p>
 
-<h1>Programs</h1>
 
 <% @programs.each do |program| %>
 
@@ -15,6 +14,45 @@
 <% @amex_mark_up = ( @statement.amex_vol * ( program.min_amex_bp_fee / 1000 ) ) %>
 <% @vs_mc_disc_trans_fees = ( @vs_mc_disc_transactions * program.min_per_item_fee ) %>
 <% @amex_trans_fees = ( @amex_transactions * program.min_amex_per_item_fee ) %>
+<% @avg_access_per_item = (((program.visa_access_per_item * 4) + (program.mc_access_per_item * 4) + (program.disc_access_per_item * 2)) / 10) %>
+<% @avg_access_bp = (((program.visa_access_percentage * 4) + (program.mc_access_percentage * 4) + (program.disc_access_percentage * 2)) / 10) %>
+<% @access_fees = (@vs_mc_disc_volume * (@avg_access_bp / 1000)) + (@vs_mc_disc_transactions * @avg_access_per_item) %>
+
+<% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>
+    <% if @debit_fees > 0 %>
+      <% @debit_fees += program.min_monthly_debit_fee %> 
+    <% end %>
+
+<% @total_program_fees = @statement.interchange + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
+
+<% @batch_costs = @statement.batches * program.per_batch_cost %>
+
+
+<h2><%= program.name %></h2>
+<p>
+<strong>Total Fees</strong>
+<%= @total_program_fees %>
+</p>
+
+<p>
+<strong>Total Debit Fees</strong>
+<%= @debit_fees %>
+</p>
+
+<p>
+<strong>Total Access Fees</strong>
+<%= @access_fees %>
+</p>
+
+<p>
+<strong>Avg Access Basis Points</strong>
+<%= @avg_access_bp %>
+</p>
+
+<p>
+<strong>Avg Access Per Item</strong>
+<%= @avg_access_per_item %>
+</p>
 
 <p>
 <strong>VMD Mark Up</strong>
