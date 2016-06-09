@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+<div class="border-form-div">
   <div class="field">
     <%= f.label :business_name %><br>
     <%= f.text_field(:business_name, :class => "form-control") %>
@@ -26,8 +26,11 @@
   <div class="field">
     <%= f.label :email %><br>
     <%= f.email_field(:email, :class => "form-control") %>
-  </div>
+  </div><br>
   <div class="actions">
     <%= submit_tag("Submit", :class => 'btn btn-default') %>
-  </div>
+  </div><br>
+  <div id="form-link"><%= link_to 'Show', @prospect, :id => 'form-link' %> |
+  <%= link_to 'Back', prospects_path, :id => 'form-link' %>
+</div>
 <% end %>

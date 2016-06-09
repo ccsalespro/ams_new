@@ -29,6 +29,9 @@
         z-index: 100;
         opacity: 0.90;
     }
+    #form-link {
+        color: #FFF;
+    }
     #logo {
         margin: 9px 20px;
         float: left;

@@ -11,42 +11,45 @@
     </div>
   <% end %>
 
+<div class="border-form-div">
   <div class="field">
-    <%= f.label "Statement Month" %>
-    <%= f.text_field(:statement_month, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "Business Type" %>
-    <%= f.text_field(:business_type, :class => "form-control") %>
-</div>
-<div class="field">
-     <%= f.label "Total Volume" %>
-     <%= f.text_field(:total_vol, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "Average Ticket Size" %>
-    <%= f.text_field(:avg_ticket, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "American Express Volume" %>
-    <%= f.text_field(:amex_vol, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "Pin Debit Volume" %>
-    <%= f.text_field(:debit_vol, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "Check Card Volume" %>
-    <%= f.text_field(:check_card_vol, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.label "Total Fees" %>
-    <%= f.text_field(:total_fees, :class => "form-control") %>
-</div>
-<div class="field">
-    <%= f.hidden_field(:prospect_id) %>
-</div>
-<div class="actions">
-  <%= submit_tag("Submit", :class => 'btn btn-default') %>
+      <%= f.label "Statement Month" %>
+      <%= f.text_field(:statement_month, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "Business Type" %>
+      <%= f.text_field(:business_type, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+       <%= f.label "Total Volume" %>
+       <%= f.text_field(:total_vol, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "Average Ticket Size" %>
+      <%= f.text_field(:avg_ticket, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "American Express Volume" %>
+      <%= f.text_field(:amex_vol, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "Pin Debit Volume" %>
+      <%= f.text_field(:debit_vol, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "Check Card Volume" %>
+      <%= f.text_field(:check_card_vol, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.label "Total Fees" %>
+      <%= f.text_field(:total_fees, :class => "form-control") %>
+  </div><br>
+  <div class="field">
+      <%= f.hidden_field(:prospect_id) %>
+  </div><br>
+  <div class="actions">
+    <%= submit_tag("Submit", :class => 'btn btn-default') %>
+  </div><br>
+  <%= link_to 'Back', prospect_statements_path(@prospect), :id => 'form-link' %>
 </div>
 <% end %>
