@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   
+  devise_for :users
+  root to: 'prospects#index'
+  
   resources :merchants do
     collection { post :import }  
   end
   
   resources :costs
-  root to: 'prospects#index'
 
   resources :processors do
     resources :programs
