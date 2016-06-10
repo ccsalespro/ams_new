@@ -1,6 +1,8 @@
 class CreateMerchants < ActiveRecord::Migration
   def change
     create_table :merchants do |t|
+      t.string :business_dba
+      t.integer :data_number
       t.string :business_type_primary
       t.string :business_type_secondary
       t.integer :sic_1

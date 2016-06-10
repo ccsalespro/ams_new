@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610040428) do
+ActiveRecord::Schema.define(version: 20160610050453) do
 
   create_table "costs", force: :cascade do |t|
     t.string   "business_type"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20160610040428) do
   end
 
   create_table "merchants", force: :cascade do |t|
+    t.string   "business_dba"
+    t.integer  "data_number"
     t.string   "business_type_primary"
     t.string   "business_type_secondary"
     t.integer  "sic_1"
@@ -117,10 +119,10 @@ ActiveRecord::Schema.define(version: 20160610040428) do
     t.string   "contact_name"
     t.string   "phone"
     t.string   "email"
-    t.integer  "description_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
+    t.integer  "description_id"
   end
 
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"
