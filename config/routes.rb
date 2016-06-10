@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :merchants do
     collection { post :import }  
   end
+
+  resources :descriptions do
+    collection { post :import }
+  end
   
   resources :costs
 
