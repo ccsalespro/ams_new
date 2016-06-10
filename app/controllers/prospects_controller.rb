@@ -1,10 +1,11 @@
 class ProspectsController < ApplicationController
   before_action :set_prospect, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /prospects
   # GET /prospects.json
   def index
-    @prospects = Prospect.all
+    @prospects = current_user.prospects
   end
 
   # GET /prospects/1
@@ -14,7 +15,7 @@ class ProspectsController < ApplicationController
 
   # GET /prospects/new
   def new
-    @prospect = Prospect.new
+    @prospect = current_user.prospects.build
   end
 
   # GET /prospects/1/edit
@@ -24,7 +25,7 @@ class ProspectsController < ApplicationController
   # POST /prospects
   # POST /prospects.json
   def create
-    @prospect = Prospect.new(prospect_params)
+    @prospect = current_user.prospects.build(prospect_params)
 
     respond_to do |format|
       if @prospect.save
