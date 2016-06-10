@@ -1,0 +1,87 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Create One New Merchant', new_merchant_path, :class => 'btn btn-default' %>
+
+<h2>Import Multiple Merchants</h2>
+
+<%= form_tag import_merchants_path, multipart: true do %>
+
+  <%= file_field_tag :file %><br>
+  <%= submit_tag "Import", :class => 'btn btn-default' %>
+<% end %>
+
+<h1>Listing Merchants</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Data Number</th>
+      <th>Business DBA</th>
+      <th>Business type primary</th>
+      <th>Business type secondary</th>
+      <th>Sic 1</th>
+      <th>Sic 2</th>
+      <th>Sic 3</th>
+      <th>Interchange percentage</th>
+      <th>Avg ticket</th>
+      <th>Amex percentage</th>
+      <th>Amex per item</th>
+      <th>Check card percentage</th>
+      <th>Amex vol</th>
+      <th>Check card vol</th>
+      <th>Mc vol</th>
+      <th>Vs vol</th>
+      <th>Disc vol</th>
+      <th>Debit vol</th>
+      <th>Total transactions</th>
+      <th>Amex transactions</th>
+      <th>Interchange fees</th>
+      <th>Total fees</th>
+      <th>Debit transactions</th>
+      <th>Debit network fees</th>
+      <th>Ebt vol</th>
+      <th>Ebt fees</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @merchants.each do |merchant| %>
+      <tr>
+        <td><%= merchant.data_number %></td>
+        <td><%= merchant.business_dba %></td>
+        <td><%= merchant.business_type_primary %></td>
+        <td><%= merchant.business_type_secondary %></td>
+        <td><%= merchant.sic_1 %></td>
+        <td><%= merchant.sic_2 %></td>
+        <td><%= merchant.sic_3 %></td>
+        <td><%= merchant.interchange_percentage %></td>
+        <td><%= merchant.avg_ticket %></td>
+        <td><%= merchant.amex_percentage %></td>
+        <td><%= merchant.amex_per_item %></td>
+        <td><%= merchant.check_card_percentage %></td>
+        <td><%= merchant.amex_vol %></td>
+        <td><%= merchant.check_card_vol %></td>
+        <td><%= merchant.mc_vol %></td>
+        <td><%= merchant.vs_vol %></td>
+        <td><%= merchant.disc_vol %></td>
+        <td><%= merchant.debit_vol %></td>
+        <td><%= merchant.total_transactions %></td>
+        <td><%= merchant.amex_transactions %></td>
+        <td><%= merchant.interchange_fees %></td>
+        <td><%= merchant.total_fees %></td>
+        <td><%= merchant.debit_transactions %></td>
+        <td><%= merchant.debit_network_fees %></td>
+        <td><%= merchant.ebt_vol %></td>
+        <td><%= merchant.ebt_fees %></td>
+        <td><%= link_to 'Show', merchant %></td>
+        <td><%= link_to 'Edit', edit_merchant_path(merchant) %></td>
+        <td><%= link_to 'Destroy', merchant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+

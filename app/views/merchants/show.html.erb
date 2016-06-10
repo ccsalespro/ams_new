@@ -1,0 +1,124 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business type primary:</strong>
+  <%= @merchant.business_type_primary %>
+</p>
+
+<p>
+  <strong>Business type secondary:</strong>
+  <%= @merchant.business_type_secondary %>
+</p>
+
+<p>
+  <strong>Sic 1:</strong>
+  <%= @merchant.sic_1 %>
+</p>
+
+<p>
+  <strong>Sic 2:</strong>
+  <%= @merchant.sic_2 %>
+</p>
+
+<p>
+  <strong>Sic 3:</strong>
+  <%= @merchant.sic_3 %>
+</p>
+
+<p>
+  <strong>Interchange percentage:</strong>
+  <%= @merchant.interchange_percentage %>
+</p>
+
+<p>
+  <strong>Avg ticket:</strong>
+  <%= @merchant.avg_ticket %>
+</p>
+
+<p>
+  <strong>Amex percentage:</strong>
+  <%= @merchant.amex_percentage %>
+</p>
+
+<p>
+  <strong>Amex per item:</strong>
+  <%= @merchant.amex_per_item %>
+</p>
+
+<p>
+  <strong>Check card percentage:</strong>
+  <%= @merchant.check_card_percentage %>
+</p>
+
+<p>
+  <strong>Amex vol:</strong>
+  <%= @merchant.amex_vol %>
+</p>
+
+<p>
+  <strong>Check card vol:</strong>
+  <%= @merchant.check_card_vol %>
+</p>
+
+<p>
+  <strong>Mc vol:</strong>
+  <%= @merchant.mc_vol %>
+</p>
+
+<p>
+  <strong>Vs vol:</strong>
+  <%= @merchant.vs_vol %>
+</p>
+
+<p>
+  <strong>Disc vol:</strong>
+  <%= @merchant.disc_vol %>
+</p>
+
+<p>
+  <strong>Debit vol:</strong>
+  <%= @merchant.debit_vol %>
+</p>
+
+<p>
+  <strong>Total transactions:</strong>
+  <%= @merchant.total_transactions %>
+</p>
+
+<p>
+  <strong>Amex transactions:</strong>
+  <%= @merchant.amex_transactions %>
+</p>
+
+<p>
+  <strong>Interchange fees:</strong>
+  <%= @merchant.interchange_fees %>
+</p>
+
+<p>
+  <strong>Total fees:</strong>
+  <%= @merchant.total_fees %>
+</p>
+
+<p>
+  <strong>Debit transactions:</strong>
+  <%= @merchant.debit_transactions %>
+</p>
+
+<p>
+  <strong>Debit network fees:</strong>
+  <%= @merchant.debit_network_fees %>
+</p>
+
+<p>
+  <strong>Ebt vol:</strong>
+  <%= @merchant.ebt_vol %>
+</p>
+
+<p>
+  <strong>Ebt fees:</strong>
+  <%= @merchant.ebt_fees %>
+</p>
+
+<%= link_to 'Edit', edit_merchant_path(@merchant) %> |
+<%= link_to 'Back', merchants_path %>

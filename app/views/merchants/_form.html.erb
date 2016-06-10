@@ -1,0 +1,114 @@
+<%= form_for(@merchant) do |f| %>
+  <% if @merchant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@merchant.errors.count, "error") %> prohibited this merchant from being saved:</h2>
+
+      <ul>
+      <% @merchant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="border-form-div">
+  <div class="field">
+    <%= f.label :business_type_primary %><br>
+    <%= f.text_field :business_type_primary, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :business_type_secondary %><br>
+    <%= f.text_field :business_type_secondary, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :sic_1 %><br>
+    <%= f.number_field :sic_1, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :sic_2 %><br>
+    <%= f.number_field :sic_2, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :sic_3 %><br>
+    <%= f.number_field :sic_3, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :interchange_percentage %><br>
+    <%= f.text_field :interchange_percentage, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_ticket %><br>
+    <%= f.text_field :avg_ticket, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :amex_percentage %><br>
+    <%= f.text_field :amex_percentage, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :amex_per_item %><br>
+    <%= f.text_field :amex_per_item, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :check_card_percentage %><br>
+    <%= f.text_field :check_card_percentage, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :amex_vol %><br>
+    <%= f.text_field :amex_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :check_card_vol %><br>
+    <%= f.text_field :check_card_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :mc_vol %><br>
+    <%= f.text_field :mc_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :vs_vol %><br>
+    <%= f.text_field :vs_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :disc_vol %><br>
+    <%= f.text_field :disc_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :debit_vol %><br>
+    <%= f.text_field :debit_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :total_transactions %><br>
+    <%= f.number_field :total_transactions, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :amex_transactions %><br>
+    <%= f.number_field :amex_transactions, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :interchange_fees %><br>
+    <%= f.text_field :interchange_fees, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :total_fees %><br>
+    <%= f.text_field :total_fees, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :debit_transactions %><br>
+    <%= f.number_field :debit_transactions, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :debit_network_fees %><br>
+    <%= f.text_field :debit_network_fees, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :ebt_vol %><br>
+    <%= f.text_field :ebt_vol, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :ebt_fees %><br>
+    <%= f.text_field :ebt_fees, :class => 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= submit_tag("Submit", :class => 'btn btn-default') %>
+  </div><br>
+<% end %>
+</div>

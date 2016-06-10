@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_type_primary: MyString
+  business_type_secondary: MyString
+  sic_1: 1
+  sic_2: 1
+  sic_3: 1
+  interchange_percentage: 9.99
+  avg_ticket: 9.99
+  amex_percentage: 9.99
+  amex_per_item: 9.99
+  check_card_percentage: 9.99
+  amex_vol: 9.99
+  check_card_vol: 9.99
+  mc_vol: 9.99
+  vs_vol: 9.99
+  disc_vol: 9.99
+  debit_vol: 9.99
+  total_transactions: 1
+  amex_transactions: 1
+  interchange_fees: 9.99
+  total_fees: 9.99
+  debit_transactions: 1
+  debit_network_fees: 9.99
+  ebt_vol: 9.99
+  ebt_fees: 9.99
+
+two:
+  business_type_primary: MyString
+  business_type_secondary: MyString
+  sic_1: 1
+  sic_2: 1
+  sic_3: 1
+  interchange_percentage: 9.99
+  avg_ticket: 9.99
+  amex_percentage: 9.99
+  amex_per_item: 9.99
+  check_card_percentage: 9.99
+  amex_vol: 9.99
+  check_card_vol: 9.99
+  mc_vol: 9.99
+  vs_vol: 9.99
+  disc_vol: 9.99
+  debit_vol: 9.99
+  total_transactions: 1
+  amex_transactions: 1
+  interchange_fees: 9.99
+  total_fees: 9.99
+  debit_transactions: 1
+  debit_network_fees: 9.99
+  ebt_vol: 9.99
+  ebt_fees: 9.99

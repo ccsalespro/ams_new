@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :merchants do
+    collection { post :import }  
+  end
+  
   resources :costs
   root to: 'prospects#index'
 
