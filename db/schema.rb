@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610040647) do
+ActiveRecord::Schema.define(version: 20160610040428) do
 
   create_table "costs", force: :cascade do |t|
     t.string   "business_type"
@@ -58,8 +58,6 @@ ActiveRecord::Schema.define(version: 20160610040647) do
     t.decimal  "ebt_fees"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.string   "business_dba"
-    t.integer  "data_number"
   end
 
   create_table "processors", force: :cascade do |t|
@@ -106,10 +104,10 @@ ActiveRecord::Schema.define(version: 20160610040647) do
     t.decimal  "min_amex_bp_fee"
     t.decimal  "application_fee_cost"
     t.decimal  "min_application_fee"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
     t.decimal  "min_per_batch_fee"
     t.decimal  "per_batch_cost"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -119,10 +117,10 @@ ActiveRecord::Schema.define(version: 20160610040647) do
     t.string   "contact_name"
     t.string   "phone"
     t.string   "email"
+    t.integer  "description_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
-    t.integer  "description_id"
   end
 
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"

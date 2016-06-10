@@ -38,6 +38,8 @@ class CreatePrograms < ActiveRecord::Migration
       t.decimal :min_amex_bp_fee
       t.decimal :application_fee_cost
       t.decimal :min_application_fee
+      t.decimal :min_per_batch_fee
+      t.decimal :per_batch_cost
 
       t.timestamps null: false
     end
