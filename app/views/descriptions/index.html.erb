@@ -1,0 +1,35 @@
+<%= link_to 'Creaate One Description', new_description_path, :class => 'btn btn-default' %>
+
+<h2>Import Multiple Descriptions</h2>
+
+<%= form_tag import_descriptions_path, multipart: true do %>
+
+  <%= file_field_tag :file %><br>
+  <%= submit_tag "Import", :class => 'btn btn-default' %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business type primary</th>
+      <th>Business type secondary</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @descriptions.each do |description| %>
+      <tr>
+        <td><%= description.business_type_primary %></td>
+        <td><%= description.business_type_secondary %></td>
+        <td><%= link_to 'Show', description %></td>
+        <td><%= link_to 'Edit', edit_description_path(description) %></td>
+        <td><%= link_to 'Destroy', description, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

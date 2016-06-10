@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business type primary:</strong>
+  <%= @description.business_type_primary %>
+</p>
+
+<p>
+  <strong>Business type secondary:</strong>
+  <%= @description.business_type_secondary %>
+</p>
+
+<p>
+  <strong>Prospect:</strong>
+  <%= @description.prospect %>
+</p>
+
+<%= link_to 'Edit', edit_description_path(@description) %> |
+<%= link_to 'Back', descriptions_path %>

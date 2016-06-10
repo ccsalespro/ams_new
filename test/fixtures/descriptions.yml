@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_type_primary: MyString
+  business_type_secondary: MyString
+  prospect_id: 
+
+two:
+  business_type_primary: MyString
+  business_type_secondary: MyString
+  prospect_id: 
