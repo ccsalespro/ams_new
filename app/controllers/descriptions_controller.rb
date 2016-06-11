@@ -12,6 +12,10 @@ class DescriptionsController < ApplicationController
     redirect_to descriptions_path, notice: "Descriptions imported"
   end
 
+  def choose
+    @descriptions = Description.all
+  end
+
   # GET /descriptions/1
   # GET /descriptions/1.json
   def show

@@ -15,7 +15,9 @@ class ProspectsController < ApplicationController
 
   # GET /prospects/new
   def new
+    @description = Description.find(params[:description_id])
     @prospect = current_user.prospects.build
+    @prospect.description_id = @description.id
   end
 
   # GET /prospects/1/edit

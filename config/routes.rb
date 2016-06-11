@@ -8,7 +8,14 @@ Rails.application.routes.draw do
   end
 
   resources :descriptions do
+    collection do
+      match 'choose', via: :get
+    end
     collection { post :import }
+  end
+
+  resources :descriptions do
+    resources :prospects
   end
   
   resources :costs
