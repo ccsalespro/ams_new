@@ -16,10 +16,6 @@
     <%= f.text_field(:business_name, :class => "form-control") %>
   </div>
   <div class="field">
-    <%= f.label "Business Type" %><br>
-    <%= collection_select( :prospect, :description_id, Description.all, :id, :business_type_secondary, {}, { :multiple => false}) %>
-  </div><br>
-  <div class="field">
     <%= f.label :contact_name %><br>
     <%= f.text_field(:contact_name, :class => "form-control") %>
   </div>
@@ -34,6 +30,9 @@
   <div class="actions">
     <%= submit_tag("Submit", :class => 'btn btn-default') %>
   </div><br>
+  <div class="field">
+    <%= f.text_field(:description_id) %>
+</div>
   <div id="form-link"><%= link_to 'Show', @prospect, :id => 'form-link' %> |
   <%= link_to 'Back', prospects_path, :id => 'form-link' %>
 </div>
