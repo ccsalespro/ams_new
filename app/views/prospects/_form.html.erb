@@ -31,8 +31,14 @@
     <%= submit_tag("Submit", :class => 'btn btn-default') %>
   </div><br>
   <div class="field">
-    <%= f.text_field(:description_id) %>
-</div>
+    <%= f.hidden_field(:description_id) %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field(:description_primary) %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field(:description_secondary) %>
+  </div>
   <div id="form-link"><%= link_to 'Show', @prospect, :id => 'form-link' %> |
   <%= link_to 'Back', prospects_path, :id => 'form-link' %>
 </div>

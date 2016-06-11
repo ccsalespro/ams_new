@@ -1,5 +1,6 @@
 class ProspectsController < ApplicationController
   before_action :set_prospect, only: [:show, :edit, :update, :destroy]
+  before_action :load_description, only: [:new]
   before_action :authenticate_user!
 
   # GET /prospects
@@ -15,9 +16,10 @@ class ProspectsController < ApplicationController
 
   # GET /prospects/new
   def new
-    @description = Description.find(params[:description_id])
     @prospect = current_user.prospects.build
     @prospect.description_id = @description.id
+    @prospect.description_primary = @description.business_type_primary
+    @prospect.description_secondary = @description.business_type_secondary
   end
 
   # GET /prospects/1/edit
@@ -70,8 +72,12 @@ class ProspectsController < ApplicationController
       @prospect = Prospect.find(params[:id])
     end
 
+    def load_description
+      @description = Description.find(params[:description_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def prospect_params
-      params.require(:prospect).permit(:business_name, :description_id, :contact_name, :phone, :email)
+      params.require(:prospect).permit(:business_name, :description_id, :description_secondary, :description_primary, :contact_name, :phone, :email)
     end
 end
