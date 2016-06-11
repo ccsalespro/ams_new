@@ -1,8 +1,7 @@
 class ComparisonsController < ApplicationController
 	before_action :load_prospect, :load_statement, :load_programs
 
-  def index
-  			
+  def index  			
   end
 
 private

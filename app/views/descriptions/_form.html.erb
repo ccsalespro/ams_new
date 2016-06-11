@@ -13,13 +13,14 @@
 
   <div class="field">
     <%= f.label :business_type_primary %><br>
-    <%= f.text_field :business_type_primary %>
+    <%= f.text_field :business_type_primary, :class => 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :business_type_secondary %><br>
-    <%= f.text_field :business_type_secondary %>
+    <%= f.text_field :business_type_secondary, :class => 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag("Submit", :class => 'btn btn-default') %>
   </div>
 <% end %>
+
