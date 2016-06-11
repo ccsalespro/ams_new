@@ -20,6 +20,7 @@ class ProspectsController < ApplicationController
     @prospect.description_id = @description.id
     @prospect.description_primary = @description.business_type_primary
     @prospect.description_secondary = @description.business_type_secondary
+    @prospect.amex_business_type = @description.amex_business_type
   end
 
   # GET /prospects/1/edit
@@ -78,6 +79,6 @@ class ProspectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prospect_params
-      params.require(:prospect).permit(:business_name, :description_id, :description_secondary, :description_primary, :contact_name, :phone, :email)
+      params.require(:prospect).permit(:business_name, :description_id, :description_secondary, :description_primary, :amex_business_type, :contact_name, :phone, :email)
     end
 end

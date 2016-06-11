@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611205320) do
+ActiveRecord::Schema.define(version: 20160611221507) do
 
   create_table "costs", force: :cascade do |t|
     t.string   "business_type"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160611205320) do
     t.string   "business_type_secondary"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "amex_business_type"
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160611205320) do
     t.integer  "description_id"
     t.string   "description_primary"
     t.string   "description_secondary"
+    t.string   "amex_business_type"
   end
 
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"

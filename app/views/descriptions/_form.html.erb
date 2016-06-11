@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :amex_business_type %><br>
+    <%= f.select(:amex_business_type, options_for_select([['Retail', 'Retail'], ['Restaurant', 'Restaurant'], ['Other', 'Other']]), :class => 'form-control') %>
+  </div>
+  <div class="field">
     <%= f.label :business_type_primary %><br>
     <%= f.text_field :business_type_primary, :class => 'form-control' %>
   </div>
