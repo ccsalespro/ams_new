@@ -12,10 +12,6 @@
   <% end %>
 <div class="border-form-div">
   <div class="field">
-    <label>Business Type:</label>
-    <p id="business-type"><b><%= @description.business_type_secondary %></b></p>
-  </div>
-  <div class="field">
     <%= f.label :business_name %><br>
     <%= f.text_field(:business_name, :class => "form-control") %>
   </div>
@@ -34,7 +30,9 @@
   <div class="actions">
     <%= submit_tag("Submit", :class => 'btn btn-default') %>
   </div><br>
-
+  <div class="field">
+    <%= f.text_field(:description_id) %>
+</div>
   <div id="form-link"><%= link_to 'Show', @prospect, :id => 'form-link' %> |
   <%= link_to 'Back', prospects_path, :id => 'form-link' %>
 </div>

@@ -17,9 +17,9 @@
       <%= f.text_field(:statement_month, :class => "form-control") %>
   </div><br>
   <div class="field">
-      <%= f.label "Business Type" %>
-      <%= f.text_field(:business_type, :class => "form-control") %>
-  </div><br>
+    <label>Business Type:</label>
+    <p id="business-type"><b><%= @prospect.description_id %></b></p>
+  </div>
   <div class="field">
        <%= f.label "Total Volume" %>
        <%= f.text_field(:total_vol, :class => "form-control") %>
