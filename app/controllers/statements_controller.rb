@@ -38,13 +38,15 @@ class StatementsController < ApplicationController
     @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
     @statement.check_card_trans = @statement.check_card_vol / @statement.check_card_avg_ticket
     
-    interchange_cost("debit", @statement.avg_ticket)
+    general_cost("debit", @statement.avg_ticket)
     @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
-    interchange_cost("check_card", @statement.avg_ticket)
+    general_cost("check_card", @statement.avg_ticket)
     @statement.check_card_interchange = ((@statement.check_card_trans * @cost.per_item_value) + (@statement.check_card_vol * (@cost.percentage_value/100)))
-    interchange_cost("vmd", @statement.avg_ticket)
-    @statement.vmd_interchange = ((@statement.vmd_trans * @cost.per_item_value) + (@statement.vmd_vol * (@cost.percentage_value/100)))
-    amex_cost("amex", @statement.business_type, @statement.avg_ticket)
+    interchange_cost(@prospect.description_primary, @prospect.description_secondary)
+    @statement.vmd_interchange = @statement.vmd_vol * (@secondary_interchange_rate / 100)
+
+
+    amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
     @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
     @statement.interchange = @statement.vmd_interchange + @statement.check_card_interchange + @statement.amex_interchange + @statement.debit_network_fees
 
@@ -97,10 +99,38 @@ class StatementsController < ApplicationController
     def statement_params
       params.require(:statement).permit(:total_fees, :bathes, :avg_ticket, :check_card_vol, :amex_trans, :amex_vol, :vmd_trans, :vmd_vol, :debit_trans, :debit_vol, :interchange, :statement_month, :business_id, :business_type, :vmd_avg_ticket, :amex_avg_ticket, :debit_avg_ticket, :check_card_avg_ticket, :check_card_trans, :debit_network_fees, :check_card_interchange, :amex_interchange, :vmd_interchange, :total_vol)
     end
-    def interchange_cost(payment_type, avg_ticket)
-        @cost = Cost.where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
+    def general_cost(payment_type, avg_ticket)
+      @cost = Cost.where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
     end
     def amex_cost(payment_type, business_type, avg_ticket)
-        @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
+      @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
+    end
+    def interchange_cost(business_type_primary, business_type_secondary)
+      @merchants_primary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"])
+      @merchants_secondary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"]).where(["business_type_secondary = ?", "#{business_type_secondary}"])
+
+      @merchants_total_interchange_percentage_sum = 0
+      @merchants_valid = 0
+      
+      @merchants_primary.each do |merchant|
+        if merchant.interchange_percentage > 0
+          @merchants_total_interchange_percentage_sum += merchant.interchange_percentage
+          @merchants_valid += 1
+        end
+      end  
+
+    @primary_interchange_rate = @merchants_total_interchange_percentage_sum / @merchants_valid
+
+    @merchants_total_interchange_percentage_sum = 0
+      @merchants_valid = 0
+      
+      @merchants_secondary.each do |merchant|
+        if merchant.interchange_percentage > 0
+          @merchants_total_interchange_percentage_sum += merchant.interchange_percentage
+          @merchants_valid += 1
+        end
+      end  
+
+      @secondary_interchange_rate = @merchants_total_interchange_percentage_sum / @merchants_valid
     end
 end

@@ -8,6 +8,11 @@ class ProgramsController < ApplicationController
     @programs = @processor.programs.all
   end
 
+  def import
+    Program.import(params[:file])
+    redirect_to processor_programs_path, notice: "Programs imported"
+  end
+
   # GET /programs/1
   # GET /programs/1.json
   def show

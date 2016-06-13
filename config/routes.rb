@@ -18,10 +18,15 @@ Rails.application.routes.draw do
     resources :prospects
   end
   
-  resources :costs
+  resources :costs do
+    collection { post :import }
+  end
 
   resources :processors do
-    resources :programs
+    resources :programs do
+      collection { post :import }
+    end
+
   end
   
   resources :prospects do

@@ -7,6 +7,11 @@ class CostsController < ApplicationController
     @costs = Cost.all
   end
 
+  def import
+    Cost.import(params[:file])
+    redirect_to costs_path, notice: "Descriptions imported"
+  end
+
   # GET /costs/1
   # GET /costs/1.json
   def show
