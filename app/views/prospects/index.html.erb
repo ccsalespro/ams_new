@@ -1,25 +1,19 @@
-<a id="button"><%= link_to 'New Prospect', choose_descriptions_path, :class => 'btn btn-default' %></a><br><br>
+<%= link_to(content_tag(:button, "New Prospect"), choose_descriptions_path) %><br><br>
 
 <% @prospects.each do |prospect| %>
-  <div class="container">
-    <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <%= prospect.business_name %>
-        </div>
-        <div class="panel-body">
-          <p><b>Contact Name: </b><%= prospect.contact_name %></p>
-          <p><b>Phone Number: </b><%= prospect.phone %></p>
-          <p><b>Contact Email: </b><%= prospect.email %></p>
-        </div>
-        <div class="panel-footer">
-        <%= link_to 'Edit', edit_prospect_path(prospect), :class => 'btn btn-default' %>
-        <%= link_to 'Delete', prospect, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
-        <%= link_to 'Quote', new_prospect_statement_path(prospect_id: prospect.id), :class => 'btn btn-default' %>
-        </div>
-      </div>
-    </div>
+  <div id="main-div">
+  <div id="title">
+        <p><%= prospect.business_name %></p>
   </div>
+        <div id="main_content">
+          <p id="main_content_p"><b>Contact Name: </b><%= prospect.contact_name %></p>
+          <p id="main_content_p"><b>Phone Number: </b><%= prospect.phone %></p>
+          <p id="main_content_p"><b>Contact Email: </b><%= prospect.email %></p>
+        </div>
+        <div id="buttons">
+        <%= link_to(content_tag(:button, 'Edit'), edit_prospect_path(prospect)) %>
+        <%= link_to(content_tag(:button, 'Delete'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
+        <%= link_to(content_tag(:button, 'Quote'), new_prospect_statement_path(prospect_id: prospect.id)) %>
+        </div>
+    </div>
 <% end %>
-
-
