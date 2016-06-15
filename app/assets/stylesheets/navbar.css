@@ -1,0 +1,42 @@
+header {
+	background: #53668C;
+	height: 50px;
+	padding: 0px;
+	width: 100%;
+	position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid #53668C;
+}
+
+#logo-img {
+	float: left;
+	padding-left: 5px;
+	margin-top: 5px;
+	height: 40px;
+}
+
+textarea {
+	float: left;
+	margin-left: 20px;
+	margin-top: 11px;
+	height: 20px;
+	width: 200px;
+}
+
+.headerbutton {
+	margin-left: 5px;
+	margin-right: 10px;
+	vertical-align: top;
+ 	cursor: pointer;
+ 	float: right;
+}
+
+div {
+	height: 50px;
+	width: 100%;
+}
+
+.main-body {
+	margin-top: 65px;
+}
