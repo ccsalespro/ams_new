@@ -6,7 +6,8 @@ class ProspectsController < ApplicationController
   # GET /prospects
   # GET /prospects.json
   def index
-    @prospects = Prospect.all
+    @search = Prospect.search(params[:q])
+    @prospects = @search.result
   end
 
   # GET /prospects/1

@@ -15,7 +15,8 @@ class DescriptionsController < ApplicationController
 
   
   def choose
-      @descriptions = Description.all
+      @search = Description.search(params[:q])
+      @descriptions = @search.result
   end
 
   # GET /descriptions/1
