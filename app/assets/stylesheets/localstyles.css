@@ -96,6 +96,7 @@ table {
 
 .bold-footer {
     display: inline-block;
+    padding-right: 30px;
 }
 
 .comparison-div {
