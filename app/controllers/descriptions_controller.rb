@@ -3,8 +3,9 @@ class DescriptionsController < ApplicationController
 
   # GET /descriptions
   # GET /descriptions.json
+
   def index
-    @descriptions = Description.all
+      @descriptions = Description.all
   end
 
   def import
@@ -12,8 +13,12 @@ class DescriptionsController < ApplicationController
     redirect_to descriptions_path, notice: "Descriptions imported"
   end
 
+  
   def choose
-    @descriptions = Description.all
+      @search = Description.search do
+        fulltext params[:search]
+      end
+      @descriptions = @search.results
   end
 
   # GET /descriptions/1

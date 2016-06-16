@@ -1,3 +1,10 @@
+<%= form_tag choose_descriptions_path, :method => :get do %>
+  <p>
+    <%=text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :business_type_secondary => nil %>
+  </p>
+  <% end %>
+
 <div class="main-body">
 <table>
   <tbody>
@@ -5,7 +12,7 @@
       <tr>
         <td class="description-row"><%= description.business_type_primary %></td>
         <td class="description-row secondary"><%= description.business_type_secondary %></td>
-        <td class="choose-button-td"><%= link_to(content_tag(:button, 'Choose'), new_description_prospect_path(description_id:description.id), :class => 'choose-button') %></td>
+        <td class="choose-button-td"><%= link_to(content_tag(:button, 'Choose'), new_description_prospect_path(description_id: description.id), :class => 'choose-button') %></td>
       </tr>
     <% end %>
   </tbody>

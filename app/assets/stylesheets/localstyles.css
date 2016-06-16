@@ -64,7 +64,7 @@ border:1px solid #62bf40; -webkit-border-radius: 3px; -moz-border-radius: 3px;bo
  cursor: pointer;
 }
 
-button:hover{
+button:hover {
  color: black;
  border:1px solid #bfc4c4;
  background-color: #d9dddd; background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#c6c3c3));

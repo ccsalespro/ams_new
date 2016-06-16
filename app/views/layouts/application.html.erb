@@ -19,7 +19,6 @@
   <header>
   <div>
     <%= image_tag('logo.png', :id => 'logo-img') %>
-    <textarea></textarea>
     <%= link_to(content_tag(:button, 'Profile'), edit_user_registration_path, :class => 'headerbutton') %>
     <%= link_to(content_tag(:button, 'Sign Out'), destroy_user_session_path, :method => :delete, :class => 'headerbutton') %>
   </div>
@@ -28,7 +27,6 @@
   <header>
   <div>
     <%= image_tag('logo.png', :id => 'logo-img') %>
-    <textarea></textarea>
     <%= link_to(content_tag(:button, 'Sign Up'), new_user_registration_path, :class => 'headerbutton') %>
     <%= link_to(content_tag(:button, 'Sign In'), new_user_session_path, :class => 'headerbutton') %>
   </div>

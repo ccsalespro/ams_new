@@ -6,4 +6,10 @@ class Description < ActiveRecord::Base
 			Description.create! row.to_hash
 		end	
 	end
+
+  searchable do
+	text :business_type_secondary
+	text :business_type_primary
+  end
+
 end
