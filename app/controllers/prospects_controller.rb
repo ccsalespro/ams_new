@@ -6,10 +6,7 @@ class ProspectsController < ApplicationController
   # GET /prospects
   # GET /prospects.json
   def index
-    @search = current_user.prospects.search do
-      fulltext params[:search]
-    end
-    @prospects = @search.results
+    @prospects = Prospect.all
   end
 
   # GET /prospects/1

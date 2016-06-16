@@ -15,10 +15,7 @@ class DescriptionsController < ApplicationController
 
   
   def choose
-      @search = Description.search do
-        fulltext params[:search]
-      end
-      @descriptions = @search.results
+      @descriptions = Description.all
   end
 
   # GET /descriptions/1

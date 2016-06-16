@@ -7,9 +7,4 @@ class Description < ActiveRecord::Base
 		end	
 	end
 
-  searchable do
-	text :business_type_secondary
-	text :business_type_primary
-  end
-
 end

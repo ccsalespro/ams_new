@@ -24,9 +24,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'coffee-script-source', '1.8.0'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 
-gem 'sunspot_rails', '~> 2.2', '>= 2.2.5'
-gem 'sunspot_solr', '~> 2.2', '>= 2.2.5'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
