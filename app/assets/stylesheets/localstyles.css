@@ -2,7 +2,7 @@
     border: 1px solid #53668C;
     border-radius: 5px;
     height: 220px;
-    width: 100%;
+    width: 700px;
     margin: 0;
 }
 
@@ -93,3 +93,40 @@ table {
 .choose-button {
     padding-left: 25px;
 }
+
+.bold-footer {
+    display: inline-block;
+}
+
+.comparison-div {
+    border: 1px solid #53668C;
+    border-radius: 5px;
+    height: 377px;
+    width: 700px;
+    margin: 0;
+}
+
+#content-columns {
+    
+}
+
+#panel-body-left {
+    width: 210px;
+    padding: 5px;
+    float: left;
+
+}
+
+#panel-body-center {
+    width: 210px;
+    padding: 5px;
+    float: left;
+}
+
+#panel-body-right {
+    width: 210px;
+    padding: 5px;
+    float: right;
+}
+
+
