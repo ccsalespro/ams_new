@@ -106,22 +106,26 @@ class StatementsController < ApplicationController
       @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
     end
     def interchange_cost(business_type_primary, business_type_secondary)
+      
+      # Find all merchants in the database maching the primary description.
       @merchants_primary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"])
+      
+      # Find all merchants in the database maching the secondary (specific) description.
       @merchants_secondary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"]).where(["business_type_secondary = ?", "#{business_type_secondary}"])
-
+      
+      # Find the average interchange percentage for all primary merchants
       @merchants_total_interchange_percentage_sum = 0
       @merchants_valid = 0
-      
       @merchants_primary.each do |merchant|
         if merchant.interchange_percentage > 0
           @merchants_total_interchange_percentage_sum += merchant.interchange_percentage
           @merchants_valid += 1
         end
       end  
+      @primary_interchange_rate = @merchants_total_interchange_percentage_sum / @merchants_valid
 
-    @primary_interchange_rate = @merchants_total_interchange_percentage_sum / @merchants_valid
-
-    @merchants_total_interchange_percentage_sum = 0
+      #Find the average interchange percentage for all secondary (specific) merchants
+      @merchants_total_interchange_percentage_sum = 0
       @merchants_valid = 0
       
       @merchants_secondary.each do |merchant|
@@ -133,4 +137,11 @@ class StatementsController < ApplicationController
 
       @secondary_interchange_rate = @merchants_total_interchange_percentage_sum / @merchants_valid
     end
+    # Find the dollar mark up
+    
+    # Find the basis points of market
+    # Based on the monthly volume, identify a normal range for dollar and/or basis points of mark up
+    # and adjust the interchange by one standard deviation at a time in a loop until it falls into the
+    # correct range.  If it loops through twice and it still isn't making sense, then alert the user
+    # that they most likely entered the wrong information and return them to the edit page.
 end
