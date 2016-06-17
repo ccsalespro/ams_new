@@ -31,24 +31,14 @@
   <div class="field">
     <%= f.label :source_type, :class => 'text' %><br>
     <%= f.text_field(:source_type, :class => "text-box") %><br><br>
-  </div>
-  <center>
-  <div class="actions">
-    <%= link_to(content_tag(:button, 'Back'), prospects_path) %>
-    <%= button_tag("Submit") %>
-  </div>
-  
-  </div>
-  <div class="field">
+  </div>  
     <%= f.hidden_field(:description_id) %>
-  </div>
-  <div class="field">
     <%= f.hidden_field(:description_primary) %>
-  </div>
-  <div class="field">
     <%= f.hidden_field(:description_secondary) %>
-  </div>
-  <div class="field">
     <%= f.hidden_field(:amex_business_type) %>
+  <div class="actions">
+    <%= button_tag("Submit") %>
+    <%= link_to(content_tag(:button, 'Back'), prospects_path) %>
   </div>
+</center>
 <% end %>
