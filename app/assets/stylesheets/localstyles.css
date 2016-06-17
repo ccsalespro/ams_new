@@ -11,7 +11,7 @@ p {
     text-align: left;
     margin-top: 10px;
     color: white;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .title {
@@ -76,7 +76,6 @@ button:hover {
 }
 
 table {
-    width: 500px;
     border-collapse: collapse;
 }
 
@@ -130,4 +129,26 @@ table {
     float: right;
 }
 
+.main-body-choose {
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+h2 {
+    color: white;
+}
+
+.black-p {
+    color: black;
+    text-align: center;
+}
+
+hr {
+    width: 300px;
+}
+
+.black-standard {
+    color: black;
+}
 

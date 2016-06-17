@@ -1,3 +1,4 @@
+<center>
 <div class="field">
 <%= search_form_for @search do |f| %>
       <%=f.search_field :business_name_or_contact_name_cont, :id => 'search-box' %>
@@ -23,7 +24,7 @@
         </div>
     </div><br>
 <% end %>
-
+<center>
 <div class="footer">
   <%= link_to(content_tag(:button, '+', :class => 'footerbutton'), choose_descriptions_path) %>
 </div>
