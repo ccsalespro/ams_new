@@ -1,3 +1,4 @@
+<div class="form-background2">
 <%= form_for(@prospect) do |f| %>
   <% if @prospect.errors.any? %>
     <div id="error_explanation">
@@ -10,30 +11,34 @@
       </ul>
     </div>
   <% end %>
-<div class="border-form-div">
+  <center>
   <div class="field">
-    <%= f.label :business_name %><br>
-    <%= f.text_field(:business_name, :class => "form-control") %>
+    <%= f.label :business_name, :class => 'text' %><br>
+    <%= f.text_field(:business_name, :class => "text-box") %><br><br>
   </div>
   <div class="field">
-    <%= f.label :contact_name %><br>
-    <%= f.text_field(:contact_name, :class => "form-control") %>
+    <%= f.label :contact_name, :class => 'text' %><br>
+    <%= f.text_field(:contact_name, :class => "text-box") %><br><br>
   </div>
   <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.phone_field(:phone, :class => "form-control") %>
+    <%= f.label :phone, :class => 'text' %><br>
+    <%= f.phone_field(:phone, :class => "text-box") %><br><br>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field(:email, :class => "form-control") %>
-  </div><br>
-  <div class="field">
-    <%= f.label :source_type %><br>
-    <%= f.text_field(:source_type, :class => "form-control") %>
+    <%= f.label :email, :class => 'text' %><br>
+    <%= f.email_field(:email, :class => "text-box") %><br><br>
   </div>
+  <div class="field">
+    <%= f.label :source_type, :class => 'text' %><br>
+    <%= f.text_field(:source_type, :class => "text-box") %><br><br>
+  </div>
+  <center>
   <div class="actions">
-    <%= submit_tag("Submit", :class => 'btn btn-default') %>
-  </div><br>
+    <%= link_to(content_tag(:button, 'Back'), prospects_path) %>
+    <%= button_tag("Submit") %>
+  </div>
+  
+  </div>
   <div class="field">
     <%= f.hidden_field(:description_id) %>
   </div>
@@ -46,7 +51,4 @@
   <div class="field">
     <%= f.hidden_field(:amex_business_type) %>
   </div>
-  <div id="form-link"><%= link_to 'Show', @prospect, :id => 'form-link' %> |
-  <%= link_to 'Back', prospects_path, :id => 'form-link' %>
-</div>
 <% end %>

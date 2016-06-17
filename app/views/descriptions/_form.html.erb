@@ -1,3 +1,4 @@
+<div class="form-background">
 <%= form_for(@description) do |f| %>
   <% if @description.errors.any? %>
     <div id="error_explanation">
@@ -10,21 +11,24 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :amex_business_type %><br>
-    <%= f.select(:amex_business_type, options_for_select([['Retail', 'Retail'], ['Restaurant', 'Restaurant'], ['Other', 'Other']]), :class => 'form-control') %>
+  <center>
+  <div>
+    <%= f.label :amex_business_type, :class => 'text' %>
+    <%= f.select(:amex_business_type, options_for_select([['Retail', 'Retail'], ['Restaurant', 'Restaurant'], ['Other', 'Other']]), :class => 'text-box') %>
   </div>
-  <div class="field">
-    <%= f.label :business_type_primary %><br>
-    <%= f.text_field :business_type_primary, :class => 'form-control' %>
+  <div>
+    <%= f.label :business_type_primary, :class => 'text' %>
+    <%= f.text_field :business_type_primary, :class => 'text-box' %>
+  </div><br>
+  <div>
+    <%= f.label :business_type_secondary, :class => 'text' %>
+    <%= f.text_field :business_type_secondary, :class => 'text-box' %>
+  </div><br><br>
+  
+  <div>
+    <%= link_to(content_tag(:button, 'Back'), descriptions_path) %>
+    <%= button_tag("Submit") %>
   </div>
-  <div class="field">
-    <%= f.label :business_type_secondary %><br>
-    <%= f.text_field :business_type_secondary, :class => 'form-control' %>
-  </div>
-  <div class="actions">
-    <%= submit_tag("Submit", :class => 'btn btn-default') %>
-  </div>
+  </center>
 <% end %>
-
+</div>

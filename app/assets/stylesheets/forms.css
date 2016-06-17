@@ -1,0 +1,60 @@
+.text-box {
+	height: 30px;
+}
+
+.form-background {
+	background: #53668C;
+	height: 260px;
+	width: 15%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.new-div {
+	background: #53668C;
+	width: 15%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+.new-div-h1 {
+	padding-top: 10px;
+	color: white;
+}
+
+.text {
+	color: white;
+	text-transform: capitalize;
+}
+
+.form-background2 {
+	background: #53668C;
+	height: 420px;
+	width: 17%;
+	padding: 10px;
+	padding-top: 0px;
+}
+
+.field {
+	padding: 10px;
+	padding-left: 0px;
+}
+
+.actions {
+	padding-top: 10px;
+}
+
+.new-div2 {
+	background: #53668C;
+	width: 17%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+#search-box {
+	height: 40px;
+	font-size: 15px;
+}
