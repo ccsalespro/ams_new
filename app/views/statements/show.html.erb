@@ -1,48 +1,49 @@
+<center>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Compare', prospect_statement_comparisons_path(@prospect, @statement) %>
-
-<table summary="Statement Detail View" class="table">
+<table summary="Statement Detail View">
   <tr>
-    <th>ID</th>
-    <td><%= @statement.id %></td>
+    <th class="description-row">ID:</th>
+    <td class="description-row"><%= @statement.id %></td>
   </tr>
-    <th>Total Fees</th>
-	<td><%= @statement.total_fees %></td>
+    <th class="description-row">Total Fees:</th>
+	<td class="description-row"><%= @statement.total_fees %></td>
   </tr>
-    <th>Business Type</th>
-    <td><%= @statement.business_type %></td>
+    <th class="description-row">Business Type:</th>
+    <td class="description-row"><%= @statement.business_type %></td>
   </tr>
-	<th>Visa/MC/Disc Volume</th>
-	<td><%= @statement.vmd_vol %></td>
+	<th class="description-row">Visa/MC/Disc Volume:</th>
+	<td class="description-row"><%= @statement.vmd_vol %></td>
   </tr>
-    <th>Visa/MC/Disc Trans</th>
-	<td><%= @statement.vmd_trans %></td>
+    <th class="description-row">Visa/MC/Disc Trans:</th>
+	<td class="description-row"><%= @statement.vmd_trans %></td>
   </tr>
-    <th>Number of Batches</th>
-	<td><%= @statement.batches %></td>
+    <th class="description-row">Number of Batches:</th>
+	<td class="description-row"><%= @statement.batches %></td>
   </tr>
-    <th>American Express Transactions</th>
-	<td><%= @statement.amex_trans %></td>
+    <th class="description-row">American Express Transactions:</th>
+	<td class="description-row"><%= @statement.amex_trans %></td>
   </tr>
-    <th>American Express Volume</th>
-	<td><%= @statement.amex_vol %></td>
+    <th class="description-row">American Express Volume:</th>
+	<td class="description-row"><%= @statement.amex_vol %></td>
   </tr>
-    <th>Pin Debit Volume</th>
-	<td><%= @statement.debit_vol %></td>
+    <th class="description-row">Pin Debit Volume:</th>
+	<td class="description-row"><%= @statement.debit_vol %></td>
   </tr>
-    <th>Pin Debit Transactions</th>
-	<td><%= @statement.debit_trans %></td>
+    <th class="description-row">Pin Debit Transactions:</th>
+	<td class="description-row"><%= @statement.debit_trans %></td>
   </tr>
-    <th>Vs/Mc/Dis Interchange Costs</th>
-	<td><%= @statement.interchange %></td>
+    <th class="description-row">Vs/Mc/Dis Interchange Costs:</th>
+	<td class="description-row"><%= @statement.interchange %></td>
   </tr>
-    <th>Statement Month</th>
-	<td><%= @statement.statement_month %></td>
+    <th class="description-row">Statement Month:</th>
+	<td class="description-row"><%= @statement.statement_month %></td>
 	<tr>
-	  <th>Updated</th>
-	  <td><%= @statement.updated_at %></td>
+	  <th class="description-row">Updated:</th>
+	  <td class="description-row"><%= @statement.updated_at %></td>
 	</tr>
-
-<%= link_to 'Edit', edit_prospect_statement_path(@prospect, @statement) %> |
-<%= link_to 'Back', prospect_statements_path(@prospect) %>
+</table>
+<%= link_to(content_tag(:button, 'Edit'), edit_prospect_statement_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Compare'), prospect_statement_comparisons_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Back'), prospect_statements_path(@prospect)) %>
+</center>

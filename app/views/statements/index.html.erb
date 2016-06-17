@@ -1,30 +1,33 @@
 <p id="notice"><%= notice %></p>
-
+<center>
 <h1>Listing Statements</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Month</th>
-      <th>Trans fee</th>
-      <th>Prospect</th>
-      <th colspan="3"></th>
+      <th class="description-row">Month</th>
+      <th class="description-row">Trans Fee</th>
+      <th class="description-row">Prospect</th>
+      <th class="description-row" colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @statements.each do |statement| %>
       <tr>
-        <td><%= statement.statement_month %></td>
-        <td><%= statement.prospect %></td>
-        <td><%= link_to 'Show', prospect_statement_path(@prospect, statement) %></td>
-        <td><%= link_to 'Edit', edit_prospect_statement_path(@prospect, statement) %></td>
-        <td><%= link_to 'Destroy', [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="description-row"><%= statement.statement_month %></td>
+        <td class="description-row"><%= statement.prospect %></td>
+        <td class="description-row"><%= link_to(content_tag(:button, 'Show'), prospect_statement_path(@prospect, statement)) %></td>
+        <td class="description-row"><%= link_to(content_tag(:button, 'Edit'), edit_prospect_statement_path(@prospect, statement)) %></td>
+        <td class="description-row"><%= link_to(content_tag(:button, 'Destroy'), [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' }) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<%= link_to(content_tag(:button, 'New Statement'), new_prospect_statement_path(@prospect)) %>
+</center>
 
-<%= link_to 'New Statement', new_prospect_statement_path(@prospect) %>
+
+

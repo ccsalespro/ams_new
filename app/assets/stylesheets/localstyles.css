@@ -76,7 +76,6 @@ button:hover {
 }
 
 table {
-    width: 500px;
     border-collapse: collapse;
 }
 
@@ -92,4 +91,14 @@ table {
 
 .choose-button {
     padding-left: 25px;
+}
+
+.main-body-choose {
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+h2 {
+    color: white;
 }
