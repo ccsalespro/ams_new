@@ -1,24 +1,26 @@
+<center>
 <p id="notice"><%= notice %></p>
-
-<p>
+<hr>
+<p class="black-p">
   <strong>Business name:</strong>
   <%= @prospect.business_name %>
 </p>
-
-<p>
+<hr>
+<p class="black-p">
   <strong>Contact name:</strong>
   <%= @prospect.contact_name %>
 </p>
-
-<p>
+<hr>
+<p class="black-p">
   <strong>Contact Phone:</strong>
   <%= @prospect.phone %>
 </p>
-
-<p>
+<hr>
+<p class="black-p">
   <strong>Contact email:</strong>
   <%= @prospect.email %>
 </p>
-
-<%= link_to 'Edit', edit_prospect_path(@prospect) %> |
-<%= link_to 'Back', prospects_path %>
+<hr>
+<%= link_to(content_tag(:button, 'Edit'), edit_prospect_path(@prospect)) %>
+<%= link_to(content_tag(:button, 'Back'), prospects_path) %>
+</center>
