@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<p class="black-standard">
   <strong>Business type primary:</strong>
   <%= @description.business_type_primary %>
 </p>
 
-<p>
+<p class="black-standard">
   <strong>Business type secondary:</strong>
   <%= @description.business_type_secondary %>
 </p>
 
-<p>
+<p class="black-standard">
   <strong>Amex Business Type:</strong>
   <%= @description.amex_business_type %>
 </p>
 
-<%= link_to 'Edit', edit_description_path(@description) %> |
-<%= link_to 'Back', descriptions_path %>
+<%= link_to(content_tag(:button, 'Edit'), edit_description_path(@description)) %>
+<%= link_to(content_tag(:button, 'Back'), descriptions_path) %>

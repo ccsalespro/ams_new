@@ -1,7 +1,7 @@
-<h2 class="black-standard">Edit <%= resource_name.to_s.humanize %></h2>
 
+<h2 class="black-standard">Edit <%= resource_name.to_s.humanize %></h2>
+<%= devise_error_messages! %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
@@ -23,19 +23,18 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
   <div class="actions">
+  <%= link_to(content_tag(:button, 'Back'), descriptions_path) %>
     <%= button_tag("Submit") %>
   </div>
+  
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>Cancel My Account</h3>
 
-<%= link_to(content_tag(:button, 'Cancel My Account'), registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete) %>
+<%= link_to(content_tag(:button, 'Cancel My Account'), registration_path(resource_name), data: { confirm: "Are You Sure?" }, method: :delete) %>
 <br>
-<%= link_to(content_tag(:button, 'Back'), descriptions_path) %>
-
-
