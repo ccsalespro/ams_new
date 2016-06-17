@@ -1,11 +1,10 @@
 <div class="field">
 <%= search_form_for @search do |f| %>
-      <%=f.search_field :business_name_or_contact_name_cont, :class => 'text-box' %>
+      <%=f.search_field :business_name_or_contact_name_cont, :id => 'search-box' %>
 
       <%= button_tag("Search") %>
 <% end %>
   </div>
-<%= link_to(content_tag(:button, "New Prospect"), choose_descriptions_path) %><br><br>
 
 <% @prospects.each do |prospect| %>
   <div class="main-div">

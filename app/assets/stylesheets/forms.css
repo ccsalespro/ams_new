@@ -53,3 +53,8 @@
 	padding-right: 10px;
 	padding-bottom: 5px;
 }
+
+#search-box {
+	height: 40px;
+	font-size: 15px;
+}
