@@ -4,4 +4,5 @@ class StaticController < ApplicationController
   end
   def services
   end
+
 end

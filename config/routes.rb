@@ -4,6 +4,16 @@ Rails.application.routes.draw do
    get 'static/index'
    get 'static/services'
    get 'static/about'
+   get 'static/contact'
+   get 'static/portfolio_1'
+   get 'static/portfolio_item'
+   get 'static/blog_home_2'
+   get 'static/blog_post'
+   get 'static/full_width'
+   get 'static/sidebar'
+   get 'static/faq'
+   get 'static/404'
+   get 'static/pricing'
 
   namespace :admin do
     resources :users
