@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+   root to: 'static#index'
+   get 'static/index'
+   get 'static/services'
+
   namespace :admin do
     resources :users
     resources :costs
@@ -15,7 +19,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  root to: 'prospects#index'
+ 
 
   resources :subscribers
   
