@@ -3,6 +3,7 @@ Rails.application.routes.draw do
    root to: 'static#index'
    get 'static/index'
    get 'static/services'
+   get 'static/about'
 
   namespace :admin do
     resources :users
