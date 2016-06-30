@@ -4,7 +4,7 @@
       <div class="col-xs-3">
       <div class="form-inline">
       <%=f.search_field :business_type_primary_or_business_type_secondary_cont, :class => "form-control", :id => "inputdefault" %>
-      <%= button_tag("Search", :class => 'btn btn-primary') %>
+      <%= button_tag("Search", :class => 'btn btn-success') %>
       </div>
       </div>
 <% end %>
@@ -16,7 +16,7 @@
     <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title"><b><%= description.business_type_primary %> | </b><%= description.business_type_secondary %>
-      <%= link_to(content_tag(:button, 'Choose', :class => 'btn btn-primary'), new_description_prospect_path(description_id: description.id)) %></h3>
+      <%= link_to(content_tag(:button, 'Choose', :class => 'btn btn-success'), new_description_prospect_path(description_id: description.id)) %></h3>
     </div>
       </div>
     <% end %>

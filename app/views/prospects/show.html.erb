@@ -10,8 +10,8 @@
                         <li class="list-group-item"><b>Contact Name: </b><%= @prospect.contact_name %></li>
                         <li class="list-group-item"><b>Phone Number: </b><%= @prospect.phone %></li>
                         <li class="list-group-item"><b>Contact Email: </b><%= @prospect.email %></li>
-                        <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(@prospect)) %>
-                        <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %></li>
+                        <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-success'), edit_prospect_path(@prospect)) %>
+                        <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-success'), prospects_path) %></li>
                     </ul>
                 </div>
 
