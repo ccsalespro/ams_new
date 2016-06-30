@@ -1,6 +1,7 @@
 class CostsController < ApplicationController
   before_action :set_cost, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /costs
   # GET /costs.json
   def index

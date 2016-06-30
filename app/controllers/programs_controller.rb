@@ -1,7 +1,8 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
   before_filter :load_processor
-
+  before_action :authenticate_user!
+  
   # GET /programs
   # GET /programs.json
   def index

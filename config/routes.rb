@@ -15,19 +15,6 @@ Rails.application.routes.draw do
    get 'static/404'
    get 'static/pricing'
 
-  namespace :admin do
-    resources :users
-    resources :costs
-    resources :descriptions
-    resources :merchants
-    resources :processors
-    resources :programs
-    resources :prospects
-    resources :statements
-
-    root to: "users#index"
-  end
-
   devise_for :users, controllers: { registrations: "registrations" }
 
  
@@ -64,6 +51,19 @@ Rails.application.routes.draw do
     resources :statements do 
       resources :comparisons
     end  
+  end
+
+  namespace :admin do
+    resources :users
+    resources :costs
+    resources :descriptions
+    resources :merchants
+    resources :processors
+    resources :programs
+    resources :prospects
+    resources :statements
+
+    root to: "users#index"
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

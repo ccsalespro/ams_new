@@ -1,7 +1,8 @@
 class StatementsController < ApplicationController
   before_action :set_statement, only: [:show, :edit, :update, :destroy]
   before_filter :load_prospect
-
+  before_action :authenticate_user!
+  
   # GET /statements
   # GET /statements.json
   def index

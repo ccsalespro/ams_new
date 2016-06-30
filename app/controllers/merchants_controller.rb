@@ -1,6 +1,7 @@
 class MerchantsController < ApplicationController
   before_action :set_merchant, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  
   # GET /merchants
   # GET /merchants.json
   def index
