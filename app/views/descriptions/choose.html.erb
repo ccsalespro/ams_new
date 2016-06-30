@@ -1,20 +1,27 @@
-<div class="main-body-choose">
+
 <%= search_form_for @search, url: choose_descriptions_path do |f| %>
-  <div class="field2">
-      <%=f.search_field :business_type_primary_or_business_type_secondary_cont, :id => 'search-box' %>
-      <%= button_tag("Search") %>
-  </div>
+
+      <div class="col-xs-3">
+      <div class="form-inline">
+      <%=f.search_field :business_type_primary_or_business_type_secondary_cont, :class => "form-control", :id => "inputdefault" %>
+      <%= button_tag("Search", :class => 'btn btn-primary') %>
+      </div>
+      </div>
 <% end %>
-<table>
-  <tbody>
+<br><br><br><br>
+ <div class="container">
+ <div class="row">
+
     <% @descriptions.each do |description| %>
-      <tr>
-        <td class="description-row"><%= description.business_type_primary %></td>
-        <td class="description-row secondary"><%= description.business_type_secondary %></td>
-        <td class="choose-button-td"><%= link_to(content_tag(:button, 'Choose'), new_description_prospect_path(description_id: description.id), :class => 'choose-button') %></td>
-      </tr>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><b><%= description.business_type_primary %> | </b><%= description.business_type_secondary %>
+      <%= link_to(content_tag(:button, 'Choose', :class => 'btn btn-primary'), new_description_prospect_path(description_id: description.id)) %></h3>
+    </div>
+      </div>
     <% end %>
-  </tbody>
-  </table>
+  
+  </div>
 </div>
 <br>
+

@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 <center>
 <h1>Listing Statements</h1>
-
-<table>
+<div class="container">
+<table class="table table-hover table-condensed">
   <thead>
     <tr>
       <th class="description-row">Month</th>
       <th class="description-row">Trans Fee</th>
       <th class="description-row">Prospect</th>
-      <th class="description-row" colspan="3"></th>
     </tr>
   </thead>
 
@@ -17,16 +16,16 @@
       <tr>
         <td class="description-row"><%= statement.statement_month %></td>
         <td class="description-row"><%= statement.prospect %></td>
-        <td class="description-row"><%= link_to(content_tag(:button, 'Show'), prospect_statement_path(@prospect, statement)) %></td>
-        <td class="description-row"><%= link_to(content_tag(:button, 'Edit'), edit_prospect_statement_path(@prospect, statement)) %></td>
-        <td class="description-row"><%= link_to(content_tag(:button, 'Destroy'), [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+        <td class="description-row  text-right"><%= link_to(content_tag(:button, 'Show', :class => 'btn btn-primary'), prospect_statement_path(@prospect, statement)) %>
+        <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, statement)) %>
+        <%= link_to(content_tag(:button, 'Destroy', :class => 'btn btn-primary'), [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' }) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
-<%= link_to(content_tag(:button, 'New Statement'), new_prospect_statement_path(@prospect)) %>
+<%= link_to(content_tag(:button, 'New Statement', :class => 'btn btn-primary'), new_prospect_statement_path(@prospect)) %>
 </center>
 
 

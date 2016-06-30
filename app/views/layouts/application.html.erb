@@ -19,18 +19,20 @@
   
   <% if user_signed_in? %>
   <header>
-  <div>
-    <%= image_tag('logo.png', :id => 'logo-img') %>
-    <%= link_to(content_tag(:button, 'Profile'), edit_user_registration_path, :class => 'headerbutton') %>
-    <%= link_to(content_tag(:button, 'Sign Out'), destroy_user_session_path, :method => :delete, :class => 'headerbutton') %>
+  <div class="container">
+    
+    <%= link_to(content_tag(:button, 'Profile', :class => 'btn btn-primary'), edit_user_registration_path) %>
+    <%= link_to(content_tag(:button, 'Sign Out', :class => 'btn btn-primary'), destroy_user_session_path, :method => :delete) %>
+    <br><br>
   </div>
   </header>
   <% else %>
   <header>
-  <div>
-    <%= image_tag('logo.png', :id => 'logo-img') %>
-    <%= link_to(content_tag(:button, 'Sign Up'), new_user_registration_path, :class => 'headerbutton') %>
-    <%= link_to(content_tag(:button, 'Sign In'), new_user_session_path, :class => 'headerbutton') %>
+  <div class="container">
+   
+    <%= link_to(content_tag(:button, 'Sign Up', :class => 'btn btn-primary'), new_user_registration_path) %>
+    <%= link_to(content_tag(:button, 'Sign In', :class => 'btn btn-primary'), new_user_session_path) %>
+    <br><br>
   </div>
   </header>
   <% end %>

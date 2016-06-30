@@ -11,74 +11,74 @@
       </ul>
     </div>
   <% end %>
-<center>
 <h1 class="new-div-h1">Editing Statement</h1>
+<div class="col-xs-4">
 <div class="field">
     <%= f.label "Statement Month", :class => 'text' %>
-    <%= f.text_field(:statement_month, :class => "text-box2") %>
+    <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
      <%= f.label "Total Volume", :class => 'text' %>
-     <%= f.text_field(:total_vol, :class => "text-box2") %>
+     <%= f.text_field(:total_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "American Express Volume", :class => 'text' %>
-    <%= f.text_field(:amex_vol, :class => "text-box2") %>
+    <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Visa/MC/Disc Volume", :class => 'text' %>
-    <%= f.text_field(:vmd_vol, :class => "text-box2") %>
+    <%= f.text_field(:vmd_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Check Card Volume ", :class => 'text' %>
-    <%= f.text_field(:check_card_vol, :class => "text-box2") %>
+    <%= f.text_field(:check_card_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Pin Debit Volume", :class => 'text' %>
-    <%= f.text_field(:debit_vol, :class => "text-box2") %>
+    <%= f.text_field(:debit_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Visa/MC/Disc Transactions", :class => 'text' %>
-    <%= f.text_field(:vmd_trans, :class => "text-box2") %>
+    <%= f.text_field(:vmd_trans, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Check Card Transactions", :class => 'text' %>
-    <%= f.text_field(:check_card_trans, :class => "text-box2") %>
+    <%= f.text_field(:check_card_trans, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "American Express Transactions", :class => 'text' %>
-    <%= f.text_field(:amex_trans, :class => "text-box2") %>
+    <%= f.text_field(:amex_trans, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Pin Debit Transactions", :class => 'text' %>
-    <%= f.text_field(:debit_trans, :class => "text-box2") %>
+    <%= f.text_field(:debit_trans, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Visa-MC-Disc Interchange", :class => 'text' %>
-    <%= f.text_field(:vmd_interchange, :class => "text-box2") %>
+    <%= f.text_field(:vmd_interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Check Card Interchange", :class => 'text' %>
-    <%= f.text_field(:check_card_interchange, :class => "text-box2") %>
+    <%= f.text_field(:check_card_interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "American Express Interchange", :class => 'text' %>
-    <%= f.text_field(:amex_interchange, :class => "text-box2") %>
+    <%= f.text_field(:amex_interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Pin Debit Network Fees", :class => 'text' %>
-    <%= f.text_field(:debit_network_fees, :class => "text-box2") %>
+    <%= f.text_field(:debit_network_fees, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Total Interchange / Network", :class => 'text' %>
-    <%= f.text_field(:interchange, :class => "text-box2") %>
+    <%= f.text_field(:interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Daily Batches", :class => 'text' %>
-    <%= f.text_field(:batches, :class => "text-box2") %>
-</div>
-<%= link_to(content_tag(:button, 'Back'), prospect_statements_path(@prospect)) %>
-<%= button_tag("Save Edits") %>
+    <%= f.text_field(:batches, :class => "form-control", :id => "inputdefault") %>
+</div><br>
+<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
+<%= button_tag("Save Edits", :class => 'btn btn-primary') %>
 <div class="field">
     <%= f.hidden_field(:vmd_avg_ticket) %>
 </div>
@@ -102,4 +102,4 @@
 </div>
 <% end %>
 </div>
-</center>
+</div>

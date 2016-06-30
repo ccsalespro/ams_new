@@ -13,47 +13,47 @@
   <% end %>
 
 <div class="border-form-div">
-<center>
   <div class="field">
-    <label class="bigtext">Statement For:<br> <%= @prospect.business_name %></label>
+    <h3>Statement For: <%= @prospect.business_name %></h3>
   </div>
   <div class="field">
-    <label class="bigtext">Type:<br> <%= @prospect.description_primary%> -- <%= @prospect.description_secondary %></label>
-  </div>
+    <h3>Type: <%= @prospect.description_primary%> -- <%= @prospect.description_secondary %></h3>
+  </div><br><br>
+  <div class="col-xs-4">
   <div class="field">
       <%= f.label "Statement Month", :class => 'text' %>
-      <%= f.text_field(:statement_month, :class => 'text-box') %>
+      <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
        <%= f.label "Total Volume", :class => 'text' %>
-       <%= f.text_field(:total_vol, :class => 'text-box') %>
+       <%= f.text_field(:total_vol, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
       <%= f.label "Average Ticket Size", :class => 'text' %>
-      <%= f.text_field(:avg_ticket, :class => 'text-box') %>
+      <%= f.text_field(:avg_ticket, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
       <%= f.label "American Express Volume", :class => 'text' %>
-      <%= f.text_field(:amex_vol, :class => 'text-box') %>
+      <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
       <%= f.label "Pin Debit Volume", :class => 'text' %>
-      <%= f.text_field(:debit_vol, :class => 'text-box') %>
+      <%= f.text_field(:debit_vol, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
       <%= f.label "Check Card Volume", :class => 'text' %>
-      <%= f.text_field(:check_card_vol, :class => 'text-box') %>
+      <%= f.text_field(:check_card_vol, :class => "form-control", :id => "inputdefault") %>
   </div><br>
   <div class="field">
       <%= f.label "Total Fees", :class => 'text' %>
-      <%= f.text_field(:total_fees, :class => 'text-box') %>
+      <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault") %>
   </div><br>
-  <%= link_to(content_tag(:button, 'Back'), prospects_path) %>
-  <%= button_tag("Submit") %>
+  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+  <%= button_tag("Submit", :class => 'btn btn-primary') %>
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
   </div><br>
+  </div>
 </div>
-</center>
 <% end %>
 </div>

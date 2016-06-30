@@ -1,5 +1,4 @@
-<div class="form-background2">
- <center>
+
 <%= form_for(@prospect) do |f| %>
   <% if @prospect.errors.any? %>
     <div id="error_explanation">
@@ -12,33 +11,34 @@
       </ul>
     </div>
   <% end %>
+  <div class="col-xs-4">
   <div class="field">
     <%= f.label :business_name, :class => 'text' %><br>
-    <%= f.text_field(:business_name, :class => "text-box") %><br><br>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %><br><br>
   </div>
   <div class="field">
     <%= f.label :contact_name, :class => 'text' %><br>
-    <%= f.text_field(:contact_name, :class => "text-box") %><br><br>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %><br><br>
   </div>
   <div class="field">
     <%= f.label :phone, :class => 'text' %><br>
-    <%= f.phone_field(:phone, :class => "text-box") %><br><br>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %><br><br>
   </div>
   <div class="field">
     <%= f.label :email, :class => 'text' %><br>
-    <%= f.email_field(:email, :class => "text-box") %><br><br>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault") %><br><br>
   </div>
   <div class="field">
     <%= f.label :source_type, :class => 'text' %><br>
-    <%= f.text_field(:source_type, :class => "text-box") %><br><br>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br><br>
   </div>  
     <%= f.hidden_field(:description_id) %>
     <%= f.hidden_field(:description_primary) %>
     <%= f.hidden_field(:description_secondary) %>
     <%= f.hidden_field(:amex_business_type) %>
   <div class="actions">
-    <%= button_tag("Submit") %>
-    <%= link_to(content_tag(:button, 'Back'), prospects_path) %>
+    <%= button_tag("Submit", :class => 'btn btn-primary') %>
+    <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
   </div>
-</center>
+  </div>
 <% end %>

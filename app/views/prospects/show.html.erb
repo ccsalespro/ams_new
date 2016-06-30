@@ -1,26 +1,19 @@
-<center>
-<p id="notice"><%= notice %></p>
-<hr>
-<p class="black-p">
-  <strong>Business name:</strong>
-  <%= @prospect.business_name %>
-</p>
-<hr>
-<p class="black-p">
-  <strong>Contact name:</strong>
-  <%= @prospect.contact_name %>
-</p>
-<hr>
-<p class="black-p">
-  <strong>Contact Phone:</strong>
-  <%= @prospect.phone %>
-</p>
-<hr>
-<p class="black-p">
-  <strong>Contact email:</strong>
-  <%= @prospect.email %>
-</p>
-<hr>
-<%= link_to(content_tag(:button, 'Edit'), edit_prospect_path(@prospect)) %>
-<%= link_to(content_tag(:button, 'Back'), prospects_path) %>
-</center>
+ <div class="container">
+<div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-primary text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><b><%= @prospect.business_name %></b></h3>
+                    </div>
+                  
+                    <ul class="list-group">
+                        <li class="list-group-item"><b>Contact Name: </b><%= @prospect.contact_name %></li>
+                        <li class="list-group-item"><b>Phone Number: </b><%= @prospect.phone %></li>
+                        <li class="list-group-item"><b>Contact Email: </b><%= @prospect.email %></li>
+                        <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(@prospect)) %>
+                        <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %></li>
+                    </ul>
+                </div>
+
+        </div>
+</div>

@@ -1,30 +1,39 @@
-<center>
-<div class="field">
+
+<div>
 <%= search_form_for @search do |f| %>
-      <%=f.search_field :business_name_or_contact_name_cont, :id => 'search-box' %>
 
-      <%= button_tag("Search") %>
+      <div class="col-xs-3">
+      <div class="form-inline">
+      <%=f.search_field :business_name_or_contact_name_cont, :class => "form-control", :id => "inputdefault" %>
+      <%= button_tag("Search", :class => 'btn btn-primary') %>
+      </div>
+      </div>
 <% end %>
   </div>
 
-<% @prospects.each do |prospect| %>
-  <div class="main-div">
-  <div class="title">
-        <p><b><%= prospect.business_name %></b></p>
-  </div>
-        <div class="main_content">
-          <p class="main_content_p"><b>Contact Name: </b><%= prospect.contact_name %></p>
-          <p class="main_content_p"><b>Phone Number: </b><%= prospect.phone %></p>
-          <p class="main_content_p"><b>Contact Email: </b><%= prospect.email %></p>
-        </div>
-        <div class="buttons">
-        <%= link_to(content_tag(:button, 'Edit'), edit_prospect_path(prospect)) %>
-        <%= link_to(content_tag(:button, 'Delete'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
-        <%= link_to(content_tag(:button, 'Quote'), new_prospect_statement_path(prospect_id: prospect.id)) %>
-        </div>
-    </div><br>
-<% end %>
-<center>
-<div class="footer">
-  <%= link_to(content_tag(:button, '+', :class => 'footerbutton'), choose_descriptions_path) %>
+<br><br><br><br>
+ <div class="container">
+<div class="row">
+            <div class="col-md-4">
+            <% @prospects.each do |prospect| %>
+
+                <div class="panel panel-primary text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>
+                    </div>
+                  
+                    <ul class="list-group">
+                        <li class="list-group-item"><b>Contact Name: </b><%= prospect.contact_name %></li>
+                        <li class="list-group-item"><b>Phone Number: </b><%= prospect.phone %></li>
+                        <li class="list-group-item"><b>Contact Email: </b><%= prospect.email %></li>
+                        
+                        <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
+                        <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
+                        <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %></li>
+                    </ul>
+                </div>
+                <% end %>
+            </div>
+      </div>
+  <%= link_to(content_tag(:button, 'New Prospect', :class => 'btn btn-primary'), choose_descriptions_path) %>
 </div>

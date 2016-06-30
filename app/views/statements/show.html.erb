@@ -1,49 +1,56 @@
-<center>
-<p id="notice"><%= notice %></p>
 
-<table summary="Statement Detail View">
-  <tr>
-    <th class="description-row">ID:</th>
-    <td class="description-row"><%= @statement.id %></td>
-  </tr>
-    <th class="description-row">Total Fees:</th>
-	<td class="description-row"><%= @statement.total_fees %></td>
-  </tr>
-    <th class="description-row">Business Type:</th>
-    <td class="description-row"><%= @statement.business_type %></td>
-  </tr>
-	<th class="description-row">Visa/MC/Disc Volume:</th>
-	<td class="description-row"><%= @statement.vmd_vol %></td>
-  </tr>
-    <th class="description-row">Visa/MC/Disc Trans:</th>
-	<td class="description-row"><%= @statement.vmd_trans %></td>
-  </tr>
-    <th class="description-row">Number of Batches:</th>
-	<td class="description-row"><%= @statement.batches %></td>
-  </tr>
-    <th class="description-row">American Express Transactions:</th>
-	<td class="description-row"><%= @statement.amex_trans %></td>
-  </tr>
-    <th class="description-row">American Express Volume:</th>
-	<td class="description-row"><%= @statement.amex_vol %></td>
-  </tr>
-    <th class="description-row">Pin Debit Volume:</th>
-	<td class="description-row"><%= @statement.debit_vol %></td>
-  </tr>
-    <th class="description-row">Pin Debit Transactions:</th>
-	<td class="description-row"><%= @statement.debit_trans %></td>
-  </tr>
-    <th class="description-row">Vs/Mc/Dis Interchange Costs:</th>
-	<td class="description-row"><%= @statement.interchange %></td>
-  </tr>
-    <th class="description-row">Statement Month:</th>
-	<td class="description-row"><%= @statement.statement_month %></td>
-	<tr>
-	  <th class="description-row">Updated:</th>
-	  <td class="description-row"><%= @statement.updated_at %></td>
-	</tr>
-</table>
-<%= link_to(content_tag(:button, 'Edit'), edit_prospect_statement_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Compare'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Back'), prospect_statements_path(@prospect)) %>
-</center>
+
+
+ <div class="container">
+ <div class="row">
+ <div class="col-md-4">
+ <div class="panel panel-primary text-center">
+            <div class="panel-heading">
+              <h3 class="panel-title"><b>ID: <%= @statement.id %></b></h3>
+            </div>
+  
+  <ul class="list-group">
+  <li class="list-group-item">
+     Total Fees: <%= @statement.total_fees %>
+  </li>
+  <li class="list-group-item">
+    Business Type: <%= @statement.business_type %>
+  </li>
+  <li class="list-group-item">
+Visa/MC/Disc Volume: <%= @statement.vmd_vol %>
+  </li>
+  <li class="list-group-item">
+   Visa/MC/Disc Trans: <%= @statement.vmd_trans %>
+  </li>
+  <li class="list-group-item">
+   Number of Batches: <%= @statement.batches %>
+</li>
+  <li class="list-group-item">
+   American Express Transactions: <%= @statement.amex_trans %>
+</li>
+  <li class="list-group-item">
+   American Express Volume: <%= @statement.amex_vol %>
+</li>
+  <li class="list-group-item">
+   Pin Debit Volume: <%= @statement.debit_vol %>
+</li>
+  <li class="list-group-item">
+   Pin Debit Transactions: <%= @statement.debit_trans %>
+</li>
+  <li class="list-group-item">
+   Vs/Mc/Dis Interchange Costs: <%= @statement.interchange %>
+</li>
+  <li class="list-group-item">
+    Statement Month: <%= @statement.statement_month %>
+</li>
+<li class="list-group-item">
+	 Updated: <%= @statement.updated_at %>
+</li>	
+  </ul>
+  </div>
+</div>
+</div>
+<%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Compare', :class => 'btn btn-primary'), prospect_statement_comparisons_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
+</div>
