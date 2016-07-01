@@ -1,7 +1,7 @@
 
 <%= search_form_for @search, url: choose_descriptions_path do |f| %>
 
-      <div class="col-xs-3">
+      <div class="col-xs-4">
       <div class="form-inline">
       <%=f.search_field :business_type_primary_or_business_type_secondary_cont, :class => "form-control", :id => "inputdefault" %>
       <%= button_tag("Search", :class => 'btn btn-success') %>
@@ -9,8 +9,9 @@
       </div>
 <% end %>
 <br><br><br><br>
+<div class="container">
  <div class="container-fluid">
-   <table class="table table-hover table-striped">
+   <table class="table table-hover table-striped table-condensed">
     <% @descriptions.each do |description| %>
     <tr>
     <td><%= description.business_type_primary %> | </b><%= description.business_type_secondary %></td>
@@ -19,4 +20,4 @@
     <% end %>
       </table>
 </div>
-
+</div>
