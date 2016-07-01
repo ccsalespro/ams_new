@@ -9,19 +9,14 @@
       </div>
 <% end %>
 <br><br><br><br>
- <div class="container">
- <div class="row">
-
+ <div class="container-fluid">
+   <table class="table table-hover table-striped">
     <% @descriptions.each do |description| %>
-    <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><b><%= description.business_type_primary %> | </b><%= description.business_type_secondary %>
-      <%= link_to(content_tag(:button, 'Choose', :class => 'btn btn-success'), new_description_prospect_path(description_id: description.id)) %></h3>
-    </div>
-      </div>
+    <tr>
+    <td><%= description.business_type_primary %> | </b><%= description.business_type_secondary %></td>
+      <td class="text-right"><%= link_to(content_tag(:button, 'Choose', :class => 'btn btn-success'), new_description_prospect_path(description_id: description.id)) %></td>
+    </tr>
     <% end %>
-  
-  </div>
+      </table>
 </div>
-<br>
 

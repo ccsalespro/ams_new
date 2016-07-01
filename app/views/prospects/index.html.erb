@@ -1,22 +1,18 @@
 <br>
-<div>
+<div class="container-fluid col-xs-4 form-inline"">
+    
 <%= search_form_for @search do |f| %>
 
-      <div class="col-xs-5">
-      <div class="form-inline">
       <%=f.search_field :business_name_or_contact_name_cont, :class => "form-control", :id => "inputdefault" %>
       <%= button_tag("Search", :class => 'btn btn-success') %>
-      </div>
-      </div>
 <% end %>
+     
   </div>
 
 <br><br><br><br>
- <div class="container">
-<div class="row">
-            <div class="col-md-4">
+ <div class="container-fluid">
             <% @prospects.each do |prospect| %>
-
+                <div class="col-sm-6">
                 <div class="panel panel-primary text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>
@@ -32,8 +28,7 @@
                         <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-success'), new_prospect_statement_path(prospect_id: prospect.id)) %></li>
                     </ul>
                 </div>
+                </div>
                 <% end %>
-            </div>
-      </div>
   <%= link_to(content_tag(:button, 'New Prospect', :class => 'btn btn-success'), choose_descriptions_path) %>
 </div>
