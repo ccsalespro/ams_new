@@ -4,23 +4,18 @@
     
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-4">
+        <div class="col-md-6 col-md-offset-4">
         <%= search_form_for @search do |f| %>
+        <div class="input-group stylish-input-group">
         <%=f.search_field :business_name_or_contact_name_or_phone_or_email_cont, :class => 'form-control', :placeholder => 'Search' %>
-
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control" placeholder="Search" >
-                    <span class="input-group-addon">
+        <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>  
                     </span>
-                </div>
-
-        </div>
+       </div>
         <% end %>
-    </div>
+        </div>
 </div>
 
 
@@ -30,7 +25,7 @@
 <br><br><br><br>
  <div class="container-fluid">
             <% @prospects.each do |prospect| %>
-                <div class="col-md-4">
+                <div class=" col-sm-6 col-md-4">
                 <div class="panel panel-default text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>
