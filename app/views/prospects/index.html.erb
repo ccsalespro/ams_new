@@ -22,7 +22,7 @@
 <br><br><br><br>
  <div class="container-fluid">
             <% @prospects.each do |prospect| %>
-                <div class=" col-sm-6 col-md-4">
+                <div class="col-md-6 col-lg-4">
                 <div class="panel panel-primary text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>
@@ -31,7 +31,7 @@
                     <ul class="list-group">
                         <li class="list-group-item"><b>Contact Name: </b><%= prospect.contact_name %></li>
                         <li class="list-group-item"><b>Phone Number: </b><%= prospect.phone %></li>
-                        <li class="list-group-item"><b>Contact Email: </b><%= prospect.email %></li>
+                        <li class="list-group-item"><b>Email: </b><%= prospect.email %></li>
                         
                         <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
                         <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
@@ -40,6 +40,10 @@
                 </div>
                 </div>
                 <% end %>
-  <%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fabbutton'), choose_descriptions_path) %>
+
+<%= link_to choose_descriptions_path, :class => 'btn btn-primary fab-btn' do %>
+    <span id="fab-btn-glyph" class="glyphicon glyphicon-pencil"></span>
+<% end %>
+
 </div>
 </div>
