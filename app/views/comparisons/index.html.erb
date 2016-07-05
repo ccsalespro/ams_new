@@ -1,4 +1,7 @@
+<div class="text-center">	
 <h1>Program Comparisons</h1>
+<br>
+</div>
 
 <% @programs.each do |program| %>
 
@@ -35,74 +38,18 @@
    <%  @total_program_costs = @batch_costs + @bin_costs + @vs_mc_disc_per_item_costs + @amex_per_item_costs + @amex_bp_costs + @pin_debit_costs + program.monthly_fee_costs + program.monthly_pci_cost %>  
 
 
-<div class="comparison-div">
-	<div class="title">
-		<p><b><%= program.name %></b></p>
-	</div>
-	<div id="content-columns">
-		<div id="panel-body-left">
-			<p class="main_content_p"><b>Current Fees: </b><%= number_to_currency(@statement.total_fees) %></p>
-			<p class="main_content_p"><b>Program Fees: </b><%= number_to_currency(@total_program_fees) %></p>
-			<p class="main_content_p"><b>Schedule A: </b><%= number_to_currency(@total_program_costs) %></p>
-			<p class="main_content_p"><b>Access BP: </b><%= number_to_currency(@avg_access_bp) %></p>
-			<p class="main_content_p"><b>Access Fees: </b><%= number_to_currency(@access_fees) %></p>
-			<p class="main_content_p"><b>Debit Fees: </b><%= number_to_currency(@debit_fees) %></p>
-			<p class="main_content_p"><b>Batch Fees: </b><%= number_to_currency(@batch_fees) %></p>
-		</div>
-		<div id="panel-body-center">
-			<p class="main_content_p"><b>VMD Per Item: </b><%= number_to_currency(@vs_mc_disc_per_item_costs) %></p>
-			<p class="main_content_p"><b>Debit Costs: </b><%= number_to_currency(@pin_debit_costs) %></p>
-			<p class="main_content_p"><b>Amex Per Item: </b><%= number_to_currency(@amex_per_item_costs) %></p>
-			<p class="main_content_p"><b>Access Per Item: </b><%= number_to_currency(@avg_access_per_item) %></p>
-			<p class="main_content_p"><b>VMD Mark-Up: </b><%= number_to_currency(@vs_mc_disc_mark_up) %></p>
-			<p class="main_content_p"><b>Amex Mark Up: </b><%= number_to_currency(@amex_mark_up) %></p>
-			<p class="main_content_p"><b>VMD Trans: </b><%= number_to_currency(@vs_mc_disc_transactions) %></p>
-		</div>
-		<div id="panel-body-right">
-			<p class="main_content_p"><b>Amex BP Cost: </b><%= number_to_currency(@amex_bp_costs) %></p>
-			<p class="main_content_p"><b>Program Fees: </b><%= number_to_currency(@total_program_fees) %></p>
-			<p class="main_content_p"><b>Bin Costs: </b><%= number_to_currency(@bin_costs) %></p>
-			<p class="main_content_p"><b>VMD Trans Fees: </b><%= number_to_currency(@vs_mc_disc_trans_fees) %></p>
-			<p class="main_content_p"><b>Amex Trans Fees: </b><%= number_to_currency(@amex_trans_fees) %></p>
-			<p class="main_content_p"><b>Amex Trans: </b><%= number_to_currency(@amex_transactions) %></p>
-			<p class="main_content_p"><b>Total Trans: </b><%= number_to_currency(@total_transactions) %></p>
-			<p class="main_content_p"><b>VMD Vol: </b><%= number_to_currency(@vs_mc_disc_volume) %></p>
-		</div>
-	</div><br><br><br><br><br><br><br><br><br><br><br><br>
-
-	<div class="buttons">
-		<h3 class="bold-footer">Bonus: <%= number_to_currency(program.up_front_bonus) %></h3>
-		<% @total_savings = @statement.total_fees - @total_program_fees %>
-		<h3 class="bold-footer">Savings: <%= number_to_currency(@total_savings) %></h3>
-		<% @total_residual = (@total_program_fees - @total_program_costs) * (program.residual_split / 100) %>
-		<h3 class="bold-footer">Residual: <%= number_to_currency(@total_residual) %></h3>
-	</div>
-</div>
-<br>
-
-<% end %>  
-</div>
-
-
-
-
-
-
-
-
-
 <div class="container text-center">
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 <div class="panel panel-primary">
 
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<b><%= @programs.name %></b>
+			<b><%= program.name %></b>
 		</h3>
 	</div>
 
 	<div class="panel-body">
-		<div class="col-sm-4">
+		<div class="col-xs-4 col-sm-4">
 			<div class="text-left">
 			<b>Current Fees: </b><%= number_to_currency(@statement.total_fees) %><br>
 			<b>Program Fees: </b><%= number_to_currency(@total_program_fees) %><br>
@@ -114,7 +61,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-4">
+		<div class="col-xs-4 col-sm-4">
 			<div class="text-center">
 			<b>VMD Per Item: </b><%= number_to_currency(@vs_mc_disc_per_item_costs) %><br>
 			<b>Debit Costs: </b><%= number_to_currency(@pin_debit_costs) %><br>
@@ -126,7 +73,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-4">
+		<div class="col-xs-4 col-sm-4">
 			<div class="text-right">
 			<b>Amex BP Cost: </b><%= number_to_currency(@amex_bp_costs) %><br>
 			<b>Program Fees: </b><%= number_to_currency(@total_program_fees) %><br>
@@ -137,10 +84,16 @@
 			<b>Total Trans: </b><%= number_to_currency(@total_transactions) %><br>
 			<b>VMD Vol: </b><%= number_to_currency(@vs_mc_disc_volume) %>
 			</div>
+
 		</div>
-		
+		<div class="clearfix visible-xs"></div>
 		<div class="col-sm-12">
-			<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, praesentium, accusamus. Consequatur tempora sunt unde voluptas natus neque dolor ad culpa, voluptates odit dignissimos nesciunt ab cupiditate facere impedit nam.</h3>
+		<hr class="programs-hr">
+		<h3 class="bold-footer">Bonus: <%= number_to_currency(program.up_front_bonus) %></h3>
+		<% @total_savings = @statement.total_fees - @total_program_fees %>
+		<h3 class="bold-footer">Savings: <%= number_to_currency(@total_savings) %></h3>
+		<% @total_residual = (@total_program_fees - @total_program_costs) * (program.residual_split / 100) %>
+		<h3 class="bold-footer">Residual: <%= number_to_currency(@total_residual) %></h3>
 		</div>
 
 	</div>
@@ -149,6 +102,20 @@
 </div>
 
 </div>
+</div>
+<br>
+
+<% end %>  
+
+
+
+
+
+
+
+
+
+
 
 
 
