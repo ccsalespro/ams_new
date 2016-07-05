@@ -1,9 +1,5 @@
-
-
-
- <div class="container">
- <div class="row">
- <div class="col-md-4">
+<div class="container">
+ <div class="col-sm-8 col-sm-offset-2">
  <div class="panel panel-primary text-center">
             <div class="panel-heading">
               <h3 class="panel-title"><b>ID: <%= @statement.id %></b></h3>
@@ -45,12 +41,13 @@ Visa/MC/Disc Volume: <%= @statement.vmd_vol %>
 </li>
 <li class="list-group-item">
 	 Updated: <%= @statement.updated_at %>
-</li>	
+</li>
+<li class="list-group-item">
+  <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Compare', :class => 'btn btn-primary'), prospect_statement_comparisons_path(@prospect, @statement)) %>
+<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
+</li>
   </ul>
   </div>
 </div>
-</div>
-<%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Compare', :class => 'btn btn-primary'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
 </div>

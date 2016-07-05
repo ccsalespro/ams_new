@@ -4,7 +4,6 @@ body {
 }
 
 /* Floating Action Button Styles */
-
 .fab-btn {
 	border-radius: 50px !important;
 	-ms-transform: scale(2, 3); /* IE 9 */
@@ -50,4 +49,8 @@ body {
 .no-outline, .no-outline:hover {
 	border: none !important;
 	background: transparent !important;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #337AB7 !important;
 }

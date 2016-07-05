@@ -1,4 +1,4 @@
-<div class="form-background-quote">
+
 <%= form_for([@prospect, @statement]) do |f| %>
   <% if @statement.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +11,15 @@
       </ul>
     </div>
   <% end %>
-
-<div class="border-form-div">
+  <div class="text-center">
   <div class="field">
     <h3>Statement For: <%= @prospect.business_name %></h3>
   </div>
   <div class="field">
     <h3>Type: <%= @prospect.description_primary%> -- <%= @prospect.description_secondary %></h3>
+  </div>
   </div><br><br>
-  <div class="col-xs-4">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
   <div class="field">
       <%= f.label "Statement Month", :class => 'text' %>
       <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
@@ -48,12 +48,10 @@
       <%= f.label "Total Fees", :class => 'text' %>
       <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault") %>
   </div><br>
-  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-success'), prospects_path) %>
-  <%= button_tag("Submit", :class => 'btn btn-success') %>
+  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+  <%= button_tag("Submit", :class => 'btn btn-primary') %>
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
   </div><br>
-  </div>
-</div>
 <% end %>
 </div>

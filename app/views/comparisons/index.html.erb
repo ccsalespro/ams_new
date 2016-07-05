@@ -82,3 +82,74 @@
 
 <% end %>  
 </div>
+
+
+
+
+
+
+
+
+
+<div class="container text-center">
+<div class="col-sm-8 col-sm-offset-2">
+<div class="panel panel-primary">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<b><%= @programs.name %></b>
+		</h3>
+	</div>
+
+	<div class="panel-body">
+		<div class="col-sm-4">
+			<div class="text-left">
+			<b>Current Fees: </b><%= number_to_currency(@statement.total_fees) %><br>
+			<b>Program Fees: </b><%= number_to_currency(@total_program_fees) %><br>
+			<b>Schedule A: </b><%= number_to_currency(@total_program_costs) %><br>
+			<b>Access BP: </b><%= number_to_currency(@avg_access_bp) %><br>
+			<b>Access Fees: </b><%= number_to_currency(@access_fees) %><br>
+			<b>Debit Fees: </b><%= number_to_currency(@debit_fees) %><br>
+			<b>Batch Fees: </b><%= number_to_currency(@batch_fees) %>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="text-center">
+			<b>VMD Per Item: </b><%= number_to_currency(@vs_mc_disc_per_item_costs) %><br>
+			<b>Debit Costs: </b><%= number_to_currency(@pin_debit_costs) %><br>
+			<b>Amex Per Item: </b><%= number_to_currency(@amex_per_item_costs) %><br>
+			<b>Access Per Item: </b><%= number_to_currency(@avg_access_per_item) %><br>
+			<b>VMD Mark-Up: </b><%= number_to_currency(@vs_mc_disc_mark_up) %><br>
+			<b>Amex Mark Up: </b><%= number_to_currency(@amex_mark_up) %><br>
+			<b>VMD Trans: </b><%= number_to_currency(@vs_mc_disc_transactions) %>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="text-right">
+			<b>Amex BP Cost: </b><%= number_to_currency(@amex_bp_costs) %><br>
+			<b>Program Fees: </b><%= number_to_currency(@total_program_fees) %><br>
+			<b>Bin Costs: </b><%= number_to_currency(@bin_costs) %><br>
+			<b>VMD Trans Fees: </b><%= number_to_currency(@vs_mc_disc_trans_fees) %><br>
+			<b>Amex Trans Fees: </b><%= number_to_currency(@amex_trans_fees) %><br>
+			<b>Amex Trans: </b><%= number_to_currency(@amex_transactions) %><br>
+			<b>Total Trans: </b><%= number_to_currency(@total_transactions) %><br>
+			<b>VMD Vol: </b><%= number_to_currency(@vs_mc_disc_volume) %>
+			</div>
+		</div>
+		
+		<div class="col-sm-12">
+			<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, praesentium, accusamus. Consequatur tempora sunt unde voluptas natus neque dolor ad culpa, voluptates odit dignissimos nesciunt ab cupiditate facere impedit nam.</h3>
+		</div>
+
+	</div>
+
+
+</div>
+
+</div>
+
+
+
+

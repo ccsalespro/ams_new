@@ -1,4 +1,4 @@
-<div class="form-background-quote-created">
+
 <%= form_for([@prospect, @statement]) do |f| %>
   <% if @statement.errors.any? %>
     <div id="error_explanation">
@@ -11,8 +11,7 @@
       </ul>
     </div>
   <% end %>
-<h1 class="new-div-h1">Editing Statement</h1>
-<div class="col-xs-4">
+<div class="col-sm-4 col-sm-offset-4 text-center">
 <div class="field">
     <%= f.label "Statement Month", :class => 'text' %>
     <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
@@ -77,8 +76,8 @@
     <%= f.label "Daily Batches", :class => 'text' %>
     <%= f.text_field(:batches, :class => "form-control", :id => "inputdefault") %>
 </div><br>
-<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-success'), prospect_statements_path(@prospect)) %>
-<%= button_tag("Save Edits", :class => 'btn btn-success') %>
+<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
+<%= button_tag("Save Edits", :class => 'btn btn-primary') %>
 <div class="field">
     <%= f.hidden_field(:vmd_avg_ticket) %>
 </div>
@@ -100,6 +99,6 @@
 <div class="field">
     <%= f.hidden_field(:prospect_id) %>
 </div>
+<br>
 <% end %>
-</div>
 </div>
