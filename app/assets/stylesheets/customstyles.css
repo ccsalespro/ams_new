@@ -53,13 +53,11 @@ body {
     border-color: #337AB7 !important;
 }
 
+.dropdown-toggle {
+    background: transparent !important;
+}
 
-
-
-
-
-
-
+/* Styles For 'hr' In The Programs Panel */
 .programs-hr {
     border-color: #999999;
 }
