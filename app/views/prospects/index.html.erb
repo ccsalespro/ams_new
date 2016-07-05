@@ -41,9 +41,9 @@
                 </div>
                 <% end %>
 
-<%= link_to choose_descriptions_path, :class => 'btn btn-primary fab-btn' do %>
-    <span id="fab-btn-glyph" class="glyphicon glyphicon-pencil"></span>
-<% end %>
+
+
+<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), choose_descriptions_path) %>
 
 </div>
 </div>

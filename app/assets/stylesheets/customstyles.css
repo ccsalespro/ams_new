@@ -16,11 +16,9 @@ body {
     bottom: 10px;
     right: 10px;
     box-shadow: 0px 0px 5px 3px #BFBFBF !important;
+    font-size: 25px !important;
 }
 
-#fab-btn-glyph {
-	padding-top:10px !important;
-}
 
 /* Search Bar On Prospects Index Page Styles */
 .stylish-input-group .input-group-addon{
