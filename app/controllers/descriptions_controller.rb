@@ -18,6 +18,9 @@ class DescriptionsController < ApplicationController
   def choose
       @search = Description.search(params[:q])
       @descriptions = @search.result
+      if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /descriptions/1

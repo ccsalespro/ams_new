@@ -8,6 +8,9 @@ class ProspectsController < ApplicationController
   def index
     @search = current_user.prospects.search(params[:q])
     @prospects = @search.result
+    if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /prospects/1
