@@ -61,3 +61,16 @@ body {
 .programs-hr {
     border-color: #999999;
 }
+
+
+
+.custom-margin {
+    margin-right: 20px !important;
+}
+
+
+
+.form-size {
+    height: 500px !important;
+    width: 50% !important;
+}

@@ -1,0 +1,66 @@
+<div class="container">
+
+            <div class="col-lg-12">
+                <h1 class="page-header">Blog
+                </h1>
+                <ol class="breadcrumb">
+                    <li><%= link_to 'Home', :controller => 'static', :action => 'index' %>
+                    </li>
+                    <li class="active">Blog</li>
+                </ol>
+            </div>
+        <!-- /.row -->
+        <% @blogs.each do |blog| %>
+        <!-- Blog Post Row -->
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-8 col-sm-offset-3 col-md-4 col-md-offset-0">
+                    <% if blog.image_url == nil %>
+                    <% else %>
+                    <%= image_tag blog.image_url(:thumb).to_s, :class => 'thumbnail img-responsive' %>
+                    <% end %>
+            </div>
+            <div class="clearfix visible-xs"></div>
+            <div class="col-xs-12 col-md-6">
+                <h3>
+                    <%= blog.title %>
+                    <div class="navbar-right">
+                    <%= link_to 'Edit', edit_blog_path(blog), :class => 'btn btn-primary' %>
+                    <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %>
+                    </div>
+                </h3>
+                <p><b><%= markdown('By ' + blog.author) %></b></p>
+                <p><%= truncate(markdown(blog.body), :length => 250, :separator => ' ', escape: false) %></p>  
+                <%= link_to 'Read More', blog, :class => 'btn btn-primary' %>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <br>
+        <% end %>
+
+        
+
+        <!-- Pager -->
+        <div class="row">
+            <ul class="pager">
+                <li class="previous"><a href="#">&larr; Older</a>
+                </li>
+                <li class="next"><a href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.row -->
+        </div>
+        <hr>
+<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), new_blog_path) %>
+    
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   
+
    devise_for :users, controllers: { registrations: "registrations" }
+
+  resources :blogs
+  get 'blogs/index'
+
 
    root to: 'static#index'
    get 'static/index'
