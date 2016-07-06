@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :blogs
+  get 'blogs/index'
+
    root to: 'static#index'
    get 'static/index'
    get 'static/services'
