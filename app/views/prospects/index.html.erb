@@ -20,9 +20,11 @@
     
 
 <br><br><br><br>
- <div class="container-fluid">
+ <div class="container-fluid text-center">
+                    <h1><%= @searchnone %></h1>
+
             <% @prospects.each do |prospect| %>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-4">
                 <div class="panel panel-primary text-center">
                     <div class="panel-heading">
                         <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>

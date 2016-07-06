@@ -1,11 +1,11 @@
-
-<h2 class="black-standard">Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container-fluid">
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+<h2 class="black-standard text-center">Edit <%= resource_name.to_s.humanize %></h2>
 <%= devise_error_messages! %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true, :class => 'form-control' %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -14,27 +14,29 @@
 
   <div class="field">
     <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
   </div>
-
-  <div class="actions">
-  <%= link_to(content_tag(:button, 'Back'), descriptions_path) %>
-    <%= button_tag("Submit") %>
+  <br>
+  <div class="actions text-center">
+  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), descriptions_path) %>
+    <%= button_tag("Submit", :class => 'btn btn-primary') %>
   </div>
-  
 <% end %>
 
+<div class="text-center">
 <h3>Cancel My Account</h3>
-
-<%= link_to(content_tag(:button, 'Cancel My Account'), registration_path(resource_name), data: { confirm: "Are You Sure?" }, method: :delete) %>
+<%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), registration_path(resource_name), data: { confirm: "Are You Sure?" }, method: :delete) %>
+</div>
+</div>
+</div>
 <br>
