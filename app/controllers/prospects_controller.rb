@@ -3,8 +3,6 @@ class ProspectsController < ApplicationController
   before_action :load_description, only: [:new]
   before_action :authenticate_user!
 
-  layout "bootstrap"
-
   # GET /prospects
   # GET /prospects.json
   def index
