@@ -11,7 +11,6 @@
         <%= javascript_include_tag "application" %>
         <%= csrf_meta_tags %>
 	</head> 
-<div class="main-body">
 <body>
 <% flash.each do |name, msg| %>
   <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
@@ -98,5 +97,4 @@
 <%= yield %>
 
 </body>
-</div>
 </html>
