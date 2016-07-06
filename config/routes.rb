@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+   devise_for :users, controllers: { registrations: "registrations" }
+
    root to: 'static#index'
    get 'static/index'
    get 'static/services'
@@ -12,11 +14,8 @@ Rails.application.routes.draw do
    get 'static/full_width'
    get 'static/sidebar'
    get 'static/faq'
-   get 'static/404'
+   get 'static/error'
    get 'static/pricing'
-
-  devise_for :users, controllers: { registrations: "registrations" }
-
  
 
   resources :subscribers
