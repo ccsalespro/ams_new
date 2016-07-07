@@ -28,7 +28,7 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <h3 class="text-capitalize">Posted <%= time_ago_in_words(@blog.created_at) %> Ago
+                <h3 class="text-capitalize"><i class="fa fa-clock-o"></i> Posted <%= time_ago_in_words(@blog.created_at) %> Ago
                 <div class="navbar-right">
 				<%= link_to 'Edit', edit_blog_path(@blog), :class => 'btn btn-primary' %>
                 <%= link_to 'Delete', @blog, method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %>
