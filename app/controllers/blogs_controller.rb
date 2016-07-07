@@ -4,12 +4,21 @@ class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    @search = Blog.search(params[:q])
+    @blogs = @search.result
+    if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @search = Blog.search(params[:q])
+    @blogs = @search.result
+    if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /blogs/new
