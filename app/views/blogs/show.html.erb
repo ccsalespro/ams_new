@@ -37,12 +37,13 @@
                 <hr>
 
                 <!-- Preview Image -->
-                    <% if @blog.image_url == nil %>
-                    <% else %>
+ 
                     <div class="container-fluid">
-                    <%= image_tag @blog.image_url(:thumb).to_s, :class => 'thumbnail img-responsive center-block' %>
+                    <div class="well">
+                    Image Will Go Here<br><%= link_to 'Current Images', images_path %><br><br><br><br><br><br><br><br><br><br>
                     </div>
-                    <% end %>
+                    </div>
+
 					<div class="clearfix"></div>
 
                 <!-- Post Content -->

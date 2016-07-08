@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706141643) do
+ActiveRecord::Schema.define(version: 20160708160338) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20160706141643) do
     t.string   "author"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "image"
   end
 
   create_table "costs", force: :cascade do |t|
@@ -39,6 +38,14 @@ ActiveRecord::Schema.define(version: 20160706141643) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "amex_business_type"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "filename"
+    t.string   "content_type"
+    t.binary   "file_contents"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "merchants", force: :cascade do |t|
