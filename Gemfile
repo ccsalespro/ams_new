@@ -36,11 +36,6 @@ gem 'bootstrap-sass'
 
 gem 'font-awesome-sass'
 
-# Gems For Images
-gem 'rmagick'
-
-gem 'carrierwave'
-
 gem 'redcarpet'
 
 # Use ActiveModel has_secure_password

@@ -4,12 +4,21 @@ class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    @search = Blog.search(params[:q])
+    @blogs = @search.result
+    if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @search = Blog.search(params[:q])
+    @blogs = @search.result
+    if @search.result.none?
+      @searchnone = "No Results"
+    end
   end
 
   # GET /blogs/new
@@ -69,6 +78,6 @@ class BlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:title, :body, :author, :image)
+      params.require(:blog).permit(:title, :body, :author)
     end
 end

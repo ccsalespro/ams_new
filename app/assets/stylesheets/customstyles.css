@@ -1,76 +1,74 @@
 /* Sets Background Color */
-body {
-	background-color: #f2f2f2 !important;
-}
+    body {
+    	background-color: #f2f2f2 !important;
+    }
 
 /* Floating Action Button Styles */
-.fab-btn {
-	border-radius: 50px !important;
-	-ms-transform: scale(2, 3); /* IE 9 */
-    -webkit-transform: scale(2, 3); /* Safari */
-    transform: scale(1, 1);
-    height: 50px;
-    width: 50px;
-    float: right;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-    font-size: 25px !important;
-}
+    .fab-btn {
+    	border-radius: 50px !important;
+        height: 50px;
+        width: 50px;
+        float: right;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        box-shadow: 0px 0px 5px 3px #BFBFBF !important;
+        font-size: 25px !important;
+    }
 
 
-/* Search Bar On Prospects Index Page Styles */
-.stylish-input-group .input-group-addon{
-    background: white !important; 
-}
-.stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
-	border-color:#ccc;
-}
-.stylish-input-group button{
-    border:0;
-    background:transparent;
-}
+/* Search Bar Styles */
+    .stylish-input-group .input-group-addon{
+        background: white !important; 
+    }
+    .stylish-input-group .form-control{
+    	border-right:0; 
+    	box-shadow:0 0 0; 
+    	border-color:#ccc;
+    }
+    .stylish-input-group button{
+        border:0;
+        background:transparent;
+    }
 
 /* Navbar Styles */
-.nav-custom-styles {
-	background-color: #337AB7 !important;
-	border-bottom: white !important;
-}
+    .nav-custom-styles {
+    	background-color: #337AB7 !important;
+    	border-bottom: white !important;
+        margin-bottom: 0px !important;
+    }
 
-.a-tag-for-navbar-links {
-	color: white !important;
-}
+    .a-tag-for-navbar-links {
+    	color: white !important;
+    }
 
-.no-outline, .no-outline:hover {
-	border: none !important;
-	background: transparent !important;
-}
+    .no-outline, .no-outline:hover {
+    	border: none !important;
+    	background: transparent !important;
+    }
 
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: #337AB7 !important;
-}
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+        border-color: #337AB7 !important;
+    }
 
-.dropdown-toggle {
-    background: transparent !important;
-}
+    .dropdown-toggle {
+        background: transparent !important;
+    }
 
 /* Styles For 'hr' In The Programs Panel */
-.programs-hr {
-    border-color: #999999;
-}
+    .programs-hr {
+        border-color: #999999;
+    }
 
+/* Sets The Size Of The Form For The Body When You Create A New Blog */
 
+    .form-size {
+        height: 500px !important;
+        width: 50% !important;
+    }
 
-.custom-margin {
-    margin-right: 20px !important;
-}
+/* Sets The Font Awesome Icon Size On The About Page */
 
-
-
-.form-size {
-    height: 500px !important;
-    width: 50% !important;
-}
+    .big-icon {
+        font-size: 50px;
+    }
