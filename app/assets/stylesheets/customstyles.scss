@@ -1,6 +1,6 @@
 /* Sets Background Color */
     body {
-    	background-color: red !important;
+    	background-color: #f2f2f2 !important;
     }
 
 /* Floating Action Button Styles */
@@ -29,6 +29,30 @@
     .stylish-input-group button{
         border:0;
         background:transparent;
+    }
+
+/* Navbar Styles */
+    .nav-custom-styles {
+    	background-color: #337AB7 !important;
+    	border-bottom: white !important;
+        margin-bottom: 0px !important;
+    }
+
+    .a-tag-for-navbar-links {
+    	color: white !important;
+    }
+
+    .no-outline, .no-outline:hover {
+    	border: none !important;
+    	background: transparent !important;
+    }
+
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+        border-color: #337AB7 !important;
+    }
+
+    .dropdown-toggle {
+        background: transparent !important;
     }
 
 /* Styles For 'hr' In The Programs Panel */
