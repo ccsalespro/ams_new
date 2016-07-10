@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160708160338) do
     t.string   "author"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "image"
   end
 
   create_table "costs", force: :cascade do |t|
