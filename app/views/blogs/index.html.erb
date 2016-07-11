@@ -53,7 +53,11 @@
 
         
         <hr>
-<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), new_blog_path) %>
+
+<%= link_to new_blog_path, :class => 'btn btn-primary fab-btn' do %>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+<% end %>
+
     
     <!-- /.container -->
 

@@ -45,7 +45,10 @@
 
 
 
-<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), choose_descriptions_path) %>
+
+<%= link_to choose_descriptions_path, :class => 'btn btn-primary fab-btn' do %>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+<% end %>
 
 </div>
 </div>
