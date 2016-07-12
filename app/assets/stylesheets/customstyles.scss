@@ -74,4 +74,16 @@
         font-size: 50px;
     }
 
+/* Sets The Height Of The Social Media Boxes On The About Page */
+
     .thumb-height { height: 190.8px; }
+
+/* Sets The Margins For The Header On The Top Of The Blogs Show Page */
+
+    .no-margin { margin-top: 5px !important; }
+
+    .margin-right { margin-right : 5px !important; }
+
+/* Makes The Text Areas Not Resizable */
+
+    textarea { resize: none; }

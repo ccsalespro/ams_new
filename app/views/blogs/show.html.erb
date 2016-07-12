@@ -4,10 +4,12 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><%= @blog.title %>
-                    <small><%= markdown('By ' + @blog.author) %>
-                    </small>
-                </h1>
+            <div class="hidden-lg hidden-md">
+                <h1 class="page-header text-center"><%= @blog.title %><small><%= markdown('By ' + @blog.author) %></small></h1>
+            </div>
+            <div class="visible-lg visible-md">
+                <h1 class="page-header"><%= @blog.title %><small><%= markdown('By ' + @blog.author) %></small></h1>
+            </div>
                 <ol class="breadcrumb">
                     <li><%= link_to 'Home', :controller => 'static', :action => 'index' %></li>
                     <li><%= link_to 'Blog', :controller => 'blogs', :action => 'index' %></li>
@@ -21,19 +23,22 @@
         <div class="row">
 
             <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
+            <div class="col-md-8">
 
                 <!-- Blog Post -->
 
                 <hr>
 
                 <!-- Date/Time -->
-                <h3 class="text-capitalize"><i class="fa fa-clock-o"></i> Posted <%= time_ago_in_words(@blog.created_at) %> Ago
-                <div class="navbar-right">
-				<%= link_to 'Edit', edit_blog_path(@blog), :class => 'btn btn-primary' %>
-                <%= link_to 'Delete', @blog, method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %>
+                <div class="row">
+                <div class="col-xs-6">
+                <h3 class="text-capitalize no-margin"><i class="fa fa-clock-o"></i> Posted <%= time_ago_in_words(@blog.created_at) %> Ago</h3>
                 </div>
-                </h3>
+                <div class="col-xs-6">
+                <%= link_to 'Delete', @blog, method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary pull-right' %>
+				<%= link_to 'Edit', edit_blog_path(@blog), :class => 'btn btn-primary pull-right margin-right' %>
+                </div>
+                </div>
                 <hr>
 
                 <!-- Preview Image -->
