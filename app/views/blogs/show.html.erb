@@ -56,12 +56,23 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    <h3 class="comments_title">
+                    <% if @blog.comments.count == 1 %>
+                      <%= @blog.comments.count %> Comment
+                    <% else %>
+                    <%= @blog.comments.count %> Comments
+                    <% end  %>
+                    </h3>
+                    <%= form_for [@blog, Comment.new]  do |f| %>
+                      <div class="field">
+                        <%= f.text_area :body, class: "form-control" %>
+                      </div>
+                      <br>
+                      <%= f.submit "Add Comment", class: "btn btn-primary" %>
+                    <% end %><br>
+                     <div id="comments">
+                      <%= render :partial => @blog.comments %>
+                    </div>
                 </div>
 
                 <hr>
