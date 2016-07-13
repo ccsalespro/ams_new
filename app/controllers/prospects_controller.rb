@@ -52,7 +52,7 @@ class ProspectsController < ApplicationController
   def update
     respond_to do |format|
       if @prospect.update(prospect_params)
-        format.html { redirect_to @prospect, notice: 'Prospect was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Prospect was successfully updated.' }
         format.json { render :show, status: :ok, location: @prospect }
       else
         format.html { render :edit }
