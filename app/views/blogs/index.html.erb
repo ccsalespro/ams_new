@@ -37,7 +37,7 @@
             <div class="clearfix visible-xs"></div>
             <div class="col-xs-12 col-md-6">
                 <h3>
-                    <%= link_to blog.title, blog %>
+                    <%= link_to blog.title, blog, :class => 'black' %>
                 </h3>
                 <b><%= markdown('By ' + blog.author) %></b>
                 <%= truncate(markdown(blog.body), :length => 250, :separator => ' ', escape: false) %></strong><br><br>
