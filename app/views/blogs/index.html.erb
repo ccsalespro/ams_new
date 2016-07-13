@@ -39,7 +39,7 @@
                 <h3>
                     <%= link_to blog.title, blog %>
                 </h3>
-                <%= markdown('By ' + blog.author) %>
+                <b><%= markdown('By ' + blog.author) %></b>
                 <%= truncate(markdown(blog.body), :length => 250, :separator => ' ', escape: false) %></strong><br><br>
                 <%= link_to blog do %>
                     <button class="btn btn-primary">Read More <i class="fa fa-angle-right"></i></button>
