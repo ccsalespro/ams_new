@@ -61,7 +61,7 @@
                 <!-- Comments Form -->
                 <div class="well">
                     
-                    <h3 class="comments_title">
+                    <h3 class="comments_title text-center">
                     <% if @blog.comments.count == 1 %>
                       <%= @blog.comments.count %> Comment
                     <% else %>
@@ -70,7 +70,7 @@
                     </h3>
                     <%= form_for [@blog, Comment.new]  do |f| %>
                       <div class="field">
-                        <%= f.text_area :body, class: "form-control" %>
+                        <%= f.text_area :body, class: "form-control", :required => true %>
                       </div>
                       <br>
                       <%= f.submit "Add Comment", class: "btn btn-primary" %>
