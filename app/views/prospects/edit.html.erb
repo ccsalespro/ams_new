@@ -1,4 +1,90 @@
 
-<div class="container">
-<%= render 'form' %>
+<br>
+<div class="col-sm-6">
+<%= form_for(@prospect) do |f| %>
+  <% if @prospect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+      <ul>
+      <% @prospect.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+        <div class="well visible-xs">
+      <h3>next task</h3>
+      </div>
+  <div class="field">
+    <%= f.label :business_name, :class => 'text' %>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name, :class => 'text' %>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, :class => 'text' %>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :email, :class => 'text' %>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
+  </div>
+  <div class="field">
+    <%= f.label :source_type, :class => 'text' %>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
+  </div>  
+    <%= f.hidden_field(:description_id) %>
+    <%= f.hidden_field(:description_primary) %>
+    <%= f.hidden_field(:description_secondary) %>
+    <%= f.hidden_field(:amex_business_type) %>
+  <div class="actions">
+    <%= button_tag("Submit", :class => 'btn btn-primary') %>
+    <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+  </div><br>
+<% end %>
 </div>
+<div class="clearfix"></div>
+
+<div class="col-md-6 hidden-xs" id="right">
+    <br><br><br><br>
+      <div class="well">
+      <h3>next task</h3>
+      </div>
+
+<h4 class="notes_title text-center">Notes</h4>
+        <%= form_for [@prospect, Note.new], remote: true  do |f| %>
+          <div class="field">
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+          </div>
+        <% end %>
+          <div class="notes-margin">
+
+       <div class="notes">
+          <%= render :partial => @prospect.notes %>
+        </div>
+        
+
+    </div>
+    </div>
+
+    <div class="col-md-6 visible-xs">
+
+<h4 class="notes_title text-center">Notes</h4>
+        <%= form_for [@prospect, Note.new], remote: true  do |f| %>
+          <div class="field">
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+          </div>
+        <% end %>
+          <div class="notes-margin">
+
+       <div class="notes">
+          <%= render :partial => @prospect.notes %>
+        </div>
+        
+
+    </div>
+    </div>
+

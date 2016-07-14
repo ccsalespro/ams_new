@@ -13,8 +13,9 @@
         bottom: 10px;
         right: 10px;
         box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-        font-size: 25px !important;
     }
+
+    .fa-plus { margin-top: 12px !important; }
 
 
 /* Search Bar Styles */
@@ -72,3 +73,57 @@
     .big-icon {
         font-size: 50px;
     }
+
+/* Sets The Height Of The Social Media Boxes On The About Page */
+
+    .thumb-height { height: 190.8px; }
+
+/* Sets The Margins For The Header On The Top Of The Blogs Show Page */
+
+    .no-margin { margin-top: 5px !important; }
+
+    .margin-right { margin-right : 5px !important; }
+
+/* Makes The Text Areas Not Resizable */
+
+    textarea { resize: none; }
+
+    /* Styles The HR Tag In The Comments */
+
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+/* Makes Text Black */
+
+.black { color: black; }
+
+/* Styles For The Prospects Modal */
+
+.no-margin-bottom { margin-bottom: 0px !important; }
+
+.no-padding { padding: 0px !important; }
+
+.clickme { cursor: pointer !important; }
+
+.be-gone { margin: 0px !important; margin-top: 8px !important; margin-right: 5px !important; }
+
+/* Formatting For Prospects Notes */
+  
+#right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    width: 50%;
+}
+
+#right {
+  height:100%;
+}
+
+.notes_title { margin: 0px !important;  margin-bottom: 5px !important; }
+
+.notes-margin { padding-top: 5px !important; }

@@ -2,12 +2,16 @@ Rails.application.routes.draw do
   
 
   
+  resources :notes
+  resources :comments
   resources :images
  
 
    devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :blogs
+  resources :blogs do
+    resources :comments
+  end
   get 'blogs/index'
 
 
@@ -59,6 +63,7 @@ Rails.application.routes.draw do
     resources :statements do 
       resources :comparisons
     end  
+    resources :notes
   end
 
   namespace :admin do

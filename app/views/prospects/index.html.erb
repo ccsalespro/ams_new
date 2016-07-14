@@ -20,9 +20,11 @@
     
 
 <br><br><br><br>
- <div class="container-fluid text-center">
-                    <h1><%= @searchnone %></h1>
 
+<!-- visible sm and xs -->
+ <div class="container-fluid text-center">
+                    
+            <div class="visible-xs visible-sm">
             <% @prospects.each do |prospect| %>
                 <div class="col-lg-4">
                 <div class="panel panel-primary text-center">
@@ -42,10 +44,155 @@
                 </div>
                 </div>
                 <% end %>
+                </div>
+
+<!-- visible md and lg -->
+<div class="visible-md visible-lg">
+<table class="table table-striped table-responsive table-bordered">
+    <thead>
+    <tr>
+        <th>Business Name</th>
+        <th>Contact Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @prospects.each do |prospect| %>
+    <tr class="clickme-<%= prospect.id %> clickme">
+        <td class="text-left"><%= prospect.business_name %></td>
+        <td class="text-left"><%= prospect.contact_name %></td>
+        <td class="text-left"><%= prospect.phone %></td>
+        <td class="text-left"><%= prospect.email %></td>
+    </tr>
+
+
+<script>
+$(document).ready(function(){
+    $('.clickme-<%= prospect.id %>').click(function(){
+        $('#<%= prospect.id %>').modal('show');
+    });
+});
+
+$('.modal').on('hidden.bs.modal', function () {
+  window.location.reload(true);
+});
+
+</script>
+    
+
+<!-- Modal -->
+<div id="<%= prospect.id %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close be-gone" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span></button>
+    <h4 class=""><%= prospect.business_name %></h4>
+    </div>
+      <div class="modal-body row">
+      <div class="col-md-6">
+
+        
+        
+  <%= form_for(prospect) do |f| %>
+    <% if prospect.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+        <ul>
+        <% prospect.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="field">
+    <%= f.label :business_name, :class => 'text pull-left' %><br>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %><br>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name, :class => 'text pull-left' %><br>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %><br>
+  </div>
+  <div class="field">
+    <%= f.label :phone, :class => 'text pull-left' %><br>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %><br>
+  </div>
+  <div class="field">
+    <%= f.label :email, :class => 'text pull-left' %><br>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %><br>
+  </div>
+  <div class="field">
+    <%= f.label :source_type, :class => 'text pull-left' %><br>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
+  </div>  
+    <%= f.hidden_field(:description_id) %>
+    <%= f.hidden_field(:description_primary) %>
+    <%= f.hidden_field(:description_secondary) %>
+    <%= f.hidden_field(:amex_business_type) %>
+  <div class="actions">
+    <%= button_tag("Update", :class => 'btn btn-primary') %>
+    <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
+    <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
+<%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
+  </div>
+<% end %>
+<div class="clearfix"></div>
+
+      </div>
+
+
+    <div class="col-md-6" id="right">
+    <br>
+      <div class="well">
+      <h3>next task</h3>
+      </div>
+
+<h4 class="notes_title text-center">Notes</h4>
+        <%= form_for [prospect, Note.new], remote: true  do |f| %>
+          <div class="field">
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+          </div>
+        <% end %>
+          <div class="notes-margin">
+
+       <div class="notes">
+          <%= render :partial => prospect.notes %>
+        </div>
+        
+
+    </div>
+    </div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 
-<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), choose_descriptions_path) %>
+
+    <% end %>
+    </tbody>
+</table>
+</div>
+
+<h1><%= @searchnone %></h1>
+
 
 </div>
 </div>
+
+<%= link_to choose_descriptions_path, :class => 'btn btn-primary fab-btn' do %>
+    <i class="fa fa-plus" aria-hidden="thue"></i>
+
+
+
+<% end %>
+

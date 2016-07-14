@@ -39,7 +39,7 @@ class ProspectsController < ApplicationController
     respond_to do |format|
       if @prospect.save
         format.html { redirect_to @prospect, notice: 'Prospect was successfully created.' }
-        format.json { render :show, status: :created, location: @prospect }
+        format.json { render :back, status: :created, location: @prospect }
       else
         format.html { render :new }
         format.json { render json: @prospect.errors, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ProspectsController < ApplicationController
   def update
     respond_to do |format|
       if @prospect.update(prospect_params)
-        format.html { redirect_to @prospect, notice: 'Prospect was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Prospect was successfully updated.' }
         format.json { render :show, status: :ok, location: @prospect }
       else
         format.html { render :edit }

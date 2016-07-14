@@ -37,9 +37,9 @@
             <div class="clearfix visible-xs"></div>
             <div class="col-xs-12 col-md-6">
                 <h3>
-                    <%= link_to blog.title, blog %>
+                    <%= link_to blog.title, blog, :class => 'black' %>
                 </h3>
-                <%= markdown('By ' + blog.author) %>
+                <b><%= markdown('By ' + blog.author) %></b>
                 <%= truncate(markdown(blog.body), :length => 250, :separator => ' ', escape: false) %></strong><br><br>
                 <%= link_to blog do %>
                     <button class="btn btn-primary">Read More <i class="fa fa-angle-right"></i></button>
@@ -53,7 +53,11 @@
 
         
         <hr>
-<%= link_to(content_tag(:button, '+', :class => 'btn btn-primary fab-btn'), new_blog_path) %>
+
+<%= link_to new_blog_path, :class => 'btn btn-primary fab-btn' do %>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+<% end %>
+
     
     <!-- /.container -->
 
