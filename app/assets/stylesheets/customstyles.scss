@@ -109,3 +109,21 @@ hr.style-two {
 .clickme { cursor: pointer !important; }
 
 .be-gone { margin: 0px !important; margin-top: 8px !important; margin-right: 5px !important; }
+
+/* Formatting For Prospects Notes */
+  
+#right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    width: 50%;
+}
+
+#right {
+  height:100%;
+}
+
+.notes_title { margin: 0px !important;  margin-bottom: 5px !important; }
+
+.notes-margin { padding-top: 5px !important; }

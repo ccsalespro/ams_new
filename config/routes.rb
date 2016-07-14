@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
 
   
+  resources :notes
   resources :comments
   resources :images
  
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
     resources :statements do 
       resources :comparisons
     end  
+    resources :notes
   end
 
   namespace :admin do

@@ -72,11 +72,13 @@
 $(document).ready(function(){
     $('.clickme-<%= prospect.id %>').click(function(){
         $('#<%= prospect.id %>').modal('show');
-        $('.nolink').click(function(event){
-        event.stopPropagation();
- });
     });
 });
+
+$('.modal').on('hidden.bs.modal', function () {
+  window.location.reload(true);
+});
+
 </script>
     
 
@@ -88,42 +90,44 @@ $(document).ready(function(){
     <div class="modal-content">
     <div class="modal-header">
     <button type="button" class="close be-gone" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span></button>
-    <h4 class="pull-left"><%= prospect.business_name %></h4>
+    <h4 class=""><%= prospect.business_name %></h4>
     </div>
-      <div class="modal-body">
-        
-        <br>
-<%= form_for(prospect) do |f| %>
-  <% if prospect.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+      <div class="modal-body row">
+      <div class="col-md-6">
 
-      <ul>
-      <% prospect.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        
+        
+  <%= form_for(prospect) do |f| %>
+    <% if prospect.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+        <ul>
+        <% prospect.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
   <div class="field">
-    <%= f.label :business_name, :class => 'text' %><br>
+    <%= f.label :business_name, :class => 'text pull-left' %><br>
     <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %><br>
   </div>
   <div class="field">
-    <%= f.label :contact_name, :class => 'text' %><br>
+    <%= f.label :contact_name, :class => 'text pull-left' %><br>
     <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %><br>
   </div>
   <div class="field">
-    <%= f.label :phone, :class => 'text' %><br>
+    <%= f.label :phone, :class => 'text pull-left' %><br>
     <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %><br>
   </div>
   <div class="field">
-    <%= f.label :email, :class => 'text' %><br>
+    <%= f.label :email, :class => 'text pull-left' %><br>
     <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %><br>
   </div>
   <div class="field">
-    <%= f.label :source_type, :class => 'text' %><br>
+    <%= f.label :source_type, :class => 'text pull-left' %><br>
     <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
   </div>  
     <%= f.hidden_field(:description_id) %>
@@ -131,12 +135,39 @@ $(document).ready(function(){
     <%= f.hidden_field(:description_secondary) %>
     <%= f.hidden_field(:amex_business_type) %>
   <div class="actions">
-    <%= button_tag("Update Prospect", :class => 'btn btn-primary') %>
+    <%= button_tag("Update", :class => 'btn btn-primary') %>
+    <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
     <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
 <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
   </div>
 <% end %>
 <div class="clearfix"></div>
+
+      </div>
+
+
+    <div class="col-md-6" id="right">
+    <br>
+      <div class="well">
+      <h3>next task</h3>
+      </div>
+
+<h4 class="notes_title text-center">Notes</h4>
+        <%= form_for [prospect, Note.new], remote: true  do |f| %>
+          <div class="field">
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+          </div>
+        <% end %>
+          <div class="notes-margin">
+
+       <div class="notes">
+          <%= render :partial => prospect.notes %>
+        </div>
+        
+
+    </div>
+    </div>
+
 
       </div>
     </div>
