@@ -3,4 +3,5 @@ class Prospect < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :description
 	has_many :notes
+	belongs_to :stage
 end

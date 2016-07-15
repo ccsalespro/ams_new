@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  
 
-  
+  resources :stages
   resources :notes
   resources :comments
   resources :images
@@ -59,12 +58,12 @@ Rails.application.routes.draw do
 
   end
   
-  resources :prospects do
-    resources :statements do 
-      resources :comparisons
-    end  
-    resources :notes
-  end
+    resources :prospects do
+      resources :statements do 
+        resources :comparisons
+      end  
+      resources :notes
+    end
 
   namespace :admin do
     resources :users
