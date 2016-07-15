@@ -55,6 +55,7 @@
         <th>Contact Name</th>
         <th>Phone</th>
         <th>Email</th>
+        <th>Stage</th>
     </tr>
     </thead>
 
@@ -65,6 +66,7 @@
         <td class="text-left"><%= prospect.contact_name %></td>
         <td class="text-left"><%= prospect.phone %></td>
         <td class="text-left"><%= prospect.email %></td>
+        <td class="text-left"><%= prospect.stage.name %></td>
     </tr>
 
 
@@ -129,7 +131,11 @@ $('.modal').on('hidden.bs.modal', function () {
   <div class="field">
     <%= f.label :source_type, :class => 'text pull-left' %><br>
     <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
-  </div>  
+  </div>
+  <div class="field text-left">
+    <p class="text text-left"><b>Stage</b></p>
+    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %><br><br>
+  </div>
     <%= f.hidden_field(:description_id) %>
     <%= f.hidden_field(:description_primary) %>
     <%= f.hidden_field(:description_secondary) %>
