@@ -9,7 +9,9 @@
 
 		<div class="btn-group pull-right">
 			<% if comment.user == current_user -%>
-				<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are You Sure?' }, class: "btn btn-sm btn-primary" %>
+						<%= link_to comment, method: :delete do %>
+							<i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+						<% end %>
 			<% end %>
 		</div>
 	</div>

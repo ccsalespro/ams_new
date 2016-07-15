@@ -113,24 +113,20 @@ $('.modal').on('hidden.bs.modal', function () {
     <% end %>
 
   <div class="field">
-    <%= f.label :business_name, :class => 'text pull-left' %><br>
-    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %><br>
+    <%= f.label :business_name, :class => 'text pull-left' %>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :contact_name, :class => 'text pull-left' %><br>
-    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %><br>
+    <%= f.label :contact_name, :class => 'text pull-left' %>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :phone, :class => 'text pull-left' %><br>
-    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %><br>
+    <%= f.label :phone, :class => 'text pull-left' %>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :email, :class => 'text pull-left' %><br>
-    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %><br>
-  </div>
-  <div class="field">
-    <%= f.label :source_type, :class => 'text pull-left' %><br>
-    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
+    <%= f.label :email, :class => 'text pull-left' %>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
   </div>
   <div class="field text-left">
     <p class="text text-left"><b>Stage</b></p>
@@ -157,8 +153,8 @@ $('.modal').on('hidden.bs.modal', function () {
       <div class="well">
       <h3>next task</h3>
       </div>
-
-<h4 class="notes_title text-center">Notes</h4>
+<div class="well notes-margin">
+<p class="notes_title text-center"><b>Notes</b></p>
         <%= form_for [prospect, Note.new], remote: true  do |f| %>
           <div class="field">
             <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
@@ -171,6 +167,7 @@ $('.modal').on('hidden.bs.modal', function () {
         </div>
         
 
+    </div>
     </div>
     </div>
 

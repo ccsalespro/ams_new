@@ -76,8 +76,8 @@
     <%= f.label "Daily Batches", :class => 'text' %>
     <%= f.text_field(:batches, :class => "form-control", :id => "inputdefault") %>
 </div><br>
-<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
 <%= button_tag("Save Edits", :class => 'btn btn-primary') %>
+<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
 <div class="field">
     <%= f.hidden_field(:vmd_avg_ticket) %>
 </div>

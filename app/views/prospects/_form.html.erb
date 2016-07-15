@@ -11,36 +11,36 @@
       </ul>
     </div>
   <% end %>
-  <div class="col-sm-4 col-sm-offset-4 text-center">
+  <div class="col-sm-4 col-sm-offset-4">
   <div class="field">
-    <%= f.label :business_name, :class => 'text' %><br>
-    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %><br><br>
+    <%= f.label :business_name, :class => 'text' %>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :contact_name, :class => 'text' %><br>
-    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %><br><br>
+    <%= f.label :contact_name, :class => 'text' %>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :phone, :class => 'text' %><br>
-    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %><br><br>
+    <%= f.label :phone, :class => 'text' %>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <%= f.label :email, :class => 'text' %><br>
-    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %><br><br>
+    <%= f.label :email, :class => 'text' %>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
   </div>
   <div class="field">
-    <%= f.label :source_type, :class => 'text' %><br>
-    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br><br>
+    <%= f.label :source_type, :class => 'text' %>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
   </div>  
    <div class="field">
-    <p class="text">Stage</p><br>
-    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %><br><br>
-  </div>  
+    <p class="text small-margin"><b>Stage</b></p>
+    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
+  </div><br>
     <%= f.hidden_field(:description_id) %>
     <%= f.hidden_field(:description_primary) %>
     <%= f.hidden_field(:description_secondary) %>
     <%= f.hidden_field(:amex_business_type) %>
-  <div class="actions">
+  <div class="actions text-center">
     <%= button_tag("Submit", :class => 'btn btn-primary') %>
     <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
   </div>

@@ -13,8 +13,8 @@
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+    <em>(<%= @minimum_password_length %> Characters Minimum)</em>
+    <% end %><br>
     <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
   </div>
 
@@ -27,7 +27,6 @@
     <%= f.submit "Sign up", :class => 'btn btn-primary' %>
   </div>
 <% end %>
-<br>
 <div class="text-center">
 <%= render "devise/shared/links" %>
 </div>

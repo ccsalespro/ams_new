@@ -34,10 +34,10 @@
   </div>
   <div class="field">
     <%= f.label :source_type, :class => 'text' %>
-    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %><br>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-    <p class="text">Stage</p><br>
+    <p class="text"><b>Stage</b></p>
     <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %><br><br>
   </div>
     <%= f.hidden_field(:description_id) %>
