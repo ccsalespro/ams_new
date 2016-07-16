@@ -15,7 +15,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Data Number</th>
+      <th>ID</th>
+      <th>Month</th>
       <th>Business DBA</th>
       <th>Business type primary</th>
       <th>Business type secondary</th>
@@ -48,7 +49,8 @@
   <tbody>
     <% @merchants.each do |merchant| %>
       <tr>
-        <td><%= merchant.data_number %></td>
+        <td><%= merchant.id %></td>
+        <td><%= merchant.month %></td>
         <td><%= merchant.business_dba %></td>
         <td><%= merchant.business_type_primary %></td>
         <td><%= merchant.business_type_secondary %></td>

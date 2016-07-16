@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715190333) do
+ActiveRecord::Schema.define(version: 20160716021830) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20160715190333) do
 
   create_table "merchants", force: :cascade do |t|
     t.string   "business_dba"
-    t.integer  "data_number"
+    t.integer  "mid"
     t.string   "business_type_primary"
     t.string   "business_type_secondary"
     t.integer  "sic_1"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160715190333) do
     t.decimal  "ebt_fees"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "month"
   end
 
   create_table "notes", force: :cascade do |t|
