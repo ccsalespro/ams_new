@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+<p>Create One New Interchange Item</p>
+<%= link_to 'New Intitem', new_intitem_path %>
+
+<h2>Import Multiple Interchange Items</h2>
+
+<%= form_tag import_intitems_path, multipart: true do %>
+
+  <%= file_field_tag :file %><br>
+  <%= submit_tag "Import", :class => 'btn btn-default' %>
+<% end %>
+
+<h1>Listing Intitems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Merchant</th>
+      <th>Inttype</th>
+      <th>Month</th>
+      <th>Card type</th>
+      <th>Transactions</th>
+      <th>Volume</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intitems.each do |intitem| %>
+      <tr>
+        <td><%= intitem.merchant %></td>
+        <td><%= intitem.inttype %></td>
+        <td><%= intitem.month %></td>
+        <td><%= intitem.card_type %></td>
+        <td><%= intitem.transactions %></td>
+        <td><%= intitem.volume %></td>
+        <td><%= link_to 'Show', intitem %></td>
+        <td><%= link_to 'Edit', edit_intitem_path(intitem) %></td>
+        <td><%= link_to 'Destroy', intitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

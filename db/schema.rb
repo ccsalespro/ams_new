@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716021830) do
+ActiveRecord::Schema.define(version: 20160717011959) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -57,6 +57,42 @@ ActiveRecord::Schema.define(version: 20160716021830) do
     t.binary   "file_contents"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "intitems", force: :cascade do |t|
+    t.integer  "merchant_id"
+    t.integer  "inttype_id"
+    t.integer  "month"
+    t.string   "card_type"
+    t.integer  "transactions"
+    t.decimal  "volume"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "intitems", ["inttype_id"], name: "index_intitems_on_inttype_id"
+  add_index "intitems", ["merchant_id"], name: "index_intitems_on_merchant_id"
+
+  create_table "inttableitems", force: :cascade do |t|
+    t.integer  "inttype_id"
+    t.integer  "statement_id"
+    t.integer  "transactions"
+    t.decimal  "volume"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "inttableitems", ["inttype_id"], name: "index_inttableitems_on_inttype_id"
+  add_index "inttableitems", ["statement_id"], name: "index_inttableitems_on_statement_id"
+
+  create_table "inttypes", force: :cascade do |t|
+    t.string   "card_type"
+    t.string   "description"
+    t.decimal  "percent"
+    t.decimal  "per_item"
+    t.decimal  "max"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "merchants", force: :cascade do |t|

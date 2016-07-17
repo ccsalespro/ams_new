@@ -1,0 +1,41 @@
+<%= form_for(@intitem) do |f| %>
+  <% if @intitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@intitem.errors.count, "error") %> prohibited this intitem from being saved:</h2>
+
+      <ul>
+      <% @intitem.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :merchant_id %><br>
+    <%= f.text_field :merchant_id %>
+  </div>
+  <div class="field">
+    <%= f.label :inttype_id %><br>
+    <%= f.text_field :inttype_id %>
+  </div>
+  <div class="field">
+    <%= f.label :month %><br>
+    <%= f.number_field :month %>
+  </div>
+  <div class="field">
+    <%= f.label :card_type %><br>
+    <%= f.text_field :card_type %>
+  </div>
+  <div class="field">
+    <%= f.label :transactions %><br>
+    <%= f.number_field :transactions %>
+  </div>
+  <div class="field">
+    <%= f.label :volume %><br>
+    <%= f.text_field :volume %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

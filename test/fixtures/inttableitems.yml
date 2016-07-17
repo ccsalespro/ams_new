@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inttype_id: 
+  statement_id: 
+  transactions: 1
+  volume: 9.99
+
+two:
+  inttype_id: 
+  statement_id: 
+  transactions: 1
+  volume: 9.99

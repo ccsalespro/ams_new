@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :inttableitems
+  resources :intitems do
+    collection { post :import }
+  end
+  resources :inttypes do
+    collection { post :import }
+  end
   resources :stages
   resources :notes
   resources :comments

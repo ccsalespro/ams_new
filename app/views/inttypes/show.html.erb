@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Card type:</strong>
+  <%= @inttype.card_type %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @inttype.description %>
+</p>
+
+<p>
+  <strong>Percent:</strong>
+  <%= @inttype.percent %>
+</p>
+
+<p>
+  <strong>Per item:</strong>
+  <%= @inttype.per_item %>
+</p>
+
+<p>
+  <strong>Max:</strong>
+  <%= @inttype.max %>
+</p>
+
+<%= link_to 'Edit', edit_inttype_path(@inttype) %> |
+<%= link_to 'Back', inttypes_path %>

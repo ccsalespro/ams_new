@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Merchant:</strong>
+  <%= @intitem.merchant %>
+</p>
+
+<p>
+  <strong>Inttype:</strong>
+  <%= @intitem.inttype %>
+</p>
+
+<p>
+  <strong>Mid:</strong>
+  <%= @intitem.mid %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @intitem.month %>
+</p>
+
+<p>
+  <strong>Card type:</strong>
+  <%= @intitem.card_type %>
+</p>
+
+<p>
+  <strong>Transactions:</strong>
+  <%= @intitem.transactions %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @intitem.volume %>
+</p>
+
+<%= link_to 'Edit', edit_intitem_path(@intitem) %> |
+<%= link_to 'Back', intitems_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  merchant_id: 
+  inttype_id: 
+  mid: 1
+  month: 1
+  card_type: MyString
+  transactions: 1
+  volume: 9.99
+
+two:
+  merchant_id: 
+  inttype_id: 
+  mid: 1
+  month: 1
+  card_type: MyString
+  transactions: 1
+  volume: 9.99

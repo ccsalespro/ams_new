@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inttype:</strong>
+  <%= @inttableitem.inttype %>
+</p>
+
+<p>
+  <strong>Statement:</strong>
+  <%= @inttableitem.statement %>
+</p>
+
+<p>
+  <strong>Transactions:</strong>
+  <%= @inttableitem.transactions %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @inttableitem.volume %>
+</p>
+
+<%= link_to 'Edit', edit_inttableitem_path(@inttableitem) %> |
+<%= link_to 'Back', inttableitems_path %>
