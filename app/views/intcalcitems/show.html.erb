@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inttype:</strong>
+  <%= @intcalcitem.inttype %>
+</p>
+
+<p>
+  <strong>Transactions:</strong>
+  <%= @intcalcitem.transactions %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @intcalcitem.volume %>
+</p>
+
+<%= link_to 'Edit', edit_intcalcitem_path(@intcalcitem) %> |
+<%= link_to 'Back', intcalcitems_path %>

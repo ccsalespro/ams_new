@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :intcalcitems
   resources :inttableitems
   resources :intitems do
     collection { post :import }

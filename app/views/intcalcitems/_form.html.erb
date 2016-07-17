@@ -1,0 +1,29 @@
+<%= form_for(@intcalcitem) do |f| %>
+  <% if @intcalcitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@intcalcitem.errors.count, "error") %> prohibited this intcalcitem from being saved:</h2>
+
+      <ul>
+      <% @intcalcitem.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :inttype_id %><br>
+    <%= f.text_field :inttype_id %>
+  </div>
+  <div class="field">
+    <%= f.label :transactions %><br>
+    <%= f.number_field :transactions %>
+  </div>
+  <div class="field">
+    <%= f.label :volume %><br>
+    <%= f.text_field :volume %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
