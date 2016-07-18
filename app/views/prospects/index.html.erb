@@ -77,10 +77,6 @@ $(document).ready(function(){
     });
 });
 
-$('.modal').on('hidden.bs.modal', function () {
-  window.location.reload(true);
-});
-
 </script>
     
 
@@ -162,7 +158,7 @@ $('.modal').on('hidden.bs.modal', function () {
         <% end %>
           <div class="notes-margin">
 
-       <div class="notes">
+       <div class="notes<%= prospect.id %>">
           <%= render :partial => prospect.notes %>
         </div>
         
