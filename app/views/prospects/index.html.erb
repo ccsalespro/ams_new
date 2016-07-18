@@ -146,8 +146,15 @@ $(document).ready(function(){
 
     <div class="col-md-6" id="right">
     <br>
-      <div class="well">
-      <h3>next task</h3>
+  <div class="well next-task-well">
+    <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
+      <h4 class="no-margin text-left">Next Action:
+      <% if prospect.tasks.size == 0 %><% else %><span class="pull-right"><%= @sorted_tasks.first.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+      <% if prospect.tasks.size == 0 %>
+      <p class="text-left">No Actions<br><%= link_to "Add An Action", edit_prospect_path(prospect), :class => 'grey' %></p>
+      <% else %>
+      <p class="text-left"><span class="break"><%= @sorted_tasks.first.body %></span></p>
+      <% end %>
       </div>
 <div class="well notes-margin">
 <p class="notes_title text-center"><b>Notes</b></p>

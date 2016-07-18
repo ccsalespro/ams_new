@@ -1,0 +1,14 @@
+<%= div_for(task) do %>
+	<div class="clearfix delete">
+		<div class="">
+		<div class="btn-group pull-right">
+				<%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+				    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+				<% end %>
+		</div>
+		<p class="text-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+			<p class="text-left"><%= task.body %><span class="pull-right"><%= task.finish_date.strftime("%m/%d/%Y") %></span></p>
+			
+		</div>
+	</div>
+<% end %>

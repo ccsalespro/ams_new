@@ -1,6 +1,6 @@
 
 <br>
-<div class="col-sm-6">
+<div class="col-sm-6" id="left">
 <%= form_for(@prospect) do |f| %>
   <% if @prospect.errors.any? %>
     <div id="error_explanation">
@@ -49,24 +49,60 @@
     <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
   </div><br>
 <% end %>
+
+<h4 class="notes_title text-center">New Task</h4>
+<%= form_for [@prospect, Task.new] do |f| %>
+
+  <div class="field">
+    <%= f.text_field :body, :class => 'form-control body', :placeholder => 'Add Task', :required => true %>
+    <%= f.date_select :finish_date, :class => '', :required => true %>
+  </div>
+<% end %>
+<div class="notes-margin">
+
+ <div class="tasks<%= @prospect.id %>">
+ <% @sorted_tasks.each do |task| %>
+    <div class="clearfix delete">
+    <div class="">
+    <div class="btn-group delete-btn-action pull-right">
+        <span><%= task.finish_date.strftime("%m/%d/%Y") %><span>
+        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+        <% end %>
+    </div>
+    <p class="text-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+      <p class="text-left"><%= task.body %></p>
+      
+    </div>
+  </div>
+ <% end %>
 </div>
+</div>
+</div>
+
 <div class="clearfix"></div>
 
 <div class="col-md-6 hidden-xs" id="right">
     <br><br><br><br>
-      <div class="well">
-      <h3>next task</h3>
+      <div class="well next-task-well">
+      <h4 class="no-margin text-left">Next Action:
+      <% if @prospect.tasks.size == 0 %><% else %><span class="pull-right"><%= @sorted_tasks.first.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+      <% if @prospect.tasks.size == 0 %>
+      <p class="text-left">No Actions</p>
+      <% else %>
+      <p class="text-left"><%= @sorted_tasks.first.body %><span class="pull-right"></span></p>
+      <% end %>
       </div>
 
 <h4 class="notes_title text-center">Notes</h4>
-        <%= form_for [@prospect, Note.new], remote: true  do |f| %>
+        <%= form_for [@prospect, Note.new], remote: true do |f| %>
           <div class="field">
             <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
           </div>
         <% end %>
           <div class="notes-margin">
 
-       <div class="notes">
+       <div class="notes<%= @prospect.id %>">
           <%= render :partial => @prospect.notes %>
         </div>
         
@@ -91,4 +127,3 @@
 
     </div>
     </div>
-

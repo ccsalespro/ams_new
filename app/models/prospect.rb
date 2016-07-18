@@ -4,5 +4,6 @@ class Prospect < ActiveRecord::Base
 	belongs_to :description
 	has_many :notes
 	belongs_to :stage
+	has_many :tasks
 	validates :stage, :presence => true
 end

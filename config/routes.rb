@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+ 
+  get 'tasks/index'
+
+
   resources :stages
   resources :notes
   resources :comments
@@ -63,6 +67,7 @@ Rails.application.routes.draw do
         resources :comparisons
       end  
       resources :notes
+      resources :tasks
     end
 
   namespace :admin do

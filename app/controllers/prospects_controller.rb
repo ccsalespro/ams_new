@@ -3,6 +3,7 @@ class ProspectsController < ApplicationController
   before_action :load_description, only: [:new]
   before_action :authenticate_user!
 
+
   # GET /prospects
   # GET /prospects.json
   def index
@@ -29,6 +30,7 @@ class ProspectsController < ApplicationController
 
   # GET /prospects/1/edit
   def edit
+    @sorted_tasks = @prospect.tasks.sort_by{ |t| t.finish_date }
   end
 
   # POST /prospects
