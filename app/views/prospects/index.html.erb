@@ -151,7 +151,7 @@ $(document).ready(function(){
       <h4 class="no-margin text-left">Next Action:
       <% if prospect.tasks.size == 0 %><% else %><span class="pull-right"><%= @sorted_tasks.first.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
       <% if prospect.tasks.size == 0 %>
-      <p class="text-left">No Actions<br><%= link_to "Add An Action", edit_prospect_path(prospect), :class => 'grey' %></p>
+      <p class="text-left"><%= link_to "Add An Action", edit_prospect_path(prospect), :class => 'grey' %></p>
       <% else %>
       <p class="text-left"><span class="break"><%= @sorted_tasks.first.body %></span></p>
       <% end %>

@@ -141,9 +141,26 @@ hr.style-two {
 
 .notes-margin { padding-top: 5px !important; }
 
-.next-task-well { padding-top: 5px !important; padding-bottom: 0px !important; }
+.next-task-well { padding-top: 10px !important; padding-bottom: 0px !important; }
 
 .delete-btn-action { margin-top: 1px !important; }
+
+.action-dateselect-top { margin-top: 10px !important; padding-right: 0px !important; }
+
+.action-submit-top { margin-top: 7px !important; padding-left: 0px !important;}
+
+.margin-bottom-actions { margin-bottom: 20px !important; }
+
+.no-margin { margin: 0px !important; }
+
+.margin-top-edit-prospect-btns {margin-top: 15px !important; }
+
+@media screen and (max-width: 360px) {
+    .action-submit-top {
+        width: 60px !important;
+        padding: 0px !important;
+    }
+}
 
 /* Forms */
 
