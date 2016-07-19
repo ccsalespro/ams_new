@@ -6,6 +6,10 @@ class MerchantsController < ApplicationController
   # GET /merchants.json
   def index
     @merchants = Merchant.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @merchants.to_csv }
+    end
   end
 
   def import

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717034935) do
+ActiveRecord::Schema.define(version: 20160718223341) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -63,11 +63,18 @@ ActiveRecord::Schema.define(version: 20160717034935) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "statement_id"
+    t.integer  "prospect_id"
+    t.decimal  "inttype_percent"
+    t.decimal  "inttable_transactions"
+    t.decimal  "inttable_volume"
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
+  add_index "intcalcitems", ["prospect_id"], name: "index_intcalcitems_on_prospect_id"
+  add_index "intcalcitems", ["statement_id"], name: "index_intcalcitems_on_statement_id"
 
   create_table "intitems", force: :cascade do |t|
     t.integer  "merchant_id"
@@ -135,7 +142,10 @@ ActiveRecord::Schema.define(version: 20160717034935) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "month"
+    t.integer  "description_id"
   end
+
+  add_index "merchants", ["description_id"], name: "index_merchants_on_description_id"
 
   create_table "notes", force: :cascade do |t|
     t.integer  "prospect_id"

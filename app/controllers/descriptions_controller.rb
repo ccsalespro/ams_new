@@ -7,6 +7,10 @@ class DescriptionsController < ApplicationController
 
   def index
       @descriptions = Description.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @descriptions.to_csv }
+    end
   end
 
   def import

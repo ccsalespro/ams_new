@@ -28,8 +28,8 @@
   <tbody>
     <% @intitems.each do |intitem| %>
       <tr>
-        <td><%= intitem.merchant %></td>
-        <td><%= intitem.inttype %></td>
+        <td><%= intitem.merchant.id %></td>
+        <td><%= intitem.inttype.id %></td>
         <td><%= intitem.month %></td>
         <td><%= intitem.card_type %></td>
         <td><%= intitem.transactions %></td>

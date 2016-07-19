@@ -38,7 +38,7 @@ class StatementsController < ApplicationController
     @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
     @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
     @statement.check_card_trans = @statement.check_card_vol / @statement.check_card_avg_ticket
-    
+
     general_cost("debit", @statement.avg_ticket)
     @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
     general_cost("check_card", @statement.avg_ticket)
@@ -118,13 +118,13 @@ class StatementsController < ApplicationController
       @merchants_primary.each do |merchant|
       @merchantintitems = merchant.intitems
         @merchantintitems.each do |item|
-          if Intcalcitem.exists?(:inttype_id => item.inttype_id)
-            @intcalcitem = Intcalcitem.find_by(inttype_id: item.inttype_id)
+          if Intcalcitem.exists?(:statement_id => @statement.id, :inttype_id => item.inttype_id)
+            @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
             @intcalcitem.transactions += item.transactions
             @intcalcitem.volume += item.volume
             @intcalcitem.save
           else
-            @intcalcitem = Intcalcitem.new
+            @intcalcitem = @statement.intcalcitems.build
             @intcalcitem.inttype_id = item.inttype_id
             @intcalcitem.transactions = item.transactions
             @intcalcitem.volume = item.volume

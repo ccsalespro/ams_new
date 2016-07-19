@@ -11,6 +11,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Amex Business Type</th>
       <th>Business type primary</th>
       <th>Business type secondary</th>
@@ -21,6 +22,7 @@
   <tbody>
     <% @descriptions.each do |description| %>
       <tr>
+        <td><%= description.id %></td>
         <td><%= description.amex_business_type %></td>
         <td><%= description.business_type_primary %></td>
         <td><%= description.business_type_secondary %></td>
