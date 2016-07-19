@@ -1,0 +1,28 @@
+<div class="col-xs-12">
+  <h2 id="month">
+    <%= link_to date: @date.prev_month do %>
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+    <% end %>
+  <%= @date.strftime("%B %Y") %>
+  <%= link_to date: @date.next_month do %>
+  <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+  <% end %>
+  </h2>
+    <%= calendar @date do |date| %>
+    <%= date.day %>
+    <% if @grouped_tasks[date] %>
+    <ul>
+        <% @grouped_tasks[date].each do |task| %>
+
+          <% if task.completed? %>
+            <li class="green"><strike><%= task.body %></strike></li>
+          <% else %>
+            <li class="red"><%= task.body %></li>
+          <% end %>
+
+
+        <% end %>
+    </ul>
+    <% end %>
+    <% end %>
+</div>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+
+
   get 'tasks/index'
 
 
@@ -61,6 +63,8 @@ Rails.application.routes.draw do
     end
 
   end
+
+    get 'calendars/index'
 
     resources :prospects do
       resources :statements do
