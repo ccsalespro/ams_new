@@ -43,7 +43,7 @@ class StatementsController < ApplicationController
     @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
     general_cost("check_card", @statement.avg_ticket)
     @statement.check_card_interchange = ((@statement.check_card_trans * @cost.per_item_value) + (@statement.check_card_vol * (@cost.percentage_value/100)))
-    interchange_cost(@prospect.description_primary, @prospect.description_secondary)
+    interchange_cost(@prospect.description_id)
     @statement.vmd_interchange = @statement.vmd_vol * (0.0164)
 
 
@@ -107,17 +107,22 @@ class StatementsController < ApplicationController
     def amex_cost(payment_type, business_type, avg_ticket)
       @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
     end
-    def interchange_cost(business_type_primary, business_type_secondary)
+    def interchange_cost(description_id)
       
       # Find all merchants in the database maching the primary description.
-      @merchants_primary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"])
+      @merchants_type = Merchant.all.where(["description_id = ?", description_id])
       
-      # Find all merchants in the database maching the secondary (specific) description.
-      @merchants_secondary = Merchant.all.where(["business_type_primary = ?", "#{business_type_primary}"]).where(["business_type_secondary = ?", "#{business_type_secondary}"])
+      @total_transactions = 0
+      @total_volume = 0
+      @number_of_merchants = 0
       
-      @merchants_primary.each do |merchant|
+      
+      @merchants_type.each do |merchant|
+        @number_of_merchants += 1
       @merchantintitems = merchant.intitems
         @merchantintitems.each do |item|
+            @total_transactions += item.transactions
+            @total_volume += item.volume
           if Intcalcitem.exists?(:statement_id => @statement.id, :inttype_id => item.inttype_id)
             @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
             @intcalcitem.transactions += item.transactions
@@ -125,13 +130,20 @@ class StatementsController < ApplicationController
             @intcalcitem.save
           else
             @intcalcitem = @statement.intcalcitems.build
+            @intcalcitem.prospect_id = @prospect.id
             @intcalcitem.inttype_id = item.inttype_id
             @intcalcitem.transactions = item.transactions
             @intcalcitem.volume = item.volume
+            @intcalcitem.description_id = @prospect.description_id
             @intcalcitem.save
           end
         end
       end
+          @intcalcitems = Intcalcitem.where(:statement_id => @statement.id)
+          @intcalcitems.each do |item|  
+            item.inttype_percent = item.transactions.to_f / @total_transactions.to_f
+          item.save
+          end
     end
       
 end

@@ -5,6 +5,10 @@ class IntcalcitemsController < ApplicationController
   # GET /intcalcitems.json
   def index
     @intcalcitems = Intcalcitem.all
+     respond_to do |format|
+      format.html
+      format.csv { render text: @intcalcitems.to_csv }
+    end
   end
 
   # GET /intcalcitems/1

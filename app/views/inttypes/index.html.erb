@@ -12,9 +12,10 @@
 <% end %>
 
 <h1>Listing Inttypes</h1>
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Card type</th>
       <th>Description</th>
       <th>Percent</th>
@@ -27,6 +28,7 @@
   <tbody>
     <% @inttypes.each do |inttype| %>
       <tr>
+        <td><%= inttype.id %></td>
         <td><%= inttype.card_type %></td>
         <td><%= inttype.description %></td>
         <td><%= inttype.percent %></td>

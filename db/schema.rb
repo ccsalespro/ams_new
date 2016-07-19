@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718223341) do
+ActiveRecord::Schema.define(version: 20160719164835) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -63,13 +63,12 @@ ActiveRecord::Schema.define(version: 20160718223341) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
-    t.decimal  "inttable_transactions"
-    t.decimal  "inttable_volume"
+    t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
