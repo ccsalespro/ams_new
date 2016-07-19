@@ -47,7 +47,7 @@ class StatementsController < ApplicationController
     @statement.check_card_interchange = ((@statement.check_card_trans * @cost.per_item_value) + (@statement.check_card_vol * (@cost.percentage_value/100)))
     
     interchange_cost(@prospect.description_id,  @total_vmd_check_card_trans, @total_vmd_check_card_vol)
-    @statement.vmd_interchange = @statement.vmd_vol * (0.0164)
+    @statement.vmd_interchange = @costs
 
 
     amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
@@ -118,19 +118,20 @@ class StatementsController < ApplicationController
       
       
      @intcalcitems.each do |item|
-        @inttype = Inttype.find_by_id(item.description_id)   
+        @inttype = Inttype.find_by_id(item.inttype_id)   
         @inttableitem = @statement.inttableitems.build
         @inttableitem.inttype_id = item.inttype_id
         @inttableitem.transactions = total_transactions * item.inttype_percent
         @inttableitem.volume = total_vol * item.inttype_percent
-        @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume * @inttype.percent )
+        @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume.to_f * @inttype.percent )
         @inttableitem.save
       end
       @costs = 0
-      @inttableitems = Inttableitem.find_by(statement_id: @statement.id)
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
       @inttableitems.each do |item|
         @costs += item.costs
       end
+      @costs
     end
       
 end
