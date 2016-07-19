@@ -10,6 +10,10 @@ class IntcalcitemsController < ApplicationController
       format.csv { render text: @intcalcitems.to_csv }
     end
   end
+  def import
+    Intcalcitem.import(params[:file])
+    redirect_to intcalcitems_path, notice: "Items imported"
+  end
 
   # GET /intcalcitems/1
   # GET /intcalcitems/1.json
