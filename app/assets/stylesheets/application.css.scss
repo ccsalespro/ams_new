@@ -1,3 +1,6 @@
+/*
+*= require jquery.datetimepicker
+*/
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bourbon";
@@ -5,3 +8,4 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "customstyles";
+@import "calendar";

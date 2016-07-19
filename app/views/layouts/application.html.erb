@@ -10,12 +10,12 @@
         <%= stylesheet_link_tag('application', :media => 'all') %>
         <%= javascript_include_tag "application" %>
         <%= csrf_meta_tags %>
-	</head> 
+	</head>
 <body>
 <% flash.each do |name, msg| %>
   <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
 <% end %>
-  
+
   <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top nav-custom-styles" role="navigation">
         <div class="container">
@@ -28,9 +28,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <%= link_to root_path do %>
-                    <%= image_tag('logo.png', :class => 'navbar-brand') %>
+                    <%= image_tag('iqlogo.png', :class => 'navbar-brand') %>
                 <% end %>
-                
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -89,6 +89,12 @@
     </nav>
 
 <%= yield %>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 
 </body>
 </html>

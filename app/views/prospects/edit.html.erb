@@ -1,6 +1,6 @@
 
 <br>
-<div class="col-sm-6">
+<div class="col-sm-6 hidden-xs" id="left">
 <%= form_for(@prospect) do |f| %>
   <% if @prospect.errors.any? %>
     <div id="error_explanation">
@@ -13,8 +13,125 @@
       </ul>
     </div>
   <% end %>
-        <div class="well visible-xs">
-      <h3>next task</h3>
+
+  <div class="field">
+    <%= f.label :business_name, :class => 'text' %>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name, :class => 'text' %>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, :class => 'text' %>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+    <%= f.label :email, :class => 'text' %>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
+  </div>
+  <div class="field">
+    <%= f.label :source_type, :class => 'text' %>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field row">
+  <div class="col-xs-6">
+    <p class="text no-margin"><b>Stage</b></p>
+    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
+  </div>
+  <div class="col-xs-6 margin-top-edit-prospect-btns">
+      <span class="pull-right">
+          <%= button_tag("Submit", :class => 'btn btn-primary') %>
+          <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+      </span>
+  </div>
+  </div><div class="clearfix"></div>
+    <%= f.hidden_field(:description_id) %>
+    <%= f.hidden_field(:description_primary) %>
+    <%= f.hidden_field(:description_secondary) %>
+    <%= f.hidden_field(:amex_business_type) %>
+    <br>
+<% end %>
+
+<h4 class="notes_title text-center">Actions</h4>
+<%= form_for [@prospect, Task.new] do |f| %>
+
+  <div class="field">
+    <%= f.text_field :body, :class => 'form-control body', :placeholder => 'Add Task', :required => true %>
+    <div class="row margin-bottom-actions">
+    <div class="col-xs-4 action-dateselect-top"><%= f.text_field :finish_date, :class => 'datetimepicker form-control', :required => true, :data => { :toggle => 'tooltip' }, :title => 'Click To Add Date' %></div>
+    <div class="col-xs-1 action-submit-top pull-right"><button class="btn btn-primary pull-right">Add Action</button></div>
+  </div>
+  </div><div class="clearfix"></div>
+<% end %>
+<div class="notes-margin">
+
+ <div class="tasks<%= @prospect.id %>">
+ <% @sorted_tasks.each do |task| %>
+    <% if task.completed? %>
+
+    <div class="clearfix delete">
+    <div class="delete-btn-action">
+      <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+      <div class="pull-right">
+        <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
+        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+        <i class="fa fa-check-square-o green" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+          <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+        <% end %>
+      </div><div class="clearfix"></div>
+      <p class="text-left"><strike><%= task.body %></strike></p>
+      </div>
+      </div>
+
+    <% else %>
+
+    <div class="clearfix delete">
+    <div class="delete-btn-action">
+      <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+      <div class="pull-right">
+        <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
+        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+        <i class="fa fa-square-o black" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+          <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+        <% end %>
+      </div><div class="clearfix"></div>
+      <p class="text-left"><%= task.body %></p>
+      </div>
+      </div>
+
+    <% end %>
+
+ <% end %>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6 visible-xs">
+<%= form_for(@prospect) do |f| %>
+  <% if @prospect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@prospect.errors.count, "error") %> prohibited this prospect from being saved:</h2>
+
+      <ul>
+      <% @prospect.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+      <div class="well visible-xs">
+      <h4 class="no-margin text-left">Next Action:
+        <% if @uncompleted_tasks.size == 0 %><% else %><span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+        <% if @uncompleted_tasks.size == 0 %>
+        <p class="text-left no-margin-bottom">No Actions</p>
+        <% else %>
+            <p class="text-left no-margin-bottom"><%= @next_task.body %><span class="pull-right"></span></p>
+        <% end %>
       </div>
   <div class="field">
     <%= f.label :business_name, :class => 'text' %>
@@ -36,40 +153,108 @@
     <%= f.label :source_type, :class => 'text' %>
     <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
   </div>
-  <div class="field">
-    <p class="text"><b>Stage</b></p>
-    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %><br><br>
+  <div class="field row">
+  <div class="col-xs-4">
+    <p class="text no-margin"><b>Stage</b></p>
+    <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
   </div>
+  <div class="col-xs-8 margin-top-edit-prospect-btns">
+      <span class="pull-right">
+          <%= button_tag("Submit", :class => 'btn btn-primary') %>
+          <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+      </span>
+  </div>
+  </div><div class="clearfix"></div>
     <%= f.hidden_field(:description_id) %>
     <%= f.hidden_field(:description_primary) %>
     <%= f.hidden_field(:description_secondary) %>
     <%= f.hidden_field(:amex_business_type) %>
-  <div class="actions">
-    <%= button_tag("Submit", :class => 'btn btn-primary') %>
-    <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
-  </div><br>
+  <br>
 <% end %>
+
+<h4 class="notes_title text-center">New Task</h4>
+<%= form_for [@prospect, Task.new] do |f| %>
+
+  <div class="field">
+    <%= f.text_field :body, :class => 'form-control body', :placeholder => 'Add Task', :required => true %>
+    <div class="row margin-bottom-actions">
+    <div class="col-xs-5 action-dateselect-top"><%= f.text_field :finish_date, :class => 'datetimepicker form-control', :required => true %></div>
+    <div class="col-xs-1 action-submit-top pull-right"><button class="btn btn-primary pull-right">Add</button></div>
+  </div>
+  </div><div class="clearfix"></div>
+<% end %>
+<div class="notes-margin">
+
+ <div class="tasks<%= @prospect.id %>">
+ <% @sorted_tasks.each do |task| %>
+   <% if task.completed? %>
+
+   <div class="clearfix delete">
+   <div class="delete-btn-action">
+     <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+     <div class="pull-right">
+       <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
+       <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+       <i class="fa fa-check-square-o green" aria-hidden="true"></i>
+       <% end %>
+       <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+         <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+       <% end %>
+     </div><div class="clearfix"></div>
+     <p class="text-left"><strike><%= task.body %></strike></p>
+     </div>
+     </div>
+
+   <% else %>
+
+   <div class="clearfix delete">
+   <div class="delete-btn-action">
+     <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
+     <div class="pull-right">
+       <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
+       <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+       <i class="fa fa-square-o black" aria-hidden="true"></i>
+       <% end %>
+       <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
+         <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+       <% end %>
+     </div><div class="clearfix"></div>
+     <p class="text-left"><%= task.body %></p>
+     </div>
+     </div>
+
+   <% end %>
+ <% end %>
 </div>
+</div>
+</div>
+
 <div class="clearfix"></div>
 
 <div class="col-md-6 hidden-xs" id="right">
     <br><br><br><br>
       <div class="well">
-      <h3>next task</h3>
+      <h4 class="no-margin text-left">Next Action:
+      <% if @uncompleted_tasks.size == 0 %><% else %><span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+      <% if @uncompleted_tasks.size == 0 %>
+      <p class="text-left no-margin-bottom">No Actions</p>
+      <% else %>
+          <p class="text-left no-margin-bottom"><%= @next_task.body %><span class="pull-right"></span></p>
+      <% end %>
       </div>
 
 <h4 class="notes_title text-center">Notes</h4>
-        <%= form_for [@prospect, Note.new], remote: true  do |f| %>
+        <%= form_for [@prospect, Note.new], remote: true do |f| %>
           <div class="field">
             <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
           </div>
         <% end %>
           <div class="notes-margin">
 
-       <div class="notes">
+       <div class="notes<%= @prospect.id %>">
           <%= render :partial => @prospect.notes %>
         </div>
-        
+
 
     </div>
     </div>
@@ -87,8 +272,15 @@
        <div class="notes">
           <%= render :partial => @prospect.notes %>
         </div>
-        
+
 
     </div>
     </div>
 
+
+<script>
+
+  $(document).ready(function(){
+    $('.datetimepicker').datetimepicker();
+  });
+</script>

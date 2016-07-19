@@ -20,11 +20,11 @@
 
 /* Search Bar Styles */
     .stylish-input-group .input-group-addon{
-        background: white !important; 
+        background: white !important;
     }
     .stylish-input-group .form-control{
-    	border-right:0; 
-    	box-shadow:0 0 0; 
+    	border-right:0;
+    	box-shadow:0 0 0;
     	border-color:#ccc;
     }
     .stylish-input-group button{
@@ -96,9 +96,17 @@ hr.style-two {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
-/* Makes Text Black */
+/* Formats Text */
 
-.black { color: black; }
+.black { color: black !important; }
+
+.grey { color: #8c8c8c !important; }
+
+.break { word-break: break-all !important; }
+
+.green { color: #04ba00; }
+
+.red { color: #fa0c0c; }
 
 /* Styles For The Prospects Modal */
 
@@ -110,8 +118,19 @@ hr.style-two {
 
 .be-gone { margin: 0px !important; margin-top: 8px !important; margin-right: 5px !important; }
 
-/* Formatting For Prospects Notes */
-  
+/* Formatting For Prospects Notes And Actions */
+
+#left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll;
+    width: 50%;
+    padding-right: 15px !important;
+    height:100%;
+    padding-top: 80px !important;
+}
+
 #right {
     position: absolute;
     bottom: 0;
@@ -119,15 +138,26 @@ hr.style-two {
     overflow-y: scroll;
     width: 50%;
     padding-right: 15px !important;
-}
-
-#right {
-  height:100%;
+    height:100%;
 }
 
 .notes_title { margin: 0px !important;  margin-bottom: 5px !important; }
 
 .notes-margin { padding-top: 5px !important; }
+
+.next-task-well { padding-top: 10px !important; padding-bottom: 0px !important; }
+
+.delete-btn-action { margin-top: 1px !important; }
+
+.action-dateselect-top { margin-top: 10px !important; padding-right: 0px !important; }
+
+.action-submit-top { margin-top: 10px !important; padding-left: 0px !important;}
+
+.margin-bottom-actions { margin-bottom: 20px !important; }
+
+.no-margin { margin: 0px !important; }
+
+.margin-top-edit-prospect-btns {margin-top: 15px !important; }
 
 /* Forms */
 

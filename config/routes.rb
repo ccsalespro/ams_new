@@ -8,11 +8,12 @@ Rails.application.routes.draw do
   resources :inttypes do
     collection { post :import }
   end
+
   resources :stages
   resources :notes
   resources :comments
   resources :images
- 
+
 
    devise_for :users, controllers: { registrations: "registrations" }
 
@@ -20,9 +21,11 @@ Rails.application.routes.draw do
     resources :comments
   end
   get 'blogs/index'
+  get 'tasks/index'
 
 
    root to: 'static#index'
+
    get 'static/index'
    get 'static/services'
    get 'static/about'
@@ -36,12 +39,12 @@ Rails.application.routes.draw do
    get 'static/faq'
    get 'static/error'
    get 'static/pricing'
- 
+
 
   resources :subscribers
-  
+
   resources :merchants do
-    collection { post :import }  
+    collection { post :import }
   end
 
   resources :descriptions do
@@ -54,7 +57,7 @@ Rails.application.routes.draw do
   resources :descriptions do
     resources :prospects
   end
-  
+
   resources :costs do
     collection { post :import }
   end
@@ -65,12 +68,19 @@ Rails.application.routes.draw do
     end
 
   end
-  
+
+    get 'calendars/index'
+
     resources :prospects do
-      resources :statements do 
+      resources :statements do
         resources :comparisons
-      end  
+      end
       resources :notes
+      resources :tasks do
+        member do
+          patch :complete
+        end
+      end
     end
 
   namespace :admin do
@@ -85,7 +95,7 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
