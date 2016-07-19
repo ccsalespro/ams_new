@@ -38,12 +38,15 @@ class StatementsController < ApplicationController
     @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
     @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
     @statement.check_card_trans = @statement.check_card_vol / @statement.check_card_avg_ticket
+    @total_vmd_check_card_trans = @statement.check_card_trans + @statement.vmd_trans
+    @total_vmd_check_card_vol = @statement.vmd_vol - @statement.amex_vol - @statement.debit_vol
 
     general_cost("debit", @statement.avg_ticket)
     @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
     general_cost("check_card", @statement.avg_ticket)
     @statement.check_card_interchange = ((@statement.check_card_trans * @cost.per_item_value) + (@statement.check_card_vol * (@cost.percentage_value/100)))
-    interchange_cost(@prospect.description_id)
+    
+    interchange_cost(@prospect.description_id,  @total_vmd_check_card_trans, @total_vmd_check_card_vol)
     @statement.vmd_interchange = @statement.vmd_vol * (0.0164)
 
 
@@ -107,43 +110,22 @@ class StatementsController < ApplicationController
     def amex_cost(payment_type, business_type, avg_ticket)
       @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
     end
-    def interchange_cost(description_id)
+    def interchange_cost(description_id, total_transactions, total_vol)
       
       # Find all merchants in the database maching the primary description.
-      @merchants_type = Merchant.all.where(["description_id = ?", description_id])
-      
-      @total_transactions = 0
-      @total_volume = 0
-      @number_of_merchants = 0
+      @intcalcitems = Intcalcitem.all.where(["description_id = ?", description_id])
+    
       
       
-      @merchants_type.each do |merchant|
-        @number_of_merchants += 1
-      @merchantintitems = merchant.intitems
-        @merchantintitems.each do |item|
-            @total_transactions += item.transactions
-            @total_volume += item.volume
-          if Intcalcitem.exists?(:statement_id => @statement.id, :inttype_id => item.inttype_id)
-            @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
-            @intcalcitem.transactions += item.transactions
-            @intcalcitem.volume += item.volume
-            @intcalcitem.save
-          else
-            @intcalcitem = @statement.intcalcitems.build
-            @intcalcitem.prospect_id = @prospect.id
-            @intcalcitem.inttype_id = item.inttype_id
-            @intcalcitem.transactions = item.transactions
-            @intcalcitem.volume = item.volume
-            @intcalcitem.description_id = @prospect.description_id
-            @intcalcitem.save
-          end
-        end
+     @intcalcitems.each do |item|
+        @inttype = Inttype.find_by_id(item.description_id)   
+        @inttableitem = @statement.inttableitem.build
+        @inttableitem.inttype_id = item.inttype_id
+        @inttableitem.transactions = total_transactions * item.inttype_percent
+        @inttableitem.volume = total_vol * item.inttype_percent
+        @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume * @inttype.percent )
+        @intcalcitem.save
       end
-          @intcalcitems = Intcalcitem.where(:statement_id => @statement.id)
-          @intcalcitems.each do |item|  
-            item.inttype_percent = item.transactions.to_f / @total_transactions.to_f
-          item.save
-          end
     end
       
 end
