@@ -7,6 +7,5 @@ class CreateTasks < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true
       t.timestamps null: false
     end
-    add_index :notes, :prospect_id
   end
 end
