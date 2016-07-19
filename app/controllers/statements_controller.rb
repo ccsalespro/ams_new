@@ -119,12 +119,17 @@ class StatementsController < ApplicationController
       
      @intcalcitems.each do |item|
         @inttype = Inttype.find_by_id(item.description_id)   
-        @inttableitem = @statement.inttableitem.build
+        @inttableitem = @statement.inttableitems.build
         @inttableitem.inttype_id = item.inttype_id
         @inttableitem.transactions = total_transactions * item.inttype_percent
         @inttableitem.volume = total_vol * item.inttype_percent
         @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume * @inttype.percent )
-        @intcalcitem.save
+        @inttableitem.save
+      end
+      @costs = 0
+      @inttableitems = Inttableitem.find_by(statement_id: @statement.id)
+      @inttableitems.each do |item|
+        @costs += item.costs
       end
     end
       
