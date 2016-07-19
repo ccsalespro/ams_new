@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718154740) do
+ActiveRecord::Schema.define(version: 20160719135501) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -218,9 +218,10 @@ ActiveRecord::Schema.define(version: 20160718154740) do
     t.integer  "prospect_id"
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.date     "finish_date"
+    t.datetime "completed_at"
   end
 
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"

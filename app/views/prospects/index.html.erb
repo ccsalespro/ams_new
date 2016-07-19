@@ -1,7 +1,7 @@
 <br>
 <div class="container-fluid">
 
-    
+
 
         <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
         <%= search_form_for @search do |f| %>
@@ -10,20 +10,20 @@
         <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
-                        </button>  
+                        </button>
                     </span>
        </div>
         <% end %>
         </div>
 
 
-    
+
 
 <br><br><br><br>
 
 <!-- visible sm and xs -->
  <div class="container-fluid text-center">
-                    
+
             <div class="visible-xs visible-sm">
             <% @prospects.each do |prospect| %>
                 <div class="col-lg-4">
@@ -31,12 +31,12 @@
                     <div class="panel-heading">
                         <h3 class="panel-title"><b><%= prospect.business_name %></b></h3>
                     </div>
-                  
+
                     <ul class="list-group">
                         <li class="list-group-item"><b>Contact Name: </b><%= prospect.contact_name %></li>
                         <li class="list-group-item"><b>Phone Number: </b><%= prospect.phone %></li>
                         <li class="list-group-item"><b>Email: </b><%= prospect.email %></li>
-                        
+
                         <li class="list-group-item"><%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
                         <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
                         <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %></li>
@@ -78,7 +78,7 @@ $(document).ready(function(){
 });
 
 </script>
-    
+
 
 <!-- Modal -->
 <div id="<%= prospect.id %>" class="modal fade" role="dialog">
@@ -93,8 +93,8 @@ $(document).ready(function(){
       <div class="modal-body row">
       <div class="col-md-6">
 
-        
-        
+
+
   <%= form_for(prospect) do |f| %>
     <% if prospect.errors.any? %>
       <div id="error_explanation">
@@ -145,15 +145,18 @@ $(document).ready(function(){
 
 
     <div class="col-md-6" id="right">
+      <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
+      <% @completed_tasks = @sorted_tasks.select { |task| task.completed? == true } %>
+      <% @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false } %>
+      <% @next_task =  @uncompleted_tasks.first %>
     <br>
   <div class="well next-task-well">
-    <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
       <h4 class="no-margin text-left">Next Action:
-      <% if prospect.tasks.size == 0 %><% else %><span class="pull-right"><%= @sorted_tasks.first.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+      <% if prospect.tasks.size == 0 %><% else %><span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
       <% if prospect.tasks.size == 0 %>
       <p class="text-left"><%= link_to "Add An Action", edit_prospect_path(prospect), :class => 'grey' %></p>
       <% else %>
-      <p class="text-left"><span class="break"><%= @sorted_tasks.first.body %></span></p>
+      <p class="text-left"><span class="break"><%= @next_task.body %></span></p>
       <% end %>
       </div>
 <div class="well notes-margin">
@@ -168,7 +171,7 @@ $(document).ready(function(){
        <div class="notes<%= prospect.id %>">
           <%= render :partial => prospect.notes %>
         </div>
-        
+
 
     </div>
     </div>
@@ -201,4 +204,3 @@ $(document).ready(function(){
 
 
 <% end %>
-

@@ -5,10 +5,11 @@
 				<%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
 				    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
 				<% end %>
+				<%= link_to "Complete", complete_prospect_task_path(@prospect, task.id), method: :patch %>
 		</div>
 		<p class="text-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
 			<p class="text-left"><%= task.body %><span class="pull-right"><%= task.finish_date.strftime("%m/%d/%Y") %></span></p>
-			
+
 		</div>
 	</div>
 <% end %>

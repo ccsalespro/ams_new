@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy] 
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   # GET /tasks
   # GET /tasks.json
   def index
@@ -30,6 +30,11 @@ end
       format.html { redirect_to :back, notice: 'Task was successfully destroyed.' }
       format.js { render :layout => false }
     end
+  end
+
+  def complete
+    @task.update_attribute(:completed_at, Time.now)
+    redirect_to :back
   end
 
   private
