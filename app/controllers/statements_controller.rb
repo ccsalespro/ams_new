@@ -57,7 +57,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
-        format.html { redirect_to edit_prospect_statement_path(@prospect, @statement), notice: 'Statement was successfully created.' }
+        format.html { redirect_to prospect_statement_path(@prospect, @statement), notice: 'Statement was successfully created.' }
         format.json { render :edit, status: :created, location: @statement }
       else
         format.html { render :new }
