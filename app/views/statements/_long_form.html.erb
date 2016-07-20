@@ -57,10 +57,6 @@
     <%= f.text_field(:vmd_interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
-    <%= f.label "Check Card Interchange", :class => 'text' %>
-    <%= f.text_field(:check_card_interchange, :class => "form-control", :id => "inputdefault") %>
-</div>
-<div class="field">
     <%= f.label "American Express Interchange", :class => 'text' %>
     <%= f.text_field(:amex_interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
@@ -80,9 +76,6 @@
 <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
 <div class="field">
     <%= f.hidden_field(:vmd_avg_ticket) %>
-</div>
-<div class="field">
-    <%= f.hidden_field(:check_card_avg_ticket) %>
 </div>
 <div class="field">
     <%= f.hidden_field(:debit_avg_ticket) %>

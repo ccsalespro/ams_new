@@ -17,6 +17,8 @@ class StatementsController < ApplicationController
   # GET /statements/new
   def new
     @statement = @prospect.statements.new
+    average_ticket_calc(@prospect.description_id)
+    @statement.avg_ticket = @avg_ticket_calculation
   end
 
   # GET /statements/1/edit
@@ -26,33 +28,32 @@ class StatementsController < ApplicationController
   # POST /statements
   # POST /statements.json
   def create
+  
     @statement = @prospect.statements.new(statement_params)
-    @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.check_card_vol - @statement.debit_vol
-      
+    @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
     @statement.vmd_avg_ticket = @statement.avg_ticket
     @statement.amex_avg_ticket = @statement.avg_ticket
     @statement.debit_avg_ticket = @statement.avg_ticket
-    @statement.check_card_avg_ticket = @statement.avg_ticket
+    
     @statement.batches = 30
     @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
     @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
     @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
-    @statement.check_card_trans = @statement.check_card_vol / @statement.check_card_avg_ticket
-    @total_vmd_check_card_trans = @statement.check_card_trans + @statement.vmd_trans
-    @total_vmd_check_card_vol = @statement.vmd_vol - @statement.amex_vol - @statement.debit_vol
-
+    
     general_cost("debit", @statement.avg_ticket)
     @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
-    general_cost("check_card", @statement.avg_ticket)
-    @statement.check_card_interchange = ((@statement.check_card_trans * @cost.per_item_value) + (@statement.check_card_vol * (@cost.percentage_value/100)))
     
-    interchange_cost(@prospect.description_id,  @total_vmd_check_card_trans, @total_vmd_check_card_vol)
+    interchange_cost(@prospect.description_id,  @statement.vmd_trans, @statement.vmd_vol)
     @statement.vmd_interchange = @costs
 
 
     amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
     @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
-    @statement.interchange = @statement.vmd_interchange + @statement.check_card_interchange + @statement.amex_interchange + @statement.debit_network_fees
+    @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
+    
+    check_card_assumption
+    @statement.check_card_trans = @check_card_trans_assumption
+    @statement.check_card_vol = @check_card_vol_assumption
 
     respond_to do |format|
       if @statement.save
@@ -114,9 +115,7 @@ class StatementsController < ApplicationController
       
       # Find all merchants in the database maching the primary description.
       @intcalcitems = Intcalcitem.all.where(["description_id = ?", description_id])
-    
-      
-      
+         
      @intcalcitems.each do |item|
         @inttype = Inttype.find_by_id(item.inttype_id)   
         @inttableitem = @statement.inttableitems.build
@@ -133,5 +132,34 @@ class StatementsController < ApplicationController
       end
       @costs
     end
+    def average_ticket_calc(description_id)
+      @intcalcitems = Intcalcitem.all.where(description_id: description_id)
+      @total_vol_calc = 0
+      @total_trans_calc = 0
+        @intcalcitems.each do |item|
+          @total_trans_calc += item.transactions
+          @total_vol_calc += item.volume
+        end
+      @avg_ticket_calculation = @total_vol_calc / @total_trans_calc
+    end
+
+    def check_card_assumption
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+
+      @check_card_vol_assumption = 0
+      @check_card_trans_assumption = 0
+      
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.per_item == 0.22
+        @check_card_vol_assumption += item.volume
+        @check_card_trans_assumption += item.transactions
+        end
+      end
+      @check_card_trans_assumption
+      @check_card_vol_assumption
+
+    end
+
       
 end

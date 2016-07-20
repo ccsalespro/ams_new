@@ -4,4 +4,5 @@ class Statement < ActiveRecord::Base
   has_many :inttableitems
   has_many :inttypes, through: :inttableitems
   has_many :intcalcitems
+  validates_presence_of :total_vol
 end

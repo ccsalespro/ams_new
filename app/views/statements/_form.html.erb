@@ -29,10 +29,6 @@
        <%= f.text_field(:total_vol, :class => "form-control", :id => "inputdefault") %>
   </div>
   <div class="field">
-      <%= f.label "Average Ticket Size", :class => 'text' %>
-      <%= f.text_field(:avg_ticket, :class => "form-control", :id => "inputdefault") %>
-  </div>
-  <div class="field">
       <%= f.label "American Express Volume", :class => 'text' %>
       <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
   </div>
@@ -40,13 +36,13 @@
       <%= f.label "Pin Debit Volume", :class => 'text' %>
       <%= f.text_field(:debit_vol, :class => "form-control", :id => "inputdefault") %>
   </div>
-  <div class="field">
-      <%= f.label "Check Card Volume", :class => 'text' %>
-      <%= f.text_field(:check_card_vol, :class => "form-control", :id => "inputdefault") %>
+    <div class="field">
+      <%= f.label "Average Ticket Size", :class => 'text' %>
+      <%= f.text_field(:avg_ticket, :class => "form-control", :id => "inputdefault", :value => (number_with_precision(@statement.avg_ticket, :precision => 2) || 0)) %>
   </div>
   <div class="field">
-      <%= f.label "Total Fees", :class => 'text' %>
-      <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault") %>
+      <%= f.label "Total Current Fees", :class => 'text' %>
+      <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault", :placeholder => 'Optional') %>
   </div><br>
   <%= button_tag("Submit", :class => 'btn btn-primary') %>
   <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
