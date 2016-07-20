@@ -14,7 +14,7 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
     <meta name="theme-color" content="#ffffff">
 
-	  <title>CCSalesPro</title>
+	  <title>IQ</title>
         <%= stylesheet_link_tag('application', :media => 'all') %>
         <%= javascript_include_tag "application" %>
         <%= csrf_meta_tags %>
@@ -36,58 +36,64 @@
                     <span class="icon-bar"></span>
                 </button>
                 <%= link_to root_path do %>
-                    <%= image_tag('iqlogo.png', :class => 'navbar-brand') %>
+                    <%= image_tag('iqlogo.png', :class => 'logo') %>
                 <% end %>
 
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <% if !user_signed_in? %>
+                    <li>
+                         <%= link_to("Pricing", static_pricing_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
+                    </li>
+                    <% end %>
                     <% if user_signed_in? %>
-                        <li>
-                            <%= link_to('Profile', edit_user_registration_path, :class => 'a-tag-for-navbar-links') %>
-                        </li>
-                        <li>
-                            <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => 'a-tag-for-navbar-links') %>
-                        </li>
-                    <% else %>
-                        <li>
-                             <%= link_to('Sign Up', new_user_registration_path, :class => 'a-tag-for-navbar-links') %>
-                        </li>
-                        <li>
-                            <%= link_to('Sign In', new_user_session_path, :class => 'a-tag-for-navbar-links') %>
-                        </li>
+                    <li>
+                        <%= link_to("IQ", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
                     <% end %>
                     <li>
-                        <%= link_to("About", static_about_path, :class => 'a-tag-for-navbar-links') %>
+                        <%= link_to("Contact", static_contact_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
                     <li>
-                        <%= link_to("Prospects", prospects_path, :class => 'a-tag-for-navbar-links') %>
-                    </li>
-                    <li>
-                        <%= link_to("Services", static_services_path, :class => 'a-tag-for-navbar-links') %>
-                    </li>
-                    <li>
-                        <%= link_to("Contact", static_contact_path, :class => 'a-tag-for-navbar-links') %>
+                         <%= link_to("FAQ", static_faq_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
                     </li>
 
-                   <li>
-                    <%= link_to("Blog", blogs_path, :class => 'a-tag-for-navbar-links') %>
-
-                    </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-user nav-font" aria-hidden="true"></i><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                 <%= link_to("FAQ", static_faq_path ) %>
-                            </li>
-                            <li>
-                                 <%= link_to("404 Error", static_error_path ) %>
-                            </li>
-                            <li>
-                                 <%= link_to("Pricing Table", static_pricing_path ) %>
-                            </li>
+                          <% if user_signed_in? %>
+                          <li class="visible-xs">
+                              <%= link_to('Profile', edit_user_registration_path, :class => 'white') %>
+                          </li>
+                          <li class="visible-xs">
+                              <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => 'white') %>
+                          </li>
+                              <li class="hidden-xs">
+                                  <%= link_to('Profile', edit_user_registration_path, :class => '') %>
+                              </li>
+                              <li class="hidden-xs">
+                                  <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => '') %>
+                              </li>
+                          <% else %>
+                          <li class="visible-xs">
+                               <%= link_to('Sign Up', new_user_registration_path, :class => 'white') %>
+                          </li>
+                          <li class="visible-xs">
+                              <%= link_to('Sign In', new_user_session_path, :class => 'white') %>
+                          </li>
+                              <li class="hidden-xs">
+                                   <%= link_to('Sign Up', new_user_registration_path, :class => '') %>
+                              </li>
+                              <li class="hidden-xs">
+                                  <%= link_to('Sign In', new_user_session_path, :class => '') %>
+                              </li>
+                          <% end %>
                         </ul>
+
+
+
                     </li>
                 </ul>
             </div>

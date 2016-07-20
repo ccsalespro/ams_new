@@ -48,8 +48,9 @@
       <%= f.label "Total Fees", :class => 'text' %>
       <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault") %>
   </div><br>
-  <%= button_tag("Submit", :class => 'btn btn-primary') %>
-  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+  <%= button_tag("Save", :class => 'btn btn-primary') %>
+  <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %><br><br>
+
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
   </div>

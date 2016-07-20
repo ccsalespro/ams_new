@@ -12,7 +12,7 @@
             </span>
         </div>
         <% end %>
-        <center><%= link_to "View All Actions", calendars_index_path %></center>
+        <center><%= link_to "View All Actions", calendars_index_path, :class => 'black' %></center>
     </div>
 
     <br><br><br><br>
@@ -72,6 +72,7 @@
                         <td class="text-left"><%= prospect.email %></td>
                         <td class="text-left"><%= prospect.stage.name %></td>
                     </tr>
+
 
                     <script>
                         $(document).ready(function () {
@@ -190,7 +191,6 @@
 
                         </div>
                     </div>
-
                     <% end %>
                 </tbody>
             </table>

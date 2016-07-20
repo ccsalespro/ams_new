@@ -102,11 +102,13 @@ hr.style-two {
 
 .grey { color: #8c8c8c !important; }
 
+.white { color: white !important; }
+
 .break { word-break: break-all !important; }
 
-.green { color: #04ba00; }
+.green, .green:hover { color: #04ba00;}
 
-.red { color: #fa0c0c; }
+.red, .red:hover { color: #fa0c0c;}
 
 /* Styles For The Prospects Modal */
 
@@ -159,6 +161,17 @@ hr.style-two {
 
 .margin-top-edit-prospect-btns {margin-top: 15px !important; }
 
+.cta { margin-top: 5px !important;}
+
 /* Forms */
 
 .small-margin { margin-bottom: 5px !important; }
+
+
+
+
+
+
+.nav-font { font-size: 15px !important;}
+
+.logo { height: 40px; margin-top: 5px; padding-left: 5px !important;}
