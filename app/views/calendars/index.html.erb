@@ -23,10 +23,10 @@
 
         <% if task.completed? %>
         <li class="green">
-            <strike><%= task.body %></strike>
+            <strike><%= link_to task.body, edit_prospect_path(task.prospect)</strike>
         </li>
     <% else %>
-        <li class="red"><%= task.body %></li>
+        <li class="red"><%= link_to task.body, edit_prospect_path(task.prospect)</li>
         <% end %>
 
         <% end %>
