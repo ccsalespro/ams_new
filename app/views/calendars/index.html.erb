@@ -23,10 +23,10 @@
 
         <% if task.completed? %>
         <li class="green">
-            <strike><%= link_to task.body, edit_prospect_path(task.prospect)</strike>
+            <strike><span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'green' %></span></strike>
         </li>
     <% else %>
-        <li class="red"><%= link_to task.body, edit_prospect_path(task.prospect)</li>
+        <li class="red"><span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'red' %></span></li>
         <% end %>
 
         <% end %>
