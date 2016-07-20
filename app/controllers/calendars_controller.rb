@@ -7,6 +7,7 @@ class CalendarsController < ApplicationController
     @sorted_tasks = @tasks.sort_by{ |t| t.finish_date }
     @completed_tasks = @sorted_tasks.select { |task| task.completed? == true }
     @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false }
+    @next_task =  @uncompleted_tasks.first
   end
 
 end
