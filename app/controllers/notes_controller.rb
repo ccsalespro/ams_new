@@ -1,12 +1,8 @@
 class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-
-  # GET /notes
-  # GET /notes.json
-  def index
-    @notes = Note.all
-  end
-
+  before_action :authenticate_user!
+  before_action :require_subscribed
+  
 
    def create
     @prospect = Prospect.find(params[:prospect_id])

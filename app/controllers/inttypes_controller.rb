@@ -1,6 +1,7 @@
 class InttypesController < ApplicationController
   before_action :set_inttype, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /inttypes
   # GET /inttypes.json
   def index

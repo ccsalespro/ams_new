@@ -1,6 +1,7 @@
 class IntitemsController < ApplicationController
   before_action :set_intitem, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /intitems
   # GET /intitems.json
   def index

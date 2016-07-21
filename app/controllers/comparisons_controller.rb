@@ -1,6 +1,7 @@
 class ComparisonsController < ApplicationController
 	before_action :load_prospect, :load_statement, :load_programs
 	before_action :authenticate_user!
+  	before_action :require_subscribed
   def index  			
   end
 

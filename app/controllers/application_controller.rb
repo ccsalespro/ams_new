@@ -8,4 +8,9 @@ class ApplicationController < ActionController::Base
   		redirect_to root_url, alert: "Unauthorized access!"
   	end
   end
+  def require_subscribed
+  	unless current_user.subscribed?
+  		redirect_to root_url, alert: "Please Subscribe"
+    end
+  end
 end
