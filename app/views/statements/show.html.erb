@@ -1,62 +1,10 @@
 <br>
 <div class="container">
- <div class="col-sm-8 col-sm-offset-2">
- <div class="panel panel-primary text-center">
-            <div class="panel-heading">
-              <h3 class="panel-title"><b>ID: <%= @statement.id %></b></h3>
-            </div>
-  
-  <ul class="list-group">
-  <li class="list-group-item">
-     Total Fees: <%= @statement.total_fees %>
-  </li>
-  <li class="list-group-item">
-    Business Type: <%= @statement.business_type %>
-  </li>
-  <li class="list-group-item">
-Visa/MC/Disc Volume: <%= @statement.vmd_vol %>
-  </li>
-  <li class="list-group-item">
-   Visa/MC/Disc Trans: <%= @statement.vmd_trans %>
-  </li>
-  <li class="list-group-item">
-   Number of Batches: <%= @statement.batches %>
-</li>
-  <li class="list-group-item">
-   American Express Transactions: <%= @statement.amex_trans %>
-</li>
-  <li class="list-group-item">
-   American Express Volume: <%= @statement.amex_vol %>
-</li>
-  <li class="list-group-item">
-   Pin Debit Volume: <%= @statement.debit_vol %>
-</li>
-  <li class="list-group-item">
-   Pin Debit Transactions: <%= @statement.debit_trans %>
-</li>
-  <li class="list-group-item">
-   Vs/Mc/Dis Interchange Costs: <%= @statement.interchange %>
-</li>
-  <li class="list-group-item">
-    Statement Month: <%= @statement.statement_month %>
-</li>
-<li class="list-group-item">
-	 Updated: <%= @statement.updated_at %>
-</li>
-<li class="list-group-item">
-  <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Compare', :class => 'btn btn-primary'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospect_statements_path(@prospect)) %>
-</li>
-  </ul>
-  </div>
-</div>
-</div>
+
 
 <table class="table table-striped table-bordered">
    <tr>
-       <th>IntType</th>
-     <th>IntType</th>
+     <th>Description</th>
      <th>Percent</th>
      <th>Per Item</th>
      <th>Transactions</th>
@@ -68,9 +16,8 @@ Visa/MC/Disc Volume: <%= @statement.vmd_vol %>
 <% @inttableitems.each do |item| %>
   <% @inttype = Inttype.find_by_id(item.inttype_id) %>
   <tr>
-    <td><%= @inttype.id %></td>
     <td><%= @inttype.description %></td>
-    <td><%= @inttype.percent %></td>
+    <td><%= number_to_percentage(@inttype.percent*100)  %></td>
     <td><%= @inttype.per_item %></td>
     <td><%= item.transactions %></td>
     <td><%= item.volume %></td>
@@ -78,3 +25,5 @@ Visa/MC/Disc Volume: <%= @statement.vmd_vol %>
   </tr>
 <% end %>
 </table>
+
+</div>
