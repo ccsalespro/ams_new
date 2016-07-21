@@ -7,6 +7,7 @@
   $main-color: #002D64;
   .btn-primary { background-color: $main-color; border: $main-color; }
   .panel-heading { background-color: $main-color !important;}
+  .total { background-color: $main-color !important; }
 
 /* Floating Action Button Styles */
     .fab-btn {
@@ -110,7 +111,6 @@ hr.style-two {
 .black { color: black !important; }
 
 .grey { color: #8c8c8c !important; }
-.grey-back { background-color: #8c8c8c !important; }
 
 .white { color: white !important; }
 
@@ -249,3 +249,7 @@ hr.style-two {
 // table
 
 .cust-marg { padding: 30px !important; }
+
+.bold-line { border-bottom: 3px solid #9F9F9F}
+
+.bold-font { font-weight: bold; }
