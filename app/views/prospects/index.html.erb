@@ -12,7 +12,7 @@
             </span>
         </div>
         <% end %>
-        <center><%= link_to "View All Actions", calendars_index_path, :class => 'black' %></center>
+        <center class="fab-plus"><b><%= link_to "View All Actions", calendars_index_path, :class => 'black' %></b></center>
     </div>
 
     <br><br><br><br>
@@ -202,6 +202,6 @@
 </div>
 
 <%= link_to choose_descriptions_path, :class => 'btn btn-primary fab-btn' do %>
-<i class="fa fa-plus" aria-hidden="thue"></i>
+<i class="fa fa-plus fab-plus" aria-hidden="thue"></i>
 
 <% end %>

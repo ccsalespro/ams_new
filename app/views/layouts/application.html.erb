@@ -61,15 +61,9 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-user nav-font" aria-hidden="true"></i><b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle a-tag-for-navbar-links hidden-xs" data-toggle="dropdown"><i class="fa fa-user nav-font" aria-hidden="true"></i><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <% if user_signed_in? %>
-                          <li class="visible-xs">
-                              <%= link_to('Profile', edit_user_registration_path, :class => 'white') %>
-                          </li>
-                          <li class="visible-xs">
-                              <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => 'white') %>
-                          </li>
                               <li class="hidden-xs">
                                   <%= link_to('Profile', edit_user_registration_path, :class => '') %>
                               </li>
@@ -77,12 +71,6 @@
                                   <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => '') %>
                               </li>
                           <% else %>
-                          <li class="visible-xs">
-                               <%= link_to('Sign Up', new_user_registration_path, :class => 'white') %>
-                          </li>
-                          <li class="visible-xs">
-                              <%= link_to('Sign In', new_user_session_path, :class => 'white') %>
-                          </li>
                               <li class="hidden-xs">
                                    <%= link_to('Sign Up', new_user_registration_path, :class => '') %>
                               </li>
@@ -91,10 +79,23 @@
                               </li>
                           <% end %>
                         </ul>
-
-
-
                     </li>
+                    <% if user_signed_in? %>
+                    <li class="visible-xs">
+                        <%= link_to('Profile', edit_user_registration_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
+                    <li class="visible-xs">
+                        <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
+                    <% else %>
+                    <li class="visible-xs">
+                         <%= link_to('Sign Up', new_user_registration_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
+                    <li class="visible-xs">
+                        <%= link_to('Sign In', new_user_session_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
+                    <% end %>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
