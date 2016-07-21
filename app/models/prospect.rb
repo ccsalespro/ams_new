@@ -3,9 +3,9 @@ class Prospect < ActiveRecord::Base
 	has_many :intcalcitems
 	belongs_to :user
 	belongs_to :description
-	has_many :notes
+	has_many :notes, dependent: :destroy
 	belongs_to :stage
-	has_many :tasks
+	has_many :tasks, dependent: :destroy
 	has_one :calendar
 	validates :stage, :presence => true
 end

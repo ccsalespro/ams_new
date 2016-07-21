@@ -1,6 +1,7 @@
 class InttableitemsController < ApplicationController
   before_action :set_inttableitem, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /inttableitems
   # GET /inttableitems.json
   def index
