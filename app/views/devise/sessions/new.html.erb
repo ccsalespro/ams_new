@@ -14,12 +14,27 @@
   </div>
 
   <% if devise_mapping.rememberable? -%>
-    <div class="field text-center">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
+  <div class="field checkbox remember text-center hidden-xs">
+                    <label style="font-size: 1.5em" class="remember">
+                        <%= f.check_box :remember_me %>
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check text-center"></i>
+                        </span>
+                        Remember Me
+                    </label>
+                </div>
 
+                <div class="field checkbox remember visible-xs">
+                    <label style="font-size: 1em" class="remember">
+                        <%= f.check_box :remember_me, :class => 'text-center' %>
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check text-center"></i>
+                        </span>
+                        Remember Me
+                    </label>
+                </div>
+  <% end %>
+<div class="clearfix"></div>
   <div class="actions text-center">
     <%= f.submit "Log in", :class => 'btn btn-primary' %>
   </div>
