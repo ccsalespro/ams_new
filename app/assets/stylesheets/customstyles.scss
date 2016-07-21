@@ -3,6 +3,11 @@
     	background-color: #f2f2f2 !important;
     }
 
+// Main Color Var
+  $main-color: #002D64;
+  .btn-primary { background-color: $main-color; border: $main-color; }
+  .panel-heading { background-color: $main-color !important;}
+
 /* Floating Action Button Styles */
     .fab-btn {
     	border-radius: 50px !important;
@@ -34,7 +39,7 @@
 
 /* Navbar Styles */
     .nav-custom-styles {
-    	background-color: #337AB7 !important;
+    	background-color: $main-color !important;
     	border-bottom: white !important;
         margin-bottom: 0px !important;
     }
@@ -49,7 +54,7 @@
     }
 
     .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-        border-color: #337AB7 !important;
+        border-color: $main-color !important;
     }
 
     .dropdown-toggle {
