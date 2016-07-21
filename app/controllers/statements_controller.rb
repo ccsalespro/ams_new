@@ -133,7 +133,7 @@ class StatementsController < ApplicationController
       @costs
     end
     def average_ticket_calc(description_id)
-      @intcalcitems = Intcalcitem.all.where(description_id: 1)
+      @intcalcitems = Intcalcitem.all.where(description_id: description_id)
       @total_vol_calc = 0
       @total_trans_calc = 0
         @intcalcitems.each do |item|
