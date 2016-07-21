@@ -12,18 +12,21 @@ class StatementsController < ApplicationController
   # GET /statements/1
   # GET /statements/1.json
   def show
-    vs_calculation
-    @vs_volume
-    @mc_volume
-    @ds_volume
-    vs_calculation
-    @vs_transactions
-    @mc_transactions
-    @ds_transactions
-    vs_calculation
-    @vs_fees
-    @mc_fees
-    @ds_fees
+    card_type_calculation("VS")
+    @vs_volume = @volume
+    @vs_transactions = @transactions
+    @vs_fees = @fees
+
+    card_type_calculation("MC")
+    @mc_volume = @volume
+    @mc_transactions = @transactions
+    @mc_fees = @fees
+
+   
+    card_type_calculation("DS")
+    @ds_volume = @volume
+    @ds_transactions = @transactions
+    @ds_fees = @fees
   end
 
   # GET /statements/new
@@ -187,6 +190,28 @@ class StatementsController < ApplicationController
       @check_card_vol_assumption
 
     end
+
+    def card_type_calculation(card_type_var)
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @volume = 0
+      @transactions = 0
+      @fees = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.card_type == card_type_var 
+          @volume += item.volume
+          @transactions += item.transactions
+          @fees += item.costs
+        end
+      end
+      @volume
+      @transactions
+      @fees      
+    end
+
+    
+
+
 
       
 end
