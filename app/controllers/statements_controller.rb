@@ -30,25 +30,40 @@ class StatementsController < ApplicationController
   def create
   
     @statement = @prospect.statements.new(statement_params)
-    @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
+    
     @statement.vmd_avg_ticket = @statement.avg_ticket
     @statement.amex_avg_ticket = @statement.avg_ticket
     @statement.debit_avg_ticket = @statement.avg_ticket
-    
     @statement.batches = 30
-    @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
-    @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
-    @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
     
-    general_cost("debit", @statement.avg_ticket)
-    @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
-    
-    interchange_cost(@prospect.description_id,  @statement.vmd_trans, @statement.vmd_vol)
-    @statement.vmd_interchange = @costs
+      
+    if @statement.amex_vol == nil || 0
+      @statement.amex_vol = 0
+      @statement.amex_trans = 0
+      @statement.amex_interchange = 0
+    else
+      @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
+      amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
+      @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
+    end
+  
+    if @statement.debit_vol == nil || 0
+      @statement.debit_vol = 0
+      @statement.debit_trans = 0
+      @statement.debit_network_fees = 0
+    else
+      @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
+      general_cost("debit", @statement.avg_ticket)
+      @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
+    end
 
 
-    amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
-    @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
+      @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
+      @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
+      interchange_cost(@prospect.description_id,  @statement.vmd_trans, @statement.vmd_vol)
+      @statement.vmd_interchange = @costs
+
+
     @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
     
     check_card_assumption
