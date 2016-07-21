@@ -12,6 +12,18 @@ class StatementsController < ApplicationController
   # GET /statements/1
   # GET /statements/1.json
   def show
+    vs_calculation
+    @vs_volume
+    @mc_volume
+    @ds_volume
+    vs_calculation
+    @vs_transactions
+    @mc_transactions
+    @ds_transactions
+    vs_calculation
+    @vs_fees
+    @mc_fees
+    @ds_fees
   end
 
   # GET /statements/new
