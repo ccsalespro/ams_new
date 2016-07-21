@@ -1,4 +1,4 @@
-<div class="container-fluid hidden-xs">
+<div class="hidden-xs">
     <h2 id="month">
         <%= link_to date: @date.prev_year, :class => '' do %>
         <i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -22,11 +22,16 @@
         <% @grouped_tasks[date].each do |task| %>
 
         <% if task.completed? %>
-        <li class="green">
-            <strike><span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'green' %></span></strike>
+        <li class="green no-dec">
+
+            <strike>
+                <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 40),  edit_prospect_path(task.prospect), :class => 'green' %></span>
+            </strike>
         </li>
     <% else %>
-        <li class="red"><span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'red' %></span></li>
+        <li class="red no-dec">
+            <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 40),  edit_prospect_path(task.prospect), :class => 'red' %></span>
+        </li>
         <% end %>
 
         <% end %>
@@ -35,47 +40,51 @@
     <% end %>
 </div>
 
-
 <div class="visible-xs container-fluid">
 
-  <div class="well margin-top-edit-prospect-btns">
-  <h4 class="no-margin text-left">Next Action:
-  <% if @uncompleted_tasks.size == 0 %><% else %><span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
-  <% if @uncompleted_tasks.size == 0 %>
-  <p class="text-left no-margin-bottom">No Actions</p>
-  <% else %>
-      <p class="text-left no-margin-bottom"><%= @next_task.body %><span class="pull-right"></span></p>
-  <% end %>
-  </div>
+    <div class="well margin-top-edit-prospect-btns">
+        <% if @uncompleted_tasks.size == 0 %>
+    <% else %>
+        <h4 class="no-margin text-left"><%= truncate(@next_task.body, :length => 20, :class => '') %>
+            <span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
+        <% if @uncompleted_tasks.size == 0 %>
+        <p class="text-left no-margin-bottom">No Actions</p>
+    <% else %>
+        <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 50, :class => '') %></p>
+        <% end %>
+    </div>
 
-<div class="well margin-top-edit-prospect-btns">
-  <% @sorted_tasks.each do |task| %>
-     <% if task.completed? %>
+    <div class="well margin-top-edit-prospect-btns">
+        <% @sorted_tasks.each do |task| %>
+        <% if task.completed? %>
 
-     <div class="clearfix delete">
-     <div class="delete-btn-action">
-       <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
-       <div class="pull-right">
-         <span data-toggle="tooltip" title="<%= task.prospect.business_name %>" data-placement="top"><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-       </div><div class="clearfix"></div>
-       <p class="text-left green"><strike><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'green' %></strike></p>
-       </div>
-       </div>
+        <div class="clearfix delete">
+            <div class="delete-btn-action">
+                <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 50, :class => '') %>
+                    <div class="pull-right">
+                        <%= task.finish_date.strftime("%m/%d/%Y") %>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="text-left green">
+                        <strike><%= link_to truncate(task.body, :length => 45),  edit_prospect_path(task.prospect), :class => 'green' %></strike>
+                    </p>
+                </div>
+            </div>
 
-     <% else %>
+        <% else %>
 
-     <div class="clearfix delete">
-     <div class="delete-btn-action">
-       <p class="pull-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(task.created_at) %> Ago</strong></small></p>
-       <div class="pull-right">
-         <span data-toggle="tooltip" title="<%= task.prospect.business_name %>" data-placement="top"><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-       </div><div class="clearfix"></div>
-        <p class="text-left green"><%= link_to task.body, edit_prospect_path(task.prospect), :class => 'red' %></p>
-       </div>
-       </div>
+            <div class="clearfix delete">
+                <div class="delete-btn-action">
+                    <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 50, :class => '') %>
+                        <div class="pull-right">
+                            <%= task.finish_date.strftime("%m/%d/%Y") %>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="text-left red"><%= link_to truncate(task.body, :length => 45),  edit_prospect_path(task.prospect), :class => 'red' %></p>
+                    </div>
+                </div>
+                <% end %>
 
-     <% end %>
-
-  <% end %>
-</div>
-</div>
+                <% end %>
+            </div>
+        </div>

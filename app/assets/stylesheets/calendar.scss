@@ -1,31 +1,35 @@
 .calendar {
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
+  border: 1px solid #999;
+  margin: 0 auto;
+  margin-bottom: 20px;
 
   td, th {
     font-family: "Lucida Grande", arial, helvetica, sans-serif;
     font-size: 10px;
     padding: 6px;
-    border: 1px solid #999;
+    border: 1px solid #717171;
   }
 
   th {
-    background: #DDD;
-    color: #666;
+    background: #bdbdbd;
+    color: black;
     text-align: center;
     width: 14.2857142857143%;
+    max-width: 100px;
   }
 
   td {
     background: #FFF;
     color: #777;
-    height: 80px;
+    height: 90px;
     vertical-align: top;
     font-size: 16px;
   }
 
-  .notmonth, .notmonth a { color: #CCC; }
-  .today { background-color: rgba(#dddddd, 0.5); }
+  .notmonth, .notmonth a { color: #CCC; border: 1px solid #717171;}
+  .today { background-color: rgba(#dddddd, 0.5); border: 1px solid #717171; }
 }
 
 #month {
@@ -44,3 +48,5 @@
   font-size: 11px;
   padding-left: 20px;
 }
+
+.no-dec { list-style-type: none; }
