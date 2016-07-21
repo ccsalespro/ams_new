@@ -1,10 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
-  # GET /tasks
-  # GET /tasks.json
-  def index
-    @tasks = Task.all
-  end
+  before_action :authenticate_user!
+  before_action :require_subscribed
 
   # POST /tasks
   # POST /tasks.json

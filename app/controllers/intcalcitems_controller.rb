@@ -1,6 +1,7 @@
 class IntcalcitemsController < ApplicationController
   before_action :set_intcalcitem, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /intcalcitems
   # GET /intcalcitems.json
   def index
