@@ -105,6 +105,7 @@ hr.style-two {
 .black { color: black !important; }
 
 .grey { color: #8c8c8c !important; }
+.grey-back { background-color: #8c8c8c !important; }
 
 .white { color: white !important; }
 
@@ -238,3 +239,8 @@ hr.style-two {
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+
+// table
+
+.cust-marg { padding: 30px !important; }
