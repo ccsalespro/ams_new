@@ -6,16 +6,14 @@
 <% @programs.each do |program| %>
 
 <% @batch_fees = @statement.batches * program.min_per_batch_fee %>
-<% @vs_mc_disc_transactions = ( @statement.vmd_vol / @statement.avg_ticket ) %>
 <% @total_transactions = ( @statement.total_vol / @statement.avg_ticket ) %>
-<% @amex_transactions = ( @statement.amex_vol / @statement.avg_ticket ) %>
 <% @vs_mc_disc_mark_up = ( @statement.vmd_vol * (program.min_bp_mark_up / 10000 ) ) %>
 <% @amex_mark_up = ( @statement.amex_vol * ( program.min_amex_bp_fee / 10000 ) ) %>
-<% @vs_mc_disc_trans_fees = ( @vs_mc_disc_transactions * program.min_per_item_fee ) %>
-<% @amex_trans_fees = ( @amex_transactions * program.min_amex_per_item_fee ) %>
-<% @vs_access_fees = ((program.visa_access_per_item * @statement.vs_transactions) + (program.visa_access_percentage * @program.vs_volume)) %>
-<% @mc_access_fees = ((program.mc_access_per_item * @statement.mc_transactions) + (program.mc_access_percentage * @program.mc_volume)) %>
-<% @ds_access_fees = ((program.disc_access_per_item * @statement.ds_transactions) + (program.disc_access_percentage * @program.ds_volume)) %>
+<% @vs_mc_disc_trans_fees = ( @statement.vmd_trans * program.min_per_item_fee ) %>
+<% @amex_trans_fees = ( @statement.amex_trans * program.min_amex_per_item_fee ) %>
+<% @vs_access_fees = ((program.visa_access_per_item * @statement.vs_transactions) + (program.visa_access_percentage * @statement.vs_volume)) %>
+<% @mc_access_fees = ((program.mc_access_per_item * @statement.mc_transactions) + (program.mc_access_percentage * @statement.mc_volume)) %>
+<% @ds_access_fees = ((program.disc_access_per_item * @statement.ds_transactions) + (program.disc_access_percentage * @statement.ds_volume)) %>
 <% @access_fees = (@vs_access_fees + @mc_access_fees + @ds_access_fees) %>
 
 <% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>
@@ -27,8 +25,8 @@
 
 <% @batch_costs = @statement.batches * program.per_batch_cost %>
 <% @bin_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000) %>
-<% @vs_mc_disc_per_item_costs = @vs_mc_disc_transactions * program.per_item_cost  %>      
-<% @amex_per_item_costs = @amex_transactions * program.amex_per_item_cost %>
+<% @vs_mc_disc_per_item_costs = @statement.vmd_trans * program.per_item_cost  %>      
+<% @amex_per_item_costs = @statement.amex_trans * program.amex_per_item_cost %>
 <% @amex_bp_costs = @statement.amex_vol * (program.amex_per_item_cost / 10000) %>
 <% @pin_debit_costs = @statement.debit_trans * program.pin_debit_per_item_cost %>
   <% if @debit_fees > 0 %>
@@ -54,7 +52,6 @@
 			<b>Current Fees: </b><%= number_to_currency(@statement.total_fees) %><br>
 			<b>Program Fees: </b><%= number_to_currency(@total_program_fees) %><br>
 			<b>Schedule A: </b><%= number_to_currency(@total_program_costs) %><br>
-			<b>Access BP: </b><%= number_to_currency(@avg_access_bp) %><br>
 			<b>Access Fees: </b><%= number_to_currency(@access_fees) %><br>
 			<b>Debit Fees: </b><%= number_to_currency(@debit_fees) %><br>
 			<b>Batch Fees: </b><%= number_to_currency(@batch_fees) %>
@@ -71,7 +68,7 @@
 			<b>Disc Access: </b><%= number_to_currency(@ds_access_fees) %><br>
 			<b>VMD Mark-Up: </b><%= number_to_currency(@vs_mc_disc_mark_up) %><br>
 			<b>Amex Mark Up: </b><%= number_to_currency(@amex_mark_up) %><br>
-			<b>VMD Trans: </b><%= number_to_currency(@vs_mc_disc_transactions) %>
+			<b>VMD Trans: </b><%= number_to_currency(@statement.vmd_trans) %>
 			</div>
 		</div>
 
@@ -82,9 +79,9 @@
 			<b>Bin Costs: </b><%= number_to_currency(@bin_costs) %><br>
 			<b>VMD Trans Fees: </b><%= number_to_currency(@vs_mc_disc_trans_fees) %><br>
 			<b>Amex Trans Fees: </b><%= number_to_currency(@amex_trans_fees) %><br>
-			<b>Amex Trans: </b><%= number_to_currency(@amex_transactions) %><br>
+			<b>Amex Trans: </b><%= number_to_currency(@statement.amex_trans) %><br>
 			<b>Total Trans: </b><%= number_to_currency(@total_transactions) %><br>
-			<b>VMD Vol: </b><%= number_to_currency(@vs_mc_disc_volume) %>
+			<b>VMD Vol: </b><%= number_to_currency(@statement.vmd_vol) %>
 			</div>
 
 		</div>
