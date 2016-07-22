@@ -50,7 +50,7 @@
         <% if @uncompleted_tasks.size == 0 %>
         <p class="text-left no-margin-bottom">No Actions</p>
     <% else %>
-        <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 34, :class => '') %></p>
+        <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 30, :class => '') %></p>
         <% end %>
     </div>
     <h3 class="text-center">All Actions</h3>
