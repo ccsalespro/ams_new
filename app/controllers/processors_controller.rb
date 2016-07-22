@@ -1,7 +1,7 @@
 class ProcessorsController < ApplicationController
   before_action :set_processor, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_subscribed
   
   # GET /processors
   # GET /processors.json
