@@ -1,0 +1,107 @@
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="contact-img">
+      <h1 class="hidden-xs">Contact Us</h1>
+      <h1 class="visible-xs text-center">Contact Us</h1>
+    </div>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+    <div class="row"><!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+        <div class="col-md-8">
+            <h3>Send Us A Message</h3>
+            <%= form_for(@internal_contact) do |f| %>
+              <% if @internal_contact.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@internal_contact.errors.count, "error") %> prohibited this internal_contact from being saved:</h2>
+
+                  <ul>
+                  <% @internal_contact.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="field">
+                <p class="no-margin"><b>Full Name:</b></p>
+                <%= f.text_field :full_name, :class => 'form-control' %>
+              </div><br>
+              <div class="field">
+              <p class="no-margin"><b>Phone Number:</b></p>
+                <%= f.text_field :phone_number, :class => 'form-control' %>
+              </div><br>
+              <div class="field">
+                <p class="no-margin"><b>Email address:</b></p>
+                <%= f.text_field :email_address, :class => 'form-control' %>
+              </div><br>
+              <div class="field">
+                <p class="no-margin"><b>Message:</b></p>
+                <%= f.text_area :message, :class => 'form-control', :rows => 10 %>
+              </div><br>
+              <div class="actions">
+                <button class="btn btn-primary">Send Message</button>
+              </div>
+            <% end %>
+
+    </div>
+    <!-- /.row -->
+        <!-- Contact Details Column -->
+        <div class="col-md-4">
+          <div class="well contact-info-margin contact-info-padding">
+            <h3>Contact Details</h3>
+            <p>
+                1408 11th Ave<br>Altoona PA, 16601<br>
+            </p>
+            <p><i class="fa fa-phone"></i>
+                <abbr title="Phone">P</abbr>: (888) 204-1843</p>
+            <p><i class="fa fa-envelope-o"></i>
+                <abbr title="Email">E</abbr>: <a href="mailto:Support@ccsalespro.com">Support@instantquotetool.com</a>
+            </p>
+            <p><i class="fa fa-clock-o"></i>
+                <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM</p>
+            <ul class="list-unstyled list-inline list-social-icons">
+                <li>
+                    <a href="https://www.facebook.com/ccsalespro"><i class="fa fa-facebook-square fa-2x"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/9479901"><i class="fa fa-linkedin-square fa-2x"></i></a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/ccsalespro"><i class="fa fa-twitter-square fa-2x"></i></a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+    <!-- Map Column -->
+    <div class="col-md-8">
+      <div class="well">
+        <!-- Embedded Google Map -->
+        <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+      </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Contact Form JavaScript -->
+<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+</body>
+
+</html>

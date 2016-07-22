@@ -1,4 +1,4 @@
-<div class="well clearfix">
+<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 <%= form_for([@prospect, @statement]) do |f| %>
   <% if @statement.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +11,23 @@
       </ul>
     </div>
   <% end %>
-  <div class="text-center">
+  <div class="text-center hidden-sm hidden-xs">
   <div class="field">
-    <h3>Statement For: <%= @prospect.business_name %></h3>
+    <h3>Statement for<br><b><%= @prospect.business_name %></b></h3>
   </div>
   <div class="field">
-    <h3>Type: <%= @prospect.description_primary%> -- <%= @prospect.description_secondary %></h3>
+    <h3>Type is <b><%= @prospect.description_primary%> | <%= @prospect.description_secondary %></b></h3>
+  </div>
+  </div>
+  <div class="text-center visible-sm visible-xs">
+  <div class="field"><br>
+    <h4 class="custom-font-size-state">Statement For<br><b><%= @prospect.business_name %></b></h4>
+  </div>
+  <div class="field">
+    <h4 class="custom-font-size-state">Type is <b><%= @prospect.description_primary%> | <%= @prospect.description_secondary %></b></h4>
   </div>
   </div><br>
-  <div class="col-sm-4 col-sm-offset-4 text-center">
+  <div class="well clearfix">
   <div class="field">
       <%= f.label "Statement Month", :class => 'text' %>
       <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
@@ -44,9 +52,10 @@
       <%= f.label "Total Current Fees", :class => 'text' %>
       <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault", :placeholder => 'Optional') %>
   </div><br>
+  <center>
   <%= button_tag("Create", :class => 'btn btn-primary') %>
   <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %><br><br>
-
+</center>
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
   </div>

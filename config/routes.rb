@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :internal_contacts
   resources :processorusers
   resources :programusers
 
