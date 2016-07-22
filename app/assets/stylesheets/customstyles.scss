@@ -3,20 +3,7 @@
     	background-color: #f2f2f2 !important;
     }
 
-  .flyover {
-    margin-top: -1000px;
-    overflow: hidden;
-    position: fixed;
-    width: 99%;
-    margin-left: 10px;
-    opacity: 0.9;
-    z-index: 1050;
-    transition: all 1s ease;
-    }
 
- .flyover.in {
-  margin-top: 10px;
-  }
 
 // Main Color Var
   $main-color: #002D64;
@@ -293,3 +280,5 @@ hr.style-two {
 }
 
 .pricing-top-margin { margin-top: 15px !important;}
+
+.fixed-width-td { width: 100px !important; }
