@@ -58,6 +58,9 @@ class StatementsController < ApplicationController
       @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
     end
 
+    if @statement.total_fees == nil || 0
+      @statement.total_fees = 0
+    end
 
       @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
       @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket

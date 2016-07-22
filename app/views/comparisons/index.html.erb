@@ -89,8 +89,10 @@
 		<div class="col-sm-12">
 		<hr class="programs-hr">
 		<h3 class="bold-footer"><b>Bonus:</b> <%= number_to_currency(program.up_front_bonus) %></h3>
+		<% if @statement.total_fees > 0 %>
 		<% @total_savings = @statement.total_fees - @total_program_fees %>
 		<h3 class="bold-footer"><b>Savings:</b> <%= number_to_currency(@total_savings) %></h3>
+		<% end %>
 		<% @total_residual = (@total_program_fees - @total_program_costs) * (program.residual_split / 100) %>
 		<h3 class="bold-footer"><b>Residual: </b><%= number_to_currency(@total_residual) %></h3>
 		</div>
