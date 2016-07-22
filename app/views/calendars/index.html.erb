@@ -25,12 +25,12 @@
         <li class="green no-dec">
 
             <strike>
-                <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 40),  edit_prospect_path(task.prospect), :class => 'green' %></span>
+                <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 30),  edit_prospect_path(task.prospect), :class => 'green' %></span>
             </strike>
         </li>
     <% else %>
         <li class="red no-dec">
-            <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 40),  edit_prospect_path(task.prospect), :class => 'red' %></span>
+            <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 30),  edit_prospect_path(task.prospect), :class => 'red' %></span>
         </li>
         <% end %>
 
