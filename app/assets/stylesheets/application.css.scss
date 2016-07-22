@@ -9,3 +9,5 @@
 @import "font-awesome";
 @import "customstyles";
 @import "calendar";
+
+// bundle exec rake assets:precompile RAILS_ENV=production --trace
