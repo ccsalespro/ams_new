@@ -30,7 +30,6 @@ class StatementsController < ApplicationController
   # POST /statements.json
   def create
 
-  
     @statement = @prospect.statements.new(statement_params)
     
     @statement.vmd_avg_ticket = @statement.avg_ticket
@@ -39,7 +38,7 @@ class StatementsController < ApplicationController
     @statement.batches = 30
     
       
-    if @statement.amex_vol == nil || 0
+    if @statement.amex_vol == nil
       @statement.amex_vol = 0
       @statement.amex_trans = 0
       @statement.amex_interchange = 0
@@ -49,7 +48,7 @@ class StatementsController < ApplicationController
       @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
     end
   
-    if @statement.debit_vol == nil || 0
+    if @statement.debit_vol == nil
       @statement.debit_vol = 0
       @statement.debit_trans = 0
       @statement.debit_network_fees = 0

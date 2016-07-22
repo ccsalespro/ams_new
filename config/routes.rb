@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
   get 'blogs/index'
   get 'tasks/index'
+   get 'comparisons/show'
 
 
    root to: 'static#index'

@@ -35,7 +35,7 @@
       <% @debit_fees += program.min_monthly_debit_fee %>
     <% end %>
 
-<% @total_program_fees = @statement.interchange + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
+<% @total_program_fees = @statement.interchange + @vs_mc_disc_mark_up + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
 
 <% @batch_costs = @statement.batches * program.per_batch_cost %>
 <% @bin_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000) %>
@@ -64,7 +64,7 @@
       <% if @total_savings != 0 %>
          <td><%= number_to_currency(@total_savings) %></td>
       <% end %>
-       <td class="text-left fixed-width-td"><button type="button" name="button" class="btn btn-primary">Present Program</button></td>
+       <td class="text-left fixed-width-td"><%= link_to('Present', {:controller => 'comparisons', :action => 'show', :prospect_id => @prospect.id, :statement_id => @statement.id, :program_id => program.id}, :class => "btn btn-primary") %></td>
    </tr>
  </tbody>
 

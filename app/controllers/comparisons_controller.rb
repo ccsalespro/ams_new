@@ -5,6 +5,7 @@ class ComparisonsController < ApplicationController
   def index  			
   end
   def show
+  	@program = Program.find(params[:program_id])
   end
 
 private
