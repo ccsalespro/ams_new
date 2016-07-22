@@ -1,4 +1,4 @@
-
+<div class="well clearfix">
 <%= form_for([@prospect, @statement]) do |f| %>
   <% if @statement.errors.any? %>
     <div id="error_explanation">
@@ -44,11 +44,12 @@
       <%= f.label "Total Current Fees", :class => 'text' %>
       <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault", :placeholder => 'Optional') %>
   </div><br>
-  <%= button_tag("Save", :class => 'btn btn-primary') %>
+  <%= button_tag("Create", :class => 'btn btn-primary') %>
   <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %><br><br>
 
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
   </div>
 <% end %>
+</div>
 </div>

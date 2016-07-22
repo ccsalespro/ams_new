@@ -1,4 +1,4 @@
-<div class="text-center">	
+<div class="text-center">
 <h1>Program Comparisons</h1>
 <br>
 </div>
@@ -20,22 +20,22 @@
 
 <% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>
     <% if @debit_fees > 0 %>
-      <% @debit_fees += program.min_monthly_debit_fee %> 
+      <% @debit_fees += program.min_monthly_debit_fee %>
     <% end %>
 
 <% @total_program_fees = @statement.interchange + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
 
 <% @batch_costs = @statement.batches * program.per_batch_cost %>
 <% @bin_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000) %>
-<% @vs_mc_disc_per_item_costs = @vs_mc_disc_transactions * program.per_item_cost  %>      
+<% @vs_mc_disc_per_item_costs = @vs_mc_disc_transactions * program.per_item_cost  %>
 <% @amex_per_item_costs = @amex_transactions * program.amex_per_item_cost %>
 <% @amex_bp_costs = @statement.amex_vol * (program.amex_per_item_cost / 10000) %>
 <% @pin_debit_costs = @statement.debit_trans * program.pin_debit_per_item_cost %>
   <% if @debit_fees > 0 %>
-    <% @pin_debit_costs += program.monthly_debit_fee_cost %> 
-  <% end %>         
+    <% @pin_debit_costs += program.monthly_debit_fee_cost %>
+  <% end %>
 
-   <%  @total_program_costs = @batch_costs + @bin_costs + @vs_mc_disc_per_item_costs + @amex_per_item_costs + @amex_bp_costs + @pin_debit_costs + program.monthly_fee_costs + program.monthly_pci_cost %>  
+   <%  @total_program_costs = @batch_costs + @bin_costs + @vs_mc_disc_per_item_costs + @amex_per_item_costs + @amex_bp_costs + @pin_debit_costs + program.monthly_fee_costs + program.monthly_pci_cost %>
 
 
 <div class="container text-center">
@@ -107,18 +107,4 @@
 </div>
 <br>
 
-<% end %>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<% end %>
