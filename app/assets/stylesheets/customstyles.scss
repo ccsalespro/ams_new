@@ -3,6 +3,7 @@
     	background-color: #f2f2f2 !important;
     }
 
+    .alert-info { margin: 0px;}
 
 
 // Main Color Var
@@ -282,3 +283,7 @@ hr.style-two {
 .pricing-top-margin { margin-top: 15px !important;}
 
 .fixed-width-td { width: 100px !important; }
+
+@media screen and (max-width: 451px) {
+  .custom-font-size-state { font-size: 13px !important;}
+}
