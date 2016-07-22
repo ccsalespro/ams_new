@@ -1,7 +1,8 @@
 class DescriptionsController < ApplicationController
   before_action :set_description, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_subscribed
+  before_action :require_admin, only: [:show, :edit, :update, :destroy, :index, :new]
   
   # GET /descriptions
   # GET /descriptions.json

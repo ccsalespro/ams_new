@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Processorusers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processor</th>
+      <th>User</th>
+      <th>Agentnumber</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @processorusers.each do |processoruser| %>
+      <tr>
+        <td><%= processoruser.processor %></td>
+        <td><%= processoruser.user %></td>
+        <td><%= processoruser.agentnumber %></td>
+        <td><%= link_to 'Show', processoruser %></td>
+        <td><%= link_to 'Edit', edit_processoruser_path(processoruser) %></td>
+        <td><%= link_to 'Destroy', processoruser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Processoruser', new_processoruser_path %>

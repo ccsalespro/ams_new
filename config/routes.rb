@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :processorusers
+  resources :programusers
+
   resources :intcalcitems do
     collection { post :import }
   end
@@ -69,8 +72,9 @@ Rails.application.routes.draw do
     resources :programs do
       collection { post :import }
     end
-
   end
+  
+  resources :programs
 
     get 'calendars/index'
 

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  processor_id: 
+  user_id: 
+  agentnumber: 1
+
+two:
+  processor_id: 
+  user_id: 
+  agentnumber: 1
