@@ -4,6 +4,8 @@ class ComparisonsController < ApplicationController
   	before_action :require_subscribed
   def index  			
   end
+  def show
+  end
 
 private
 	def load_prospect

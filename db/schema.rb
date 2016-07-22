@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722044602) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160722134338) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -69,12 +63,12 @@ ActiveRecord::Schema.define(version: 20160722044602) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -296,6 +290,15 @@ ActiveRecord::Schema.define(version: 20160722044602) do
     t.integer  "prospect_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.decimal  "vs_transactions"
+    t.decimal  "vs_volume"
+    t.decimal  "vs_fees"
+    t.decimal  "ds_transactions"
+    t.decimal  "ds_volume"
+    t.decimal  "ds_fees"
+    t.decimal  "mc_transactions"
+    t.decimal  "mc_volume"
+    t.decimal  "mc_fees"
   end
 
   create_table "tasks", force: :cascade do |t|

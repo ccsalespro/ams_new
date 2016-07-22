@@ -9,27 +9,27 @@
 </tr>
 <tr>
   <td>VS</td>
-  <td><%= number_to_currency(@vs_volume) %></td>
-  <td><%= @vs_transactions %></td>
-  <td><%= number_to_currency(@vs_fees) %></td>
+  <td><%= number_to_currency(@statement.vs_volume) %></td>
+  <td><%= @statement.vs_transactions %></td>
+  <td><%= number_to_currency(@statement.vs_fees) %></td>
 </tr>
 <tr>
   <td>MC</td>
-  <td><%= number_to_currency(@mc_volume) %></td>
-  <td><%= @mc_transactions %></td>
-  <td><%= number_to_currency(@mc_fees) %></td>
+  <td><%= number_to_currency(@statement.mc_volume) %></td>
+  <td><%= @statement.mc_transactions %></td>
+  <td><%= number_to_currency(@statement.mc_fees) %></td>
 </tr>
 <tr class="bold-line">
   <td>DS</td>
-  <td><%= number_to_currency(@ds_volume) %></td>
-  <td><%= @ds_transactions %></td>
-  <td><%= number_to_currency(@ds_fees) %></td>
+  <td><%= number_to_currency(@statement.ds_volume) %></td>
+  <td><%= @statement.ds_transactions %></td>
+  <td><%= number_to_currency(@statement.ds_fees) %></td>
 </tr>
 <tr class="bold-font">
   <td class="grey-back">Total</td>
-  <% @total = @vs_volume + @mc_volume + @ds_volume %>
-  <% @transactions = @vs_transactions + @mc_transactions + @ds_transactions %>
-  <% @fees = @vs_fees + @mc_fees + @ds_fees %>
+  <% @total = @statement.vs_volume + @statement.mc_volume + @statement.ds_volume %>
+  <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions %>
+  <% @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%= @transactions %></td>
     <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>

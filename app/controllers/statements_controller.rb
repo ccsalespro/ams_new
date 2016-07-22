@@ -13,21 +13,6 @@ class StatementsController < ApplicationController
   # GET /statements/1
   # GET /statements/1.json
   def show
-    card_type_calculation("VS")
-    @vs_volume = @volume
-    @vs_transactions = @transactions
-    @vs_fees = @fees
-
-    card_type_calculation("MC")
-    @mc_volume = @volume
-    @mc_transactions = @transactions
-    @mc_fees = @fees
-
-   
-    card_type_calculation("DS")
-    @ds_volume = @volume
-    @ds_transactions = @transactions
-    @ds_fees = @fees
   end
 
   # GET /statements/new
@@ -85,6 +70,22 @@ class StatementsController < ApplicationController
     check_card_assumption
     @statement.check_card_trans = @check_card_trans_assumption
     @statement.check_card_vol = @check_card_vol_assumption
+
+    card_type_calculation("VS")
+    @statement.vs_volume = @volume
+    @statement.vs_transactions = @transactions
+    @statement.vs_fees = @fees
+
+    card_type_calculation("MC")
+    @statement.mc_volume = @volume
+    @statement.mc_transactions = @transactions
+    @statement.mc_fees = @fees
+
+   
+    card_type_calculation("DS")
+    @statement.ds_volume = @volume
+    @statement.ds_transactions = @transactions
+    @statement.ds_fees = @fees
 
     respond_to do |format|
       if @statement.save
