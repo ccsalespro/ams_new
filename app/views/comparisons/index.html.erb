@@ -26,9 +26,9 @@
 <% @amex_mark_up = ( @statement.amex_vol * ( program.min_amex_bp_fee / 10000 ) ) %>
 <% @vs_mc_disc_trans_fees = ( @statement.vmd_trans * program.min_per_item_fee ) %>
 <% @amex_trans_fees = ( @statement.amex_trans * program.min_amex_per_item_fee ) %>
-<% @vs_access_fees = ((program.visa_access_per_item * @statement.vs_transactions) + (program.visa_access_percentage * @statement.vs_volume)) %>
-<% @mc_access_fees = ((program.mc_access_per_item * @statement.mc_transactions) + (program.mc_access_percentage * @statement.mc_volume)) %>
-<% @ds_access_fees = ((program.disc_access_per_item * @statement.ds_transactions) + (program.disc_access_percentage * @statement.ds_volume)) %>
+<% @vs_access_fees = ((program.visa_access_per_item * @statement.vs_transactions) + ((program.visa_access_percentage / 10000) * @statement.vs_volume)) %>
+<% @mc_access_fees = ((program.mc_access_per_item * @statement.mc_transactions) + ((program.mc_access_percentage / 10000) * @statement.mc_volume)) %>
+<% @ds_access_fees = ((program.disc_access_per_item * @statement.ds_transactions) + ((program.disc_access_percentage / 10000) * @statement.ds_volume)) %>
 <% @access_fees = (@vs_access_fees + @mc_access_fees + @ds_access_fees) %>
 
 <% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>

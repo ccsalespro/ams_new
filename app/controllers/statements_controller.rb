@@ -29,6 +29,7 @@ class StatementsController < ApplicationController
   # POST /statements
   # POST /statements.json
   def create
+
   
     @statement = @prospect.statements.new(statement_params)
     
@@ -58,9 +59,7 @@ class StatementsController < ApplicationController
       @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
     end
 
-    if @statement.total_fees == nil || 0
-      @statement.total_fees = 0
-    end
+   
 
       @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
       @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
@@ -89,6 +88,12 @@ class StatementsController < ApplicationController
     @statement.ds_volume = @volume
     @statement.ds_transactions = @transactions
     @statement.ds_fees = @fees
+
+     if @statement.total_fees == nil
+      @statement.total_fees = 0
+    else
+      @statement.total_fees
+    end
 
     respond_to do |format|
       if @statement.save
