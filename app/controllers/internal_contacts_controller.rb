@@ -1,6 +1,6 @@
 class InternalContactsController < ApplicationController
   before_action :set_internal_contact, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin
+  before_action :require_admin, only: [:index]
 
   # GET /internal_contacts
   # GET /internal_contacts.json
