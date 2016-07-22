@@ -24,9 +24,6 @@
                   <li>
                       <%= link_to("Contact", static_contact_path, :class => 'a-tag-for-navbar-links nav-font') %>
                   </li>
-                  <li>
-                       <%= link_to("FAQ", static_faq_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
-                  </li>
 
               </ul>
           </div>
@@ -34,5 +31,7 @@
       </div>
       <!-- /.container -->
   </nav>
-<h2>Step Two: Billing Information</h2>
+  <center>
+<h2>Final Step: Card Info</h2>
 <%= render 'form' %>
+</center>

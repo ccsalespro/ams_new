@@ -5,14 +5,32 @@
         <p><%= flash[:error] %></p>
       </div>
     <% end %>
-    <label class="amount">
-      <span>$99.00 Per Month, Cancel At Any Time.</span>
-    </label>
-  </article>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="$99 Per Month"
-          data-amount="9900"
-          data-locale="auto"></script>
+  </article>
+  <div class="col-md-4">
+      <div class="panel panel-primary text-center bold">
+          <div class="panel-heading">
+              <h3 class="panel-title">IQ</h3>
+          </div>
+          <div class="panel-body">
+              <span class="price"><sup>$ </sup>99<sup>00</sup></span>
+              <span class="period">Per Month</span>
+          </div>
+          <ul class="list-group">
+              <li class="list-group-item lgi-custom price-info">Individual Sales Professional</li>
+              <li class="list-group-item lgi-custom price-info"><strong>Unlimited</strong> Instant Quotes</li>
+              <li class="list-group-item lgi-custom price-info"><strong>Unlimited</strong> Programs</li>
+              <li class="list-group-item lgi-custom price-info"><strong>Unlimited</strong> Processors</li>
+              <li class="list-group-item lgi-custom price-info">Instant IC Breakdown</li>
+              <li class="list-group-item lgi-custom price-info">Business Type Analysis</li>
+              <li class="list-group-item lgi-custom price-info"><script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-description="$99 Per Month"
+                      data-amount="9900"
+                      data-locale="auto"></script>
+              </li>
+          </ul>
+      </div>
+  </div>
+
 <% end %>

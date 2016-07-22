@@ -13,7 +13,9 @@
           <div class="well margin-top-edit-prospect-btns">
               <div class="row">
                   <div class="col-md-8">
-                      <h2 class="cta"><strong>Are You Tired Of Asking For A Statement?</strong></h2>
+                      <h2 class="cta visible-lg"><strong>Are You Tired Of Asking For A Statement?</strong></h2>
+                      <h3 class="cta visible-sm visible-md"><strong>Are You Tired Of Asking For A Statement?</strong></h3>
+                      <h4 class="cta visible-xs cta-font-size"><strong>Are You Tired Of Asking For A Statement?</strong></h4>
                   </div>
                   <div class="col-md-4">
                       <%= link_to "Get Started", static_pricing_path, :class => 'btn btn-lg btn-default btn-block' %>
@@ -23,39 +25,39 @@
 
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="text-center">
+                    <h4 class="text-center white">
                         IQ</h4>
                 </div>
                 <div class="panel-body">
                     <p>Run an instant quote without ever seeing a statement.<br>Show the merchant an instant comparison with the programs you offer!</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
+                    <%= link_to("Get Started", static_pricing_path, :class => 'btn btn-default' ) %>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="text-center">
+                    <h4 class="text-center white">
                         Interchange Generator</h4>
                 </div>
                 <div class="panel-body">
                     <p>Our interchange algorithm will not only calculate cost, but will also build an interchange table for each merchant to show them an exact breakdown of their interchange fees.</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
+                    <%= link_to("Get Started", static_pricing_path, :class => 'btn btn-default' ) %>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="text-center">
+                    <h4 class="text-center white">
 
                         ISO Branding</h4>
                 </div>
                 <div class="panel-body">
                     <p>Get IQ on your own custom domain or existing domain, and only show the programs your company offers. We will also include eight training courses and a partner portal for your sales team.</p>
-                    <a href="#" class="btn btn-default">Learn More</a>
+                    <%= link_to("Get Started", static_pricing_path, :class => 'btn btn-default' ) %>
                 </div>
             </div>
         </div>
