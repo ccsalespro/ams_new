@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722134338) do
+ActiveRecord::Schema.define(version: 20160722193207) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(version: 20160722134338) do
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
   add_index "intcalcitems", ["prospect_id"], name: "index_intcalcitems_on_prospect_id"
   add_index "intcalcitems", ["statement_id"], name: "index_intcalcitems_on_statement_id"
+
+  create_table "internal_contacts", force: :cascade do |t|
+    t.string   "full_name"
+    t.string   "phone_number"
+    t.string   "email_address"
+    t.text     "message"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "intitems", force: :cascade do |t|
     t.integer  "merchant_id"
