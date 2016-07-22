@@ -35,7 +35,7 @@
       <% @debit_fees += program.min_monthly_debit_fee %>
     <% end %>
 
-<% @total_program_fees = @statement.interchange + @vs_mc_disc_mark_up + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
+<% @total_program_fees = @statement.vs_fees + @statement.ds_fees + @statement.mc_fees + @vs_mc_disc_mark_up + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
 
 <% @batch_costs = @statement.batches * program.per_batch_cost %>
 <% @bin_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000) %>

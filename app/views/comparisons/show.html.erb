@@ -1,8 +1,3 @@
-<h1>testing comparison show</h1>
-<%= @prospect.id %><br>
-<%= @statement.id %><br>
-<%= @program.id %>
-
 <h3 class="text-center"><b>Program Summary</b></h3>
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 <table class="table table-striped table-bordered table-responsive">
@@ -62,7 +57,7 @@
   <td class="grey-back">Total</td>
   <% @total = @statement.total_vol %>
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
-  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees %>
+  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @program.min_monthly_fees + @program.monthly_pci_fee + (@program.annual_pci_fee / 12) + (@statement.batches * @program.min_per_batch_fee) + @total_debit_fees + @total_amex_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%= @transactions %></td>
     <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
@@ -70,37 +65,20 @@
 </table>
 </div>
 
+<% if @statement.total_fees > 0 %>
 <div class="clearfix"></div>
-<h3 class="text-center"><b>Interchange Table</b></h3>
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hidden-xs">
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 <table class="table table-striped table-bordered table-responsive">
    <tr class="total white">
-     <th>Description</th>
-     <th style="min-width: 60px;">Fee %</th>
-     <th style="min-width: 73px;">Per Item</th>
-     <th>Items</th>
-     <th>Volume</th>
-     <th>Fees</th>
+     <th>Annual Savings</th>
    </tr>
-<% @counter = 0 %>
-<% @inttableitems = Inttableitem.where(statement_id: @statement.id) %>
-<% while @counter < 16 %>
-  <% @counter += 1 %>
-    <% @inttableitems.each do |item| %>
-      <% @inttype = Inttype.find_by_id(item.inttype_id) %>
-      <tr>
-        <td><%= truncate(@inttype.description, :length => 30) %></td>
-        <td><%= number_to_percentage(@inttype.percent*100, precision: 2)  %></td>
-        <td><%= number_to_currency(@inttype.per_item) %></td>
-        <td><%= item.transactions %></td>
-        <td><%= number_to_currency(item.volume) %></td>
-        <td><%= number_to_currency(item.costs) %></td>
-      </tr>
-    <% end %>
-<% end %>
+  <tr>
+    <% @annual_savings = ((@statement.total_fees - @fees) * 12) %>
+    <td><b><%= number_to_currency(@annual_savings) %></b></td>
+  </tr>
 </table>
-
 </div>
+<% end %>
 
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 visible-xs">
 
@@ -112,7 +90,7 @@
    </tr>
 
 <% @inttableitems = Inttableitem.where(statement_id: @statement.id) %>
-<% @inttableitems.each do |item| %>
+<% @inttableitems.take(15).each do |item| %>
   <% @inttype = Inttype.find_by_id(item.inttype_id) %>
   <tr>
     <td><%=truncate(@inttype.description, :length => 15) %></td>
