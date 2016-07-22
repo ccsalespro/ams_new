@@ -1,10 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_tag import_processor_programs_path, multipart: true do %>
-
-  <%= file_field_tag :file %><br>
-  <%= submit_tag "Import", :class => 'btn btn-default' %>
-<% end %>
+<%= link_to 'New Program', new_processor_path %>
 
 <table class="table table-striped">
   <thead>
@@ -24,8 +20,9 @@
   </thead>
 
   <tbody>
-    <% @programs.each do |program| %>
+    <% @sorted_programs.each do |program| %>
       <tr>
+        <% @processor = Processor.find_by_id(program.processor_id) %>
         <td><%= @processor.name %></td>
         <td><%= program.name %></td>
         <td><%= program.min_volume %></td>
@@ -36,13 +33,13 @@
         <td><%= program.cost_structure %></td>
         <td><%= program.terminal_ownership_type %></td>
         <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
-        <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
-        <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if program.personal == true %>
+          <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
+          <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Program', new_processor_program_path(@processor) %>

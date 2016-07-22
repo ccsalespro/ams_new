@@ -6,4 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :prospects
   has_many :tasks
+  has_many :programusers
+  has_many :programs, through: :programusers
+  has_many :processorusers
+  has_many :processors, through: :processorusers
 end
+
+

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Processor:</strong>
+  <%= @processoruser.processor %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @processoruser.user %>
+</p>
+
+<p>
+  <strong>Agentnumber:</strong>
+  <%= @processoruser.agentnumber %>
+</p>
+
+<%= link_to 'Edit', edit_processoruser_path(@processoruser) %> |
+<%= link_to 'Back', processorusers_path %>

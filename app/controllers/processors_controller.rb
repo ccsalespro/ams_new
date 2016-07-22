@@ -5,9 +5,6 @@ class ProcessorsController < ApplicationController
   
   # GET /processors
   # GET /processors.json
-  def index
-    @processors = Processor.all
-  end
 
   # GET /processors/1
   # GET /processors/1.json
@@ -17,6 +14,8 @@ class ProcessorsController < ApplicationController
   # GET /processors/new
   def new
     @processor = Processor.new
+    @processors = Processor.all.where(personal: false)
+    @private_processors = current_user.processors.where(personal: true) 
   end
 
   # GET /processors/1/edit
@@ -30,13 +29,18 @@ class ProcessorsController < ApplicationController
 
     respond_to do |format|
       if @processor.save
-        format.html { redirect_to @processor, notice: 'Processor was successfully created.' }
+        format.html { redirect_to new_processor_path, notice: 'Processor was successfully created.' }
         format.json { render :show, status: :created, location: @processor }
       else
         format.html { render :new }
         format.json { render json: @processor.errors, status: :unprocessable_entity }
       end
     end
+
+    @processoruser = Processoruser.new
+    @processoruser.user_id = current_user.id
+    @processoruser.processor_id = @processor.id
+    @processoruser.save
   end
 
   # PATCH/PUT /processors/1

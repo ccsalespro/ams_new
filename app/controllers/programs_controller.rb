@@ -1,13 +1,27 @@
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
-  before_filter :load_processor
+  before_filter :load_processor, except: [:index]
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_subscribed
   
   # GET /programs
   # GET /programs.json
   def index
-    @programs = @processor.programs.all
+    @programusers = Programuser.where(user_id: current_user.id)
+    @programs = []
+    @programusers.each do |programuser|
+      @program = Program.find_by_id(programuser.program_id)
+      @programs << @program
+    end
+    @sorted_programs = @programs.sort do |x, y|
+      if x[:personal] == y[:personal]
+        0
+      elsif x[:personal] == true
+        -1
+      elsif x[:personal] == false
+        1
+      end
+    end
   end
 
   def import
@@ -34,6 +48,7 @@ class ProgramsController < ApplicationController
   def create
     @program = @processor.programs.new(program_params)
 
+
     respond_to do |format|
       if @program.save
         format.html { redirect_to [@processor, @program], notice: 'Program was successfully created.' }
@@ -43,6 +58,10 @@ class ProgramsController < ApplicationController
         format.json { render json: @program.errors, status: :unprocessable_entity }
       end
     end
+    @programuser = Programuser.new
+    @programuser.user_id = current_user.id
+    @programuser.program_id = @program.id
+    @programuser.save
   end
 
   # PATCH/PUT /programs/1

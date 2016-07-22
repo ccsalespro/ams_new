@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721205615) do
+ActiveRecord::Schema.define(version: 20160722044602) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -160,9 +160,28 @@ ActiveRecord::Schema.define(version: 20160721205615) do
 
   create_table "processors", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "contact_name"
+    t.string   "contact_phone"
+    t.string   "contact_email"
+    t.string   "website"
+    t.boolean  "personal",         default: true
+    t.integer  "processoruser_id"
   end
+
+  add_index "processors", ["processoruser_id"], name: "index_processors_on_processoruser_id"
+
+  create_table "processorusers", force: :cascade do |t|
+    t.integer  "processor_id"
+    t.integer  "user_id"
+    t.integer  "agentnumber"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "processorusers", ["processor_id"], name: "index_processorusers_on_processor_id"
+  add_index "processorusers", ["user_id"], name: "index_processorusers_on_user_id"
 
   create_table "programs", force: :cascade do |t|
     t.integer  "processor_id"
@@ -204,11 +223,22 @@ ActiveRecord::Schema.define(version: 20160721205615) do
     t.decimal  "min_application_fee"
     t.decimal  "min_per_batch_fee"
     t.decimal  "per_batch_cost"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.boolean  "personal",                      default: true
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
+
+  create_table "programusers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "program_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "programusers", ["program_id"], name: "index_programusers_on_program_id"
+  add_index "programusers", ["user_id"], name: "index_programusers_on_user_id"
 
   create_table "prospects", force: :cascade do |t|
     t.string   "business_name"
