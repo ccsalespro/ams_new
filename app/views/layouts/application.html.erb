@@ -48,7 +48,7 @@
                          <%= link_to("Pricing", static_pricing_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
                     </li>
                     <% end %>
-                    <% if user_signed_in? && current_user.subscribed == true %>
+                    <% if user_signed_in? %>
                     <li>
                         <%= link_to("IQ", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
@@ -63,7 +63,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle a-tag-for-navbar-links hidden-xs" data-toggle="dropdown"><i class="fa fa-user nav-font" aria-hidden="true"></i><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                          <% if user_signed_in? && current_user.subscribed == true %>
+                          <% if user_signed_in? %>
                               <li class="hidden-xs">
                                   <%= link_to('Profile', edit_user_registration_path, :class => '') %>
                               </li>
@@ -80,7 +80,7 @@
                           <% end %>
                         </ul>
                     </li>
-                    <% if user_signed_in? && current_user.subscribed == true %>
+                    <% if user_signed_in? %>
                     <li class="visible-xs">
                         <%= link_to('Profile', edit_user_registration_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>

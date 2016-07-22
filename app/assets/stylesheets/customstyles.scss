@@ -6,7 +6,8 @@
 // Main Color Var
   $main-color: #002D64;
   .btn-primary { background-color: $main-color; border: $main-color; }
-  .panel-heading { background-color: $main-color !important;}
+  .panel-primary .panel-heading { background-color: $main-color !important;}
+  .panel-primary { border: 1px solid $main-color;}
   .total { background-color: $main-color !important; }
 
 /* Floating Action Button Styles */
