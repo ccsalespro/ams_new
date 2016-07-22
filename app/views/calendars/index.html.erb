@@ -50,7 +50,7 @@
         <% if @uncompleted_tasks.size == 0 %>
         <p class="text-left no-margin-bottom">No Actions</p>
     <% else %>
-        <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 50, :class => '') %></p>
+        <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 34, :class => '') %></p>
         <% end %>
     </div>
     <h3 class="text-center">All Actions</h3>
@@ -60,7 +60,7 @@
 
         <div class="clearfix delete">
             <div class="delete-btn-action">
-                <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 50, :class => '') %>
+                <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 24, :class => '') %>
                     <div class="pull-right">
                         <%= task.finish_date.strftime("%m/%d/%Y") %>
                     </div>
@@ -75,7 +75,7 @@
 
             <div class="clearfix delete">
                 <div class="delete-btn-action">
-                    <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 50, :class => '') %>
+                    <p class="pull-left no-margin-bottom"><%= truncate(task.prospect.business_name, :length => 24, :class => '') %>
                         <div class="pull-right">
                             <%= task.finish_date.strftime("%m/%d/%Y") %>
                         </div>
