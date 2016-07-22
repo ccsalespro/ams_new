@@ -20,7 +20,7 @@
   </thead>
 
   <tbody>
-    <% @programs.each do |program| %>
+    <% @sorted_programs.each do |program| %>
       <tr>
         <% @processor = Processor.find_by_id(program.processor_id) %>
         <td><%= @processor.name %></td>
