@@ -21,7 +21,7 @@
 	</head>
 <body>
 <% flash.each do |name, msg| %>
-  <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+  <%= content_tag :div, msg, :class => "alert alert-#{name}" unless msg.blank? %>
 <% end %>
 
   <!-- Navigation -->
@@ -43,12 +43,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <% if !user_signed_in? %>
+                    <% if !user_signed_in? or current_user.subscribed == false %>
                     <li>
                          <%= link_to("Pricing", static_pricing_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
                     </li>
                     <% end %>
-                    <% if user_signed_in? %>
+                    <% if user_signed_in? && current_user.subscribed == true %>
                     <li>
                         <%= link_to("IQ", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>

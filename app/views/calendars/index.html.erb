@@ -53,7 +53,7 @@
         <p class="text-left no-margin-bottom"><%= truncate(@next_task.prospect.business_name, :length => 50, :class => '') %></p>
         <% end %>
     </div>
-
+    <h3 class="text-center">All Actions</h3>
     <div class="well margin-top-edit-prospect-btns">
         <% @sorted_tasks.each do |task| %>
         <% if task.completed? %>

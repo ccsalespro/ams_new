@@ -1,6 +1,7 @@
 <div class="container-fluid">
-<h2 class="text-center">Forgot your password?</h2>
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+<h2 class="text-center">Forgot Your Password?</h2>
+<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+  <div class="well">
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
 
@@ -10,12 +11,14 @@
   </div>
 <br>
   <div class="actions text-center">
-    <%= f.submit "Send me reset password instructions", :class => 'btn btn-primary' %>
+    <span class="hidden-xs"><%= f.submit "Send Reset Password Instructions", :class => 'btn btn-primary' %></span>
+    <span class="visible-xs"><%= f.submit "Send Instructions", :class => 'btn btn-primary' %></span>
   </div>
 <% end %>
 <br>
 <div class="text-center">
 <%= render "devise/shared/links" %>
+</div>
 </div>
 </div>
 </div>

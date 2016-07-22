@@ -6,13 +6,13 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>$1.00 per month, cancel at any time.</span>
+      <span>$99.00 Per Month, Cancel At Any Time.</span>
     </label>
   </article>
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
+          data-description="A Month's Subscription"
           data-amount="100"
           data-locale="auto"></script>
 <% end %>

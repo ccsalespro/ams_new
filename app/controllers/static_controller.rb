@@ -1,12 +1,15 @@
 class StaticController < ApplicationController
 
   def index
+    if user_signed_in? && current_user.subscribed == true
+      redirect_to prospects_path
+    end
   end
   def services
   end
   def about
   end
-  def contact 
+  def contact
   end
   def portfolio_1
   end

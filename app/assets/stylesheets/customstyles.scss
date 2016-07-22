@@ -6,7 +6,8 @@
 // Main Color Var
   $main-color: #002D64;
   .btn-primary { background-color: $main-color; border: $main-color; }
-  .panel-heading { background-color: $main-color !important;}
+  .panel-primary .panel-heading { background-color: $main-color !important;}
+  .panel-primary { border: 1px solid $main-color;}
   .total { background-color: $main-color !important; }
 
 /* Floating Action Button Styles */
@@ -21,7 +22,7 @@
         box-shadow: 0px 0px 5px 3px #BFBFBF !important;
     }
 
-    .fab-plus { margin-top: 12px !important; }
+    .fab-plus { margin-top: 12px !important; margin-right: 1px;}
 
 
 /* Search Bar Styles */
@@ -253,3 +254,13 @@ hr.style-two {
 .bold-line { border-bottom: 3px solid #9F9F9F}
 
 .bold-font { font-weight: bold; }
+
+.welly { max-width: 60%; }
+
+@media screen and (max-width: 768px) {
+  .welly { max-width: 100%;}
+}
+
+.welly-lg { margin-left: 50px;}
+
+.welly-sm { margin-left: 0px;}
