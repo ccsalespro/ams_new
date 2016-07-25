@@ -3,13 +3,12 @@ class ComparisonsController < ApplicationController
 	before_action :authenticate_user!
   	before_action :require_subscribed
   def index 
-  	@programusers = Programuser.all.where(user_id: current_user.id)
+  	@programusers = Programuser.where(user_id: current_user.id)
   	@programs = []
-    @programusers.each do |programuser|
-      @program = Program.find_by_id(programuser.program_id)
-      @programs << @program
-    end	
-    @programs
+  	@programusers.each do |programuser|
+  		@program = Program.find_by_id(programuser.program_id)
+  		@programs << @program
+  	end
   end
   def show
   	@program = Program.find(params[:program_id])
