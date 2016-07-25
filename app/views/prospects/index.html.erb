@@ -181,12 +181,13 @@
 
                                             </div>
                                         </div>
-
+                                        <p><b>Statements</b></p>
                                         <% prospect.statements.each do |statement| %>
                                         <div class="well statements-well">
                                           <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(prospect, statement), :class => 'black' %>
                                         </div>
                                         <% end %>
+                                        <br>
 
 
                                     </div>

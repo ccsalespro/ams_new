@@ -76,7 +76,7 @@
         <div class="tasks<%= @prospect.id %>">
             <% @sorted_tasks.each do |task| %>
             <% if task.completed? %>
-
+          <div class="well task-well">
             <div class="clearfix delete">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
@@ -87,43 +87,53 @@
                     </p>
                     <div class="pull-right">
                         <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-                        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                        <i class="fa fa-check-square-o green" aria-hidden="true"></i>
-                        <% end %>
-                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
-                        <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                        <% end %>
                     </div>
                     <div class="clearfix"></div>
-                    <p class="text-left">
-                        <strike><%= task.body %></strike>
+                    <p class="text-left green">
+                        <strike class="col-sm-9 col-md-10"><%= task.body %></strike>
+                        <span class="icon-panel col-sm-3 col-md-2 no-padding">
+                          <span class="small-pad">
+                        <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
+                          </span>
+                          <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
+                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <% end %>
+                      </span>
                     </p>
                 </div>
             </div>
+          </div>
 
         <% else %>
-
-            <div class="clearfix delete">
-                <div class="delete-btn-action">
-                    <p class="pull-left no-margin-bottom">
-                        <small class="text-capitalize">
-                            <strong><%= time_ago_in_words(task.created_at) %>
-                                Ago</strong>
-                        </small>
-                    </p>
-                    <div class="pull-right">
-                        <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-                        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                        <i class="fa fa-square-o black" aria-hidden="true"></i>
+        <div class="well task-well">
+          <div class="clearfix delete">
+              <div class="delete-btn-action">
+                  <p class="pull-left no-margin-bottom">
+                      <small class="text-capitalize">
+                          <strong><%= time_ago_in_words(task.created_at) %>
+                              Ago</strong>
+                      </small>
+                  </p>
+                  <div class="pull-right">
+                      <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <p class="text-left red">
+                      <span class="col-sm-9 col-md-10"><%= task.body %></span>
+                      <span class="icon-panel col-sm-3 col-md-2 no-padding">
+                        <span class="small-pad">
+                          <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+                          <i class="fa fa-square-o black task-not-complete pull-right" aria-hidden="true"></i>
+                          <% end %>
+                        </span>
+                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
+                        <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
                         <% end %>
-                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
-                        <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                        <% end %>
-                    </div>
-                    <div class="clearfix"></div>
-                    <p class="text-left"><%= task.body %></p>
-                </div>
-            </div>
+                    </span>
+                  </p>
+              </div>
+          </div>
+        </div>
 
             <% end %>
 
@@ -209,7 +219,7 @@
         <div class="row margin-bottom-actions">
             <div class="col-xs-5 action-dateselect-top"><%= f.text_field :finish_date, :class => 'datetimepicker form-control', :required => true, :placeholder => 'Click To Select Date' %></div>
             <div class="col-xs-1 action-submit-top pull-right">
-                <button class="btn btn-primary pull-right">Add</button>
+                <button class="btn btn-primary pull-right">Add Action</button>
             </div>
         </div>
     </div>
@@ -232,14 +242,14 @@
                     <div class="pull-right">
                         <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
                         <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                        <i class="fa fa-check-square-o green" aria-hidden="true"></i>
+                          <i class="fa fa-check-square-o green" aria-hidden="true"></i>
                         <% end %>
                         <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
                         <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
                         <% end %>
                     </div>
                     <div class="clearfix"></div>
-                    <p class="text-left">
+                    <p class="text-left green">
                         <strike><%= task.body %></strike>
                     </p>
                 </div>
@@ -265,7 +275,7 @@
                         <% end %>
                     </div>
                     <div class="clearfix"></div>
-                    <p class="text-left"><%= task.body %></p>
+                    <p class="text-left red"><%= task.body %></p>
                 </div>
             </div>
 
@@ -306,23 +316,37 @@
         </div>
 
     </div>
+    <hr>
+    <h4 class="text-center">Statements</h4>
+    <% @prospect.statements.each do |statement| %>
+    <div class="well statements-well">
+        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+    </div>
+    <% end %>
 </div>
 
 <div class="col-md-6 visible-xs">
 
-  <h4 class="notes_title text-center">Notes</h4>
-  <%= form_for [@prospect, Note.new], remote: true do |f| %>
-  <div class="field">
-      <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
-  </div>
-  <% end %>
-  <div class="notes-margin">
+    <h4 class="notes_title text-center">Notes</h4>
+    <%= form_for [@prospect, Note.new], remote: true do |f| %>
+    <div class="field">
+        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+    </div>
+    <% end %>
+    <div class="notes-margin">
 
-      <div class="notes<%= @prospect.id %>">
-          <%= render :partial => @prospect.notes %>
-      </div>
+        <div class="notes<%= @prospect.id %>">
+            <%= render :partial => @prospect.notes %>
+        </div>
 
-  </div>
+    </div>
+    <hr>
+    <h4 class="text-center">Statements</h4>
+    <% @prospect.statements.each do |statement| %>
+    <div class="well statements-well">
+        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+    </div>
+    <% end %><br>
 </div>
 
 <script type="text/javascript">
