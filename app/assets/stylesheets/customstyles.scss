@@ -25,7 +25,7 @@
         box-shadow: 0px 0px 5px 3px #BFBFBF !important;
     }
 
-    .fab-plus { margin-top: 12px !important; margin-right: 1px;}
+    .fab-plus { margin-top: 13px !important; margin-right: 1px;}
 
 
 /* Search Bar Styles */
@@ -307,3 +307,7 @@ hr.style-two {
 .delete-task { text-decoration: none !important; }
 
 .small-pad { padding-bottom: 5px;}
+
+@media screen and (max-width: 495px) {
+    .task-delete { margin-right: 5px; }
+}

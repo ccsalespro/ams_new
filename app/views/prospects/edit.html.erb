@@ -231,6 +231,7 @@
             <% @sorted_tasks.each do |task| %>
             <% if task.completed? %>
 
+          <div class="well task-well">
             <div class="clearfix delete">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
@@ -241,22 +242,26 @@
                     </p>
                     <div class="pull-right">
                         <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-                        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                          <i class="fa fa-check-square-o green" aria-hidden="true"></i>
-                        <% end %>
-                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
-                        <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                        <% end %>
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left green">
-                        <strike><%= task.body %></strike>
+                        <strike class="col-xs-10"><%= task.body %></strike>
+                        <span class="icon-panel col-xs-2 no-padding">
+                          <span class="small-pad">
+                        <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
+                          </span>
+                          <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
+                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <% end %>
+                      </span>
                     </p>
                 </div>
             </div>
+          </div>
 
         <% else %>
 
+            <div class="well task-well">
             <div class="clearfix delete">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
@@ -267,17 +272,24 @@
                     </p>
                     <div class="pull-right">
                         <span><%= task.finish_date.strftime("%m/%d/%Y") %></span>
-                        <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                        <i class="fa fa-square-o black" aria-hidden="true"></i>
-                        <% end %>
-                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task', :remote => true do %>
-                        <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                        <% end %>
                     </div>
                     <div class="clearfix"></div>
-                    <p class="text-left red"><%= task.body %></p>
+                    <p class="text-left red">
+                        <strike class="col-xs-10"><%= task.body %></strike>
+                        <span class="icon-panel col-xs-2 no-padding">
+                          <span class="small-pad">
+                          <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
+                            <i class="fa fa-square-o black task-not-complete pull-right" aria-hidden="true"></i>
+                          <% end %>
+                          </span>
+                          <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
+                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <% end %>
+                      </span>
+                    </p>
                 </div>
             </div>
+          </div>
 
             <% end %>
             <% end %>
