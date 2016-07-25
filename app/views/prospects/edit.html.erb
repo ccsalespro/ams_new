@@ -35,13 +35,13 @@
         <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
     </div>
     <div class="field row">
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             <p class="text no-margin">
                 <b>Stage</b>
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
-        <div class="col-xs-6 margin-top-edit-prospect-btns">
+        <div class="col-xs-8 margin-top-edit-prospect-btns">
             <span class="pull-right">
                 <%= button_tag("Save", :class => 'btn btn-primary') %>
                 <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
@@ -188,8 +188,8 @@
         </div>
         <div class="col-xs-8 margin-top-edit-prospect-btns">
             <span class="pull-right">
-                <%= button_tag("Submit", :class => 'btn btn-primary') %>
-                <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), prospects_path) %>
+                <%= button_tag("Save", :class => 'btn btn-primary') %>
+                <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
             </span>
         </div>
     </div>
