@@ -15,5 +15,7 @@
   <%= @course.description %>
 </p>
 
+<%= link_to 'Chapters', course_chapters_path(@course) %> <br>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
