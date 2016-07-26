@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722193207) do
+ActiveRecord::Schema.define(version: 20160726145621) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +26,16 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "chapters", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "course_id"
+  end
+
+  add_index "chapters", ["course_id"], name: "index_chapters_on_course_id"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
@@ -43,6 +59,14 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "minutes"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "descriptions", force: :cascade do |t|
     t.string   "business_type_primary"
     t.string   "business_type_secondary"
@@ -63,12 +87,12 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -120,6 +144,17 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "title"
+    t.string   "video"
+    t.integer  "minutes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "chapter_id"
+  end
+
+  add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
 
   create_table "merchants", force: :cascade do |t|
     t.string   "business_dba"
@@ -235,6 +270,7 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.boolean  "personal",                      default: true
+    t.integer  "structure_id"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -308,6 +344,12 @@ ActiveRecord::Schema.define(version: 20160722193207) do
     t.decimal  "mc_transactions"
     t.decimal  "mc_volume"
     t.decimal  "mc_fees"
+  end
+
+  create_table "structures", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
