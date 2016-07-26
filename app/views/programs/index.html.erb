@@ -30,8 +30,8 @@
         <td><%= program.residual_split %></td>
         <td><%= program.min_bp_mark_up %></td>
         <td><%= program.min_per_item_fee %></td>
-        <td><%= program.cost_structure %></td>
-        <td><%= program.terminal_ownership_type %></td>
+        <td><%= program.structure.name %></td>
+        <td><%= program.system.name %></td>
         <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
         <% if program.personal == true %>
           <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>

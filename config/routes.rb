@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :systems
   resources :courses do
     resources :chapters do
       resources :lessons

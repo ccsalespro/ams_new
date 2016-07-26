@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
   before_action :load_course
+  before_action :require_admin #remove after finishing
 
   # GET /chapters
   # GET /chapters.json
