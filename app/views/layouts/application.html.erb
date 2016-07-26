@@ -56,11 +56,9 @@
                          <%= link_to("Pricing", static_pricing_path, :class => 'a-tag-for-navbar-links nav-font' ) %>
                     </li>
                     <% end %>
-                    <% if user_signed_in? && current_user.subscribed == true %>
                     <li>
-                        <%= link_to("IQ", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                        <%= link_to("Prospects", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
-                    <% end %>
                     <li>
                         <%= link_to("Contact", new_internal_contact_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>

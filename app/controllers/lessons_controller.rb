@@ -2,7 +2,8 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
   before_action :load_chapter
   before_action :load_course
-  before_action :require_admin #remove after finishing
+  before_action :require_admin
+
   # GET /lessons
   # GET /lessons.json
   def index
