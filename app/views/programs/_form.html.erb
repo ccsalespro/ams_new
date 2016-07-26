@@ -43,7 +43,7 @@
     </div>
     <div class="form-group">
       <%= f.label :cost_structure %><br>
-      <%= f.text_field :cost_structure, class: "form-control" %>
+      <%= collection_select( :program, :structure_id, Structure.all, :id, :name, {}, { :multiple => false }) %>
     </div>
     <div class="form-group">
       <%= f.label :terminal_type %><br>

@@ -62,7 +62,7 @@ class ProcessorsController < ApplicationController
   def destroy
     @processor.destroy
     respond_to do |format|
-      format.html { redirect_to processors_url, notice: 'Processor was successfully destroyed.' }
+      format.html { redirect_to new_processor_path, notice: 'Processor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

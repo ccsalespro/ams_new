@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725174442) do
+ActiveRecord::Schema.define(version: 20160726145621) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 20160725174442) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.boolean  "personal",                      default: true
+    t.integer  "structure_id"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -343,6 +344,12 @@ ActiveRecord::Schema.define(version: 20160725174442) do
     t.decimal  "mc_transactions"
     t.decimal  "mc_volume"
     t.decimal  "mc_fees"
+  end
+
+  create_table "structures", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|

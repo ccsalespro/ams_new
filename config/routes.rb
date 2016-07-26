@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :structures
   resources :internal_contacts
   resources :processorusers
   resources :programusers
