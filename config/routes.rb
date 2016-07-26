@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :systems
+  resources :courses do
+    resources :chapters do
+      resources :lessons
+    end
+  end
+
   resources :structures
   resources :internal_contacts
   resources :processorusers
@@ -76,7 +83,7 @@ Rails.application.routes.draw do
       collection { post :import }
     end
   end
-  
+
   resources :programs
 
     get 'calendars/index'

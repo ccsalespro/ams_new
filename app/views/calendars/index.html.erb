@@ -22,18 +22,17 @@
         <% @grouped_tasks[date].each do |task| %>
 
         <% if task.completed? %>
-        <li class="green no-dec">
+        <li class="green">
 
             <strike>
                 <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 30),  edit_prospect_path(task.prospect), :class => 'green' %></span>
             </strike>
         </li>
     <% else %>
-        <li class="red no-dec">
+        <li class="red">
             <span data-toggle="tooltip" title="<%= task.prospect.business_name %>"><%= link_to truncate(task.body, :length => 30),  edit_prospect_path(task.prospect), :class => 'red' %></span>
         </li>
         <% end %>
-
         <% end %>
     </ul>
     <% end %>

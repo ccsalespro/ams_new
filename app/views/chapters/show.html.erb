@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @chapter.name %>
+</p>
+
+<p>
+  <strong>Minutes:</strong>
+  <%= @chapter.minutes %>
+</p>
+
+<%= link_to 'Lessons', course_chapter_lessons_path(@course, @chapter) %> <br>
+<%= link_to 'Back', course_chapters_path %>
