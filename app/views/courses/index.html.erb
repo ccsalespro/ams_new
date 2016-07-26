@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container hidden">
 
 <h1>Listing Courses</h1>
 
 <table class="table table-bordered table-hover">
   <thead>
-    <tr>
+    <tr class="white total">
       <th>Name</th>
       <th>Minutes</th>
       <th>Description</th>
@@ -30,8 +30,52 @@
 
 <br>
 
-<% if user_signed_in? && current_user.admin? %>
-<%= link_to 'New Course', new_course_path %>
+<% if user_signed_in? && current_user.admin? -%>
+<%= link_to new_course_path, :class => 'btn btn-primary fab-btn' do %>
+<i class="fa fa-plus fab-plus" aria-hidden="true"></i>
+<% end %>
 <% end -%>
 
+
 </div>
+
+
+
+<br><br>
+<div class="container">
+
+<%= search_form_for @search do |f| %>
+  <div class="input-group stylish-input-group clearfix">
+    <%= f.search_field :name_cont, :class => 'form-control', :placeholder => 'Search' %>
+            <span class="input-group-addon">
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+        <% end %>
+      <br>
+
+<div class="well">
+<% @courses.each do |course| %>
+
+<h1 class="course-length">
+  <%= link_to course.name, course_path(course) %>
+  <span class="pull-right"><b><%= course.minutes %></b> Minutes</span>
+</h1>
+
+<% if course != @courses.last %>
+<hr>
+<% end -%>
+
+<% end -%>
+</div>
+
+</div>
+
+
+<% if user_signed_in? && current_user.admin? -%>
+<%= link_to new_course_path, :class => 'btn btn-primary fab-btn' do %>
+<i class="fa fa-plus fab-plus" aria-hidden="true"></i>
+<% end %>
+<% end -%>

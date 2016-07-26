@@ -1,14 +1,14 @@
-<p>
-  <strong>Title:</strong>
-  <%= @lesson.title %>
-</p>
+<br><br>
 
-<p>
-  <strong>Video:</strong>
+<div class="container">
+<center>
+<div class="well">
+<h1 class="lesson-title">
+  <%= @lesson.title %><br><b><%= @lesson.minutes %></b> Minutes
+</h1><hr>
+
   <%= @lesson.video.html_safe %>
-</p>
 
-<p>
-  <strong>Minutes:</strong>
-  <%= @lesson.minutes %>
-</p>
+</div>
+</center>
+</div>
