@@ -1,2 +1,4 @@
-$('.notes<%= @prospect.id %>').prepend("<%= j render @note %>").fadeIn();
-$('.body').val("");
+$(document).ready(function () {
+  $('.notes<%= @prospect.id %>').prepend("<%= j render @note %>").fadeIn();
+  $('.body').val("");
+});

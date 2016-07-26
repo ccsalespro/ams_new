@@ -4,11 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :prospects
-  has_many :tasks
-  has_many :programusers
+  has_many :prospects, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+  has_many :programusers, dependent: :destroy
   has_many :programs, through: :programusers
-  has_many :processorusers
+  has_many :processorusers, dependent: :destroy
   has_many :processors, through: :processorusers
 end
 

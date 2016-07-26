@@ -25,7 +25,7 @@
         box-shadow: 0px 0px 5px 3px #BFBFBF !important;
     }
 
-    .fab-plus { margin-top: 12px !important; margin-right: 1px;}
+    .fab-plus { margin-top: 13px !important; margin-right: 1px;}
 
 
 /* Search Bar Styles */
@@ -293,3 +293,21 @@ hr.style-two {
 .contact-info-margin { display: block; margin-top: 55px !important; text-align: center;}
 
 .contact-info-padding { padding-top: 0px !important;}
+
+.statements-well { padding: 5px; margin: 5px; }
+
+.task-complete { font-size: 40px; margin-left: 5px !important;}
+
+.task-not-complete { font-size: 40px; margin-right: 5px; margin-left: 5px !important; }
+
+.task-well { padding: 5px; margin: 5px; padding-left: 10px; }
+
+.task-delete { font-size: 37px; vertical-align: top; }
+
+.delete-task { text-decoration: none !important; }
+
+.small-pad { padding-bottom: 5px;}
+
+@media screen and (max-width: 495px) {
+    .task-delete { margin-right: 5px; }
+}
