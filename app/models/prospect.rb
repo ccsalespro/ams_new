@@ -1,5 +1,5 @@
 class Prospect < ActiveRecord::Base
-	has_many :statements
+	has_many :statements, dependent: :destroy
 	has_many :intcalcitems
 	belongs_to :user
 	belongs_to :description
