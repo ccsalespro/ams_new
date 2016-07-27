@@ -4,11 +4,10 @@
 
 <table class="table table-bordered table-hover">
   <thead>
-    <tr>
+    <tr class="total white">
       <th>Title</th>
-      <th>Video</th>
       <th>Minutes</th>
-      <th colspan="3"></th>
+      <th colspan="3">View</th>
     </tr>
   </thead>
 
@@ -16,11 +15,13 @@
     <% @lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.title %></td>
-        <td><%= lesson.video %></td>
         <td><%= lesson.minutes %></td>
         <td><%= link_to 'Show',  course_chapter_lesson_path(@course.id, @chapter.id, lesson.id) %></td>
+        <% if user_signed_in? && current_user.admin? %>
         <td><%= link_to 'Edit', edit_course_chapter_lesson_path(@course.id, @chapter.id, lesson.id) %></td>
-        <td><%= link_to 'Destroy', course_chapter_lesson_path(@course.id, @chapter.id, lesson.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', course_chapter_lesson_path(@course.id, @chapter.id, lesson.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end -%>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,6 +29,8 @@
 
 <br>
 
+<% if user_signed_in? && current_user.admin? %>
 <%= link_to 'New Lesson', new_course_chapter_lesson_path(@course.id, @chapter.id) %>
+<% end -%>
 
 </div>

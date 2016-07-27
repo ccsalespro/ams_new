@@ -1,21 +1,26 @@
-<p id="notice"><%= notice %></p>
+<br><br>
+<div class="container">
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+<div class="well">
+<center>
+<h1 class="course-title">
+	<%= @course.name %>
+</h1>
+  <h1 class="course-length"><b><%= @course.minutes %></b> Minutes</h1>
+</center>
+  <% @course.chapters.each do |chapter| %>
+  <hr>
+  	<h3><%= link_to chapter.name, course_chapter_path(@course, chapter) %>
+  		<span class="pull-right"><b><%= chapter.minutes %></b> Minutes</span>
+  	</h3>
+  <% end -%>
 
-<p>
-  <strong>Minutes:</strong>
-  <%= @course.minutes %>
-</p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
+</div>
 
-<%= link_to 'Chapters', course_chapters_path(@course) %> <br>
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<% if user_signed_in? && current_user.admin? -%>
+<%= link_to new_course_chapter_path(@course), :class => 'btn btn-primary fab-btn' do %>
+<i class="fa fa-plus fab-plus" aria-hidden="true"></i>
+<% end %>
+<% end -%>

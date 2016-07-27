@@ -1,11 +1,11 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  before_action :require_admin #remove after finishing
 
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @search = Course.search(params[:q])
+    @courses = @search.result
   end
 
   # GET /courses/1
