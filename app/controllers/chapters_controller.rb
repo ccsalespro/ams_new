@@ -11,6 +11,11 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
+    @lessons = @chapter.lessons
+    @chapter_time = 0
+    @lessons.each do |lesson|
+      @chapter_time = @chapter_time + lesson.minutes
+    end
   end
 
   # GET /chapters/new

@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:show, :edit, :update, :destroy, :complete]
   before_action :load_chapter
   before_action :load_course
   before_action :require_admin
@@ -13,6 +13,10 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   # GET /lessons/new
@@ -32,7 +36,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to course_chapters_path(@course.id), notice: 'Lesson was successfully created.' }
+        format.html { redirect_to course_chapter_path(@course, @chapter), notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new }
@@ -60,9 +64,14 @@ class LessonsController < ApplicationController
   def destroy
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to course_chapters_path(@course.id), notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to course_chapter_path(@course, @chapter), notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def complete
+    @lesson.update_attribute(:completed_at, Time.now)
+    redirect_to course_chapter_lesson_path(@course, @chapter, @lesson)
   end
 
   private
@@ -81,6 +90,6 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:title, :video, :minutes, :chapter_id, :course_id)
+      params.require(:lesson).permit(:title, :video, :minutes, :description, :chapter_id, :course_id)
     end
 end

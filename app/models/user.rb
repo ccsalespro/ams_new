@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :programs, through: :programusers
   has_many :processorusers, dependent: :destroy
   has_many :processors, through: :processorusers
+  has_many :courses
 end
 
 

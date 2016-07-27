@@ -1,14 +1,30 @@
 <br><br>
 
-<div class="container">
-<center>
+<div class="container" data-remote="true">
 <div class="well">
 <h1 class="lesson-title">
-  <%= @lesson.title %><br><b><%= @lesson.minutes %></b> Minutes
-</h1><hr>
-
+  <%= @lesson.title %> <% if user_signed_in? && current_user.admin? %><span class="pull-right"><%= link_to "Delete", course_chapter_lesson_path(@course, @chapter, @lesson), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %></span><% end -%>
+</h1>
+<h3 class="no-margin"><b><%= @lesson.minutes %></b> Minutes</h3>
+<hr>
+<center class="visible-sm visible-xs">
   <%= @lesson.video.html_safe %>
+  <span class="visible-xs visible-sm"><br></span>
+ </center>
+
+ <div class="row">
+
+ <div class="hidden-xs hidden-sm col-md-6 col-lg-5 video-padding">
+ <%= @lesson.video.html_safe %>
+ </div>
+ <div class="col-md-5 col-lg-6 description-padding pull-right">
+ 	<div class="well">
+ 		<%= @lesson.description %>
+ 	</div>
+ </div>
+
+ </div>
 
 </div>
-</center>
 </div>
+

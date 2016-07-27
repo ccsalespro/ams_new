@@ -1,46 +1,3 @@
-<div class="container hidden">
-
-<h1>Listing Courses</h1>
-
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr class="white total">
-      <th>Name</th>
-      <th>Minutes</th>
-      <th>Description</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= course.name %></td>
-        <td><%= course.minutes %></td>
-        <td><%= course.description %></td>
-        <td><%= link_to 'Show', course %></td>
-        <% if user_signed_in? && current_user.admin? %>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end -%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if user_signed_in? && current_user.admin? -%>
-<%= link_to new_course_path, :class => 'btn btn-primary fab-btn' do %>
-<i class="fa fa-plus fab-plus" aria-hidden="true"></i>
-<% end %>
-<% end -%>
-
-
-</div>
-
-
-
 <br><br>
 <div class="container">
 
@@ -58,11 +15,23 @@
 
 <div class="well">
 <% @courses.each do |course| %>
+        
+        <% @course_time = 0 %>
+        <% @chapter_time = 0 %>
+        <% @lesson_time = 0 %>
+        <% course.chapters.each do |chapter| %>
+          <% chapter.lessons.each do |lesson| %>
+            <% @lesson_time = @lesson_time + lesson.minutes %>
+            <% @chapter_time = @lesson_time %>
+          <% end -%>
+          <% @course_time = @chapter_time %>
+        <% end -%>
 
 <h1 class="course-length">
-  <%= link_to course.name, course_path(course) %>
-  <span class="pull-right"><b><%= course.minutes %></b> Minutes</span>
+  <%= link_to course.name, course_path(course), :class => 'black' %>
+  <span class="pull-right"><b><%= @course_time %></b> Minutes</span><br>
 </h1>
+<%= course.description %>
 
 <% if course != @courses.last %>
 <hr>
@@ -74,8 +43,8 @@
 </div>
 
 
-<% if user_signed_in? && current_user.admin? -%>
+<% if user_signed_in? && current_user.admin? %>
 <%= link_to new_course_path, :class => 'btn btn-primary fab-btn' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
-<% end -%>
+<% end %>

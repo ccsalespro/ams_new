@@ -4,5 +4,4 @@ module ApplicationHelper
 		return markdown.render(text).html_safe
 end
 
-
 end

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726151929) do
+ActiveRecord::Schema.define(version: 20160727194134) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -23,7 +29,6 @@ ActiveRecord::Schema.define(version: 20160726151929) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
-    t.integer  "minutes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "course_id"
@@ -55,7 +60,6 @@ ActiveRecord::Schema.define(version: 20160726151929) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
-    t.integer  "minutes"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -81,12 +85,12 @@ ActiveRecord::Schema.define(version: 20160726151929) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -143,9 +147,11 @@ ActiveRecord::Schema.define(version: 20160726151929) do
     t.string   "title"
     t.string   "video"
     t.integer  "minutes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "chapter_id"
+    t.datetime "completed_at"
+    t.text     "description"
   end
 
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
@@ -195,6 +201,16 @@ ActiveRecord::Schema.define(version: 20160726151929) do
 
   add_index "notes", ["prospect_id"], name: "index_notes_on_prospect_id"
   add_index "notes", ["user_id"], name: "index_notes_on_user_id"
+
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "stripe_plan_id"
+    t.decimal  "price"
+    t.integer  "trial_days"
+    t.text     "description"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "processors", force: :cascade do |t|
     t.string   "name"
@@ -346,6 +362,18 @@ ActiveRecord::Schema.define(version: 20160726151929) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "plan_id"
+    t.boolean  "active"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id"
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
 
   create_table "systems", force: :cascade do |t|
     t.string   "name"

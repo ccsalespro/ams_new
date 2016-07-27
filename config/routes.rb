@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   resources :systems
   resources :courses do
     resources :chapters do
-      resources :lessons
+      resources :lessons do
+        member do
+          patch :complete
+        end
+      end
     end
   end
 

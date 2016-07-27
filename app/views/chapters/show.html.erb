@@ -1,16 +1,21 @@
 <br><br>
 <div class="container">
 <div class="well">
-<center>
+
 <h1 class="lesson-title">
-  <%= @chapter.name %><br><b><%= @chapter.minutes %></b> Minutes
-</h1>
-</center>
+  <%= @chapter.name %> <% if user_signed_in? && current_user.admin? %><%= link_to "Delete", course_chapter_path(@course, @chapter), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %><% end -%><span class="pull-right"><b><%= @chapter_time %></b> Minutes</span>
+</h1><hr>
+
+	<h2><b>Lessons</b></h2>
+
   <% @chapter.lessons.each do |lesson| %>
-  <hr>
-  	<h3><%= link_to lesson.title, course_chapter_lesson_path(@course, @chapter, lesson) %>
+  
+  <h3><% if lesson.completed? %><i class="fa fa-eye" aria-hidden="true"></i><% else %><i class="fa fa-eye-slash" aria-hidden="true"></i><% end %> | <%= link_to lesson.title, complete_course_chapter_lesson_path(@course, @chapter, lesson), method: :patch, :class => 'black' %>
   		<span class="pull-right"><b><%= lesson.minutes %></b> Minutes</span>
   	</h3>
+  	 <% if lesson != @lessons.last %>
+			<hr>
+		<% end -%>
   <% end -%>
 
 </div>

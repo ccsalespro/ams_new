@@ -13,4 +13,5 @@ class ApplicationController < ActionController::Base
   		redirect_to root_url, alert: "Please Subscribe"
     end
   end
+
 end
