@@ -377,3 +377,11 @@ hr.style-two {
 .no-dec { text-decoration: none !important; list-style-type: none !important; display: inline-block !important ;}
 
 .menu { font-size: 30px !important; }
+
+.open > .course-dropdown {
+    position: absolute;
+    top: 0;
+    left: -165px;
+    display: inline-block !important;
+    z-index: 20000 !important;
+}

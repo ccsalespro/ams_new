@@ -10,7 +10,7 @@
 <ul class="no-dec">
 <li class="dropdown no-dec">
   <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-ellipsis-v black menu" aria-hidden="true"></i><b class="caret"></b></a>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu course-dropdown">
     <li><%= link_to "Edit", edit_course_chapter_lesson_path(@course, @chapter, @lesson) %></li>
     <li><%= link_to "Delete", course_chapter_lesson_path(@course, @chapter, @lesson), method: :delete, data: { confirm: 'Are You Sure?' } %></li>
   </ul>

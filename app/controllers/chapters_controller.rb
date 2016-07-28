@@ -48,7 +48,7 @@ class ChaptersController < ApplicationController
   def update
     respond_to do |format|
       if @chapter.update(chapter_params)
-        format.html { redirect_to @course, notice: 'Chapter was successfully updated.' }
+        format.html { redirect_to course_chapter_path(@course, @chapter), notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
       else
         format.html { render :edit }
