@@ -3,7 +3,25 @@
 
 <div class="well">
 <h1 class="lesson-title">
-  <%= @course.name %> <% if user_signed_in? && current_user.admin? %><%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %><% end -%><span class="pull-right time-font"><b><%= @course_time %></b> Minutes</span>
+  <%= @course.name %>
+  <span class="pull-right time-font no-margin">
+  <% if user_signed_in? && current_user.admin? %>
+
+<ul class="no-dec pull-left">
+<li class="dropdown no-dec">
+  <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-ellipsis-v black menu" aria-hidden="true"></i><b class="caret"></b></a>
+  <ul class="dropdown-menu">
+		<li><%= link_to "Edit", edit_course_path(@course) %></li>
+		<li><%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' } %></li>
+  </ul>
+</li>
+</ul>
+
+  <% end -%>
+  </span>
+  <span class="pull-right time-font no-margin">
+  <b><%= @course_time %></b> Minutes
+  </span>
 </h1><hr>
 
 <h2 class="text-center"><b>Chapters</b></h2>
