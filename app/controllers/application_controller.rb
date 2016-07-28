@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
 
   def require_admin
   	unless current_user.admin?
-  		redirect_to root_url, alert: "Unauthorized access!"
+  		redirect_to root_url, notice: "Unauthorized Access!"
   	end
   end
   def require_subscribed
   	unless current_user.subscribed?
-  		redirect_to root_url, alert: "Please Subscribe"
+  		redirect_to root_url, notice: "Please Subscribe"
     end
   end
 
