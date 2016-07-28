@@ -1,3 +1,7 @@
+@font-face { font-family: OpenSans; src: url('clearsans.ttf'); } 
+
+* { font-family: OpenSans, Arial; }
+
 /* Sets Background Color */
     body {
     	background-color: #f2f2f2 !important;
