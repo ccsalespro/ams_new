@@ -1,3 +1,4 @@
+<div class="container">
 <%= form_for ([@course, @chapter]) do |f| %>
   <% if @chapter.errors.any? %>
     <div id="error_explanation">
@@ -13,13 +14,10 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :minutes %><br>
-    <%= f.number_field :minutes %>
-  </div>
+    <%= f.text_field :name, :class => 'form-control' %>
+  </div><br>
   <div class="actions">
-    <%= f.submit %>
+    <button class="btn btn-primary">Create</button>
   </div>
 <% end %>
+</div>

@@ -3,10 +3,10 @@
 
 <div class="well">
 <h1 class="lesson-title">
-  <%= @course.name %> <% if user_signed_in? && current_user.admin? %><%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %><% end -%><span class="pull-right"><b><%= @course_time %></b> Minutes</span>
+  <%= @course.name %> <% if user_signed_in? && current_user.admin? %><%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'btn btn-primary' %><% end -%><span class="pull-right time-font"><b><%= @course_time %></b> Minutes</span>
 </h1><hr>
 
-<h2><b>Chapters</b></h2>
+<h2 class="text-center"><b>Chapters</b></h2>
 
   <% @course.chapters.each do |chapter| %>
 				<% @chapter_time = 0 %>
