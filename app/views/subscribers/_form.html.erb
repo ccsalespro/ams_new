@@ -25,10 +25,12 @@
               <li class="list-group-item lgi-custom price-info">Business Type Analysis</li>
               <li class="list-group-item lgi-custom price-info"><script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-description="IQ Tool ($99 Per Month)"
+                      data-description="$99 per Month - No Contract"
                       data-amount="9900"
+                      data-name="10 Day Trial"
                       data-locale="auto"
-                      data-label="Start Trial"></script>
+                      data-label="Start Trial"
+                      data-panel-label="Start Trial"></script>
               </li>
           </ul>
       </div>
