@@ -14,18 +14,33 @@
   .total { background-color: $main-color !important; }
 
 /* Floating Action Button Styles */
-    .fab-btn {
-    	border-radius: 50px !important;
-        height: 50px;
-        width: 50px;
-        float: right;
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-    }
+.fab-btn {
+    background-color: $main-color !important;
+    border-radius: 50px !important;
+    height: 50px;
+    width: 50px;
+    float: right;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    box-shadow: 0px 0px 5px 3px #BFBFBF !important;
+}
 
-    .fab-plus { margin-top: 13px !important; margin-right: 1px;}
+.fab-btn:hover {
+    transform: rotate(360deg);
+    box-shadow: 0px 0px 5px 5px #9F9F9F !important;
+    transition: box-shadow 200ms ease-in-out, transform 300ms linear;
+}
+
+.fab-btn:not(:hover) {
+    transform: rotate(0deg);
+    box-shadow: 0px 0px 5px 3px #BFBFBF !important;
+    transition: box-shadow 200ms ease-in-out, transform 300ms linear;
+}
+
+.fab-plus {
+    margin-top: 12px;
+}
 
 
 /* Search Bar Styles */
@@ -324,6 +339,12 @@ hr.style-two {
     .task-delete { font-size: 27px; vertical-align: top; }
 }
 
+@media screen and (max-width: 400px) {
+    .task-complete { font-size: 21px; margin-left: 0px !important;}
+    .task-not-complete { font-size: 21px; margin-right: 5px; margin-left: 0px !important; }
+    .task-delete { font-size: 20px; vertical-align: top; }
+}
+
 .video-padding { padding-right: 0px !important; }
 
 .description-padding { padding-left: 0px !important; padding-right: 40px !important;}
@@ -343,3 +364,7 @@ hr.style-two {
 }
 
 .time-font { font-size: 20px !important; margin-top: 10px !important; }
+
+.course-panel-height { height: 150px !important; }
+
+.special-footer { background: transparent !important; border-top: none !important; }

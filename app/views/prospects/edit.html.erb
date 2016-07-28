@@ -105,8 +105,8 @@
           </div>
 
         <% else %>
-        <div class="well task-well">
-          <div class="clearfix delete">
+        <div class="well task-well delete">
+          <div class="clearfix">
               <div class="delete-btn-action">
                   <p class="pull-left no-margin-bottom">
                       <small class="text-capitalize">
@@ -275,7 +275,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left red">
-                        <strike class="col-xs-10"><%= task.body %></strike>
+                        <span class="col-xs-10"><%= task.body %></span>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
                           <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>

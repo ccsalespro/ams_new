@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to :back, notice: 'Task Added' }
+        format.html { redirect_to :back }
         format.js { render :layout => false }
       else
         format.html { render action: "new" }
@@ -24,7 +24,7 @@ end
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to :back }
       format.js { render :layout => false }
     end
   end
