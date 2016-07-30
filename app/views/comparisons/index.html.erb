@@ -17,54 +17,18 @@
     </thead>
 
 
-<% @programs.each do |program| %>
-
-<% @batch_fees = @statement.batches * program.min_per_batch_fee %>
-<% @total_transactions = ( @statement.total_vol / @statement.avg_ticket ) %>
-<% @vs_mc_disc_mark_up = ( @statement.vmd_vol * (program.min_bp_mark_up / 10000 ) ) %>
-<% @amex_mark_up = ( @statement.amex_vol * ( program.min_amex_bp_fee / 10000 ) ) %>
-<% @vs_mc_disc_trans_fees = ( @statement.vmd_trans * program.min_per_item_fee ) %>
-<% @amex_trans_fees = ( @statement.amex_trans * program.min_amex_per_item_fee ) %>
-<% @vs_access_fees = ((program.visa_access_per_item * @statement.vs_transactions) + ((program.visa_access_percentage / 10000) * @statement.vs_volume)) %>
-<% @mc_access_fees = ((program.mc_access_per_item * @statement.mc_transactions) + ((program.mc_access_percentage / 10000) * @statement.mc_volume)) %>
-<% @ds_access_fees = ((program.disc_access_per_item * @statement.ds_transactions) + ((program.disc_access_percentage / 10000) * @statement.ds_volume)) %>
-<% @access_fees = (@vs_access_fees + @mc_access_fees + @ds_access_fees) %>
-
-<% @debit_fees = (@statement.debit_trans * program.min_pin_debit_per_item_fee) + (@statement.debit_network_fees) %>
-    <% if @debit_fees > 0 %>
-      <% @debit_fees += program.min_monthly_debit_fee %>
-    <% end %>
-
-<% @total_program_fees = @statement.vs_fees + @statement.ds_fees + @statement.mc_fees + @vs_mc_disc_mark_up + @batch_fees + @vs_mc_disc_mark_up + @amex_mark_up + @vs_mc_disc_trans_fees + @amex_trans_fees + @access_fees + program.min_monthly_fees + program.monthly_pci_fee + (program.annual_pci_fee / 12) + @debit_fees %>
-
-<% @batch_costs = @statement.batches * program.per_batch_cost %>
-<% @bin_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000) %>
-<% @vs_mc_disc_per_item_costs = @statement.vmd_trans * program.per_item_cost  %>
-<% @amex_per_item_costs = @statement.amex_trans * program.amex_per_item_cost %>
-<% @amex_bp_costs = @statement.amex_vol * (program.amex_per_item_cost / 10000) %>
-<% @pin_debit_costs = @statement.debit_trans * program.pin_debit_per_item_cost %>
-  <% if @debit_fees > 0 %>
-    <% @pin_debit_costs += program.monthly_debit_fee_cost %>
-  <% end %>
-
-   <%  @total_program_costs = @batch_costs + @bin_costs + @vs_mc_disc_per_item_costs + @amex_per_item_costs + @amex_bp_costs + @pin_debit_costs + program.monthly_fee_costs + program.monthly_pci_cost %>
-   <% if @statement.total_fees > 0 %>
-   <% @total_savings = @statement.total_fees - @total_program_fees %>
-   <% else %>
-   <% @total_savings = 0 %>
-   <% end %>
-
-   <% @total_residual = (@total_program_fees - @total_program_costs) * (program.residual_split / 100) %>
+<% @comparisons.each do |comparison| %>
+<% @program = Program.find_by_id(comparison.program_id) %>
 
 <tbody>
    <tr class="">
-     <td><%= program.name %></td>
-       <td class="text-left"><%= number_to_currency(program.up_front_bonus) %></td>
-       <td class="text-left"><%= number_to_currency(@total_residual) %></td>
-      <% if @total_savings != 0 %>
-         <td><%= number_to_currency(@total_savings) %></td>
+     <td><%= @program.name %></td>
+       <td class="text-left"><%= number_to_currency(comparison.total_program_bonus) %></td>
+       <td class="text-left"><%= number_to_currency(comparison.total_program_residuals) %></td>
+      <% if @comparison.total_program_savings != 0 %>
+         <td><%= number_to_currency(@comparison.total_program_savings) %></td>
       <% end %>
-       <td class="text-left fixed-width-td"><%= link_to('Present', {:controller => 'comparisons', :action => 'show', :prospect_id => @prospect.id, :statement_id => @statement.id, :program_id => program.id}, :class => "btn btn-primary") %></td>
+       <td class="text-left fixed-width-td"><%= link_to('Present', {:controller => 'comparisons', :action => 'show', :prospect_id => @prospect.id, :statement_id => @statement.id, :program_id => @program.id}, :class => "btn btn-primary") %></td>
    </tr>
  </tbody>
 

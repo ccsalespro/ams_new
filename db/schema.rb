@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727194134) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160728220208) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -46,6 +40,54 @@ ActiveRecord::Schema.define(version: 20160727194134) do
 
   add_index "comments", ["blog_id"], name: "index_comments_on_blog_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "comparisons", force: :cascade do |t|
+    t.integer  "statement_id"
+    t.integer  "program_id"
+    t.decimal  "batch_fees"
+    t.decimal  "vs_mark_up_fees"
+    t.decimal  "mc_mark_up_fees"
+    t.decimal  "ds_mark_up_fees"
+    t.decimal  "total_vmd_mark_up_fees"
+    t.decimal  "amex_mark_up_fees"
+    t.decimal  "vs_trans_fees"
+    t.decimal  "mc_trans_fees"
+    t.decimal  "ds_trans_fees"
+    t.decimal  "total_vmd_trans_fees"
+    t.decimal  "amex_trans_fees"
+    t.decimal  "vs_access_per_item_fees"
+    t.decimal  "mc_access_per_item_fees"
+    t.decimal  "ds_access_per_item_fees"
+    t.decimal  "vs_access_percentage_fees"
+    t.decimal  "mc_access_percentage_fees"
+    t.decimal  "ds_access_percentage_fees"
+    t.decimal  "total_vmd_access_fees"
+    t.decimal  "debit_trans_fees"
+    t.decimal  "total_debit_fees"
+    t.decimal  "total_program_fees"
+    t.decimal  "batch_fee_costs"
+    t.decimal  "bin_fee_costs"
+    t.decimal  "vs_trans_fee_costs"
+    t.decimal  "mc_trans_fee_costs"
+    t.decimal  "ds_trans_fee_costs"
+    t.decimal  "total_vmd_trans_fee_costs"
+    t.decimal  "amex_per_item_costs"
+    t.decimal  "amex_mark_up_costs"
+    t.decimal  "debit_per_item_costs"
+    t.decimal  "total_debit_costs"
+    t.decimal  "total_program_costs"
+    t.decimal  "total_program_savings"
+    t.decimal  "total_program_residuals"
+    t.decimal  "total_program_bonus"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.decimal  "total_vs_access_fees"
+    t.decimal  "total_mc_access_fees"
+    t.decimal  "total_ds_access_fees"
+  end
+
+  add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
+  add_index "comparisons", ["statement_id"], name: "index_comparisons_on_statement_id"
 
   create_table "costs", force: :cascade do |t|
     t.string   "business_type"
@@ -85,12 +127,12 @@ ActiveRecord::Schema.define(version: 20160727194134) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
