@@ -26,7 +26,7 @@
        <td class="text-left"><%= number_to_currency(comparison.total_program_bonus) %></td>
        <td class="text-left"><%= number_to_currency(comparison.total_program_residuals) %></td>
       <% if @comparison.total_program_savings != 0 %>
-         <td><%= number_to_currency(@comparison.total_program_savings) %></td>
+         <td><%= number_to_currency(comparison.total_program_savings) %></td>
       <% end %>
        <td class="text-left fixed-width-td"><%= link_to('Present', {:controller => 'comparisons', :action => 'show', :prospect_id => @prospect.id, :statement_id => @statement.id, :program_id => @program.id}, :class => "btn btn-primary") %></td>
    </tr>
