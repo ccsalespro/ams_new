@@ -31,9 +31,10 @@
         <td><%= program.min_bp_mark_up %></td>
         <td><%= program.min_per_item_fee %></td>
         <td><%= program.structure.name %></td>
+        <td><%= program.structure.name %></td>
         <td><%= program.system.name %></td>
         <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
-        <% if program.personal == true %>
+        <% if program.personal == true || current_user.admin = true %>
           <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
           <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
