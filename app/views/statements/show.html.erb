@@ -11,19 +11,19 @@
 <tr>
   <td>VS</td>
   <td><%= number_to_currency(@statement.vs_volume) %></td>
-  <td><%= @statement.vs_transactions %></td>
+  <td><%=number_with_precision(@statement.vs_transactions, precision: 0) %></td>
   <td><%= number_to_currency(@statement.vs_fees) %></td>
 </tr>
 <tr>
   <td>MC</td>
   <td><%= number_to_currency(@statement.mc_volume) %></td>
-  <td><%= @statement.mc_transactions %></td>
+  <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
   <td><%= number_to_currency(@statement.mc_fees) %></td>
 </tr>
 <tr class="bold-line">
   <td>DS</td>
   <td><%= number_to_currency(@statement.ds_volume) %></td>
-  <td><%= @statement.ds_transactions %></td>
+  <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
   <td><%= number_to_currency(@statement.ds_fees) %></td>
 </tr>
 <tr class="bold-font">
@@ -32,7 +32,7 @@
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions %>
   <% @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
-  <td class="grey-back" colspan="1"><%= @transactions %></td>
+  <td class="grey-back" colspan="1"><%=number_with_precision(@transactions, precision: 0) %></td>
     <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
 </tr>
 </table>

@@ -74,18 +74,18 @@ class StatementsController < ApplicationController
 
     card_type_calculation("VS")
     @statement.vs_volume = @volume
-    @statement.vs_transactions = @transactions
+    @statement.vs_transactions = @volume / @statement.vmd_avg_ticket
     @statement.vs_fees = @fees
 
     card_type_calculation("MC")
     @statement.mc_volume = @volume
-    @statement.mc_transactions = @transactions
+    @statement.mc_transactions = @volume / @statement.vmd_avg_ticket
     @statement.mc_fees = @fees
 
    
     card_type_calculation("DS")
     @statement.ds_volume = @volume
-    @statement.ds_transactions = @transactions
+    @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
     @statement.ds_fees = @fees
 
      if @statement.total_fees == nil
@@ -203,13 +203,11 @@ class StatementsController < ApplicationController
     def card_type_calculation(card_type_var)
       @inttableitems = Inttableitem.where(statement_id: @statement.id)
       @volume = 0
-      @transactions = 0
       @fees = 0
       @inttableitems.each do |item|
         @inttype = Inttype.find_by_id(item.inttype_id)
         if @inttype.card_type == card_type_var 
           @volume += item.volume
-          @transactions += item.transactions
           @fees += item.costs
         end
       end
