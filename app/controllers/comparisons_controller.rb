@@ -1,7 +1,8 @@
 class ComparisonsController < ApplicationController
 	before_action :load_prospect, :load_statement, :load_programs
+  before_action :load_comparison, only: [:show]
 	before_action :authenticate_user!
-  	before_action :require_subscribed
+  before_action :require_subscribed
 
   def index 
   	@programusers = Programuser.where(user_id: current_user.id)
@@ -36,6 +37,10 @@ class ComparisonsController < ApplicationController
       @comparison.total_mc_access_fees = @comparison.mc_access_per_item_fees + @comparison.mc_access_percentage_fees
       @comparison.total_ds_access_fees = @comparison.ds_access_per_item_fees + @comparison.ds_access_percentage_fees
       @comparison.total_vmd_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
+      @comparison.monthly_fees = program.min_monthly_fees
+      @comparison.monthly_pci_fees = program.monthly_pci_fee
+      @comparison.annual_pci_fees = program.annual_pci_fee
+      @comparison.annual_fee = 0
       @comparison.debit_trans_fees = @statement.debit_trans * program.min_pin_debit_per_item_fee
       
       if @statement.debit_trans > 0
@@ -44,7 +49,7 @@ class ComparisonsController < ApplicationController
         @comparison.total_debit_fees = 0
       end
       
-      @comparison.total_program_fees = @statement.interchange + @comparison.total_vmd_mark_up_fees + @comparison.batch_fees + @comparison.amex_mark_up_fees + @comparison.total_vmd_trans_fees + @comparison.amex_trans_fees + @comparison.total_vmd_access_fees + @comparison.total_debit_fees
+      @comparison.total_program_fees = @comparison.monthly_fees + @comparison.monthly_pci_fees + ( @comparison.annual_pci_fees / 12 ) + ( @comparison.annual_fee / 12 ) + @statement.interchange + @comparison.total_vmd_mark_up_fees + @comparison.batch_fees + @comparison.amex_mark_up_fees + @comparison.total_vmd_trans_fees + @comparison.amex_trans_fees + @comparison.total_vmd_access_fees + @comparison.total_debit_fees
       
       @comparison.batch_fee_costs = @statement.batches * program.per_batch_cost
       @comparison.bin_fee_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000)
@@ -62,7 +67,7 @@ class ComparisonsController < ApplicationController
         @comparison.total_debit_costs = 0
       end
 
-      @comparison.total_program_costs = @comparison.batch_fee_costs + @comparison.bin_fee_costs + @comparison.total_vmd_trans_fee_costs + @comparison.amex_per_item_costs + @comparison.amex_mark_up_costs + @comparison.total_debit_costs
+      @comparison.total_program_costs = @comparison.batch_fee_costs + @comparison.bin_fee_costs + @comparison.total_vmd_trans_fee_costs + @comparison.amex_per_item_costs + @comparison.amex_mark_up_costs + @comparison.total_debit_costs + @statement.interchange + program.monthly_fee_costs + program.monthly_pci_cost + ( program.annual_pci_cost / 12 )
       @comparison.total_program_residuals = ( @comparison.total_program_fees - @comparison.total_program_costs ) * ( program.residual_split / 100 )
       @comparison.total_program_bonus = program.up_front_bonus
 
@@ -78,16 +83,26 @@ class ComparisonsController < ApplicationController
   end
   
   def show
-  	@program = Program.find(params[:program_id])
+    @program = Program.find_by_id(@comparison.program_id)
   end
 
 private
+  def comparison_params
+      params.require(:comparison).permit(:id)
+  end
+
+  def load_comparison
+    @comparison = Comparison.find(params[:id])
+  end
+
 	def load_prospect
 		@prospect = Prospect.find(params[:prospect_id])
 	end
+
 	def load_statement
 		@statement = @prospect.statements.find(params[:statement_id])
 	end
+
 	def load_programs
 		@programs = Program.all
 	end

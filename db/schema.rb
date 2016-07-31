@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728220208) do
+ActiveRecord::Schema.define(version: 20160731012105) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -84,6 +84,10 @@ ActiveRecord::Schema.define(version: 20160728220208) do
     t.decimal  "total_vs_access_fees"
     t.decimal  "total_mc_access_fees"
     t.decimal  "total_ds_access_fees"
+    t.decimal  "monthly_fees"
+    t.decimal  "monthly_pci_fees"
+    t.decimal  "annual_fee"
+    t.decimal  "annual_pci_fees"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"

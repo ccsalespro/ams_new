@@ -10,36 +10,33 @@
 <tr>
   <td>VS</td>
   <td><%= number_to_currency(@statement.vs_volume) %></td>
-  <td><%= @statement.vs_transactions %></td>
-  <% @vs_access_fees = ((@program.visa_access_per_item * @statement.vs_transactions) + ((@program.visa_access_percentage / 10000) * @statement.vs_volume)) %>
-  <% @vs_mark_up = ( @statement.vs_volume * (@program.min_bp_mark_up / 10000 ) ) %>
-  <% @total_visa_fees = (@statement.vs_fees + (@statement.vs_transactions * @program.min_per_item_fee) + @vs_access_fees + @vs_mark_up) %> 
+  <td><%= number_with_precision(@statement.vs_transactions, precision: 0) %></td>
+  <% @vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees) %>
+  <% @total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees) %> 
   <td><%= number_to_currency(@total_visa_fees) %></td>
 </tr>
 <tr>
   <td>MC</td>
   <td><%= number_to_currency(@statement.mc_volume) %></td>
-  <td><%= @statement.mc_transactions %></td>
-  <% @mc_access_fees = ((@program.mc_access_per_item * @statement.mc_transactions) + ((@program.mc_access_percentage / 10000) * @statement.mc_volume)) %>
-  <% @mc_mark_up = ( @statement.mc_volume * (@program.min_bp_mark_up / 10000 ) ) %>
-  <% @total_mc_fees = (@statement.mc_fees + (@statement.mc_transactions * @program.min_per_item_fee) + @mc_access_fees + @mc_mark_up) %> 
+  <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
+  <% @mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees) %>
+  <% @total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees) %> 
   <td><%= number_to_currency(@total_mc_fees) %></td>
 </tr>
 
 <tr>
   <td>DS</td>
   <td><%= number_to_currency(@statement.ds_volume) %></td>
-  <td><%= @statement.ds_transactions %></td>
-  <% @ds_access_fees = ((@program.disc_access_per_item * @statement.ds_transactions) + ((@program.disc_access_percentage / 10000) * @statement.ds_volume)) %>
-  <% @ds_mark_up = ( @statement.ds_volume * (@program.min_bp_mark_up / 10000 ) ) %>
-  <% @total_ds_fees = (@statement.ds_fees + (@statement.ds_transactions * @program.min_per_item_fee) + @ds_access_fees + @ds_mark_up) %>
+  <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
+  <% @ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees) %>
+  <% @total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees) %>
   <td><%= number_to_currency(@total_ds_fees) %></td>
 </tr>
 
 <tr>
   <td>Debit</td>
   <td><%= number_to_currency(@statement.debit_vol) %></td>
-  <td><%= @statement.debit_trans %></td>
+  <td><%= number_with_precision(@statement.debit_trans, precision: 0) %></td>
   <% @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @program.min_pin_debit_per_item_fee)) %>
   <td><%= number_to_currency(@total_debit_fees) %></td>
 </tr>
@@ -47,7 +44,7 @@
 <tr class="bold-line">
   <td>AMEX</td>
   <td><%= number_to_currency(@statement.amex_vol) %></td>
-  <td><%= @statement.amex_trans %></td>
+  <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
   <% @amex_mark_up = ( @statement.amex_vol * (@program.min_amex_bp_fee / 10000 ) ) %>
   <% @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @program.min_amex_per_item_fee) + @amex_mark_up) %> 
   <td><%= number_to_currency(@total_amex_fees) %></td>
@@ -57,9 +54,9 @@
   <td class="grey-back">Total</td>
   <% @total = @statement.total_vol %>
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
-  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @program.min_monthly_fees + @program.monthly_pci_fee + (@program.annual_pci_fee / 12) + (@statement.batches * @program.min_per_batch_fee) + @total_debit_fees + @total_amex_fees %>
+  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @program.min_monthly_fees + @program.monthly_pci_fee + (@program.annual_pci_fee / 12) + @comparison.batch_fees + @total_debit_fees + @total_amex_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
-  <td class="grey-back" colspan="1"><%= @transactions %></td>
+  <td class="grey-back" colspan="1"><%= number_with_precision(@transactions, precision: 0) %></td>
     <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
 </tr>
 </table>
@@ -93,7 +90,7 @@
 <% @inttableitems.take(15).each do |item| %>
   <% @inttype = Inttype.find_by_id(item.inttype_id) %>
   <tr>
-    <td><%=truncate(@inttype.description, :length => 15) %></td>
+    <td><%=truncate(@inttype.description, :length => 20) %></td>
     <td><%= number_to_currency(item.volume) %></td>
     <td><%=  number_to_currency(item.costs) %></td>
   </tr>
