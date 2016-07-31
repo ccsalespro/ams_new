@@ -67,7 +67,7 @@ class ComparisonsController < ApplicationController
         @comparison.total_debit_costs = 0
       end
 
-      @comparison.total_program_costs = @comparison.batch_fee_costs + @comparison.bin_fee_costs + @comparison.total_vmd_trans_fee_costs + @comparison.amex_per_item_costs + @comparison.amex_mark_up_costs + @comparison.total_debit_costs + @statement.interchange + program.monthly_fee_costs + program.monthly_pci_cost + ( program.annual_pci_cost / 12 )
+      @comparison.total_program_costs = @comparison.batch_fee_costs + @comparison.bin_fee_costs + @comparison.total_vmd_trans_fee_costs + @comparison.amex_per_item_costs + @comparison.amex_mark_up_costs + @comparison.total_debit_costs + @statement.interchange + program.monthly_fee_costs + program.monthly_pci_cost
       @comparison.total_program_residuals = ( @comparison.total_program_fees - @comparison.total_program_costs ) * ( program.residual_split / 100 )
       @comparison.total_program_bonus = program.up_front_bonus
 
