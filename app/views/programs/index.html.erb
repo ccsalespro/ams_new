@@ -7,7 +7,8 @@
     <tr>
       <th>Processor</th>
       <th>Name</th>
-      <th>volume+</th>
+      <th>Min</th>
+      <th>Max</th>
       <th>Bonus</th>
       <th>split</th>
       <th>Basis Points</th>
@@ -26,6 +27,7 @@
         <td><%= @processor.name %></td>
         <td><%= program.name %></td>
         <td><%= program.min_volume %></td>
+        <td><%= program.max_volume %></td>
         <td><%= program.up_front_bonus %></td>
         <td><%= program.residual_split %></td>
         <td><%= program.min_bp_mark_up %></td>
