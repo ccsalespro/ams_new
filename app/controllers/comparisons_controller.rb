@@ -9,7 +9,16 @@ class ComparisonsController < ApplicationController
   	@programs = []
   	@programusers.each do |programuser|
   		@program = Program.find_by_id(programuser.program_id)
-  		@programs << @program
+      @min = @program.min_volume
+        if @program.max_volume > 0
+          @max = @program.max_volume
+        else
+          @max = 10000000
+        end
+      @vol = @statement.vmd_vol
+        if @min < @vol && @max > @vol
+    		@programs << @program
+        end
   	end
     @comparisons = []
     @programs.each do |program|
