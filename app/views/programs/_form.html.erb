@@ -12,7 +12,7 @@
   <% end %>
 
 <div class="container">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-2 col-md-offset-5 col-sm-3 col-sm-offset-5">
     <div class="form-group">
       <%= f.label :name %><br>
       <%= f.text_field :name, class: "form-control", required: true %>
@@ -45,14 +45,13 @@
       <span class="input-group-addon">%</span>
       </div>
     </div>
-    <center>
     <div class="form-group">
       <%= f.label :min_bp_mark_up %><br>
-      <%= f.select(:min_bp_mark_up, options_for_select([['0', 0], ['5', 5], ['10', 10], ['15', 15], ['20', 20], ['25', 25], ['30', 30], ['35', 35], ['40', 40], ['45', 45], ['50', 50]]), class: 'form-control' ) %>
+      <%= f.select(:min_bp_mark_up, options_for_select([['0', 0], ['5', 5], ['10', 10], ['15', 15], ['20', 20], ['25', 25], ['30', 30], ['35', 35], ['40', 40], ['45', 45], ['50', 50]], ['40', 40]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :min_per_item_fee %><br>
-      <%= f.select(:min_per_item_fee, options_for_select([['$0', 0 ], ['$0.005', 0.005 ], ['$0.01', 0.01 ], ['$0.015', 0.015 ], ['$0.02', 0.02 ], ['$0.025', 0.025 ], ['$0.03', 0.03 ], ['$0.035', 0.035], ['$0.04', 0.04 ], ['$0.045', 0.045 ], ['$0.05', 0.05 ], ['$0.055', 0.055 ], ['$0.06', 0.06 ], ['$0.065', 0.065 ], ['$0.07', 0.07 ], ['$0.075', 0.075 ], ['$0.08', 0.08 ], ['$0.085', 0.085 ], ['$0.09', 0.09 ], ['$0.095', 0.095 ], ['$0.10',  0.10 ]]), class: 'form-control' ) %>
+      <%= f.select(:min_per_item_fee, options_for_select([['$0', 0 ], ['$0.005', 0.005 ], ['$0.01', 0.01 ], ['$0.015', 0.015 ], ['$0.02', 0.02 ], ['$0.025', 0.025 ], ['$0.03', 0.03 ], ['$0.035', 0.035], ['$0.04', 0.04 ], ['$0.045', 0.045 ], ['$0.05', 0.05 ], ['$0.055', 0.055 ], ['$0.06', 0.06 ], ['$0.065', 0.065 ], ['$0.07', 0.07 ], ['$0.075', 0.075 ], ['$0.08', 0.08 ], ['$0.085', 0.085 ], ['$0.09', 0.09 ], ['$0.095', 0.095 ], ['$0.10',  0.10 ]], ['$0.08', 0.08]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :terminal_type %><br>
@@ -64,45 +63,64 @@
     </div>
     <div class="form-group">
       <%= f.label :min_per_batch_fee %><br>
-      <%= f.select(:min_per_batch_fee, options_for_select([['$0', 0 ], ['$0.05', 0.05 ], ['$0.10', 0.10 ], ['$0.15', 0.15 ], ['$0.20', 0.20 ], ['$0.25', 0.25 ], ['$0.30', 0.30 ], ['$0.35', 0.35 ], ['$0.40', 0.40 ], ['$0.45', 0.45 ], ['$0.50', 0.50 ]]), class: 'form-control' ) %>
+      <%= f.select(:min_per_batch_fee, options_for_select([['$0', 0 ], ['$0.05', 0.05 ], ['$0.10', 0.10 ], ['$0.15', 0.15 ], ['$0.20', 0.20 ], ['$0.25', 0.25 ], ['$0.30', 0.30 ], ['$0.35', 0.35 ], ['$0.40', 0.40 ], ['$0.45', 0.45 ], ['$0.50', 0.50 ]], ['$0.15', 0.15]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :per_batch_cost %><br>
-      <%= f.select(:per_batch_cost, options_for_select([['$0', 0 ], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06], ['$0.065', 0.065], ['$0.07', 0.07], ['$0.075', 0.075], ['$0.08', 0.08], ['$0.085', 0.085], ['$0.09', 0.09], ['$0.095', 0.095], ['$0.10', 0.10]]), class: 'form-control' ) %>
+      <%= f.select(:per_batch_cost, options_for_select([['$0', 0 ], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06], ['$0.065', 0.065], ['$0.07', 0.07], ['$0.075', 0.075], ['$0.08', 0.08], ['$0.085', 0.085], ['$0.09', 0.09], ['$0.095', 0.095], ['$0.10', 0.10]], ['$0.06', 0.06]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :per_item_cost %><br>
-      <%= f.select(:per_item_cost, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06], ['$0.065', 0.065], ['$0.07', 0.07], ['$0.075', 0.075], ['$0.08', 0.08], ['$0.085', 0.085], ['$0.09', 0.09], ['$0.095', 0.095], ['$0.10', 0.10]]), class: 'form-control' ) %>
+      <%= f.select(:per_item_cost, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06], ['$0.065', 0.065], ['$0.07', 0.07], ['$0.075', 0.075], ['$0.08', 0.08], ['$0.085', 0.085], ['$0.09', 0.09], ['$0.095', 0.095], ['$0.10', 0.10]], ['$0.055', 0.055]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <p class="bold ">Bin Sponsorship Basis Points</p>
-       <%= f.select(:bin_sponsorship, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]]), class: 'form-control' ) %>
+       <%= f.select(:bin_sponsorship, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10]], ['2', 2]), class: 'form-control' ) %>
+    </div>
+        <div class="form-group">
+      <p class="bold">Visa Debit Access Per Item</p>
+        <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :vs_check_card_per_item, class: "form-control", value: 0.0155, :required => true, :data => { type: 'number' } %>
+           </div>
+    </div>
+        <div class="form-group">
+      <p class="bold ">Visa Debit Access Basis Points</p>
+          <%= f.select(:vs_check_card_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]], ['11',11]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :visa_access_per_item %><br>
-           <%= f.select(:visa_access_per_item, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06]]), class: 'form-control' ) %>
+        <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :visa_access_per_item, class: "form-control", value: 0.0195, :required => true, :data => { type: 'number' } %>
+           </div>
     </div>
     <div class="form-group">
       <p class="bold ">Visa Access Basis Points</p>
-          <%= f.select(:visa_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]]), class: 'form-control' ) %>
+          <%= f.select(:visa_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]], ['13',13]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :mc_access_per_item %><br>
-      <%= f.select(:mc_access_per_item, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06]]), class: 'form-control' ) %>
+              <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :mc_access_per_item, class: "form-control", value: 0.0185, :required => true, :data => { type: 'number' } %>
+           </div>
     </div>
     <div class="form-group">
       <p class="bold ">Mastercard Access Basis Points</p>
-      <%= f.select(:mc_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]]), class: 'form-control' ) %>
+      <%= f.select(:mc_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]], ['12', 12]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :disc_access_per_item %><br>
-      <%= f.select(:disc_access_per_item, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06]]), class: 'form-control' ) %>
+             <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :disc_access_per_item, class: "form-control", value: 0.0195, :required => true, :data => { type: 'number' } %>
+           </div>
     </div>
     <div class="form-group">
        <p class="bold ">Discover Access Basis Points</p>
-      <%= f.select(:disc_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]]), class: 'form-control' ) %>
+      <%= f.select(:disc_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]], ['13', 13]), class: 'form-control' ) %>
     </div>
-    </center>
     <div class="form-group">
       <%= f.label :min_monthly_fees %><br>
       <div class="input-group">
@@ -145,7 +163,6 @@
       <%= f.number_field :annual_pci_cost, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
       </div>
     </div>
-    <center>
     <div class="form-group">
       <%= f.label :min_pin_debit_per_item_fee %><br>
       <div class="input-group">
@@ -201,7 +218,6 @@
       <%= f.number_field :amex_per_item_cost, class: "form-control", :required => true, value: 0.10, :data => { type: 'number' } %>
       </div>
     </div>
-    <center>
     <div class="form-group">
       <%= f.label :amex_bp_cost %><br>
       <%= f.select(:amex_bp_cost, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]]), class: 'form-control' ) %>
@@ -210,7 +226,6 @@
       <%= f.label :min_amex_bp_fee %><br>
       <%= f.select(:min_amex_bp_fee, options_for_select([['0', 0], ['5', 5], ['10', 10], ['15', 15], ['20', 20], ['25', 25], ['30', 30], ['35', 35], ['40', 40], ['45', 45], ['50', 50]]), class: 'form-control' ) %>
     </div>
-    </center>
     <div class="form-group">
       <%= f.label :application_fee_cost %><br>
       <div class="input-group">
@@ -226,9 +241,10 @@
       </div>
     </div>
     <div class="actions">
+    <center>
       <%= f.submit "Save", class: "btn btn-lg btn-primary", :required => true %>
       <%= link_to 'Back', processor_programs_path(@processor), class: 'btn btn-primary btn-lg' %>
-  
+    </center>
     </div>
     <% end %>
   </div>

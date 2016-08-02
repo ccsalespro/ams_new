@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802160743) do
+ActiveRecord::Schema.define(version: 20160802165049) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -371,6 +371,8 @@ ActiveRecord::Schema.define(version: 20160802160743) do
     t.string   "keyed_flat_rate_decimal"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
+    t.decimal  "vs_check_card_per_item"
+    t.integer  "vs_check_card_access_percentage"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
