@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802144422) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160802153216) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -165,12 +159,12 @@ ActiveRecord::Schema.define(version: 20160802144422) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -357,11 +351,21 @@ ActiveRecord::Schema.define(version: 20160802144422) do
     t.decimal  "min_application_fee"
     t.decimal  "min_per_batch_fee"
     t.decimal  "per_batch_cost"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.boolean  "personal",                      default: true
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.boolean  "personal",                          default: true
     t.integer  "structure_id"
     t.integer  "system_id"
+    t.decimal  "min_check_card_qual"
+    t.decimal  "min_check_card_midqual"
+    t.decimal  "min_check_card_nonqual"
+    t.decimal  "min_credit_qual"
+    t.decimal  "min_credit_midqual"
+    t.decimal  "min_credit_nonqual"
+    t.decimal  "swiped_flat_rate"
+    t.string   "keyed_flat_rate_decimal"
+    t.decimal  "min_check_card_per_item_surcharge"
+    t.decimal  "min_credit_per_item_surcharge"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"

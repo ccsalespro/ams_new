@@ -66,7 +66,7 @@ class ComparisonsController < ApplicationController
       @comparison.ds_trans_fee_costs = @statement.ds_transactions * program.per_item_cost
       @comparison.total_vmd_trans_fee_costs = @comparison.ds_trans_fee_costs + @comparison.mc_trans_fee_costs + @comparison.vs_trans_fee_costs
       @comparison.amex_per_item_costs = @statement.amex_trans * program.amex_per_item_cost
-      @comparison.amex_mark_up_costs = @statement.amex_vol * (program.amex_per_item_cost / 10000)
+      @comparison.amex_mark_up_costs = @statement.amex_vol * (program.amex_bp_cost / 10000)
       @comparison.debit_per_item_costs = @statement.debit_trans * program.pin_debit_per_item_cost
       
       if @statement.debit_trans > 0
