@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731012105) do
+ActiveRecord::Schema.define(version: 20160802144422) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 20160731012105) do
     t.decimal  "total_program_savings"
     t.decimal  "total_program_residuals"
     t.decimal  "total_program_bonus"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.decimal  "total_vs_access_fees"
     t.decimal  "total_mc_access_fees"
     t.decimal  "total_ds_access_fees"
@@ -88,6 +88,34 @@ ActiveRecord::Schema.define(version: 20160731012105) do
     t.decimal  "monthly_pci_fees"
     t.decimal  "annual_fee"
     t.decimal  "annual_pci_fees"
+    t.integer  "bp_mark_up"
+    t.decimal  "per_item_fee"
+    t.decimal  "vs_access_per_item_fee"
+    t.decimal  "vs_access_percentage_fee"
+    t.decimal  "mc_access_per_item_fee"
+    t.decimal  "mc_access_percentage_fee"
+    t.decimal  "ds_access_per_item_fee"
+    t.decimal  "ds_access_percentage_fee"
+    t.decimal  "monthly_pci_fee"
+    t.decimal  "annual_pci_fee"
+    t.decimal  "pin_debit_per_item_fee"
+    t.integer  "pin_debit_bp_mark_up"
+    t.decimal  "monthly_debit_fee"
+    t.decimal  "next_day_funding_fee"
+    t.decimal  "amex_per_item_fee"
+    t.integer  "amex_bp_mark_up"
+    t.decimal  "application_fee"
+    t.decimal  "per_batch_fee"
+    t.decimal  "check_card_qual"
+    t.decimal  "check_card_midqual"
+    t.decimal  "check_card_nonqual"
+    t.decimal  "credit_qual"
+    t.decimal  "credit_midqual"
+    t.decimal  "credit_nonqual"
+    t.decimal  "swiped_flat_rate"
+    t.decimal  "keyed_flat_rate"
+    t.decimal  "tier_check_card_per_item_surcharge"
+    t.decimal  "tier_credit_per_item_surcharge"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"

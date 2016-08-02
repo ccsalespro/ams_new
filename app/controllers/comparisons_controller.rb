@@ -46,7 +46,6 @@ class ComparisonsController < ApplicationController
       @comparison.total_mc_access_fees = @comparison.mc_access_per_item_fees + @comparison.mc_access_percentage_fees
       @comparison.total_ds_access_fees = @comparison.ds_access_per_item_fees + @comparison.ds_access_percentage_fees
       @comparison.total_vmd_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
-      @comparison.monthly_fees = program.min_monthly_fees
       @comparison.monthly_pci_fees = program.monthly_pci_fee
       @comparison.annual_pci_fees = program.annual_pci_fee
       @comparison.annual_fee = 0
@@ -58,7 +57,7 @@ class ComparisonsController < ApplicationController
         @comparison.total_debit_fees = 0
       end
       
-      @comparison.total_program_fees = @comparison.monthly_fees + @comparison.monthly_pci_fees + ( @comparison.annual_pci_fees / 12 ) + ( @comparison.annual_fee / 12 ) + @statement.interchange + @comparison.total_vmd_mark_up_fees + @comparison.batch_fees + @comparison.amex_mark_up_fees + @comparison.total_vmd_trans_fees + @comparison.amex_trans_fees + @comparison.total_vmd_access_fees + @comparison.total_debit_fees
+      @comparison.total_program_fees = program.min_monthly_fees + @comparison.monthly_pci_fees + ( @comparison.annual_pci_fees / 12 ) + ( @comparison.annual_fee / 12 ) + @statement.interchange + @comparison.total_vmd_mark_up_fees + @comparison.batch_fees + @comparison.amex_mark_up_fees + @comparison.total_vmd_trans_fees + @comparison.amex_trans_fees + @comparison.total_vmd_access_fees + @comparison.total_debit_fees
       
       @comparison.batch_fee_costs = @statement.batches * program.per_batch_cost
       @comparison.bin_fee_costs = @statement.vmd_vol * (program.bin_sponsorship / 10000)
