@@ -2,7 +2,6 @@ class Program < ActiveRecord::Base
   belongs_to :Processor
   has_many :programusers, dependent: :destroy
   has_many :users, through: :programusers
-  belongs_to :structure
   belongs_to :system
 
 

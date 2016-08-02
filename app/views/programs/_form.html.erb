@@ -55,10 +55,6 @@
       <%= f.select(:min_per_item_fee, options_for_select([['$0', 0 ], ['$0.005', 0.005 ], ['$0.01', 0.01 ], ['$0.015', 0.015 ], ['$0.02', 0.02 ], ['$0.025', 0.025 ], ['$0.03', 0.03 ], ['$0.035', 0.035], ['$0.04', 0.04 ], ['$0.045', 0.045 ], ['$0.05', 0.05 ], ['$0.055', 0.055 ], ['$0.06', 0.06 ], ['$0.065', 0.065 ], ['$0.07', 0.07 ], ['$0.075', 0.075 ], ['$0.08', 0.08 ], ['$0.085', 0.085 ], ['$0.09', 0.09 ], ['$0.095', 0.095 ], ['$0.10',  0.10 ]]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
-      <%= f.label :cost_structure %><br>
-      <%= collection_select( :program, :structure_id, Structure.all, :id, :name, {}, { :multiple => false }) %>
-    </div>
-    <div class="form-group">
       <%= f.label :terminal_type %><br>
       <%= collection_select( :program, :system_id, System.all, :id, :name, {}, { :multiple => false }) %>
     </div>
@@ -68,7 +64,7 @@
     </div>
     <div class="form-group">
       <%= f.label :min_per_batch_fee %><br>
-      <%= f.select(:min_per_item_fee, options_for_select([['$0', 0 ], ['$0.05', 0.05 ], ['$0.10', 0.10 ], ['$0.15', 0.15 ], ['$0.20', 0.20 ], ['$0.25', 0.25 ], ['$0.30', 0.30 ], ['$0.35', 0.35 ], ['$0.40', 0.40 ], ['$0.45', 0.45 ], ['$0.50', 0.50 ]]), class: 'form-control' ) %>
+      <%= f.select(:min_per_batch_fee, options_for_select([['$0', 0 ], ['$0.05', 0.05 ], ['$0.10', 0.10 ], ['$0.15', 0.15 ], ['$0.20', 0.20 ], ['$0.25', 0.25 ], ['$0.30', 0.30 ], ['$0.35', 0.35 ], ['$0.40', 0.40 ], ['$0.45', 0.45 ], ['$0.50', 0.50 ]]), class: 'form-control' ) %>
     </div>
     <div class="form-group">
       <%= f.label :per_batch_cost %><br>
