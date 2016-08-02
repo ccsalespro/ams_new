@@ -1,4 +1,6 @@
 class ProgramsController < ApplicationController
+
+
   before_action :set_program, only: [:show, :edit, :update, :destroy]
   before_filter :load_processor, except: [:index]
   before_action :authenticate_user!
@@ -51,7 +53,7 @@ class ProgramsController < ApplicationController
 
     respond_to do |format|
       if @program.save
-        format.html { redirect_to [@processor, @program], notice: 'Program was successfully created.' }
+        format.html { redirect_to processor_programs_path(@processor, @program), notice: 'Program was successfully created.' }
         format.json { render :show, status: :created, location: @program }
       else
         format.html { render :new }
@@ -69,7 +71,7 @@ class ProgramsController < ApplicationController
   def update
     respond_to do |format|
       if @program.update(program_params)
-        format.html { redirect_to [@processor, @program], notice: 'Program was successfully updated.' }
+        format.html { redirect_to processor_programs_path(@processor, @program), notice: 'Program was successfully updated.' }
         format.json { render :show, status: :ok, location: @program }
       else
         format.html { render :edit }

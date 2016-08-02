@@ -1,3 +1,429 @@
-<h1 class="text-center">Editing Program</h1>
+<%= form_for([@processor, @program]) do |f| %>
+  <% if @program.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@program.errors.count, "error") %> prohibited this program from being saved:</h2>
 
-<%= render 'form' %>
+      <ul>
+      <% @program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+<br><br>
+<div class="well">
+    <div id="stepone" class="visible">
+    <h2 class="text-center no-margin">Step 1: Primary Fields</h2><hr>
+<div class="col-sm-12">
+    <div class="form-group">
+      <center><%= f.label :name %></center>
+      <%= f.text_field :name, class: "form-control", required: true, placeholder: 'Name Your Program' %>
+    </div>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-group">
+      <center><%= f.label :min_volume %></center>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_volume, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-group">
+      <center><%= f.label :max_volume %></center>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :max_volume, class: "form-control", :required => true, :data => { type: 'number' }, id: 'no_max_form' %>
+      <span class="input-group-addon"><input type="checkbox" id="no_max" data-toggle="tooltip" title="No Max" data-placement="left"></span>
+      </div>
+
+    </div>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-group">
+      <center><%= f.label :up_front_bonus %></center>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :up_front_bonus, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-group">
+      <p class="bold program-form-margin text-center">Residual Split %</p>
+      <div class="input-group">
+      <%= f.number_field :residual_split, class: "form-control", :min => 5, :required => true, :data => { type: 'number' }%>
+      <span class="input-group-addon">%</span>
+      </div>
+    </div>
+    </div>
+
+    <div class="col-sm-6">
+    <div class="form-group">
+      <%= f.label :min_per_item_fee %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_per_item_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :per_item_cost %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :per_item_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+        <div class="form-group col-sm-6">
+      <%= f.label :min_bp_mark_up %><br>
+           <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_bp_mark_up, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+       <div class="form-group col-sm-6">
+      <p class="bold program-form-margin">Bin Sponsorship Basis Points</p>
+             <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :bin_sponsorship, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+<div class="clearfix"></div>
+    <div class="form-group col-sm-6">
+      <%= f.label :terminal_type %><br>
+      <%= collection_select( :program, :system_id, System.all, :id, :name, {}, { :multiple => false }) %>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-group">
+      <%= f.label :terminal_ownership_type %><br>
+      <%= f.select(:terminal_ownership_type, options_for_select([['Loaner', 'Loaner' ], ['Lease', 'Lease' ], ['Purchase', 'Purchase' ], ['Rental', 'Rental' ]]), class: 'form-control' ) %>
+    </div>
+    </div>
+      <center><a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a></center>
+    </div>
+
+
+
+    <div id="steptwo" class="hidden clearfix">
+
+      <h2 class="text-center no-margin">Step 2: Fixed Fees</h2><hr>
+      <div class="col-sm-6 hidden-xs"><h4 class="text-center bold">Minimum</h4><hr></div>
+      <div class="col-sm-6 hidden-xs"><h4 class="text-center bold">Schedule A</h4><hr></div>
+        <div class="form-group col-sm-6">
+      <%= f.label :min_monthly_fees %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_monthly_fees, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :monthly_fee_costs %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :monthly_fee_costs, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div><hr class="visible-xs">
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :monthly_pci_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :monthly_pci_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+            </div>
+    </div>
+       <div class="form-group col-sm-6">
+      <%= f.label :monthly_pci_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :monthly_pci_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div><hr class="visible-xs">
+    </div>
+        <div class="form-group col-sm-6">
+      <%= f.label :min_monthly_debit_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_monthly_debit_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :monthly_debit_fee_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :monthly_debit_fee_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div><hr class="visible-xs">
+    </div>
+    <div class="form-group col-sm-6 no-margin">
+      <%= f.label :annual_pci_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :annual_pci_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+        <div class="form-group col-sm-6 no-margin">
+      <%= f.label :annual_pci_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :annual_pci_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="clearfix"></div><br>
+    <center>
+     <a id="backto_stepone_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
+     <a id="steptwo_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+     </center>
+    </div>
+
+  <div id="stepthree" class="hidden clearfix">
+    <h2 class="text-center no-margin">Step 3: Dues & Assessments</h2><hr>
+
+  <div class="form-group col-sm-6">
+      <p class="bold">Visa Debit Access Per Item</p>
+        <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :vs_check_card_per_item, class: "form-control", :required => true, :data => { type: 'number' } %>
+           </div>
+    </div>
+        <div class="form-group col-sm-6">
+      <p class="bold program-form-margin ">Visa Debit Access Basis Points</p>
+                <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :vs_check_card_access_percentage, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div><div class="clearfix"></div>
+    <div class="form-group col-sm-6">
+      <%= f.label :visa_access_per_item %><br>
+        <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :visa_access_per_item, class: "form-control", :required => true, :data => { type: 'number' } %>
+           </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <p class="bold program-form-margin ">Visa Access Basis Points</p>
+                <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :visa_access_percentage, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div><div class="clearfix"></div>
+    <div class="form-group col-sm-6">
+      <%= f.label :mc_access_per_item %><br>
+              <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :mc_access_per_item, class: "form-control", :required => true, :data => { type: 'number' } %>
+           </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <p class="bold program-form-margin ">Mastercard Access Basis Points</p>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :mc_access_percentage, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div><div class="clearfix"></div>
+    <div class="form-group col-sm-6">
+      <%= f.label :disc_access_per_item %><br>
+             <div class="input-group">
+        <span class="input-group-addon">$</span>
+           <%= f.number_field :disc_access_per_item, class: "form-control", value: 0.0195, :required => true, :data => { type: 'number' } %>
+           </div>
+    </div>
+    <div class="form-group col-sm-6">
+       <p class="bold program-form-margin ">Discover Access Basis Points</p>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :disc_access_percentage, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div><div class="clearfix"></div>
+    
+  <center>
+    <a id="backto_steptwo_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
+     <a id="stepthree_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+     </center>
+  </div>
+
+<div id="stepfour" class="hidden clearfix">
+  <h2 class="text-center no-margin">Step 4: Other Fees</h2><hr>
+
+  <div class="form-group col-sm-6">
+      <%= f.label :min_per_batch_fee %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_per_batch_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :per_batch_cost %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :per_batch_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :min_pin_debit_per_item_fee %><br>
+      <div class="input-group">
+           <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_pin_debit_per_item_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :pin_debit_per_item_cost %><br>
+      <div class="input-group">
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :pin_debit_per_item_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+      </div>
+    </div>
+    </center>
+  
+    <div class="form-group col-sm-6">
+      <%= f.label :next_day_funding_monthly_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :next_day_funding_monthly_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :next_day_funding_monthly_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :next_day_funding_monthly_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :min_amex_per_item_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_amex_per_item_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :amex_per_item_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :amex_per_item_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :min_amex_bp_fee %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_amex_bp_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+        <div class="form-group col-sm-6">
+      <%= f.label :amex_bp_cost %><br>
+            <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :amex_bp_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= f.label :min_application_fee %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :min_application_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+        <div class="form-group col-sm-6">
+      <%= f.label :application_fee_cost %><br>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <%= f.number_field :application_fee_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      </div>
+    </div>
+
+  <center>
+     <a id="backto_stepthree_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
+     <%= f.submit "Save", class: "btn btn-primary" %>
+  </center>
+</div>  
+
+</div>
+
+  </div>
+  </div>
+
+
+
+<% end %>
+
+
+<script type="text/javascript">
+  
+
+stepone_btn.onclick = function() {
+
+  stepone.classList.toggle('visible');
+  stepone.classList.toggle('hidden');
+  steptwo.classList.toggle('hidden');
+  steptwo.classList.toggle('visible');
+
+}
+
+backto_stepone_btn.onclick = function() {
+
+  stepone.classList.toggle('visible');
+  stepone.classList.toggle('hidden');
+  steptwo.classList.toggle('hidden');
+  steptwo.classList.toggle('visible');
+
+}
+
+steptwo_btn.onclick = function() {
+
+  steptwo.classList.toggle('visible');
+  steptwo.classList.toggle('hidden');
+  stepthree.classList.toggle('hidden');
+  stepthree.classList.toggle('visible');
+
+}
+
+backto_steptwo_btn.onclick = function() {
+
+  steptwo.classList.toggle('visible');
+  steptwo.classList.toggle('hidden');
+  stepthree.classList.toggle('hidden');
+  stepthree.classList.toggle('visible');
+
+}
+
+stepthree_btn.onclick = function() {
+
+  stepthree.classList.toggle('visible');
+  stepthree.classList.toggle('hidden');
+  stepfour.classList.toggle('hidden');
+  stepfour.classList.toggle('visible');
+
+}
+
+backto_stepthree_btn.onclick = function() {
+
+  stepthree.classList.toggle('visible');
+  stepthree.classList.toggle('hidden');
+  stepfour.classList.toggle('hidden');
+  stepfour.classList.toggle('visible');
+
+}
+
+
+
+
+
+ 
+ no_max.onmouseover = function() {
+   value = no_max_form.value
+ }
+
+no_max.onclick = function() {
+  if (no_max.checked == true) {
+    no_max_form.value = 0
+  } else { no_max_form.value = value }
+  
+}
+
+</script>
