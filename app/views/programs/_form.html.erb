@@ -118,7 +118,7 @@
       <%= f.label :monthly_fee_costs %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_fee_costs, class: "form-control", :required => true, value: 450, :data => { type: 'number' } %>
+      <%= f.number_field :monthly_fee_costs, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group">
@@ -132,7 +132,7 @@
       <%= f.label :monthly_pci_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_pci_cost, class: "form-control", :required => true, value: 450, :data => { type: 'number' } %>
+      <%= f.number_field :monthly_pci_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group">
@@ -149,20 +149,20 @@
       <%= f.number_field :annual_pci_cost, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
       </div>
     </div>
+    <center>
     <div class="form-group">
       <%= f.label :min_pin_debit_per_item_fee %><br>
       <div class="input-group">
-      <span class="input-group-addon">$</span>
-      <%= f.number_field :min_pin_debit_per_item_fee, class: "form-control", :required => true, :data => { type: 'number' } %>
+     <%= f.select(:min_pin_debit_per_item_fee, options_for_select([['$0', 0], ['$0.05', 0.05], ['$0.10', 0.10], ['$0.15', 0.15], ['$0.20', 0.20], ['$0.25', 0.25], ['$0.30', 0.30], ['$0.35', 0.35], ['$0.40', 0.40], ['$0.45', 0.45], ['$0.50', 0.50]]), class: 'form-control' ) %>
       </div>
     </div>
     <div class="form-group">
       <%= f.label :pin_debit_per_item_cost %><br>
       <div class="input-group">
-      <span class="input-group-addon">$</span>
-      <%= f.number_field :pin_debit_per_item_cost, class: "form-control", :required => true, :data => { type: 'number' } %>
+      <%= f.select(:pin_debit_per_item_cost, options_for_select([['$0', 0], ['$0.005', 0.005], ['$0.01', 0.01], ['$0.015', 0.015], ['$0.02', 0.02], ['$0.025', 0.025], ['$0.03', 0.03], ['$0.035', 0.035], ['$0.04', 0.04], ['$0.045', 0.045], ['$0.05', 0.05], ['$0.055', 0.055], ['$0.06', 0.06], ['$0.065', 0.065], ['$0.07', 0.07], ['$0.075', 0.075], ['$0.08', 0.08], ['$0.085', 0.085], ['$0.09', 0.09], ['$0.095', 0.095], ['$0.10', 0.10], ['$0.11', 0.11], ['$0.12', 0.12], ['$0.13', 0.13], ['$0.14', 0.14], ['$0.15', 0.15]]), class: 'form-control' ) %>
       </div>
     </div>
+    </center>
     <div class="form-group">
       <%= f.label :min_monthly_debit_fee %><br>
       <div class="input-group">
@@ -174,7 +174,7 @@
       <%= f.label :monthly_debit_fee_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_debit_fee_cost, class: "form-control", :required => true, value: 450, :data => { type: 'number' } %>
+      <%= f.number_field :monthly_debit_fee_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group">
@@ -188,7 +188,7 @@
       <%= f.label :next_day_funding_monthly_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :next_day_funding_monthly_cost, class: "form-control", :required => true, value: 450, :data => { type: 'number' } %>
+      <%= f.number_field :next_day_funding_monthly_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group">
