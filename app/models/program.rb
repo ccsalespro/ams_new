@@ -3,7 +3,6 @@ class Program < ActiveRecord::Base
   has_many :programusers, dependent: :destroy
   has_many :users, through: :programusers
   belongs_to :system
-  has_many :comparisons
 
 
   def self.import(file)
