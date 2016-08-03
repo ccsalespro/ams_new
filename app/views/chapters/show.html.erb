@@ -38,7 +38,7 @@
 </div>
 
 <% if user_signed_in? && current_user.admin? %>
-<%= link_to new_course_chapter_lesson_path(@course, @chapter), :class => 'btn btn-primary fab-btn' do %>
+<%= link_to new_course_chapter_lesson_path(@course, @chapter), :class => 'btn fab-btn white' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
 <% end -%>

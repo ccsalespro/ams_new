@@ -393,3 +393,14 @@ hr.style-two {
 #no_max { margin-top: 5px !important; }
 
 .programs-step-title { margin-bottom: 10px !important; }
+
+.btn-primary {
+    transform: scale(1, 1);
+    transition: transform 300ms ease-in-out;
+    font-weight: bolder !important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05, 1.05);
+    transition: transform 300ms ease-in-out;
+}
