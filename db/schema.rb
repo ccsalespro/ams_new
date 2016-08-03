@@ -365,6 +365,8 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
     t.decimal  "keyed_flat_rate"
+    t.decimal  "vs_check_card_per_item"
+    t.integer  "vs_check_card_access_percentage"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"

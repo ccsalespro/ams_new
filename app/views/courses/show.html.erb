@@ -30,7 +30,11 @@
 				<% @chapter_time = 0 %>
 				<% @lesson_time = 0 %>
 				<% chapter.lessons.each do |lesson| %>
-					<% @lesson_time = @lesson_time + lesson.minutes %>
+          <% if lesson.minutes == nil %>
+            <% @lesson_time = @lesson_time + 0 %>
+          <% else %>
+  					<% @lesson_time = @lesson_time + lesson.minutes %>
+          <% end -%>
 					<% @chapter_time = @lesson_time %>
 				<% end -%>
 
@@ -47,7 +51,7 @@
 </div>
 
 <% if user_signed_in? && current_user.admin? -%>
-<%= link_to new_course_chapter_path(@course), :class => 'btn btn-primary fab-btn' do %>
+<%= link_to new_course_chapter_path(@course), :class => 'btn fab-btn white' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
 <% end -%>

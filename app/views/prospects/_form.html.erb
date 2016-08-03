@@ -14,23 +14,23 @@
   <div class="col-sm-4 col-sm-offset-4">
   <div class="field">
     <%= f.label :business_name, :class => 'text' %>
-    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
+    <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault", value: "N/A") %>
   </div>
   <div class="field">
     <%= f.label :contact_name, :class => 'text' %>
-    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
+    <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault", value: "N/A") %>
   </div>
   <div class="field">
     <%= f.label :phone, :class => 'text' %>
-    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
+    <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault", value: "N/A") %>
   </div>
   <div class="field">
     <%= f.label :email, :class => 'text' %>
-    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
+    <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35, value: "N/A") %>
   </div>
   <div class="field">
     <%= f.label :source_type, :class => 'text' %>
-    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault") %>
+    <%= f.text_field(:source_type, :class => "form-control", :id => "inputdefault", value: "N/A") %>
   </div>  
    <div class="field">
     <p class="text small-margin"><b>Stage</b></p>

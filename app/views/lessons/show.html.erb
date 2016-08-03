@@ -21,7 +21,7 @@
   </span>
   </span>
 </h1>
-<h3 class="no-margin"><b><%= @lesson.minutes %></b> Minutes</h3>
+<h3 class="no-margin"><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b> Minutes<% else %> Minutes<% end -%></h3>
 <hr>
 <center class="visible-sm visible-xs">
   <%= @lesson.video.html_safe %>

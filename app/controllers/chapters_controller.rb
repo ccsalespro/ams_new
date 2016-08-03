@@ -14,7 +14,11 @@ class ChaptersController < ApplicationController
     @lessons = @chapter.lessons
     @chapter_time = 0
     @lessons.each do |lesson|
-      @chapter_time = @chapter_time + lesson.minutes
+     if lesson.minutes == nil
+      @chapter_time = @chapter_time + 0
+     else
+       @chapter_time = @chapter_time + lesson.minutes
+     end
     end
   end
 

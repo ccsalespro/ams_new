@@ -15,16 +15,16 @@
 
 <% @courses.each do |course| %>
         
-        <% @course_time = 0 %>
-        <% @chapter_time = 0 %>
-        <% @lesson_time = 0 %>
-        <% course.chapters.each do |chapter| %>
-          <% chapter.lessons.each do |lesson| %>
-            <% @lesson_time = @lesson_time + lesson.minutes %>
-            <% @chapter_time = @lesson_time %>
-          <% end -%>
-          <% @course_time = @chapter_time %>
-        <% end -%>
+<% @course_time = 0 %>
+    <% course.chapters.each do |chapter| %>
+      <% chapter.lessons.each do |lesson| %>
+       <% if lesson.minutes == nil %>
+         <% @course_time = @course_time + 0 %>
+        <% else %>
+         <% @course_time = @course_time + lesson.minutes %>
+        <% end %>
+     <% end %>
+     <% end -%>
 
 <div class="col-md-6">
             <div class="panel panel-primary">
@@ -47,7 +47,7 @@
 
 
 <% if user_signed_in? && current_user.admin? %>
-<%= link_to new_course_path, :class => 'btn btn-primary fab-btn' do %>
+<%= link_to new_course_path, :class => 'btn fab-btn white' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
 <% end %>
