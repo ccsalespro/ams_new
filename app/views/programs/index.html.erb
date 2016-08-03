@@ -25,7 +25,13 @@
         <td><%= @processor.name %></td>
         <td><%= program.name %></td>
         <td><%= number_to_currency(program.min_volume) %></td>
-        <td><%= number_to_currency(program.max_volume) %></td>
+        <td>
+          <% if program.max_volume == 0.0 %>
+           No Max
+          <% else %>
+            <%= number_to_currency(program.max_volume) %>
+          <% end -%>
+        </td>
         <td><%= number_to_currency(program.up_front_bonus) %></td>
         <td><%= program.residual_split %></td>
         <td><%= program.min_bp_mark_up %></td>
