@@ -1,8 +1,9 @@
-<p id="notice"><%= notice %></p>
+<br>
 
-<%= link_to 'New Program', new_processor_path %>
+<center><%= link_to "Program Wizard", new_processor_path, :class => 'btn btn-primary' %></center><br>
 
-<table class="table table-striped">
+<div class="container-fluid">
+<table class="table table-striped table-responsive table-bordered">
   <thead>
     <tr>
       <th>Processor</th>
@@ -10,12 +11,11 @@
       <th>Min</th>
       <th>Max</th>
       <th>Bonus</th>
-      <th>split</th>
+      <th>Split</th>
       <th>Basis Points</th>
       <th>Trans Fee</th>
       <th>Terminal</th>
       <th>Actions</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -25,21 +25,29 @@
         <% @processor = Processor.find_by_id(program.processor_id) %>
         <td><%= @processor.name %></td>
         <td><%= program.name %></td>
-        <td><%= program.min_volume %></td>
-        <td><%= program.max_volume %></td>
-        <td><%= program.up_front_bonus %></td>
+        <td><%= number_to_currency(program.min_volume) %></td>
+        <td><%= number_to_currency(program.max_volume) %></td>
+        <td><%= number_to_currency(program.up_front_bonus) %></td>
         <td><%= program.residual_split %></td>
         <td><%= program.min_bp_mark_up %></td>
-        <td><%= program.min_per_item_fee %></td>
+        <td><%= number_to_currency(program.min_per_item_fee) %></td>
         <td><%= program.system.name %></td>
-        <td><%= link_to 'Show', processor_program_path(@processor, program) %></td>
         <% if program.personal == true || current_user.admin = true %>
-          <td><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></td>
-          <td><%= link_to 'Destroy', [@processor, program], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-center">
+            <ul class="no-dec no-margin no-padding">
+            <li class="dropdown no-dec no-margin">
+              <a href="#" class="dropdown-toggle a-tag-for-navbar-links pull-right" data-toggle="dropdown"><i class="fa fa-sliders black program-menu" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu course-dropdown">
+                <li><%= link_to 'Edit', edit_processor_program_path(@processor, program) %></li>
+                <li><%= link_to 'Delete', [@processor, program], method: :delete, data: { confirm: 'Are You Sure?' } %></li>
+              </ul>
+            </li>
+            </ul>
+          </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>

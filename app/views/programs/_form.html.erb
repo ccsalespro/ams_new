@@ -21,7 +21,7 @@
 <div class="col-sm-12">
     <div class="form-group">
       <center><%= f.label :name %></center>
-      <%= f.text_field :name, class: "form-control", required: true, placeholder: 'Name Your Program' %>
+      <%= f.text_field :name, class: "form-control", placeholder: 'Name Your Program' %>
     </div>
     </div>
     <div class="col-sm-6">
@@ -29,7 +29,7 @@
       <center><%= f.label :min_volume %></center>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :min_volume, class: "form-control", value: 3000, :required => true, :data => { type: 'number' } %>
+      <%= f.text_field :min_volume, class: "form-control", value: 3000, :data => { type: 'number' } %>
       </div>
     </div>
     </div>
@@ -38,7 +38,7 @@
       <center><%= f.label :max_volume %></center>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :max_volume, class: "form-control", value: 30000, :required => true, :data => { type: 'number' }, id: 'no_max_form' %>
+      <%= f.text_field :max_volume, class: "form-control", value: 30000, :data => { type: 'number' }, id: 'no_max_form' %>
       <span class="input-group-addon"><input type="checkbox" id="no_max" data-toggle="tooltip" title="No Max" data-placement="left"></span>
       </div>
 
@@ -49,7 +49,7 @@
       <center><%= f.label :up_front_bonus %></center>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :up_front_bonus, class: "form-control", value: 200, :required => true, :data => { type: 'number' } %>
+      <%= f.text_field :up_front_bonus, class: "form-control", value: 200, :data => { type: 'number' } %>
       </div>
     </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-group">
       <p class="bold program-form-margin text-center">Residual Split %</p>
       <div class="input-group">
-      <%= f.number_field :residual_split, class: "form-control", value: 50, :min => 5, :required => true, :data => { type: 'number' }%>
+      <%= f.text_field :residual_split, class: "form-control", value: 50, :min => 5, :data => { type: 'number' }%>
       <span class="input-group-addon">%</span>
       </div>
     </div>
@@ -106,56 +106,56 @@
       <%= f.label :min_monthly_fees %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :min_monthly_fees, class: "form-control", :required => true, value: 9.95, :data => { type: 'number' } %>
+      <%= f.text_field :min_monthly_fees, class: "form-control", value: 9.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :monthly_fee_costs %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_fee_costs, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
+      <%= f.text_field :monthly_fee_costs, class: "form-control", value: 4.95, :data => { type: 'number' } %>
       </div><hr class="visible-xs">
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :monthly_pci_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_pci_fee, class: "form-control", :required => true, value: 9.95, :data => { type: 'number' } %>
+      <%= f.text_field :monthly_pci_fee, class: "form-control", value: 9.95, :data => { type: 'number' } %>
             </div>
     </div>
        <div class="form-group col-sm-6">
       <%= f.label :monthly_pci_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_pci_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
+      <%= f.text_field :monthly_pci_cost, class: "form-control", value: 4.95, :data => { type: 'number' } %>
       </div><hr class="visible-xs">
     </div>
         <div class="form-group col-sm-6">
       <%= f.label :min_monthly_debit_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :min_monthly_debit_fee, class: "form-control", :required => true, value: 9.95, :data => { type: 'number' } %>
+      <%= f.text_field :min_monthly_debit_fee, class: "form-control", value: 9.95, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :monthly_debit_fee_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :monthly_debit_fee_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
+      <%= f.text_field :monthly_debit_fee_cost, class: "form-control", value: 4.95, :data => { type: 'number' } %>
       </div><hr class="visible-xs">
     </div>
     <div class="form-group col-sm-6 no-margin">
       <%= f.label :annual_pci_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :annual_pci_fee, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
+      <%= f.text_field :annual_pci_fee, class: "form-control", value: 0, :data => { type: 'number' } %>
       </div>
     </div>
         <div class="form-group col-sm-6 no-margin">
       <%= f.label :annual_pci_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :annual_pci_cost, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
+      <%= f.text_field :annual_pci_cost, class: "form-control", value: 0, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="clearfix"></div><br>
@@ -172,7 +172,7 @@
       <p class="bold">Visa Debit Access Per Item</p>
         <div class="input-group">
         <span class="input-group-addon">$</span>
-           <%= f.number_field :vs_check_card_per_item, class: "form-control", value: 0.0155, :required => true, :data => { type: 'number' } %>
+           <%= f.text_field :vs_check_card_per_item, class: "form-control", value: 0.0155, :data => { type: 'number' } %>
            </div>
     </div>
         <div class="form-group col-sm-6">
@@ -183,7 +183,7 @@
       <%= f.label :visa_access_per_item %><br>
         <div class="input-group">
         <span class="input-group-addon">$</span>
-           <%= f.number_field :visa_access_per_item, class: "form-control", value: 0.0195, :required => true, :data => { type: 'number' } %>
+           <%= f.text_field :visa_access_per_item, class: "form-control", value: 0.0195, :data => { type: 'number' } %>
            </div>
     </div>
     <div class="form-group col-sm-6">
@@ -194,7 +194,7 @@
       <%= f.label :mc_access_per_item %><br>
               <div class="input-group">
         <span class="input-group-addon">$</span>
-           <%= f.number_field :mc_access_per_item, class: "form-control", value: 0.0185, :required => true, :data => { type: 'number' } %>
+           <%= f.text_field :mc_access_per_item, class: "form-control", value: 0.0185, :data => { type: 'number' } %>
            </div>
     </div>
     <div class="form-group col-sm-6">
@@ -205,7 +205,7 @@
       <%= f.label :disc_access_per_item %><br>
              <div class="input-group">
         <span class="input-group-addon">$</span>
-           <%= f.number_field :disc_access_per_item, class: "form-control", value: 0.0195, :required => true, :data => { type: 'number' } %>
+           <%= f.text_field :disc_access_per_item, class: "form-control", value: 0.0195, :data => { type: 'number' } %>
            </div>
     </div>
     <div class="form-group col-sm-6">
@@ -248,28 +248,28 @@
       <%= f.label :next_day_funding_monthly_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :next_day_funding_monthly_fee, class: "form-control", :required => true, value: 9.95, :data => { type: 'number' } %>
+      <%= f.text_field :next_day_funding_monthly_fee, class: "form-control", :value => 9.95 %>
       </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :next_day_funding_monthly_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :next_day_funding_monthly_cost, class: "form-control", :required => true, value: 4.95, :data => { type: 'number' } %>
+      <%= f.text_field :next_day_funding_monthly_cost, class: "form-control", :value => 4.95 %>
       </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :min_amex_per_item_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :min_amex_per_item_fee, class: "form-control", :required => true, value: 0.15, :data => { type: 'number' } %>
+      <%= f.text_field :min_amex_per_item_fee, class: "form-control", value: 0.15, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :amex_per_item_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :amex_per_item_cost, class: "form-control", :required => true, value: 0.10, :data => { type: 'number' } %>
+      <%= f.text_field :amex_per_item_cost, class: "form-control", value: 0.10, :data => { type: 'number' } %>
       </div>
     </div>
     <div class="form-group col-sm-6">
@@ -284,20 +284,20 @@
       <%= f.label :min_application_fee %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :min_application_fee, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
+      <%= f.text_field :min_application_fee, class: "form-control", value: 0, :data => { type: 'number' } %>
       </div>
     </div>
         <div class="form-group col-sm-6">
       <%= f.label :application_fee_cost %><br>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <%= f.number_field :application_fee_cost, class: "form-control", :required => true, value: 0, :data => { type: 'number' } %>
+      <%= f.text_field :application_fee_cost, class: "form-control", value: 0, :data => { type: 'number' } %>
       </div>
     </div>
 
   <center>
      <a id="backto_stepthree_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
-     <%= f.submit "Save", class: "btn btn-primary", :required => true %>
+     <%= f.submit "Save", class: "btn btn-primary" %>
   </center>
 </div>  
 
