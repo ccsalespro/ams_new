@@ -30,7 +30,11 @@
 				<% @chapter_time = 0 %>
 				<% @lesson_time = 0 %>
 				<% chapter.lessons.each do |lesson| %>
-					<% @lesson_time = @lesson_time + lesson.minutes %>
+          <% if lesson.minutes == nil %>
+            <% @lesson_time = @lesson_time + 0 %>
+          <% else %>
+  					<% @lesson_time = @lesson_time + lesson.minutes %>
+          <% end -%>
 					<% @chapter_time = @lesson_time %>
 				<% end -%>
 

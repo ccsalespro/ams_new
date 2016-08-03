@@ -16,7 +16,11 @@ class CoursesController < ApplicationController
     @course_time = 0
     @course.chapters.each do |chapter|
       chapter.lessons.each do |lesson|
-        @course_time = @course_time + lesson.minutes
+        if lesson.minutes == nil
+          @course_time = @course_time + 0
+        else
+          @course_time = @course_time + lesson.minutes
+        end
       end
     end
 
