@@ -90,6 +90,10 @@ class ComparisonsController < ApplicationController
     end
   end
   
+  def calculate_up
+    @comparisons = Comparison.where(statement_id: @statement.id)
+  end
+
   def show
     @program = Program.find_by_id(@comparison.program_id)
   end
