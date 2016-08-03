@@ -11,12 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field"><br>
+    <div class="input-group">
+      <%= f.text_field :name, class: 'form-control', placeholder: 'New Processor', required: true %> <div class="input-group-addon"><%= f.submit "Save", class: "processor-new bold" %></div>
+    </div>
   </div>
 <% end %>
 <br>
