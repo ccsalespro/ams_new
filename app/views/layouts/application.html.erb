@@ -78,6 +78,11 @@
                               <li class="hidden-xs">
                                   <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => '') %>
                               </li>
+                              <% if current_user.subscribed == false %>
+                                <li class="hidden-xs">
+                                    <%= link_to('Subscribe', new_subscriber_path, :class => '') %>
+                                </li>
+                              <% end -%>
                           <% else %>
                               <li class="hidden-xs">
                                    <%= link_to('Sign Up', new_user_registration_path, :class => '') %>
@@ -95,6 +100,11 @@
                     <li class="visible-xs">
                         <%= link_to('Log Out', destroy_user_session_path, :method => :delete, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
+                    <% if current_user.subscribed == false %>
+                      <li class="visible-xs">
+                          <%= link_to('Subscribe', new_subscriber_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                      </li>
+                    <% end -%>
                     <% else %>
                     <li class="visible-xs">
                          <%= link_to('Sign Up', new_user_registration_path, :class => 'a-tag-for-navbar-links nav-font') %>
