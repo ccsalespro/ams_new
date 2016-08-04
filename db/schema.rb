@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802165049) do
+ActiveRecord::Schema.define(version: 20160804144727) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(version: 20160802165049) do
     t.string   "title"
     t.string   "body"
     t.string   "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "buycourses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -144,6 +149,14 @@ ActiveRecord::Schema.define(version: 20160802165049) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "courseusers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"
+  add_index "courseusers", ["user_id"], name: "index_courseusers_on_user_id"
 
   create_table "descriptions", force: :cascade do |t|
     t.string   "business_type_primary"
@@ -501,6 +514,7 @@ ActiveRecord::Schema.define(version: 20160802165049) do
     t.boolean  "subscribed",             default: false
     t.string   "stripeid"
     t.boolean  "admin",                  default: false
+    t.boolean  "training_subscribed",    default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

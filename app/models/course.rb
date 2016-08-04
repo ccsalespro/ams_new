@@ -1,4 +1,5 @@
 class Course < ActiveRecord::Base
   has_many :chapters, dependent: :destroy
-  belongs_to :user
+   has_many :courseusers, dependent: :destroy
+  has_many :users, through: :programusers
 end

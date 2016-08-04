@@ -1,0 +1,12 @@
+<%= form_tag buycourse_path(1), method: :put do %>
+  
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="pk_test_jrwedGhmM4P0LsD2bpwXVtyq"
+                      data-description="Buy All Courses"
+                      data-name="Buy All Courses"
+                      data-locale="auto"
+                      data-label="Buy"
+                      data-panel-label="Buy"
+                      data-allow-remember-me="false"></script>
+
+<% end %>
