@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :buycourses
+  resources :subscribetocourses
   resources :systems
   resources :courses do
     resources :chapters do

@@ -1,6 +1,6 @@
 <br><br>
 <div class="container">
-
+<% @current_chapteruser = Chapteruser.where(user_id = current_user.id) %>
 <div class="well">
 <h1 class="lesson-title">
   <%= @course.name %>

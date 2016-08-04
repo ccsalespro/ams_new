@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804144727) do
+ActiveRecord::Schema.define(version: 20160804200357) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20160804144727) do
   end
 
   add_index "chapters", ["course_id"], name: "index_chapters_on_course_id"
+
+  create_table "chapterusers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "chapter_id"
+  end
+
+  add_index "chapterusers", ["chapter_id"], name: "index_chapterusers_on_chapter_id"
+  add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
@@ -248,6 +256,14 @@ ActiveRecord::Schema.define(version: 20160804144727) do
   end
 
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
+
+  create_table "lessonusers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "lesson_id"
+  end
+
+  add_index "lessonusers", ["lesson_id"], name: "index_lessonusers_on_lesson_id"
+  add_index "lessonusers", ["user_id"], name: "index_lessonusers_on_user_id"
 
   create_table "merchants", force: :cascade do |t|
     t.string   "business_dba"
@@ -463,6 +479,11 @@ ActiveRecord::Schema.define(version: 20160804144727) do
 
   create_table "structures", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscribetocourses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

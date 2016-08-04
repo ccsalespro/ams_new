@@ -1,4 +1,4 @@
-class Courseuser < ActiveRecord::Base
+class Chapteruser < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
 end
