@@ -1,17 +1,5 @@
 <br><br>
-<% @lessonuser = [] %>
-<% @lessonid = [] %>
-<% @current_lessonuser = Lessonuser.where(user_id: current_user.id) %>
-<% @current_lessonuser.each do |lessonuser| %>
-  <% @lessonuser << lessonuser.user_id %>
-  <% @lessonid << lessonuser.lesson_id %>
-<% end -%>
-<% @lessonid = @lessonid.sort %>
-<% @lessonid.each do |lessonid| %>
-  <% if lessonid == @lesson.id %>
-  <%= link_to "Complete", complete_lessonuser_path(lessonid), method: :patch %>
-<% end -%>
-<% end -%>
+
 
 <div class="container">
 <div class="well">
@@ -36,11 +24,14 @@
 </h1>
 <h3 class="no-margin"><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b> Minutes<% else %> Minutes<% end -%></h3>
 <hr>
+<% if @lesson.video != "" %>
 <center class="visible-sm visible-xs">
   <%= @lesson.video.html_safe %>
   <span class="visible-xs visible-sm"><br></span>
  </center>
+  <% end -%>
 
+<% if @lesson.video != "" %>
  <div class="row">
 
  <div class="hidden-xs hidden-sm col-md-6 col-lg-5 video-padding">
@@ -53,6 +44,16 @@
  </div>
 
  </div>
+ <% else -%>
+ <div class="row">
+
+  <div class="well">
+    <%= @lesson.description.html_safe %>
+  </div>
+
+
+ </div>
+ <% end -%>
 
 </div>
 </div>
