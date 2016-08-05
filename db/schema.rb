@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20160804200357) do
   create_table "chapterusers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "chapter_id"
+    t.integer "course_id"
   end
 
   add_index "chapterusers", ["chapter_id"], name: "index_chapterusers_on_chapter_id"
+  add_index "chapterusers", ["course_id"], name: "index_chapterusers_on_course_id"
   add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
 
   create_table "comments", force: :cascade do |t|
@@ -260,8 +262,12 @@ ActiveRecord::Schema.define(version: 20160804200357) do
   create_table "lessonusers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "lesson_id"
+    t.integer "chapter_id"
+    t.integer "course_id"
   end
 
+  add_index "lessonusers", ["chapter_id"], name: "index_lessonusers_on_chapter_id"
+  add_index "lessonusers", ["course_id"], name: "index_lessonusers_on_course_id"
   add_index "lessonusers", ["lesson_id"], name: "index_lessonusers_on_lesson_id"
   add_index "lessonusers", ["user_id"], name: "index_lessonusers_on_user_id"
 

@@ -1,5 +1,8 @@
 <br><br>
 <% @current_lessonusers = Lessonuser.where(user_id = current_user.id) %>
+<% @current_lessonusers.each do |lessonuser| %>
+  <% @lessonuser = lessonuser.user_id %>
+<% end -%>
 <div class="container">
 <div class="well">
 

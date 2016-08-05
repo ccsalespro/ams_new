@@ -29,7 +29,23 @@
         
       <% end -%>
 
-  <% @current_courseuser = Courseuser.where(user_id = current_user.id) %>
+      <% if current_user.training_subscribed == false && current_user.admin == true %>
+          <div class="well margin-top-edit-prospect-btns">
+        <div class="row">
+            <div class="col-sm-8 col-xs-7">
+                <h2 class="cta visible-lg"><strong>Unlimited Access</strong></h2>
+                <h3 class="cta visible-sm visible-md"><strong>Unlimited Access</strong></h3>
+                <h4 class="cta visible-xs cta-font-size"><strong>Unlimited Access</strong></h4>
+            </div>
+            <div class="col-sm-4 col-xs-5 buy-courses-btn">
+                <%= link_to "Free Admin Access", new_subscribetocourse_path, class: 'btn btn-primary btn-lg pull-right' %>
+            </div>
+        </div>
+    </div>
+  
+    <% end -%>
+
+  <% @courseusers = Courseuser.where(user_id = current_user.id) %>
 
 <% @courses.each do |course| %>
         
@@ -57,7 +73,7 @@
                 <% if current_user.training_subscribed == true or current_user.admin? %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
                 <% else %>
-                    <center><button class="btn btn-default bold">$49.00</button></center>
+                    <center><button class="btn btn-default bold disabled" data-toggle="tooltip" title="Please Subscribe">View</button></center>
                 <% end -%>
                 </div>
             </div>
