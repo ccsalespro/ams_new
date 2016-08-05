@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20160804200357) do
   create_table "courseusers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "course_id"
+    t.string  "quiz_score"
   end
 
   add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"

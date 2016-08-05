@@ -1,0 +1,11 @@
+<br>
+<div class="container-fluid">
+<%= form_for (@courseuser) do |f| %>
+<div class="input-group">
+	<%= f.text_field :quiz_score, class: 'form-control' %>
+	<div class="input-group-addon">
+	<%= f.submit "Update", class: 'processor-new bold' %>
+	</div>
+</div>
+<% end -%>
+</div>

@@ -1,0 +1,35 @@
+<br>
+<div class="container-fluid" id="page">
+
+<h3 class="text-center no-margin">Hit 'Ctrl + F' To Search The Page If You Are On Windows</h3>
+<h3 class="text-center no-margin">Try 'Cmd + F' To Search The Page If You Are On A Mac</h3><br>
+
+<table class="table table-hover table-bordered">
+<thead>
+<tr>
+<th>User</th>
+<th>Course</th>
+<th>Edit</th>
+</tr>
+</thead>
+<tbody>
+<% @courseusers.each do |courseuser| %>
+   <% @users = User.where(id: courseuser.user_id) %>
+<% @courses = Course.where(id: courseuser.course_id) %>
+<tr id="tr">
+
+<% @users.each do |user| %>
+	<td><%= user.email %></td>
+<% end -%>
+
+
+<% @courses.each do |course| %>
+	<td><%= course.name %></td>
+<% end -%>
+
+<td><% if courseuser.quiz_score == nil %><%= link_to "Add Quiz Score", edit_courseuser_path(courseuser) %><% else %><%= link_to "Change Quiz Score", edit_courseuser_path(courseuser) %><% end -%></td>
+</tr>
+<% end -%>
+</tbody>
+	</table>
+	</div>

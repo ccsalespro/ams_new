@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :subscribetocourses
 
+  resources :courseusers
+
   resources :lessonusers do
     member do
       patch :complete

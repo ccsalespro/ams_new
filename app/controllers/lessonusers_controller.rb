@@ -1,4 +1,5 @@
  class LessonusersController < ApplicationController
+  
   def complete
   	@lesson = Lesson.find(params[:id])
   	@lessonusers = Lessonuser.where(user_id: current_user.id)
@@ -9,4 +10,6 @@
 		  end
   	end
   end
+
+
  end

@@ -6,4 +6,6 @@ class Lessonuser < ActiveRecord::Base
 		!completed_at.blank?
 	end
 
+
+
 end
