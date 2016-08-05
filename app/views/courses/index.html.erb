@@ -1,4 +1,9 @@
 <br><br>
+<% @courseuser = [] %>
+  <% @current_courseuser = Courseuser.where(user_id: current_user.id) %>
+  <% @current_courseuser.each do |courseuser| %>
+    <% @courseuser << courseuser.user_id %>
+  <% end -%>
 <div class="container">
 
 <%= search_form_for @search do |f| %>
@@ -44,8 +49,6 @@
     </div>
   
     <% end -%>
-
-  <% @courseusers = Courseuser.where(user_id = current_user.id) %>
 
 <% @courses.each do |course| %>
         

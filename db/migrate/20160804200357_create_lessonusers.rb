@@ -5,6 +5,7 @@ class CreateLessonusers < ActiveRecord::Migration
       t.references :lesson, index: true, foreign_key: true
       t.references :chapter, index: true, foreign_key: true
       t.references :course, index: true, foreign_key: true
+      t.datetime :completed_at
     end
   end
 end

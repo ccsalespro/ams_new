@@ -1,4 +1,18 @@
 <br><br>
+<% @lessonuser = [] %>
+<% @lessonid = [] %>
+<% @current_lessonuser = Lessonuser.where(user_id: current_user.id) %>
+<% @current_lessonuser.each do |lessonuser| %>
+  <% @lessonuser << lessonuser.user_id %>
+  <% @lessonid << lessonuser.lesson_id %>
+<% end -%>
+<% @lessonid = @lessonid.sort %>
+<% @lessonid.each do |lessonid| %>
+  <% if lessonid == @lesson.id %>
+  <%= link_to "Complete", complete_lessonuser_path(lessonid), method: :patch %>
+<% end -%>
+<% end -%>
+
 <div class="container">
 <div class="well">
 <h1 class="lesson-title">

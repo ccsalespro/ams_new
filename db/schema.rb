@@ -260,10 +260,11 @@ ActiveRecord::Schema.define(version: 20160804200357) do
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
 
   create_table "lessonusers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "lesson_id"
-    t.integer "chapter_id"
-    t.integer "course_id"
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.integer  "chapter_id"
+    t.integer  "course_id"
+    t.datetime "completed_at"
   end
 
   add_index "lessonusers", ["chapter_id"], name: "index_lessonusers_on_chapter_id"

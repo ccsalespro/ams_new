@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
   resources :subscribetocourses
+
+  resources :lessonusers do
+    member do
+      patch :complete
+    end
+  end
+
   resources :systems
   resources :courses do
     resources :chapters do

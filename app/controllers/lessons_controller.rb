@@ -17,6 +17,7 @@ class LessonsController < ApplicationController
       format.js
       format.html
     end
+
   end
 
   # GET /lessons/new
