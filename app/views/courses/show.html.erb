@@ -1,9 +1,4 @@
 <br><br>
-<% @chapteruser = [] %>
-  <% @current_chapteruser = Chapteruser.where(user_id: current_user.id) %>
-  <% @current_chapteruser.each do |chapteruser| %>
-    <% @chapteruser << chapteruser.user_id %>
-  <% end -%>
 <div class="container">
 <div class="well">
 <h1 class="lesson-title">
