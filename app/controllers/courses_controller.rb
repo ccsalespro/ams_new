@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :require_training_subscribed, only: [:show]
+  before_action :require_admin, only: [:new, :create, :update, :edit, :destroy]
 
   # GET /courses
   # GET /courses.json

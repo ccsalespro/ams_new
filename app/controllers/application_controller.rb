@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+   def require_training_subscribed
+    unless current_user.training_subscribed?
+      redirect_to root_url, notice: "Please Subscribe"
+    end
+  end
+
 end
