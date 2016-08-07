@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803012522) do
+ActiveRecord::Schema.define(version: 20160806221114) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.decimal  "keyed_flat_rate"
     t.decimal  "tier_check_card_per_item_surcharge"
     t.decimal  "tier_credit_per_item_surcharge"
+    t.decimal  "gross_margin_fixed"
+    t.decimal  "savings_fixed"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -365,6 +367,8 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
     t.decimal  "keyed_flat_rate"
+    t.decimal  "vs_check_card_per_item"
+    t.integer  "vs_check_card_access_percentage"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
