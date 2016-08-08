@@ -107,8 +107,7 @@ class StatementsController < ApplicationController
 
   # PATCH/PUT /statements/1
   # PATCH/PUT /statements/1.json
-  def update
-    
+  def update    
     respond_to do |format|
       if @statement.update(statement_params)
         format.html { redirect_to [@prospect, @statement], notice: 'Statement Was Successfully Updated.' }
