@@ -38,10 +38,7 @@ class ComparisonsController < ApplicationController
     end
   end
   
- 
-  
-
-  def decrease_savings
+ def decrease_savings
     @comparisons = Comparison.where(statement_id: @statement.id)
     @comparisons.each do |comparison|
       if comparison.total_program_savings > 0
