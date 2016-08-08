@@ -3,8 +3,10 @@
 <h1>My Qualifying Programs</h1>
 <br>
 
+<% c = @comparisons.first %>
+<% if c.total_program_savings > 1 %>
 <%= link_to('Decrease Savings', {:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) %>
-
+<% end %>
 
 <% c = @comparisons.first %>
 <% p = Program.find_by_id(c.program_id) %>
