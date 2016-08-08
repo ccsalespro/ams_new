@@ -11,13 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804200357) do
 
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160806221114) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -132,6 +127,8 @@ ActiveRecord::Schema.define(version: 20160804200357) do
     t.decimal  "keyed_flat_rate"
     t.decimal  "tier_check_card_per_item_surcharge"
     t.decimal  "tier_credit_per_item_surcharge"
+    t.decimal  "gross_margin_fixed"
+    t.decimal  "savings_fixed"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -184,12 +181,12 @@ ActiveRecord::Schema.define(version: 20160804200357) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -400,9 +397,12 @@ ActiveRecord::Schema.define(version: 20160804200357) do
     t.decimal  "min_credit_midqual"
     t.decimal  "min_credit_nonqual"
     t.decimal  "swiped_flat_rate"
-    t.string   "keyed_flat_rate_decimal"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
+<<<<<<< HEAD
+=======
+    t.decimal  "keyed_flat_rate"
+>>>>>>> af8c4d18eb23f67ad1def5c753b3af5b3b350a46
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
   end

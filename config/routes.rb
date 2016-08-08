@@ -51,7 +51,9 @@ Rails.application.routes.draw do
   end
   get 'blogs/index'
   get 'tasks/index'
-   get 'comparisons/show'
+  get 'comparisons/show'
+  get 'comparisons/decrease_savings'
+  get 'comparisons/increase_savings'
 
 
    root to: 'static#index'
