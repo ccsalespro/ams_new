@@ -17,19 +17,15 @@
     <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
-     <%= f.label "Total Volume", :class => 'text' %>
-     <%= f.text_field(:total_vol, :class => "form-control", :id => "inputdefault") %>
+    <%= f.label "Visa/MC/Disc Volume", :class => 'text' %>
+    <%= f.text_field(:vmd_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "American Express Volume", :class => 'text' %>
     <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
-    <%= f.label "Visa/MC/Disc Volume", :class => 'text' %>
-    <%= f.text_field(:vmd_vol, :class => "form-control", :id => "inputdefault") %>
-</div>
-<div class="field">
-    <%= f.label "Check Card Volume ", :class => 'text' %>
+    <%= f.label "Check Card Volume", :class => 'text' %>
     <%= f.text_field(:check_card_vol, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
@@ -63,10 +59,6 @@
 <div class="field">
     <%= f.label "Pin Debit Network Fees", :class => 'text' %>
     <%= f.text_field(:debit_network_fees, :class => "form-control", :id => "inputdefault") %>
-</div>
-<div class="field">
-    <%= f.label "Total Interchange / Network", :class => 'text' %>
-    <%= f.text_field(:interchange, :class => "form-control", :id => "inputdefault") %>
 </div>
 <div class="field">
     <%= f.label "Daily Batches", :class => 'text' %>
