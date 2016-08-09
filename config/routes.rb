@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :admin_dashboard
   resources :subscribetocourses
 
   resources :courseusers
