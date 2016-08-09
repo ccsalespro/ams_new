@@ -7,44 +7,41 @@
 
 
 <center>
-<p class="visible-sm visible-md text-center">N = Name | B = Bonus | R = Residual | BP = Basis Points | TF = Trans Fee | S = Savings | P = Proposal</p>
-<p class="visible-xs text-left">N = Name | B = Bonus | R = Residual<br>BP = Basis Points | TF = Trans Fee<br>S = Savings | P = Proposal</p>
+
+<p class="visible-xs text-center">B = Bonus | R = Residual<br>BP = Basis Points | TF = Trans Fee<br>S = Savings | P = Proposal</p>
+
+              <span class="">
+              <% c = @comparisons.first %>
+              <% if c.total_program_savings > 1 %>
+              <%= link_to({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
+                <i class="fa fa-angle-left" aria-hidden="true"></i> Decrease Savings
+              <% end -%>
+              <% end %>
+
+               <% c = @comparisons.first %>
+              <% p = Program.find_by_id(c.program_id) %>
+              <% if c.bp_mark_up > p.min_bp_mark_up %>
+                <%= link_to({:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
+                  Increase Savings <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <% end -%>
+              <% end %>
+              </span>
+<div class="clearfix">  </div><br>
 </center>
 
 <table class="table table-striped table-responsive table-hover table-bordered nothing">
     <thead class="">
-        <tr class="nothing">
-        <th class="nothing" colspan="5"></th>
-        <th class="text-center nothing fiftythree">
-           <span class="">
-              <% c = @comparisons.first %>
-              <% if c.total_program_savings > 1 %>
-              <%= link_to ({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
-                <i class="fa fa-arrow-circle-down main-color fa-2x" aria-hidden="true"></i>
-              <% end -%>
-              <% end %>
-
-              <% c = @comparisons.first %>
-              <% p = Program.find_by_id(c.program_id) %>
-              <% if c.bp_mark_up > p.min_bp_mark_up %>
-                <%= link_to( {:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
-                    <i class="fa fa-arrow-circle-up main-color fa-2x" aria-hidden="true"></i>
-                  <% end -%>
-              <% end %>
-              </span>
-            </th>
-        </tr>
         <tr class="white total">
-            <th class="statement-name"><span class="visible-lg">Name</span><span class="hidden-lg">N</span></th>
-            <th><span class="visible-lg">Bonus</span><span class="hidden-lg">B</span></th>
-            <th><span class="visible-lg">Residual</span><span class="hidden-lg">R</span></th>
-            <th><span class="visible-lg">Basis Points</span><span class="hidden-lg">BP</span></th>
-            <th><span class="visible-lg">Trans Fee</span><span class="hidden-lg">TF</span></th>
+            <th class="statement-name">Name</th>
+            <th><span class="hidden-xs">Bonus</span><span class="visible-xs">B</span></th>
+            <th><span class="hidden-xs">Residual</span><span class="visible-xs">R</span></th>
+            <th><span class="hidden-xs">Basis Points</span><span class="visible-xs">BP</span></th>
+            <th><span class="hidden-xs">Trans Fee</span><span class="visible-xs">TF</span></th>
             <% if @statement.total_fees != 0 %>
-            <th class=""><span class="visible-lg col-lg-6">Savings</span><span class="hidden-lg">S</span>
+            <th class=""><span class="hidden-xs col-lg-6">Savings</span><span class="visible-xs">S</span>
             </th>
             <% end %>
-            <th><span class="visible-lg">Proposal</span><span class="hidden-lg">P</span></th>
+            <th><span class="hidden-xs">Proposal</span><span class="visible-xs">P</span></th>
         </tr>
     </thead>
 
@@ -55,7 +52,7 @@
 <tbody>
    <tr class="">
      <td class="visible-xs"><%= truncate(@program.name, length: 15) %></td>
-     <td class="visible-sm"><%= truncate(@program.name, length: 40) %></td>
+     <td class="visible-sm"><%= truncate(@program.name, length: 30) %></td>
      <td class="visible-md visible-lg"><%= truncate(@program.name, length: 80) %></td>
        <td class="text-left">$<%= number_with_precision(comparison.total_program_bonus, precision: 0) %></td>
        <td class="text-left">$<%= number_with_precision(comparison.total_program_residuals, precision: 0) %></td>
