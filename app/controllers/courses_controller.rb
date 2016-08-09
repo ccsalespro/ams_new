@@ -51,6 +51,14 @@ class CoursesController < ApplicationController
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
+
+    @subscribed_users = User.where(training_subscribed: true)
+    @subscribed_users.each do |user|
+      @courseuser = Courseuser.new
+      @courseuser.user_id = user.id
+      @courseuser.course_id = @course.id
+      @courseuser.save
+    end
   end
 
   # PATCH/PUT /courses/1
