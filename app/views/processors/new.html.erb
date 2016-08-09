@@ -31,7 +31,7 @@
     <% @processors.each do |processor| %>
       <tr>
         <td class=""><%= processor.name %></td>
-        <td class="text-center"><%= link_to 'Create Program', new_processor_program_path(processor), class: 'btn btn-primary btn-sm' %></td>
+        <td class=""><span class="pull-right"><%= link_to 'Create Program', new_processor_program_path(processor), class: 'btn btn-primary btn-sm' %></span></td>
       </tr>
     <% end %>
   </tbody>
