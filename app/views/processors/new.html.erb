@@ -3,17 +3,17 @@
 
 <table class="table table-hover table-bordered">
   <thead>
-    <tr>
-      <th>My Processors</th>
-      <th colspan="1"><span class="pull-right">Actions</span></th>
+    <tr class="white total">
+      <th colspan="6">My Processors</th>
+      <th colspan="3" class="text-center" style="min-width: 240px;">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @private_processors.each do |processor| %>
       <tr>
-        <td><%= processor.name %></td>
-          <td class="" style="min-width: 220px;"><span class="pull-right"><%= link_to 'Create Program', new_processor_program_path(processor), class: 'black' %> | <%= link_to 'Edit', edit_processor_path(processor), class: 'black' %> | <%= link_to 'Delete', processor, method: :delete, data: { confirm: 'Are You Sure?' }, class: 'black' %></span></td>
+        <td colspan="6"><%= processor.name %></td>
+          <td class="" colspan="3" style="min-width: 240px;"><span class="pull-right"><%= link_to 'Create Program', new_processor_program_path(processor), class: 'btn btn-primary btn-sm' %>  <%= link_to 'Edit', edit_processor_path(processor), class: 'btn btn-primary btn-sm' %>  <%= link_to 'Delete', processor, method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary btn-sm' %></span></td>
       </tr>
     <% end %>
   </tbody>
@@ -21,17 +21,17 @@
 
 <table class="table table-hover table-bordered">
   <thead>
-    <tr>
+    <tr class="white total">
       <th>Choose Existing</th>
-      <th colspan="1"><span class="pull-right">Actions</span></th>
+      <th colspan="1" class="text-center">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @processors.each do |processor| %>
       <tr>
-        <td><%= processor.name %></td>
-        <td><%= link_to 'Create Program', new_processor_program_path(processor), class: 'black pull-right' %></td>
+        <td class=""><%= processor.name %></td>
+        <td class=""><span class="pull-right"><%= link_to 'Create Program', new_processor_program_path(processor), class: 'btn btn-primary btn-sm' %></span></td>
       </tr>
     <% end %>
   </tbody>

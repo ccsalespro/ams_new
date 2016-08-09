@@ -144,6 +144,8 @@ hr.style-two {
 
 .red, .red:hover { color: #fa0c0c;}
 
+.main-color { color: $main-color !important; }
+
 .bold { font-weight: bold; }
 
 .price-info { font-size: 20px !important; }
@@ -413,3 +415,25 @@ hr.style-two {
     background: none !important;
     border: none !important;
 }
+
+.buy-courses-btn { padding-top: 10px !important; }
+
+.statement-wizard-well {
+    padding-top: 0px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    padding-bottom: 15px !important;
+    margin: 0px !important; 
+}
+
+.nothing {
+    padding: 0px !important;
+    margin: 0px !important;
+    border: 0px solid black  !important;
+    background: none !important;
+    outline: 0px !important;
+}
+
+.fiftythree { min-width: 53px !important; }
+
+.statement-name { min-width: 115px !important; }

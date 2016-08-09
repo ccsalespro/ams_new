@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :require_training_subscribed, only: [:show]
+  before_action :require_admin, only: [:new, :create, :update, :edit, :destroy, :index]
 
   # GET /courses
   # GET /courses.json
@@ -49,20 +51,28 @@ class CoursesController < ApplicationController
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
+
+    @subscribed_users = User.where(training_subscribed: true)
+    @subscribed_users.each do |user|
+      @courseuser = Courseuser.new
+      @courseuser.user_id = user.id
+      @courseuser.course_id = @course.id
+      @courseuser.save
+    end
   end
 
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
     respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-        format.json { render :show, status: :ok, location: @course }
+      if @course.save
+        format.html { redirect_to @course, notice: 'Course Was Successfully Updated.' }
+        format.json { render :show, status: :created, location: @chapter }
       else
-        format.html { render :edit }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
-    end
+   end
   end
 
   # DELETE /courses/1

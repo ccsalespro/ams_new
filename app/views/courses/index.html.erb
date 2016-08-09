@@ -1,9 +1,10 @@
 <br><br>
+
 <div class="container">
 
 <%= search_form_for @search do |f| %>
   <div class="input-group stylish-input-group clearfix">
-    <%= f.search_field :name_cont, :class => 'form-control', :placeholder => 'Search' %>
+    <%= f.search_field :name_or_description_cont, :class => 'form-control', :placeholder => 'Search' %>
             <span class="input-group-addon">
                 <button type="submit">
                     <span class="glyphicon glyphicon-search"></span>
@@ -12,6 +13,38 @@
         </div>
         <% end %>
       <br>
+
+      <% if current_user.training_subscribed == false && current_user.admin == false %>
+                <div class="well margin-top-edit-prospect-btns">
+              <div class="row">
+                  <div class="col-sm-8 col-xs-7">
+                      <h2 class="cta visible-lg"><strong>Unlimited Access</strong></h2>
+                      <h3 class="cta visible-sm visible-md"><strong>Unlimited Access</strong></h3>
+                      <h4 class="cta visible-xs cta-font-size"><strong>Unlimited Access</strong></h4>
+                  </div>
+                  <div class="col-sm-4 col-xs-5 buy-courses-btn">
+                      <%= link_to "$19.00 Per Month", new_subscribetocourse_path, class: 'btn btn-primary btn-lg pull-right' %>
+                  </div>
+              </div>
+          </div>
+        
+      <% end -%>
+
+      <% if current_user.training_subscribed == false && current_user.admin == true %>
+          <div class="well margin-top-edit-prospect-btns">
+        <div class="row">
+            <div class="col-sm-8 col-xs-7">
+                <h2 class="cta visible-lg"><strong>Unlimited Access</strong></h2>
+                <h3 class="cta visible-sm visible-md"><strong>Unlimited Access</strong></h3>
+                <h4 class="cta visible-xs cta-font-size"><strong>Unlimited Access</strong></h4>
+            </div>
+            <div class="col-sm-4 col-xs-5 buy-courses-btn">
+                <%= link_to "Free Admin Access", new_subscribetocourse_path, class: 'btn btn-primary btn-lg pull-right' %>
+            </div>
+        </div>
+    </div>
+  
+    <% end -%>
 
 <% @courses.each do |course| %>
         
@@ -36,7 +69,11 @@
                     <p><%= course.description %></p>
                 </div>
                 <div class="panel-footer special-footer">
+                <% if current_user.training_subscribed == true or current_user.admin? %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
+                <% else %>
+                    <center><button class="btn btn-default bold disabled" data-toggle="tooltip" title="Please Subscribe">View</button></center>
+                <% end -%>
                 </div>
             </div>
         </div>

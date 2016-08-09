@@ -5,4 +5,5 @@ class Statement < ActiveRecord::Base
   has_many :intcalcitems
   has_many :comparisons, dependent: :destroy
   validates_presence_of :total_vol
+  default_scope -> { order(created_at: :desc) }
 end

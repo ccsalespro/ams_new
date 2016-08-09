@@ -1,5 +1,6 @@
 <br><br>
 
+
 <div class="container">
 <div class="well">
 <h1 class="lesson-title">
@@ -23,11 +24,14 @@
 </h1>
 <h3 class="no-margin"><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b> Minutes<% else %> Minutes<% end -%></h3>
 <hr>
+<% if @lesson.video != "" %>
 <center class="visible-sm visible-xs">
   <%= @lesson.video.html_safe %>
   <span class="visible-xs visible-sm"><br></span>
  </center>
+  <% end -%>
 
+<% if @lesson.video != "" %>
  <div class="row">
 
  <div class="hidden-xs hidden-sm col-md-6 col-lg-5 video-padding">
@@ -40,6 +44,16 @@
  </div>
 
  </div>
+ <% else -%>
+ <div class="row">
+
+  <div class="well">
+    <center><%= @lesson.description.html_safe %></center>
+  </div>
+
+
+ </div>
+ <% end -%>
 
 </div>
 </div>

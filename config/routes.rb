@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :subscribetocourses
+
+  resources :courseusers
+
+  resources :lessonusers do
+    member do
+      patch :complete
+    end
+  end
+
   resources :systems
   resources :courses do
     resources :chapters do
@@ -41,7 +51,9 @@ Rails.application.routes.draw do
   end
   get 'blogs/index'
   get 'tasks/index'
-   get 'comparisons/show'
+  get 'comparisons/show'
+  get 'comparisons/decrease_savings'
+  get 'comparisons/increase_savings'
 
 
    root to: 'static#index'

@@ -107,11 +107,10 @@ class StatementsController < ApplicationController
 
   # PATCH/PUT /statements/1
   # PATCH/PUT /statements/1.json
-  def update
-    
+  def update    
     respond_to do |format|
       if @statement.update(statement_params)
-        format.html { redirect_to [@prospect, @statement], notice: 'Statement was successfully updated.' }
+        format.html { redirect_to [@prospect, @statement], notice: 'Statement Was Successfully Updated.' }
         format.json { render :show, status: :ok, location: @statement }
       else
         format.html { render :edit }

@@ -25,10 +25,37 @@
 	<h2 class="text-center"><b>Lessons</b></h2>
 
   <% @chapter.lessons.each do |lesson| %>
-  
-  <h3><% if lesson.completed? %><i class="fa fa-eye" aria-hidden="true"></i><% else %><i class="fa fa-eye-slash" aria-hidden="true"></i><% end %> | <%= link_to lesson.title, complete_course_chapter_lesson_path(@course, @chapter, lesson), method: :patch, :class => 'black' %>
+
+  <h3>
+  <% @lessonuser = [] %>
+<% @lessonid = [] %>
+<% @current_lessonuser = Lessonuser.where(user_id: current_user.id) %>
+<% @current_lessonuser.each do |lessonuser| %>
+  <% if lessonuser.lesson_id == lesson.id %>
+    <% if lessonuser.completed? %>
+    <i class="fa fa-eye" aria-hidden="true"></i>
+  <% else %>
+    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+  <% end %>
+<% end -%>
+<% end -%>
+
+<% @lessonuser = [] %>
+<% @lessonid = [] %>
+<% @current_lessonuser = Lessonuser.where(user_id: current_user.id) %>
+<% @current_lessonuser.each do |lessonuser| %>
+  <% @lessonuser << lessonuser.user_id %>
+  <% @lessonid << lessonuser.lesson_id %>
+<% end -%>
+<% @lessonid = @lessonid.sort %>
+<% @lessonid.each do |lessonid| %>
+  <% if lessonid == lesson.id %>
+  | <%= link_to lesson.title, complete_lessonuser_path(lessonid), method: :patch, :class => 'black' %>
+<% end -%>
+<% end -%>
   		<span class="pull-right"><b><%= lesson.minutes %></b><% if lesson.minutes == nil %> <b>0</b> Minutes<% else %> Minutes<% end -%></span>
   	</h3>
+
   	 <% if lesson != @lessons.last %>
 			<hr>
 		<% end -%>

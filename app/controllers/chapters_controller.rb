@@ -1,6 +1,8 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
   before_action :load_course
+  before_action :require_training_subscribed, only: [:show]
+  before_action :require_admin, only: [:new, :create, :update, :edit, :destroy, :index]
   
   # GET /chapters
   # GET /chapters.json
@@ -45,6 +47,16 @@ class ChaptersController < ApplicationController
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
     end
+
+    @subscribed_users = User.where(training_subscribed: true)
+    @subscribed_users.each do |user|
+      @chapteruser = Chapteruser.new
+      @chapteruser.user_id = user.id
+      @chapteruser.course_id = @course.id
+      @chapteruser.chapter_id = @chapter.id
+      @chapteruser.save
+    end
+
   end
 
   # PATCH/PUT /chapters/1

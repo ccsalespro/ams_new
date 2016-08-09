@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803012522) do
+
+ActiveRecord::Schema.define(version: 20160806221114) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +30,16 @@ ActiveRecord::Schema.define(version: 20160803012522) do
   end
 
   add_index "chapters", ["course_id"], name: "index_chapters_on_course_id"
+
+  create_table "chapterusers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "chapter_id"
+    t.integer "course_id"
+  end
+
+  add_index "chapterusers", ["chapter_id"], name: "index_chapterusers_on_chapter_id"
+  add_index "chapterusers", ["course_id"], name: "index_chapterusers_on_course_id"
+  add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
@@ -116,6 +127,8 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.decimal  "keyed_flat_rate"
     t.decimal  "tier_check_card_per_item_surcharge"
     t.decimal  "tier_credit_per_item_surcharge"
+    t.decimal  "gross_margin_fixed"
+    t.decimal  "savings_fixed"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -138,6 +151,15 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "courseusers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.string  "quiz_score"
+  end
+
+  add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"
+  add_index "courseusers", ["user_id"], name: "index_courseusers_on_user_id"
 
   create_table "descriptions", force: :cascade do |t|
     t.string   "business_type_primary"
@@ -229,6 +251,19 @@ ActiveRecord::Schema.define(version: 20160803012522) do
   end
 
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
+
+  create_table "lessonusers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.integer  "chapter_id"
+    t.integer  "course_id"
+    t.datetime "completed_at"
+  end
+
+  add_index "lessonusers", ["chapter_id"], name: "index_lessonusers_on_chapter_id"
+  add_index "lessonusers", ["course_id"], name: "index_lessonusers_on_course_id"
+  add_index "lessonusers", ["lesson_id"], name: "index_lessonusers_on_lesson_id"
+  add_index "lessonusers", ["user_id"], name: "index_lessonusers_on_user_id"
 
   create_table "merchants", force: :cascade do |t|
     t.string   "business_dba"
@@ -448,6 +483,11 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscribetocourses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "plan_id"
@@ -495,6 +535,7 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.boolean  "subscribed",             default: false
     t.string   "stripeid"
     t.boolean  "admin",                  default: false
+    t.boolean  "training_subscribed",    default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
