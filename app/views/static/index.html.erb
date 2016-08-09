@@ -18,7 +18,11 @@
                       <h4 class="cta visible-xs cta-font-size"><strong>Are You Tired Of Asking For A Statement?</strong></h4>
                   </div>
                   <div class="col-md-4">
-                      <%= link_to "Start 30 Day Free Trial", static_pricing_path, :class => 'btn btn-lg btn-primary btn-block bold' %>
+                    <% if user_signed_in? && current_user.subscribed == false %>
+                      <%= link_to "Start 30 Day Free Trial", new_subscriber_path, :class => 'btn btn-lg btn-primary btn-block bold' %>  
+                    <% else %>
+                        <%= link_to "Start 30 Day Free Trial", static_pricing_path, :class => 'btn btn-lg btn-primary btn-block bold' %>
+                    <% end -%>
                   </div>
               </div>
           </div>
