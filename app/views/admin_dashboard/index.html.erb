@@ -1,0 +1,40 @@
+<br>
+<div class="container-fluid">
+<table class="table table-hover table-bordered">
+	<thead>
+		<tr class="total white">
+			<th>ID</th>
+			<th>Email</th>
+			<th>Prospects</th>
+			<th>Statements</th>
+			<th>Programs</th>
+			<th>Created At</th>
+			<th>Subscribed?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.id %></td>
+				<td><%= user.email %></td>
+				<td><%= user.prospects.count %></td>
+				<% @statements = 0 %>
+				<% user.prospects.each do |p| %>
+				<% @statements += p.statements.count %>
+				<% end %>
+				<td><%= @statements %></td>
+				<% @personal_programs = Programuser.where(user_id: user.id) %>
+				<% @count = 0 %>
+				<% @personal_programs.each do |p| %>
+					<% if p.program.personal == true %>
+						<% @count += 1 %>
+					<% end -%>
+				<% end -%>
+				<td><%= @count %></td>
+				<td><%= user.created_at %></td>
+				<td><%= user.subscribed? %></td>
+			</tr>
+		<% end -%>
+	</tbody>
+</table>
+</div>
