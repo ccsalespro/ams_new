@@ -1,0 +1,160 @@
+<%= form_for ([@prospect, @statement, @comparison]) do |f| %>
+
+<br><br>
+	<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 text-center">
+	<div id="steponelabel">
+		<h3 class="no-margin bold hidden-xs"><%= @statement.statement_month %> || Key Pricing</h3>
+		<h4 class="no-margin bold visible-xs"><%= @statement.statement_month %> || Key Pricing</h4><br>
+	</div>
+	<div id="steptwolabel" class="hidden">
+		<h3 class="no-margin bold hidden-xs"><%= @statement.statement_month %> || Other Pricing</h3>
+		<h4 class="no-margin bold visible-xs"><%= @statement.statement_month %> || Other Pricing</h4><br>
+	</div>
+		<div class="well">
+			<div id="stepone">
+				<div class="col-sm-6">
+					<b>VMD Basis Points</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">BP</div>
+						<%= f.text_field :bp_mark_up, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+						<b>Per Item</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :per_item_fee, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<div class="col-sm-6">
+					<b>AMEX Basis Points</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">BP</div>
+						<%= f.text_field :amex_bp_mark_up, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>AMEX Per Item</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :amex_per_item_fee, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<div class="col-sm-6">
+					<b>Debit Basis Points</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">BP</div>
+						<%= f.text_field :pin_debit_bp_mark_up, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>Debit Per Item</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :debit_trans_fees, class: 'form-control' %><br>
+					</div><div class="clearfix"></div><br>
+				</div>
+				<a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+			</div><div class="clearfix"></div>
+
+			<div id="steptwo" class="hidden">
+			<div class="col-sm-6">
+					<b>Monthly Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :monthly_fees, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>Batch Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :per_batch_fee, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<div class="col-sm-6">
+					<b>Monthly PCI Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :monthly_pci_fees, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>Annual PCI Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :annual_pci_fees, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<div class="col-sm-6">
+					<b>Application Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :application_fee, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>Annual Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :annual_fee, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<div class="col-sm-6">
+					<b>Monthly Debit Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :monthly_debit_fee, class: 'form-control' %><br>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<b>Next Day Funding Fee</b><br>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<%= f.text_field :next_day_funding_fee, class: 'form-control' %><br>
+					</div>
+				</div><div class="clearfix"></div><br>
+				<a id="backto_stepone_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
+				<%= f.submit "Save", class: 'btn btn-primary' %>
+			</div>
+		</div>
+	</div>
+<% end -%>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  
+
+stepone_btn.onclick = function() {
+
+  stepone.classList.toggle('visible');
+  stepone.classList.toggle('hidden');
+  steptwo.classList.toggle('hidden');
+  steptwo.classList.toggle('visible');
+  steponelabel.classList.toggle('hidden');
+  steponelabel.classList.toggle('visible');
+  steptwolabel.classList.toggle('hidden');
+  steptwolabel.classList.toggle('visible');
+
+}
+
+backto_stepone_btn.onclick = function() {
+
+  stepone.classList.toggle('visible');
+  stepone.classList.toggle('hidden');
+  steptwo.classList.toggle('hidden');
+  steptwo.classList.toggle('visible');
+  steponelabel.classList.toggle('hidden');
+  steponelabel.classList.toggle('visible');
+  steptwolabel.classList.toggle('hidden');
+  steptwolabel.classList.toggle('visible');
+
+
+}
+
+</script>

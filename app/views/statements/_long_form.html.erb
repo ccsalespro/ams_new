@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %><br><br>
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
 <div id="steponelabel">
 <h3 class="no-margin bold hidden-xs"><%= @statement.statement_month %> || Volume</h3>
 <h4 class="no-margin bold visible-xs"><%= @statement.statement_month %> || Volume</h4><br>
@@ -80,22 +80,34 @@
 <center><a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a></center>
 </div>
 <div id="steptwo" class="hidden">
-<div class="field">
-    <%= f.label "Visa-MC-Disc Interchange", :class => 'text' %>
+<div class="field col-sm-6">
+    <%= f.label "Visa-MC-Disc Interchange", :class => 'text text-capitalize' %>
+   <div class="input-group">
+    <div class="input-group-addon">$</div>
     <%= f.text_field(:vmd_interchange, :class => "form-control", :id => "inputdefault") %>
+    </div>
 </div>
-<div class="field">
+<div class="field col-sm-6">
     <%= f.label "American Express Interchange", :class => 'text' %>
+         <div class="input-group">
+  <div class="input-group-addon">$</div>
     <%= f.text_field(:amex_interchange, :class => "form-control", :id => "inputdefault") %>
-</div>
-<div class="field">
+    </div>
+</div><div class="clearfix"></div><br>
+<div class="field col-sm-6">
     <%= f.label "Pin Debit Network Fees", :class => 'text' %>
+         <div class="input-group">
+  <div class="input-group-addon">$</div>
     <%= f.text_field(:debit_network_fees, :class => "form-control", :id => "inputdefault") %>
+    </div>
 </div>
-<div class="field">
+<div class="field col-sm-6">
     <%= f.label "Daily Batches", :class => 'text' %>
+         <div class="input-group">
+  <div class="input-group-addon">#</div>
     <%= f.text_field(:batches, :class => "form-control", :id => "inputdefault") %>
-</div><br>
+    </div>
+</div><div class="clearfix"></div><br>
 <a id="backto_stepone_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
 <%= button_tag("Save", :class => 'btn btn-primary') %>
 </div>
