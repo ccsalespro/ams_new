@@ -50,15 +50,15 @@ class LessonsController < ApplicationController
     @subscribed_users = User.where(training_subscribed: true)
     @subscribed_users.each do |user|
       @course.chapters.each do |chapter|
-        
-
-
-        @chapteruser = Chapteruser.new
-        @chapteruser.user_id = user.id
-        @chapteruser.course_id = @course.id
-        @chapteruser.chapter_id = chapter.id
-        @chapteruser.save
-      end
+        chapter.lessons.each do |lesson|
+          @lessonuser = Lessonuser.new
+          @lessonuser.user_id = user.id
+          @lessonuser.course_id = @course.id
+          @lessonuser.chapter_id = @chapter.id
+          @lessonuser.lesson_id = lesson.id
+          @lessonuser.save
+         end
+       end
     end
 
   end
