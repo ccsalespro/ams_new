@@ -9,6 +9,24 @@
 <center>
 <p class="visible-sm visible-md text-center">N = Name | B = Bonus | R = Residual | BP = Basis Points | TF = Trans Fee | S = Savings | P = Proposal</p>
 <p class="visible-xs text-left">N = Name | B = Bonus | R = Residual<br>BP = Basis Points | TF = Trans Fee<br>S = Savings | P = Proposal</p>
+
+              <span class="">
+              <% c = @comparisons.first %>
+              <% p = Program.find_by_id(c.program_id) %>
+              <% if c.bp_mark_up > p.min_bp_mark_up %>
+                <%= link_to( {:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
+                    <i class="fa fa-arrow-circle-up main-color fa-3x" aria-hidden="true"></i>
+                  <% end -%>
+              <% end %>
+
+              <% c = @comparisons.first %>
+              <% if c.total_program_savings > 1 %>
+              <%= link_to ({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
+                <i class="fa fa-arrow-circle-down main-color fa-3x" aria-hidden="true"></i>
+              <% end -%>
+              <% end %>
+              </span>
+
 </center>
 
 <table class="table table-striped table-responsive table-hover table-bordered nothing">
@@ -16,11 +34,11 @@
         <tr class="nothing">
         <th class="nothing" colspan="5"></th>
         <th class="text-center nothing fiftythree">
-           <span class="">
+           <span class="hidden">
               <% c = @comparisons.first %>
               <% if c.total_program_savings > 1 %>
               <%= link_to ({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
-                <i class="fa fa-arrow-circle-down main-color fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-arrow-circle-down main-color fa-3x" aria-hidden="true"></i>
               <% end -%>
               <% end %>
 
@@ -28,8 +46,25 @@
               <% p = Program.find_by_id(c.program_id) %>
               <% if c.bp_mark_up > p.min_bp_mark_up %>
                 <%= link_to( {:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
-                    <i class="fa fa-arrow-circle-up main-color fa-2x" aria-hidden="true"></i>
+                    <i class="fa fa-arrow-circle-up main-color fa-3x" aria-hidden="true"></i>
                   <% end -%>
+              <% end %>
+              </span>
+
+              <span class="hidden">
+              <% c = @comparisons.first %>
+              <% p = Program.find_by_id(c.program_id) %>
+              <% if c.bp_mark_up > p.min_bp_mark_up %>
+                <%= link_to( {:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
+                    <i class="fa fa-arrow-circle-up main-color fa-3x" aria-hidden="true"></i>
+                  <% end -%>
+              <% end %>
+
+              <% c = @comparisons.first %>
+              <% if c.total_program_savings > 1 %>
+              <%= link_to ({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}) do %>
+                <i class="fa fa-arrow-circle-down main-color fa-3x" aria-hidden="true"></i>
+              <% end -%>
               <% end %>
               </span>
             </th>
