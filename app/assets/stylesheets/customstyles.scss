@@ -144,6 +144,8 @@ hr.style-two {
 
 .red, .red:hover { color: #fa0c0c;}
 
+.main-color { color: $main-color !important; }
+
 .bold { font-weight: bold; }
 
 .price-info { font-size: 20px !important; }
@@ -423,3 +425,15 @@ hr.style-two {
     padding-bottom: 15px !important;
     margin: 0px !important; 
 }
+
+.nothing {
+    padding: 0px !important;
+    margin: 0px !important;
+    border: 0px solid black  !important;
+    background: none !important;
+    outline: 0px !important;
+}
+
+.fiftythree { min-width: 53px !important; }
+
+.statement-name { min-width: 115px !important; }

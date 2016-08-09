@@ -11,10 +11,16 @@
     </div>
   <% end %><br><br>
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-center">
-<div class="well">
-<div id="stepone" class="visible">
+<div id="steponelabel">
 <h3 class="no-margin bold hidden-xs"><%= @statement.statement_month %> || Volume</h3>
 <h4 class="no-margin bold visible-xs"><%= @statement.statement_month %> || Volume</h4><br>
+</div>
+<div id="steptwolabel" class="hidden">
+<h3 class="no-margin bold hidden-xs"><%= @statement.statement_month %> || Other</h3>
+<h4 class="no-margin bold visible-xs"><%= @statement.statement_month %> || Other</h4><br>
+</div>
+<div class="well">
+<div id="stepone" class="visible">
 <div class="well statement-wizard-well">
 <h4 class="text-center bold">VMD Credit</h4>
 <div class="field col-sm-6">
@@ -74,7 +80,6 @@
 <center><a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a></center>
 </div>
 <div id="steptwo" class="hidden">
-<h3 class="no-margin bold"><%= @statement.statement_month %> || Other</h3><br>
 <div class="field">
     <%= f.label "Visa-MC-Disc Interchange", :class => 'text' %>
     <%= f.text_field(:vmd_interchange, :class => "form-control", :id => "inputdefault") %>
@@ -127,6 +132,10 @@ stepone_btn.onclick = function() {
   stepone.classList.toggle('hidden');
   steptwo.classList.toggle('hidden');
   steptwo.classList.toggle('visible');
+  steponelabel.classList.toggle('hidden');
+  steponelabel.classList.toggle('visible');
+  steptwolabel.classList.toggle('hidden');
+  steptwolabel.classList.toggle('visible');
 
 }
 
@@ -136,6 +145,11 @@ backto_stepone_btn.onclick = function() {
   stepone.classList.toggle('hidden');
   steptwo.classList.toggle('hidden');
   steptwo.classList.toggle('visible');
+  steponelabel.classList.toggle('hidden');
+  steponelabel.classList.toggle('visible');
+  steptwolabel.classList.toggle('hidden');
+  steptwolabel.classList.toggle('visible');
+
 
 }
 
