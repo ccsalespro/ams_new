@@ -526,9 +526,10 @@ ActiveRecord::Schema.define(version: 20160810192121) do
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "admin_user_id"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id"
