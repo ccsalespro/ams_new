@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get 'admin_dashboard/unsubscribe'
   get 'admin_dashboard/make_admin'
   get 'admin_dashboard/remove_admin'
+  get 'admin_dashboard/show_user'
 
    root to: 'static#index'
 
@@ -119,6 +120,10 @@ Rails.application.routes.draw do
           patch :complete
         end
       end
+    end
+
+    resources :users do
+      resources :tickets
     end
 
   namespace :admin do

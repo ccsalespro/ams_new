@@ -1,0 +1,16 @@
+<div class="container">
+<h1 class="text-center"><%= @user.email %></h1><br>
+
+<%= form_for [@user, Ticket.new], remote: true do |f| %>
+    <div class="field">
+        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket' %>
+    </div>
+    <% end %>
+    <div class="notes-margin">
+
+        <div class="tickets<%= @user.id %>">
+            <%= render :partial => @user.tickets %>
+        </div>
+
+    </div>
+</div>

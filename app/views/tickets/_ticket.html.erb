@@ -1,0 +1,14 @@
+<%= div_for(ticket) do %>
+	<div class="clearfix delete">
+		<div class="">
+		<div class="btn-group pull-right">
+				<%= link_to user_ticket_path(@user, ticket), method: :delete, :class => 'delete-ticket', :remote => true do %>
+				    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+				<% end %>
+		</div>
+		<p class="text-left no-margin-bottom"><small class="text-capitalize"><strong><%= time_ago_in_words(ticket.created_at) %> Ago</strong></small></p>
+			<p class="text-left"><%= ticket.body %></p>
+			
+		</div>
+	</div>
+<% end %>

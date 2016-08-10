@@ -37,4 +37,9 @@ class AdminDashboardController < ApplicationController
 		@user.save
 		redirect_to admin_dashboard_index_path
 	end
+
+
+	def show_user
+		@user = User.find_by_id(params[:id])
+	end
 end
