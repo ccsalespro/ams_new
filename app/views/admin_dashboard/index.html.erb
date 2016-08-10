@@ -1,5 +1,6 @@
 <br>
 <div class="container-fluid">
+
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr class="total white">
@@ -8,13 +9,22 @@
 			<th>Prospects</th>
 			<th>Statements</th>
 			<th>Programs</th>
-			<th>Created At</th>
-			<th>Subscribed?</th>
+			<th>Created</th>
+			<th>Subscribed</th>
 			<th colspan="2" style="min-width: 280px !important;">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
+
+			<% date = user.created_at %>
+			<% date = date.to_s[0,10] %>
+			<% date = date.split("-") %>
+			<% timeyear = date[0] %>
+			<% timemonth = date[1] %>
+			<% timeday = date[2] %>
+			<% @user_created_at = "#{timemonth}/#{timeday}/#{timeyear}" %>
+
 			<tr>
 				<td><%= user.id %></td>
 				<td><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
@@ -32,7 +42,7 @@
 					<% end -%>
 				<% end -%>
 				<td><%= @count %></td>
-				<td><%= user.created_at %></td>
+				<td><%= @user_created_at %></td>
 				<td><%= user.subscribed? %></td>
 				<td class="text-left" style="min-width: 280px !important;">
 				<% if user.subscribed == false %>

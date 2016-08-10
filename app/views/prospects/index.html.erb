@@ -210,9 +210,8 @@
 <%= link_to choose_descriptions_path, :class => 'btn fab-btn white' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
-
 <% if current_user.admin? %>
 <%= link_to({:controller => 'admin_dashboard', :action => 'index'}, class: 'btn btn-primary admin-btn bold') do %>
-    <i class="fa fa-terminal fab-plus bold" aria-hidden="true"></i>
+    <i class="fa fa-terminal admin-plus bold" aria-hidden="true"></i>
 <% end -%>
 <% end -%>

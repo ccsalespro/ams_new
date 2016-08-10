@@ -59,6 +59,12 @@
     margin-top: 12px;
 }
 
+.admin-plus {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+
 
 /* Search Bar Styles */
     .stylish-input-group .input-group-addon{
@@ -311,7 +317,7 @@ hr.style-two {
   .cta-font-size { font-size: 12px !important;}
 }
 @media screen and (max-width: 372px) {
-  .cta-font-size { font-size: 10px !important;}
+  .cta-font-size { font-size: 10px !important; margin-top: 20px}
 }
 
 .pricing-top-margin { margin-top: 15px !important;}
