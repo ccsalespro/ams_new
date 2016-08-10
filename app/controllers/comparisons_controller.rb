@@ -32,6 +32,7 @@ class ComparisonsController < ApplicationController
         @comparison.save
         @comparisons << @comparison
       end
+      @comparisons = @comparisons.order(total_program_savings: :desc)
     end
   end
   
