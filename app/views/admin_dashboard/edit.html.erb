@@ -1,0 +1,6 @@
+<br>
+<%= form_for('admin_dashboard/edit_user') do |f| %>
+	<%= f.select(:subscribed, options_for_select([['true', true], ['false', false]]), class: 'form-control' ) %><br><br>
+	<%= f.select(:admin, options_for_select([['true', true], ['false', false]]), class: 'form-control' ) %> <br><br>
+	<%= f.submit 'Save', class: 'btn btn-primary' %>
+<% end -%>

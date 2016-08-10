@@ -10,6 +10,7 @@
 			<th>Programs</th>
 			<th>Created At</th>
 			<th>Subscribed?</th>
+			<th colspan="2" style="min-width: 280px !important;">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -33,6 +34,19 @@
 				<td><%= @count %></td>
 				<td><%= user.created_at %></td>
 				<td><%= user.subscribed? %></td>
+				<td class="text-left" style="min-width: 280px !important;">
+				<% if user.subscribed == false %>
+				<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => user.id}, class: 'btn btn-primary btn-sm') %>
+				<% else %>
+				<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => user.id}, class: 'btn btn-primary btn-sm') %>
+				<% end -%>
+				<% if user.admin == false %>
+				<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => user.id}, class: 'btn btn-primary btn-sm') %>
+				<% else %>
+				<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => user.id}, class: 'btn btn-primary btn-sm') %>
+				<% end -%>
+				<%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+				</td>
 			</tr>
 		<% end -%>
 	</tbody>
