@@ -8,6 +8,7 @@ class TicketsController < ApplicationController
     @user = User.find(params[:user_id])
     @ticket = @user.tickets.new(ticket_params)
     @ticket.user = @user
+    @ticket.admin_user_id = current_user
 
     respond_to do |format|
       if @ticket.save
