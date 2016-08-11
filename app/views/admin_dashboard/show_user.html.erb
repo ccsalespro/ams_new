@@ -1,5 +1,22 @@
+<%= link_to admin_dashboard_index_path, class: 'pull-left' do %>
+	<i class="fa fa-chevron-left fa-3x black back-fab" aria-hidden="true"></i>
+<% end -%>
 <div class="container">
-<h1 class="text-center"><%= @user.email %></h1><br>
+<h1 class="text-center"><%= @user.email %></h1>
+<center>
+<% if @user.subscribed == false %>
+<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<% else %>
+<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<% end -%>
+<% if @user.admin == false %>
+<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<% else %>
+<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<% end -%>
+<%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+</center>
+<br>
 
 <%= form_for [@user, Ticket.new], remote: true do |f| %>
     <div class="field">

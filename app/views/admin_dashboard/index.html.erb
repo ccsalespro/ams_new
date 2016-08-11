@@ -1,7 +1,23 @@
 <br>
 <div class="container-fluid">
-
-<h2 class="bold"><%= @users.count %> Users</h2>	
+<div class="well">
+<h2 class="no-margin">
+	<b><%= @users.count %></b> <% if @users.count == 1 %> Total User <% else %> Total Users <% end -%> <br>
+	<b><%= @subscribed_users.count %></b> <% if @subscribed_users.count == 1 %> Subscribed User <% else %> Subscribed Users <% end -%> <br>
+	<b><%= @admins.count %></b> <% if @admins.count == 1 %> Admin <% else %> Admins <% end -%><br>
+	<b><%= @course_subscribers.count %></b> <% if @course_subscribers.count == 1 %> Training User <% else %> Training Users <% end -%>
+</h2>
+<h2 id="more_analytics" class="no-margin hidden">
+	<b><%= @prospects.count %></b> <% if @prospects.count == 1 %> Prospect <% else %> Prospects <% end -%> <br>
+	<b><%= @notes.count %></b> <% if @notes.count == 1 %> Note <% else %> Notes <% end -%> <br>
+	<b><%= @tasks.count %></b> <% if @tasks.count == 1 %> Total Task <% else %> Total Tasks <% end -%> <br>
+	<b><%= @completed_tasks.count %></b> <% if @completed_tasks.count == 1 %> Completed Task <% else %> Completed Tasks <% end -%> <br>
+	<b><%= @uncompleted_tasks.count %></b> <% if @uncompleted_tasks.count == 1 %> Uncompleted Task <% else %> Uncompleted Tasks <% end -%> <br>
+	<b><%= @statements.count %></b> <% if @statements.count == 1 %> Statement <% else %> Statements <% end -%> <br>
+</h2>
+<br>
+<a id="more" class="black bold visible" style="cursor: pointer;">More Analytics</a>
+</div>
 
 <table class="table table-hover table-bordered">
 	<thead>
@@ -13,7 +29,6 @@
 			<th>Programs</th>
 			<th>Created</th>
 			<th>Subscribed</th>
-			<th colspan="2" style="min-width: 280px !important;">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -46,21 +61,22 @@
 				<td><%= @count %></td>
 				<td><%= @user_created_at %></td>
 				<td><%= user.subscribed? %></td>
-				<td class="text-left" style="min-width: 280px !important;">
-				<% if user.subscribed == false %>
-				<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => user.id}, class: 'btn btn-primary btn-sm') %>
-				<% else %>
-				<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => user.id}, class: 'btn btn-primary btn-sm') %>
-				<% end -%>
-				<% if user.admin == false %>
-				<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => user.id}, class: 'btn btn-primary btn-sm') %>
-				<% else %>
-				<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => user.id}, class: 'btn btn-primary btn-sm') %>
-				<% end -%>
-				<%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
-				</td>
 			</tr>
 		<% end -%>
 	</tbody>
 </table>
 </div>
+
+<script type="text/javascript">
+	
+more.onclick = function() {
+	more_analytics.classList.toggle('visible');
+	more_analytics.classList.toggle('hidden');
+	if (more.innerHTML == "More Analytics") {
+		more.innerHTML = "Less Analytics"
+	} else {
+		more.innerHTML = "More Analytics"
+	}
+}
+
+</script>
