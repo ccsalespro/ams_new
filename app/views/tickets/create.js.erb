@@ -1,0 +1,4 @@
+$(document).ready(function () {
+  $('.tickets<%= @user.id %>').prepend("<%= j render @ticket %>").fadeIn();
+  $('.body').val("");
+});

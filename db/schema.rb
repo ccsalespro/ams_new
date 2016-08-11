@@ -12,8 +12,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
-
 ActiveRecord::Schema.define(version: 20160803012522) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -182,12 +187,12 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -400,9 +405,9 @@ ActiveRecord::Schema.define(version: 20160803012522) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
-    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
+    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -519,6 +524,16 @@ ActiveRecord::Schema.define(version: 20160803012522) do
 
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "admin_user_id"
+    t.text     "body"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "tickets", ["user_id"], name: "index_tickets_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

@@ -1,5 +1,24 @@
 <br>
 <div class="container-fluid">
+<div class="well">
+<h2 class="no-margin">
+	<b><%= @users.count %></b> <% if @users.count == 1 %> Total User <% else %> Total Users <% end -%> <br>
+	<b><%= @subscribed_users.count %></b> <% if @subscribed_users.count == 1 %> Subscribed User <% else %> Subscribed Users <% end -%> <br>
+	<b><%= @admins.count %></b> <% if @admins.count == 1 %> Admin <% else %> Admins <% end -%><br>
+	<b><%= @course_subscribers.count %></b> <% if @course_subscribers.count == 1 %> Training User <% else %> Training Users <% end -%>
+</h2>
+<h2 id="more_analytics" class="no-margin hidden">
+	<b><%= @prospects.count %></b> <% if @prospects.count == 1 %> Prospect <% else %> Prospects <% end -%> <br>
+	<b><%= @notes.count %></b> <% if @notes.count == 1 %> Note <% else %> Notes <% end -%> <br>
+	<b><%= @tasks.count %></b> <% if @tasks.count == 1 %> Total Task <% else %> Total Tasks <% end -%> <br>
+	<b><%= @completed_tasks.count %></b> <% if @completed_tasks.count == 1 %> Completed Task <% else %> Completed Tasks <% end -%> <br>
+	<b><%= @uncompleted_tasks.count %></b> <% if @uncompleted_tasks.count == 1 %> Uncompleted Task <% else %> Uncompleted Tasks <% end -%> <br>
+	<b><%= @statements.count %></b> <% if @statements.count == 1 %> Statement <% else %> Statements <% end -%> <br>
+</h2>
+<br>
+<a id="more" class="black bold visible" style="cursor: pointer;">More Analytics</a>
+</div>
+
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr class="total white">
@@ -8,15 +27,24 @@
 			<th>Prospects</th>
 			<th>Statements</th>
 			<th>Programs</th>
-			<th>Created At</th>
-			<th>Subscribed?</th>
+			<th>Created</th>
+			<th>Subscribed</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
+
+			<% date = user.created_at %>
+			<% date = date.to_s[0,10] %>
+			<% date = date.split("-") %>
+			<% timeyear = date[0] %>
+			<% timemonth = date[1] %>
+			<% timeday = date[2] %>
+			<% @user_created_at = "#{timemonth}/#{timeday}/#{timeyear}" %>
+
 			<tr>
 				<td><%= user.id %></td>
-				<td><%= user.email %></td>
+				<td><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
 				<td><%= user.prospects.count %></td>
 				<% @statements = 0 %>
 				<% user.prospects.each do |p| %>
@@ -31,10 +59,24 @@
 					<% end -%>
 				<% end -%>
 				<td><%= @count %></td>
-				<td><%= user.created_at %></td>
+				<td><%= @user_created_at %></td>
 				<td><%= user.subscribed? %></td>
 			</tr>
 		<% end -%>
 	</tbody>
 </table>
 </div>
+
+<script type="text/javascript">
+	
+more.onclick = function() {
+	more_analytics.classList.toggle('visible');
+	more_analytics.classList.toggle('hidden');
+	if (more.innerHTML == "More Analytics") {
+		more.innerHTML = "Less Analytics"
+	} else {
+		more.innerHTML = "More Analytics"
+	}
+}
+
+</script>
