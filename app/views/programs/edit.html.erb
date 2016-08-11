@@ -62,16 +62,14 @@
       <span class="input-group-addon">%</span>
       </div>
     </div>
-    </div>
+    </div><div class="clearfix"></div>
 
-    <div class="col-sm-6">
-    <div class="form-group">
+    <div class="form-group col-sm-6">
       <%= f.label :min_per_item_fee %><br>
             <div class="input-group">
       <span class="input-group-addon">$</span>
       <%= f.text_field :min_per_item_fee, class: "form-control", :data => { type: 'number' } %>
       </div>
-    </div>
     </div>
     <div class="form-group col-sm-6">
       <%= f.label :per_item_cost %><br>
@@ -83,14 +81,14 @@
         <div class="form-group col-sm-6">
       <%= f.label :min_bp_mark_up %><br>
            <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :min_bp_mark_up, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div>
        <div class="form-group col-sm-6">
       <p class="bold program-form-margin">Bin Sponsorship Basis Points</p>
              <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :bin_sponsorship, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div>
@@ -191,7 +189,7 @@
         <div class="form-group col-sm-6">
       <p class="bold program-form-margin ">Visa Debit Access Basis Points</p>
                 <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :vs_check_card_access_percentage, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div><div class="clearfix"></div>
@@ -205,7 +203,7 @@
     <div class="form-group col-sm-6">
       <p class="bold program-form-margin ">Visa Access Basis Points</p>
                 <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :visa_access_percentage, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div><div class="clearfix"></div>
@@ -219,7 +217,7 @@
     <div class="form-group col-sm-6">
       <p class="bold program-form-margin ">Mastercard Access Basis Points</p>
             <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :mc_access_percentage, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div><div class="clearfix"></div>
@@ -233,7 +231,7 @@
     <div class="form-group col-sm-6">
        <p class="bold program-form-margin ">Discover Access Basis Points</p>
             <div class="input-group">
-      <span class="input-group-addon">$</span>
+      <span class="input-group-addon">BP</span>
       <%= f.text_field :disc_access_percentage, class: "form-control", :data => { type: 'number' } %>
       </div>
     </div><div class="clearfix"></div>
