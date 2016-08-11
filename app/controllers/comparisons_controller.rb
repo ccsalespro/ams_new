@@ -10,6 +10,9 @@ class ComparisonsController < ApplicationController
       @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
     else    
       load_qualified_programs(@statement)
+      if @programs.first == nil
+        redirect_to programs_path, notice: 'Please Add at Least 1 Processor / Program'
+      else
       @comparisons = []
       @programs.each do |program|
         @comparison = Comparison.new
@@ -33,6 +36,7 @@ class ComparisonsController < ApplicationController
         @comparisons << @comparison
       end
       @comparisons = @comparisons.order(total_program_savings: :desc)
+    end
     end
   end
   
@@ -116,7 +120,7 @@ class ComparisonsController < ApplicationController
   def update
     respond_to do |format|
       if @comparison.update(comparison_params)
-        format.html { redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison), notice: 'Processor was successfully updated.' }
+        format.html { redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison), notice: 'Pricing was successfully updated.' }
         format.json { render :show, status: :ok, location: @comparison }
       else
         format.html { render :edit }

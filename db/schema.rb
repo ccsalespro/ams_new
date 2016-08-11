@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160810192121) do
 
+
   create_table "actions", force: :cascade do |t|
     t.string   "body"
     t.datetime "created_at", null: false
