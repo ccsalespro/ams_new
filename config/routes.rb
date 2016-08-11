@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :subscribetocourses
+  get 'programs/clone'
 
   resources :courseusers
 
