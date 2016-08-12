@@ -60,10 +60,9 @@
   <td class="grey-back">Total</td>
   <% @total = @statement.total_vol %>
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
-  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @comparison.monthly_fees + @comparison.monthly_pci_fees + (@comparison.annual_pci_fees / 12) + @comparison.batch_fees + @total_debit_fees + @total_amex_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%= number_with_precision(@transactions, precision: 0) %></td>
-    <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
+    <td class="grey-back" colspan="1"><%= number_to_currency(@comparison.total_program_fees) %></td>
 </tr>
 </table>
 </div>
@@ -78,12 +77,9 @@
      <th>3 Year Savings</th>
    </tr>
   <tr>
-    <% @annual_savings = ((@statement.total_fees - @fees) * 12) %>
-    <% @monthly_savings = @statement.total_fees - @fees %>
-    <% @three_yr_savings = (@statement.total_fees - @fees) * 36 %>
-    <td><b><%= number_to_currency(@monthly_savings) %></b></td>
-    <td><b><%= number_to_currency(@annual_savings) %></b></td>
-    <td><b><%= number_to_currency(@three_yr_savings) %></b></td>
+    <td><b><%= number_to_currency(@comparison.total_program_savings) %></b></td>
+    <td><b><%= number_to_currency(@comparison.total_program_savings * 12) %></b></td>
+    <td><b><%= number_to_currency(@comparison.total_program_savings * 36) %></b></td>
   </tr>
 </table>
 </div>
