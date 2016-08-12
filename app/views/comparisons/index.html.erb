@@ -59,7 +59,7 @@
        <td><%= number_with_precision(comparison.bp_mark_up, precision: 0) %></td>
        <td><%= number_with_precision(comparison.per_item_fee, precision: 2) %></td>
       <% if comparison.savings_fixed != 0 %>
-         <td class="savings">$<%= number_with_precision(comparison.total_program_savings, precision: 0) %></td>
+         <td class="savings"><% if comparison.total_program_savings < 0 %><span class="bold red">$<%= number_with_precision(comparison.total_program_savings, precision: 0) %></span><% else %><span class="bold">$<%= number_with_precision(comparison.total_program_savings, precision: 0) %></span><% end -%></td>
       <% end %>
        <td class="text-center fixed-width-td"><%= link_to('Present', prospect_statement_comparison_path(@prospect, @statement, comparison), :class => "btn btn-primary btn-sm no-margin") %></td>
    </tr>
