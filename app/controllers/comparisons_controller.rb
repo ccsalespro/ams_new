@@ -197,6 +197,7 @@ private
       c.annual_pci_fees = p.annual_pci_fee
       c.monthly_fees = p.min_monthly_fees
       c.annual_fee = 0
+      c.pin_debit_per_item_fee = p.min_pin_debit_per_item_fee
   end
   
   def set_vmd_per_item_fees(c, s, per_item_fee)
