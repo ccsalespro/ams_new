@@ -43,7 +43,7 @@
   <td>Debit</td>
   <td><%= number_to_currency(@statement.debit_vol) %></td>
   <td><%= number_with_precision(@statement.debit_trans, precision: 0) %></td>
-  <% @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @program.min_pin_debit_per_item_fee)) %>
+  <% @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee)) %>
   <td><%= number_to_currency(@total_debit_fees) %></td>
 </tr>
 
@@ -51,8 +51,8 @@
   <td>AMEX</td>
   <td><%= number_to_currency(@statement.amex_vol) %></td>
   <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
-  <% @amex_mark_up = ( @statement.amex_vol * (@program.min_amex_bp_fee / 10000 ) ) %>
-  <% @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @program.min_amex_per_item_fee) + @amex_mark_up) %> 
+  <% @amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 ) ) %>
+  <% @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up) %> 
   <td><%= number_to_currency(@total_amex_fees) %></td>
 </tr>
 
@@ -60,7 +60,7 @@
   <td class="grey-back">Total</td>
   <% @total = @statement.total_vol %>
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
-  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @program.min_monthly_fees + @program.monthly_pci_fee + (@program.annual_pci_fee / 12) + @comparison.batch_fees + @total_debit_fees + @total_amex_fees %>
+  <% @fees = @total_visa_fees + @total_mc_fees + @total_ds_fees + @comparison.monthly_fees + @comparison.monthly_pci_fees + (@comparison.annual_pci_fees / 12) + @comparison.batch_fees + @total_debit_fees + @total_amex_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%= number_with_precision(@transactions, precision: 0) %></td>
     <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
