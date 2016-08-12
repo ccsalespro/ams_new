@@ -3,8 +3,9 @@ class ComparisonsController < ApplicationController
   before_action :load_comparison, only: [:show, :edit, :update]
 	before_action :authenticate_user!
   before_action :require_subscribed
+  before_action :recognize_refresh, only: [:index, :decrease_savings, :increase_savings]
 
-  def index 
+  def index
   	@test = Comparison.where(statement_id: @statement.id).first
     if @test != nil
       @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
@@ -13,8 +14,14 @@ class ComparisonsController < ApplicationController
       if @programs.first == nil
         redirect_to programs_path, notice: 'Please Add at Least 1 Processor / Program'
       else
+        create_comparisons(@programs)
+      end
+    end
+  end
+  
+  def create_comparisons(p)
       @comparisons = []
-      @programs.each do |program|
+      p.each do |program|
         @comparison = Comparison.new
         set_comparison_references(@comparison, @statement, program)
         set_other_fees(           @comparison, @statement, program)    
@@ -32,14 +39,12 @@ class ComparisonsController < ApplicationController
         set_compensation(         @comparison, program)
         set_conditional_savings(  @comparison, @statement)
         set_fixed_values(         @comparison)
+        set_total_savings(@comparison, @statement)
         @comparison.save
         @comparisons << @comparison
       end
-      @comparisons = @comparisons.order(total_program_savings: :desc)
     end
-    end
-  end
-  
+
  def decrease_savings
     @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
     @comparisons.each do |comparison|
@@ -65,8 +70,6 @@ class ComparisonsController < ApplicationController
     end
     render 'index'
   end
-
-  
 
   def increase_savings
     @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
@@ -112,6 +115,9 @@ class ComparisonsController < ApplicationController
 
   def show
     @program = Program.find_by_id(@comparison.program_id)
+    @comparisons = Comparison.where(statement_id: @statement.id)
+    @comparisons_discard = @comparisons.where('id != ?', @comparison.id)
+    @comparisons_discard.destroy_all
   end
 
   def edit
@@ -129,7 +135,7 @@ class ComparisonsController < ApplicationController
       set_compensation(         @comparison, @program)
       set_conditional_savings(  @comparison, @statement)
       @comparison.save  
-      redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison), notice: 'Pricing was successfully updated.'    
+      render 'show', notice: 'Pricing was successfully updated.'    
   end
 
 private
@@ -149,6 +155,17 @@ private
 	def load_statement
 		@statement = @prospect.statements.find(params[:statement_id])
 	end
+
+  def recognize_refresh
+    load_qualified_programs(@statement)
+    @program_count = @programs.count
+    @comparisons = Comparison.where(statement_id: @statement.id)
+    @comparison_count = @comparisons.count
+    if @comparison_count == 1 && @program_count > 1
+      @comparisons.destroy_all
+      redirect_to prospect_statement_comparisons_path(@prospect, @statement), notice: 'Pricing has been reset to defaults'
+    end    
+  end
 
   def load_qualified_programs(s)
     @programusers = Programuser.where(user_id: current_user.id)
@@ -201,7 +218,7 @@ private
   end
   
   def set_vmd_per_item_fees(c, s, per_item_fee)
-    c.per_item_fee = per_item_fee
+    c.per_item_fee = per_item_fee.round(2)
     
     c.vs_trans_fees = ( 
       s.vs_transactions * 
