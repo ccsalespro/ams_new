@@ -112,6 +112,16 @@ class ComparisonsController < ApplicationController
 
   def show
     @program = Program.find_by_id(@comparison.program_id)
+    respond_to do |format| 
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hello World"
+        send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end
   end
 
   def edit

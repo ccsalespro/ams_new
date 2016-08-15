@@ -39,6 +39,8 @@ gem 'font-awesome-sass'
 gem 'redcarpet'
 
 gem 'jquery-datetimepicker-rails'
+
+gem 'prawn'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
