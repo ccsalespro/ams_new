@@ -115,8 +115,7 @@ class ComparisonsController < ApplicationController
     respond_to do |format| 
       format.html
       format.pdf do
-        pdf = Prawn::Document.new
-        pdf.text "Hello World"
+        pdf = ComparisonPdf.new(@prospect, @statement, @comparison)
         send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
                               type: "application/pdf",
                               disposition: "inline"
