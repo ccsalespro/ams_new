@@ -3,6 +3,8 @@
 <% end -%>
 <div class="container">
 <h1 class="text-center"><%= @user.email %></h1>
+
+<p class="text-center bold">Last Sign In: <%= @user_last_sign_in %></p>
 <center>
 <% if @user.subscribed == false %>
 <%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
@@ -18,9 +20,23 @@
 </center>
 <br>
 
-<%= form_for [@user, Ticket.new], remote: true do |f| %>
+<%= form_for [@user, Ticket.new] do |f| %>
     <div class="field">
-        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket' %>
+        <div class="input-group">
+        <div class="input-group-addon no-padding" style="padding-left: 8px !important; padding-top: 5px !important;">
+            <div class="checkbox" style='margin: 0px !important;'>
+                    <label style="font-size: 1em" class="no-padding">
+                    
+                   <%= f.check_box :important %>
+                    <span class="cr">
+                        <i class="cr-icon fa fa-check text-center no-padding" data-toggle="tooltip" title="Important"></i>
+                    </span>
+                    
+                    </label>
+                </div>
+            </div>
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket' %>
+        </div>
     </div>
     <% end %>
     <div class="notes-margin">

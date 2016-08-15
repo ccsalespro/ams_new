@@ -50,5 +50,12 @@ class AdminDashboardController < ApplicationController
 
 	def show_user
 		@user = User.find_by_id(params[:id])
+		        date = @user.last_sign_in_at
+            date = date.to_s[0,10]
+            date = date.split("-")
+            timeyear = date[0]
+            timemonth = date[1]
+            timeday = date[2]
+            @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}"
 	end
 end

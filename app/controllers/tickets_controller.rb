@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to :back, notice: 'Note Added' }
+        format.html { redirect_to :back }
         format.js { render :layout => false }
       else
         format.html { render action: "new" }
@@ -38,6 +38,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:body, :user_id, :admin_user_id)
+      params.require(:ticket).permit(:body, :user_id, :admin_user_id, :important)
     end
 end

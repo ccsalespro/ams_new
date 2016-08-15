@@ -1,7 +1,11 @@
 <%= div_for(ticket) do %>
 <% @ticket_maker = User.where(id: ticket.admin_user_id) %>
 	<div class="clearfix delete">
-		<div class="">
+	<% if ticket.important == true %>
+		<div class="" style="border: 2px solid red !important; border-radius: 5px !important; padding: 5px !important; margin-bottom: 5px !important;">
+		<% else %>
+		<div>
+		<% end -%>
 		<div class="btn-group pull-right">
 				<%= link_to user_ticket_path(@user, ticket), method: :delete, :class => 'delete-ticket', :remote => true do %>
 				    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
