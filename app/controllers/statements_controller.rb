@@ -215,9 +215,17 @@ class StatementsController < ApplicationController
       @fees      
     end
 
-    
+    def adjust_inttableitems
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      #Step 2 - Find the top 5 VS types in terms of volume and rank them by effective rate 
+        #Add "effective_rate" to inttableitems and calculate that
+      #Step 3 - Repeat step 2 with MC
+      #Step 4 - Find the dollar increase / decrease in interchange costs for Visa and Mastercard to make up for dollary amount change
+      #Step 5 - iterate through the process of transfering 1 transaction from the highest to lowest interchange category 
+        #(or low to high ) for a decrease.
+      #Step 6 - repeat step 5 for the second highest and second lowest.
+      #Step 7 - Repeat steps 5 and 6 until the number is suprased
+      #Step 8 - Undo last iteration in Step 7 and move transactions from the third highest to the 4th or 2nd to close the gap.
 
-
-
-      
+    end      
 end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :admin_dashboard
   resources :subscribetocourses
+  get 'programs/clone'
 
   resources :courseusers
 
@@ -55,7 +55,13 @@ Rails.application.routes.draw do
   get 'comparisons/show'
   get 'comparisons/decrease_savings'
   get 'comparisons/increase_savings'
-
+  get 'admin_dashboard/destroy_user'
+  get 'admin_dashboard/index'
+  get 'admin_dashboard/subscribe'
+  get 'admin_dashboard/unsubscribe'
+  get 'admin_dashboard/make_admin'
+  get 'admin_dashboard/remove_admin'
+  get 'admin_dashboard/show_user'
 
    root to: 'static#index'
 
@@ -115,6 +121,10 @@ Rails.application.routes.draw do
           patch :complete
         end
       end
+    end
+
+    resources :users do
+      resources :tickets
     end
 
   namespace :admin do

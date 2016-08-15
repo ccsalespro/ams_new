@@ -1,11 +1,11 @@
 class ComparisonsController < ApplicationController
-	before_action :load_prospect, :load_statement
+  before_action :load_prospect, :load_statement
   before_action :load_comparison, only: [:show, :edit, :update]
-	before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :require_subscribed
 
   def index 
-  	@test = Comparison.where(statement_id: @statement.id).first
+    @test = Comparison.where(statement_id: @statement.id).first
     if @test != nil
       @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
     else    
@@ -16,14 +16,14 @@ class ComparisonsController < ApplicationController
       @comparisons = []
       @programs.each do |program|
         @comparison = Comparison.new
-        set_comparison_references(@comparison, @statement, program)    
+        set_comparison_references(@comparison, @statement, program)
+        set_other_fees(           @comparison, @statement, program)    
         set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
         set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up) 
-        set_vmd_access_fees(      @comparison, @statement, program)
-        set_amex_fees(            @comparison, @statement, program)
-        set_debit_fees(           @comparison, @statement, program)
-        set_other_fees(           @comparison, @statement, program)      
-        set_total_fees(           @comparison, @statement, program)     
+        set_vmd_access_fees(      @comparison, @statement)
+        set_amex_fees(            @comparison, @statement)
+        set_debit_fees(           @comparison, @statement)      
+        set_total_fees(           @comparison, @statement)     
         set_vmd_costs(            @comparison, @statement, program)
         set_amex_costs(           @comparison, @statement, program)
         set_debit_costs(          @comparison, @statement, program)
@@ -49,7 +49,7 @@ class ComparisonsController < ApplicationController
         set_vmd_per_item_fees(comparison, @statement, (comparison.per_item_fee += @per_item_change) )
         set_bp_change(comparison, @statement, @per_item_change)
         set_vmd_mark_up(comparison, @statement, (comparison.bp_mark_up += @basis_points))
-        set_total_fees(comparison, @statement, @program)
+        set_total_fees(comparison, @statement)
         set_total_savings(comparison, @statement)
 
         if comparison.total_program_savings < 5
@@ -81,22 +81,22 @@ class ComparisonsController < ApplicationController
         
         @total_basis_points = comparison.bp_mark_up - @basis_points 
         set_vmd_mark_up(comparison, @statement, @total_basis_points)
-        set_total_fees(comparison, @statement, @program)
+        set_total_fees(comparison, @statement)
         set_total_savings(comparison, @statement)
         
         @diff = comparison.savings_fixed - comparison.total_program_savings 
         if @diff < 10
         set_vmd_per_item_fees(    comparison, @statement, @program.min_per_item_fee)
-        set_vmd_mark_up(          comparison, @statement, @program.min_bp_mark_up) 
-        set_vmd_access_fees(      comparison, @statement, @program)
-        set_amex_fees(            comparison, @statement, @program)
-        set_debit_fees(           comparison, @statement, @program)
-        set_other_fees(           comparison, @statement, @program)      
-        set_total_fees(           comparison, @statement, @program)     
+        set_vmd_mark_up(          comparison, @statement, @program.min_bp_mark_up)
+        set_other_fees(           comparison, @statement, @program)  
+        set_vmd_access_fees(      comparison, @statement)
+        set_amex_fees(            comparison, @statement)
+        set_debit_fees(           comparison, @statement)    
+        set_total_fees(           comparison, @statement)     
         set_vmd_costs(            comparison, @statement, @program)
         set_amex_costs(           comparison, @statement, @program)
         set_debit_costs(          comparison, @statement, @program)
-        set_other_costs(          comparison, @statement, @program)
+        set_other_costs(          comparison, @statement, @program) 
         set_total_costs(          comparison, @statement, @program)
         set_compensation(         comparison, @program)
         set_conditional_savings(  comparison, @statement)
@@ -128,34 +128,37 @@ class ComparisonsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @comparison.update(comparison_params)
-        format.html { redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison), notice: 'Pricing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comparison }
-      else
-        format.html { render :edit }
-        format.json { render json: @comparison.errors, status: :unprocessable_entity }
-      end
-    end
+    @program = Program.find_by_id(@comparison.program_id)
+    @comparison.update(comparison_params)
+      set_vmd_per_item_fees(    @comparison, @statement, @comparison.per_item_fee)
+      set_vmd_mark_up(          @comparison, @statement, @comparison.bp_mark_up) 
+      set_vmd_access_fees(      @comparison, @statement)
+      set_amex_fees(            @comparison, @statement)
+      set_debit_fees(           @comparison, @statement)      
+      set_total_fees(           @comparison, @statement)     
+      set_compensation(         @comparison, @program)
+      set_conditional_savings(  @comparison, @statement)
+      @comparison.save  
+      redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison), notice: 'Pricing was successfully updated.'    
   end
 
 private
   def comparison_params
       params.require(:comparison).permit(:id, :bp_mark_up, :per_item_fee, :amex_bp_mark_up, :amex_per_item_fee, :pin_debit_bp_mark_up, :debit_trans_fees,
-      :monthly_fees, :per_batch_fee, :monthly_pci_fees, :annual_pci_fees, :application_fee, :annual_fee, :monthly_debit_fee, :next_day_funding_fee )
+      :monthly_fees, :per_batch_fee, :monthly_pci_fees, :annual_pci_fees, :application_fee, :annual_fee, :monthly_debit_fee, :next_day_funding_fee, :pin_debit_per_item_fee )
   end
 
   def load_comparison
     @comparison = Comparison.find(params[:id])
   end
 
-	def load_prospect
-		@prospect = Prospect.find(params[:prospect_id])
-	end
+  def load_prospect
+    @prospect = Prospect.find(params[:prospect_id])
+  end
 
-	def load_statement
-		@statement = @prospect.statements.find(params[:statement_id])
-	end
+  def load_statement
+    @statement = @prospect.statements.find(params[:statement_id])
+  end
 
   def load_qualified_programs(s)
     @programusers = Programuser.where(user_id: current_user.id)
@@ -179,9 +182,35 @@ private
     c.statement_id = s.id
     c.program_id = p.id
   end
+
+  def set_other_fees(c, s, p)
+      c.vs_access_per_item_fee = p.visa_access_per_item
+      c.vs_access_percentage_fee = p.visa_access_percentage
+      c.mc_access_per_item_fee = p.mc_access_per_item
+      c.mc_access_percentage_fee = p.mc_access_percentage 
+      c.ds_access_per_item_fee = p.disc_access_per_item
+      c.ds_access_percentage_fee = p.disc_access_percentage
+      c.monthly_pci_fee = p.monthly_pci_fee 
+      c.annual_pci_fee = p.annual_pci_fee
+      c.pin_debit_per_item_fee = p.min_pin_debit_per_item_fee
+      c.pin_debit_bp_mark_up = 0
+      c.monthly_debit_fee = p.min_monthly_debit_fee
+      c.next_day_funding_fee = p.next_day_funding_monthly_fee
+      c.amex_per_item_fee = p.min_amex_per_item_fee
+      c.amex_bp_mark_up = p.min_amex_bp_fee
+      c.application_fee = p.min_application_fee
+      c.per_batch_fee = p.min_per_batch_fee
+      c.batch_fees = ( 
+        s.batches * 
+        p.min_per_batch_fee )
+      c.monthly_pci_fees = p.monthly_pci_fee
+      c.annual_pci_fees = p.annual_pci_fee
+      c.monthly_fees = p.min_monthly_fees
+      c.annual_fee = 0
+  end
   
   def set_vmd_per_item_fees(c, s, per_item_fee)
-    c.per_item_fee = per_item_fee
+    c.per_item_fee = per_item_fee.round(2)
     
     c.vs_trans_fees = ( 
       s.vs_transactions * 
@@ -206,15 +235,15 @@ private
     
     c.vs_mark_up_fees = ( 
       s.vs_volume * 
-      (bp_mark_up / 10000 ) )
+      (c.bp_mark_up.to_f / 10000 ) )
     
     c.mc_mark_up_fees = ( 
       s.mc_volume * 
-      (bp_mark_up / 10000 ) )
+      (c.bp_mark_up.to_f / 10000 ) )
     
     c.ds_mark_up_fees = ( 
       s.ds_volume * 
-      (bp_mark_up / 10000 ) )
+      (c.bp_mark_up.to_f / 10000 ) )
 
     c.total_vmd_mark_up_fees = (
       c.vs_mark_up_fees + 
@@ -222,29 +251,29 @@ private
       c.ds_mark_up_fees )
   end
 
-  def set_vmd_access_fees(c, s, p)
+  def set_vmd_access_fees(c, s)
     c.vs_access_per_item_fees = ( 
-      p.visa_access_per_item * 
+      c.vs_access_per_item_fee * 
       s.vs_transactions )
     
     c.mc_access_per_item_fees = ( 
-      p.mc_access_per_item * 
+      c.mc_access_per_item_fee * 
       s.mc_transactions )
 
     c.ds_access_per_item_fees = ( 
-      p.disc_access_per_item * 
+      c.ds_access_per_item_fee * 
       s.ds_transactions )
 
     c.vs_access_percentage_fees = (
-      ( p.visa_access_percentage / 10000 ) * 
+      ( c.vs_access_percentage_fee.to_f / 10000 ) * 
       s.vs_volume )
     
     c.mc_access_percentage_fees = (
-      ( p.mc_access_percentage / 10000 ) * 
+      ( c.mc_access_percentage_fee.to_f / 10000 ) * 
       s.mc_volume )
 
     c.ds_access_percentage_fees = (
-      ( p.disc_access_percentage / 10000 ) * 
+      ( c.ds_access_percentage_fee.to_f / 10000 ) * 
       s.ds_volume )
 
     c.total_vs_access_fees = ( 
@@ -265,42 +294,33 @@ private
       c.total_ds_access_fees )
   end
 
-  def set_amex_fees(c, s, p)
+  def set_amex_fees(c, s)
     c.amex_mark_up_fees = ( 
       s.amex_vol * 
-      ( p.min_amex_bp_fee / 10000 ) )
+      ( c.amex_bp_mark_up.to_f / 10000 ) )
 
     c.amex_trans_fees = ( 
       s.amex_trans * 
-      p.min_amex_per_item_fee )
+      c.amex_per_item_fee )
   end
 
-  def set_debit_fees(c, s, p)
+  def set_debit_fees(c, s)
     c.debit_trans_fees = (
     s.debit_trans * 
-    p.min_pin_debit_per_item_fee )
+    c.pin_debit_per_item_fee )
     
     if s.debit_trans > 0
       c.total_debit_fees = (
       c.debit_trans_fees + 
-      p.min_monthly_debit_fee )
+      c.monthly_debit_fee)
     else
       c.total_debit_fees = 0
     end
   end
 
-  def set_other_fees(c, s, p)
-      c.batch_fees = ( 
-        s.batches * 
-        p.min_per_batch_fee )
-      c.monthly_pci_fees = p.monthly_pci_fee
-      c.annual_pci_fees = p.annual_pci_fee
-      c.annual_fee = 0
-  end
-
-   def set_total_fees(c, s, p)
+   def set_total_fees(c, s)
     c.total_program_fees = (
-    p.min_monthly_fees + 
+    c.monthly_fees + 
     c.monthly_pci_fees + 
     ( c.annual_pci_fees / 12 ) + 
     ( c.annual_fee / 12 ) + 
@@ -317,7 +337,7 @@ private
   def set_vmd_costs(c, s, p)
     c.bin_fee_costs = (
       s.vmd_vol * 
-      (p.bin_sponsorship / 10000) )
+      (p.bin_sponsorship.to_f / 10000) )
     
     c.vs_trans_fee_costs = (
       s.vs_transactions * 
@@ -344,7 +364,7 @@ private
     
     c.amex_mark_up_costs = (
       s.amex_vol * 
-      (p.amex_bp_cost / 10000) )
+      (p.amex_bp_cost.to_f / 10000) )
   end
 
   def set_debit_costs(c, s, p)
@@ -385,7 +405,7 @@ private
     c.total_program_residuals = (
     ( c.total_program_fees - 
       c.total_program_costs ) * 
-    ( p.residual_split / 100 ) )
+    ( p.residual_split.to_f / 100 ) )
     
     c.total_program_bonus = p.up_front_bonus
   end

@@ -31,6 +31,26 @@
     box-shadow: 0px 0px 5px 3px #BFBFBF !important;
 }
 
+.admin-btn {
+    background-color: $main-color !important;
+    border-radius: 50px !important;
+    height: 50px;
+    width: 50px;
+    float: left;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    box-shadow: 0px 0px 5px 3px #BFBFBF !important;
+}
+
+.back-fab {
+    float: left;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
 .fab-btn:hover {
     transform: rotate(360deg);
     box-shadow: 0px 0px 5px 5px #9F9F9F !important;
@@ -46,6 +66,12 @@
 .fab-plus {
     margin-top: 12px;
 }
+
+.admin-plus {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
 
 
 /* Search Bar Styles */
@@ -142,7 +168,7 @@ hr.style-two {
 
 .green, .green:hover { color: #04ba00;}
 
-.red, .red:hover { color: #fa0c0c;}
+.red, .red:hover { color: #fa0c0c !important;}
 
 .main-color { color: $main-color !important; }
 
@@ -299,7 +325,7 @@ hr.style-two {
   .cta-font-size { font-size: 12px !important;}
 }
 @media screen and (max-width: 372px) {
-  .cta-font-size { font-size: 10px !important;}
+  .cta-font-size { font-size: 10px !important; margin-top: 20px}
 }
 
 .pricing-top-margin { margin-top: 15px !important;}

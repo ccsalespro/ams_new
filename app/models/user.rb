@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :chapterusers, dependent: :destroy
   has_many :lessonusers, dependent: :destroy
   belongs_to :subscribetocourses
+  has_many :tickets, dependent: :destroy
 end
 
 

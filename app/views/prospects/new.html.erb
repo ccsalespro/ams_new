@@ -11,7 +11,8 @@
       </ul>
     </div>
   <% end %>
-  <div class="col-sm-4 col-sm-offset-4">
+  <div class="container-fluid">
+  <div class="col-sm-4 col-sm-offset-4 well">
   <div class="field">
     <%= f.label :business_name, :class => 'text' %>
     <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
@@ -43,6 +44,7 @@
   <div class="actions text-center">
     <%= button_tag("Save & Quote", :class => 'btn btn-primary') %>
     <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
+  </div>
   </div>
   </div>
 <% end %>
