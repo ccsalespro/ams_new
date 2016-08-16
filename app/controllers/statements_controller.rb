@@ -124,7 +124,7 @@ class StatementsController < ApplicationController
   def destroy
     @statement.destroy
     respond_to do |format|
-      format.html { redirect_to prospect_statements_path(@prospect), notice: 'Statement was successfully destroyed.' }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

@@ -90,7 +90,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left green">
-                        <strike class="col-sm-9 col-md-10"><%= task.body %></strike>
+                        <strike class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-sm-3 col-md-2 no-padding">
                           <span class="small-pad">
                         <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
@@ -119,7 +119,7 @@
                   </div>
                   <div class="clearfix"></div>
                   <p class="text-left red">
-                      <span class="col-sm-9 col-md-10"><%= task.body %></span>
+                      <span class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></span>
                       <span class="icon-panel col-sm-3 col-md-2 no-padding">
                         <span class="small-pad">
                           <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left green">
-                        <strike class="col-xs-10"><%= task.body %></strike>
+                        <strike class="col-xs-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
                         <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
@@ -275,7 +275,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left red">
-                        <span class="col-xs-10"><%= task.body %></span>
+                        <span class="col-xs-10" style="padding: 0px !important;"><%= task.body %></span>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
                           <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
@@ -333,6 +333,11 @@
     <% @prospect.statements.each do |statement| %>
     <div class="well statements-well">
         <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+        <span class="pull-right">
+          <%= link_to prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' } do %>
+            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+          <% end -%>
+          </span>
     </div>
     <% end %>
 </div>
@@ -357,6 +362,11 @@
     <% @prospect.statements.each do |statement| %>
     <div class="well statements-well">
         <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+          <span class="pull-right">
+          <%= link_to prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' } do %>
+            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+          <% end -%>
+          </span>
     </div>
     <% end %><br>
 </div>

@@ -4,12 +4,18 @@
 <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
         <%= search_form_for @search, url: choose_descriptions_path do |f| %>
         <div class="input-group stylish-input-group">
-        <%=f.search_field :business_type_primary_or_business_type_secondary_cont, :class => 'form-control', :placeholder => 'Search' %>
-        <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
+        <%= f.search_field :business_type_primary_or_business_type_secondary_cont, :class => 'form-control', :placeholder => 'Search' %>
+          <span class="input-group-addon">
+            <% if @search.business_type_primary_or_business_type_secondary_cont == nil %>
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search" style="padding-top: 1px !important;"></span>
+                </button>
+              <% else %>
+                <%= link_to choose_descriptions_path do %>
+                  <i class="fa fa-times-circle-o black big-fa" style="color: #575757 !important; padding-top: 1px !important; cursor: pointer; font-size: 20px !important;" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
+            </span>
        </div>
         <% end %>
         </div>

@@ -463,3 +463,12 @@ hr.style-two {
 .fiftythree { min-width: 53px !important; }
 
 .statement-name { min-width: 115px !important; }
+
+.hover {
+    transform: scale(1,1) !important;
+    transition: transform 300ms ease-in-out !important;
+    &:hover {
+        transform: scale(1.1,1.1) !important;
+        transition: transform 300ms ease-in-out !important;  
+    }
+}

@@ -7,14 +7,14 @@
 <p class="text-center bold">Last Sign In: <%= @user_last_sign_in %></p>
 <center>
 <% if @user.subscribed == false %>
-<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% else %>
-<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
 <% if @user.admin == false %>
-<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% else %>
-<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
 <%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 </center>

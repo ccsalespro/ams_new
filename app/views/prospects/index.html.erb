@@ -6,9 +6,15 @@
         <div class="input-group stylish-input-group">
             <%= f.search_field :business_name_or_contact_name_or_phone_or_email_cont, :class => 'form-control', :placeholder => 'Search' %>
             <span class="input-group-addon">
+            <% if @search.business_name_or_contact_name_or_phone_or_email_cont == nil %>
                 <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="glyphicon glyphicon-search" style="padding-top: 1px !important;"></span>
                 </button>
+              <% else %>
+                <%= link_to prospects_path do %>
+                  <i class="fa fa-times-circle-o black big-fa" style="color: #575757 !important; padding-top: 1px !important; cursor: pointer; font-size: 20px !important;" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
             </span>
         </div>
         <% end %>
@@ -135,7 +141,7 @@
                                         <%= f.hidden_field(:description_secondary) %>
                                         <%= f.hidden_field(:amex_business_type) %>
                                         <div class="actions">
-                                            <%= button_tag("Update", :class => 'btn btn-primary') %>
+                                            <%= f.submit "Update", :class => 'btn btn-primary' %>
                                             <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
                                             <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
                                             <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
@@ -185,6 +191,10 @@
                                         <% prospect.statements.each do |statement| %>
                                         <div class="well statements-well">
                                           <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(prospect, statement), :class => 'black' %>
+                                          <span class="pull-right"><%= link_to prospect_statement_path(prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' } do %>
+                                            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+                                          </span>
+                                          <% end -%>
                                         </div>
                                         <% end %>
                                         <br>
