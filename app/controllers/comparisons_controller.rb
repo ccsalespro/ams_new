@@ -115,7 +115,7 @@ class ComparisonsController < ApplicationController
     respond_to do |format| 
       format.html
       format.pdf do
-        pdf = ComparisonPdf.new(@prospect, @statement, @comparison)
+        pdf = ComparisonPdf.new(@prospect, @statement, @comparison, view_context)
         send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
                               type: "application/pdf",
                               disposition: "inline"
