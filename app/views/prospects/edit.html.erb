@@ -318,7 +318,10 @@
     <h4 class="notes_title text-center">Notes</h4>
     <%= form_for [@prospect, Note.new], remote: true do |f| %>
     <div class="field">
-        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+        <div class="input-group">
+        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note', :style => 'height: 36px !important;' %>
+        <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
+        </div>
     </div>
     <% end %>
     <div class="notes-margin">

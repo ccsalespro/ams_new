@@ -45,6 +45,7 @@
                 </div>
             </div>
             <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket', style: 'height: 36px !important;' %>
+            <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
         </div>
     </div>
     <% end %>
