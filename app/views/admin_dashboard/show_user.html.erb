@@ -20,22 +20,31 @@
 </center>
 <br>
 
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tickets" style="padding: 7px !important;" class="black">Tickets</a></li>
+    <li class=""><a data-toggle="tab" href="#prospects" style="padding: 7px !important;" class="black">Prospects & Statements</a></li>
+    <li class=""><a data-toggle="tab" href="#programs" style="padding: 7px !important;" class="black">Programs</a></li>
+</ul><br>
+
+<div class="tab-content">
+<div id="tickets" class="tab-pane fade in active">
+
 <%= form_for [@user, Ticket.new] do |f| %>
     <div class="field">
-        <div class="input-group">
-        <div class="input-group-addon no-padding" style="padding-left: 8px !important; padding-top: 5px !important;">
+        <div class="input-group no-padding">
+        <div class="input-group-addon no-padding" style="padding-left: 8px !important; padding-top: 5px !important; padding-bottom: 0px !important;">
             <div class="checkbox" style='margin: 0px !important;'>
                     <label style="font-size: 1em" class="no-padding">
                     
                    <%= f.check_box :important %>
-                    <span class="cr">
+                    <span class="cr no-padding">
                         <i class="cr-icon fa fa-check text-center no-padding" data-toggle="tooltip" title="Important"></i>
                     </span>
                     
                     </label>
                 </div>
             </div>
-            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket' %>
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket', style: 'height: 36px !important;' %>
         </div>
     </div>
     <% end %>
@@ -46,7 +55,13 @@
         </div>
 
     </div>
-    <hr>
+</div>
+
+
+
+
+
+<div id="prospects" class="tab-pane fade active">
     <h3 class="text-center bold">User Prospects</h3>
     <% if @user_prospects.count == 0 %>
     <div class="well" style="padding: 5px !important;">
@@ -65,21 +80,6 @@
     <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
 <% end %>
 
-    </div>
-<% end -%>
-<hr>
-<h3 class="text-center bold">User Programs</h3>
-    <% if @user_pro.count == 0 %>
-    <div class="well" style="padding: 5px !important;">
-        <h4 class="text-center">No Programs</h4>
-    </div>
-<% end -%>
-<% @user_pro.each do |program| %>
-<div class="well" style="padding: 10px !important; margin: 5px !important; ">
-    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>
-                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
-                    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                <% end %>
     </div>
 <% end -%>
 <hr>
@@ -103,5 +103,26 @@
 
     </div>
 <% end -%><br>
+</div>
 
+
+<div id="programs" class="tab-pane fade active">
+<h3 class="text-center bold">User Programs</h3>
+    <% if @user_pro.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Programs</h4>
+    </div>
+<% end -%>
+<% @user_pro.each do |program| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>
+                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+                    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+                <% end %>
+    </div>
+<% end -%>
+</div>
+
+
+</div>
 </div>

@@ -2,9 +2,9 @@
 <% @ticket_maker = User.where(id: ticket.admin_user_id) %>
 	<div class="clearfix delete">
 	<% if ticket.important == true %>
-		<div class="" style="border: 2px solid red !important; border-radius: 5px !important; padding: 5px !important; margin-bottom: 5px !important;">
+		<div class="well" style="border: 2px solid red !important; border-radius: 5px !important; padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;">
 		<% else %>
-		<div>
+		<div style="padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;" class="well">
 		<% end -%>
 		<div class="btn-group pull-right">
 				<%= link_to user_ticket_path(@user, ticket), method: :delete, :class => 'delete-ticket', :remote => true do %>
