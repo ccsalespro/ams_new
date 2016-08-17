@@ -50,12 +50,42 @@ class AdminDashboardController < ApplicationController
 
 	def show_user
 		@user = User.find_by_id(params[:id])
-		        date = @user.last_sign_in_at
-            date = date.to_s[0,10]
-            date = date.split("-")
-            timeyear = date[0]
-            timemonth = date[1]
-            timeday = date[2]
-            @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}"
+    date = @user.last_sign_in_at
+    date = date.to_s[0,10]
+    date = date.split("-")
+    timeyear = date[0]
+    timemonth = date[1]
+    timeday = date[2]
+    @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}"
+
+    @user_programusers = Programuser.where(user_id: @user.id)
+    @user_programs = Program.where(personal: true)
+    @user_pro = []
+    	@user_programusers.each do |programuser|
+    		@user_programs.each do |program|
+    			if program.id == programuser.program_id
+    				@user_pro << program
+    			end
+    		end
+    	end
+
+    	@user_statements = []
+			@user.prospects.each do |p|
+				p.statements.each do |statement|
+					@user_statements << statement
+				end
+			end
+
+			@user_prospects = Prospect.where(user_id: @user.id)
+
 	end
+
+	 def destroy_prospect
+	 	@prospect = Prospect.find_by_id(params[:id])
+    @prospect.destroy
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Prospect was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 end

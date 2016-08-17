@@ -46,4 +46,62 @@
         </div>
 
     </div>
+    <hr>
+    <h3 class="text-center bold">User Prospects</h3>
+    <% if @user_prospects.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Prospects</h4>
+    </div>
+<% end -%>
+<% @user_prospects.each do |prospect| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+ <% if prospect.business_name != '' %>
+    <%= link_to prospect.business_name, edit_prospect_path(prospect), class: 'black' %>
+<% else %>
+<%= link_to 'No Prospect Name', prospect_path(prospect), class: 'black' %>
+<% end -%>
+   
+<%= link_to({:controller => 'admin_dashboard', :action => 'destroy_prospect', :id => prospect.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }) do %>
+    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+<% end %>
+
+    </div>
+<% end -%>
+<hr>
+<h3 class="text-center bold">User Programs</h3>
+    <% if @user_pro.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Programs</h4>
+    </div>
+<% end -%>
+<% @user_pro.each do |program| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>
+                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+                    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+                <% end %>
+    </div>
+<% end -%>
+<hr>
+<h3 class="text-center bold">User Statements</h3>
+    <% if @user_statements.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Statements</h4>
+    </div>
+<% end -%>
+<% @user_statements.each do |statement| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+ <% if statement.statement_month != '' %>
+    <%= link_to statement.statement_month, prospect_statement_path(statement.prospect_id, statement), class: 'black' %>
+<% else %>
+<%= link_to 'No Statement Month', prospect_statement_path(statement.prospect_id, statement), class: 'black' %>
+<% end -%>
+   
+<%= link_to prospect_statement_path(statement.prospect_id, statement), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+<% end %>
+
+    </div>
+<% end -%><br>
+
 </div>

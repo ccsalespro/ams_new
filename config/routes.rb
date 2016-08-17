@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'admin_dashboard/make_admin'
   get 'admin_dashboard/remove_admin'
   get 'admin_dashboard/show_user'
+  get 'admin_dashboard/destroy_prospect'
 
    root to: 'static#index'
 

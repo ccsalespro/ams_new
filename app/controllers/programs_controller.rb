@@ -143,7 +143,7 @@ class ProgramsController < ApplicationController
   def destroy
     @program.destroy
     respond_to do |format|
-      format.html { redirect_to processor_programs_path(@processor), notice: 'Program was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Program was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
