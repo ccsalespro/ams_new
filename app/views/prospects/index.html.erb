@@ -97,7 +97,7 @@
                                     </button>
                                     <h4 class=""><%= prospect.business_name %></h4>
                                 </div>
-                                <div class="modal-body row">
+                                <div class="modal-body row" style="margin-right: 0px !important;">
                                     <div class="col-md-6">
 
                                         <%= form_for(prospect) do |f| %>
@@ -146,7 +146,7 @@
 
                                     </div>
 
-                                    <div class="col-md-6" id="right">
+                                    <div class="col-md-6" style="" id="right">
                                         <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
                                         <% @completed_tasks = @sorted_tasks.select { |task| task.completed? == true } %>
                                         <% @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false } %>
