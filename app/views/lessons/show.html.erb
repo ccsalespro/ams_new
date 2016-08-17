@@ -3,27 +3,22 @@
 
 <div class="container">
 <div class="well">
+<div class="">
 <h1 class="lesson-title">
-  <%= @lesson.title %> <span class="pull-right">
+  <span class="col-xs-11 no-padding" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> <span class="col-xs-1 no-padding" style="margin-bottom: 10px !important;">
   	  <span class="pull-right time-font no-margin">
-  <% if user_signed_in? && current_user.admin? %>
 
-<ul class="no-dec">
-<li class="dropdown no-dec">
-  <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-ellipsis-v black menu" aria-hidden="true"></i><b class="caret"></b></a>
-  <ul class="dropdown-menu course-dropdown">
-    <li><%= link_to "Edit", edit_course_chapter_lesson_path(@course, @chapter, @lesson) %></li>
-    <li><%= link_to "Delete", course_chapter_lesson_path(@course, @chapter, @lesson), method: :delete, data: { confirm: 'Are You Sure?' } %></li>
-  </ul>
-</li>
-</ul>
 
-  <% end -%>
+<span><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b>m<% else %>m<% end -%></span>
+
+
+<div class="clearfix"></div><br>
   </span>
   </span>
 </h1>
-<h3 class="no-margin"><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b> Minutes<% else %> Minutes<% end -%></h3>
-<hr>
+</div>
+
+
 <% if @lesson.video != "" %>
 <center class="visible-sm visible-xs">
   <%= @lesson.video.html_safe %>
@@ -58,3 +53,9 @@
 </div>
 </div>
 
+<% if user_signed_in? && current_user.admin? %>
+  <div class="text-center">
+      <%= link_to "Edit", edit_course_chapter_lesson_path(@course, @chapter, @lesson), class: 'btn btn-primary' %>
+      <%= link_to "Delete", course_chapter_lesson_path(@course, @chapter, @lesson), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
+  </div>
+<% end -%>
