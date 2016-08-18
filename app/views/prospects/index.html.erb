@@ -134,12 +134,12 @@
                                             <p class="text text-left">
                                                 <b>Stage</b>
                                             </p>
-                                            <div class="col-xs-6 no-padding" style="padding-top: 5px !important;"><%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %></div><div class="col-xs-6 no-padding"><%= f.submit "Update", :class => 'btn btn-primary pull-right' %></div>
-                                        </div>
                                         <%= f.hidden_field(:description_id) %>
                                         <%= f.hidden_field(:description_primary) %>
                                         <%= f.hidden_field(:description_secondary) %>
                                         <%= f.hidden_field(:amex_business_type) %>
+                                            <div class="col-xs-6 no-padding" style="padding-top: 5px !important;"><%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %></div><div class="col-xs-6 no-padding"><%= f.submit "Update", :class => 'btn btn-primary pull-right' %></div>
+                                        </div>
                                         <% end -%>
                                         
                                         <div class="clearfix"></div>
