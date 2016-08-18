@@ -5,7 +5,9 @@
 <div class="well">
 <div class="">
 <h1 class="lesson-title">
-  <span class="col-xs-11 no-padding" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> <span class="col-xs-1 no-padding" style="margin-bottom: 10px !important;">
+  <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
+  <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> 
+  <span class="col-xs-1 no-padding hidden-xs" style="margin-bottom: 10px !important;">
   	  <span class="pull-right time-font no-margin">
 
 
@@ -59,3 +61,4 @@
       <%= link_to "Delete", course_chapter_lesson_path(@course, @chapter, @lesson), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
   </div>
 <% end -%>
+<br>
