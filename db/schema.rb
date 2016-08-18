@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815163049) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160818035848) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -134,6 +128,9 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.decimal  "tier_credit_per_item_surcharge"
     t.decimal  "gross_margin_fixed"
     t.decimal  "savings_fixed"
+    t.decimal  "amex_per_item_cost"
+    t.decimal  "amex_percentage_cost"
+    t.decimal  "amex_total_opt_blue"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -186,12 +183,12 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -404,9 +401,9 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
+    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
-    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -469,8 +466,8 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.decimal  "total_vol"
     t.string   "business_type"
     t.integer  "prospect_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.decimal  "vs_transactions"
     t.decimal  "vs_volume"
     t.decimal  "vs_fees"
@@ -480,6 +477,8 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.decimal  "mc_transactions"
     t.decimal  "mc_volume"
     t.decimal  "mc_fees"
+    t.decimal  "amex_per_item_cost"
+    t.decimal  "amex_percentage_cost"
   end
 
   create_table "structures", force: :cascade do |t|

@@ -42,10 +42,14 @@ class StatementsController < ApplicationController
       @statement.amex_vol = 0
       @statement.amex_trans = 0
       @statement.amex_interchange = 0
+      @statement.amex_per_item_cost = 0
+      @statement.amex_percentage_cost = 0
     else
       @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
       amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
       @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
+      @statement.amex_per_item_cost = @cost.per_item_value
+      @statement.amex_percentage_cost = @cost.percentage_value
     end
   
     if @statement.debit_vol == nil
