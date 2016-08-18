@@ -30,6 +30,20 @@ end
     end
   end
 
+  def mark_important
+    @ticket = Ticket.find(params[:id])
+    @ticket.important = true
+    @ticket.save
+    redirect_to :back
+  end
+
+    def mark_unimportant
+    @ticket = Ticket.find(params[:id])
+    @ticket.important = false
+    @ticket.save
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket

@@ -29,8 +29,19 @@ end
     end
   end
 
-  def complete
-    @task.update_attribute(:completed_at, Time.now)
+  def mark_complete
+    @task = Task.find(params[:id])
+    @task.completed_at = Time.now
+    @task.completed = true
+    @task.save
+    redirect_to :back
+  end
+
+   def mark_uncomplete
+    @task = Task.find(params[:id])
+    @task.completed_at = nil
+    @task.completed = false
+    @task.save
     redirect_to :back
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815163049) do
+ActiveRecord::Schema.define(version: 20160818181822) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -515,10 +515,11 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.integer  "prospect_id"
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.date     "finish_date"
     t.datetime "completed_at"
+    t.boolean  "completed",    default: false
   end
 
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
@@ -552,6 +553,9 @@ ActiveRecord::Schema.define(version: 20160815163049) do
     t.string   "stripeid"
     t.boolean  "admin",                  default: false
     t.boolean  "training_subscribed",    default: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

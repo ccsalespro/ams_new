@@ -64,6 +64,12 @@ Rails.application.routes.draw do
   get 'admin_dashboard/show_user'
   get 'admin_dashboard/destroy_prospect'
 
+  get 'tickets/mark_important'
+  get 'tickets/mark_unimportant'
+
+  get 'tasks/mark_complete'
+  get 'tasks/mark_uncomplete'
+
    root to: 'static#index'
 
    get 'static/index'
@@ -117,11 +123,7 @@ Rails.application.routes.draw do
         resources :comparisons
       end
       resources :notes
-      resources :tasks do
-        member do
-          patch :complete
-        end
-      end
+      resources :tasks
     end
 
     resources :users do
@@ -140,6 +142,8 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

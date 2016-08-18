@@ -187,12 +187,12 @@
                                         </div>
                                         <p><b>Statements</b></p>
                                         <% prospect.statements.each do |statement| %>
-                                        <div class="well statements-well">
+                                        <div class="well statements-well delete">
                                           <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(prospect, statement), :class => 'black' %>
-                                          <span class="pull-right"><%= link_to prospect_statement_path(prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' } do %>
+                                          <span class="pull-right"><%= link_to prospect_statement_path(prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'delete-statement', remote: true do %>
                                             <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                                          </span>
                                           <% end -%>
+                                          </span>
                                         </div>
                                         <% end %>
                                         <br>

@@ -366,16 +366,16 @@ hr.style-two {
 
 .course-length { margin: 0px !important; margin-top: 5px !important;}
 
-@media screen and (max-width: 495px) {
-    .task-complete { font-size: 30px; margin-left: 0px !important;}
-    .task-not-complete { font-size: 30px; margin-right: 5px; margin-left: 0px !important; }
+@media screen and (max-width: 550px) {
+    .task-complete { font-size: 30px; margin-left: 2px !important;}
+    .task-not-complete { font-size: 30px; margin-right: 5px; margin-left: 2px !important; }
     .task-delete { font-size: 27px; vertical-align: top; }
 }
 
 @media screen and (max-width: 400px) {
-    .task-complete { font-size: 21px; margin-left: 0px !important;}
-    .task-not-complete { font-size: 21px; margin-right: 5px; margin-left: 0px !important; }
-    .task-delete { font-size: 20px; vertical-align: top; }
+    .task-complete { font-size: 21px; margin-left: 2px !important;}
+    .task-not-complete { font-size: 21px; margin-right: 5px; margin-left: 2px !important; }
+    .task-delete { font-size: 20px; vertical-align: 2px; }
 }
 
 .video-padding { padding-right: 0px !important; }
