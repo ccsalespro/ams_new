@@ -134,6 +134,9 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.decimal  "tier_credit_per_item_surcharge"
     t.decimal  "gross_margin_fixed"
     t.decimal  "savings_fixed"
+    t.decimal  "amex_per_item_cost"
+    t.decimal  "amex_percentage_cost"
+    t.decimal  "amex_total_opt_blue"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -469,8 +472,8 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.decimal  "total_vol"
     t.string   "business_type"
     t.integer  "prospect_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.decimal  "vs_transactions"
     t.decimal  "vs_volume"
     t.decimal  "vs_fees"
@@ -480,6 +483,8 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.decimal  "mc_transactions"
     t.decimal  "mc_volume"
     t.decimal  "mc_fees"
+    t.decimal  "amex_per_item_cost"
+    t.decimal  "amex_percentage_cost"
   end
 
   create_table "structures", force: :cascade do |t|
