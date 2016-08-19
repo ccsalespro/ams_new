@@ -93,7 +93,8 @@
 <div class="col-md-8 col-md-offset-2 hover col-lg-6 col-lg-offset-0 hover">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h5 class="white no-margin hidden-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin visible-lg visible-md"><%= truncate(course.name, length: 60) %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin hidden-xs hidden-lg hidden-md"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
                     <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
                 </div>
                 <div class="panel-body course-panel-height">
