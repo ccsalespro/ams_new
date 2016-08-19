@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require jquery.datetimepicker
 //= require jquery.datetimepicker/init
+//= require bootstrap-slider
 //= require_tree .
