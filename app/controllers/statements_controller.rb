@@ -156,14 +156,14 @@ class StatementsController < ApplicationController
     end
    
     def create_intcalcitems(description_id)
-      
+      #16.72 seconds for auto sales
       # Find all merchants in the database maching the primary description.
       @merchants_by_type = Merchant.all.where(["description_id = ?", description_id])
       
       @total_transactions = 0
       @total_volume = 0
       @number_of_merchants = 0
-      
+      @intcalcitems = []
       
       @merchants_by_type.each do |merchant|
         @number_of_merchants += 1
@@ -175,7 +175,6 @@ class StatementsController < ApplicationController
             @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
             @intcalcitem.transactions += item.transactions
             @intcalcitem.volume += item.volume
-            @intcalcitem.save
           else
             @intcalcitem = @statement.intcalcitems.build
             @intcalcitem.prospect_id = @prospect.id
@@ -183,18 +182,17 @@ class StatementsController < ApplicationController
             @intcalcitem.transactions = item.transactions
             @intcalcitem.volume = item.volume
             @intcalcitem.description_id = @prospect.description_id
-            
-            @intcalcitem.save
+
+            @intcalcitems << @intcalcitem
           end
         end
       end
-      @intcalcitems = Intcalcitem.where(:statement_id => @statement.id)
-      @intcalcitems.each do |item|  
+        @intcalcitems.each do |item|  
         item.inttype_percent = item.volume.to_f / @total_volume.to_f
         @total_avg_ticket = @total_volume.to_f / @total_transactions.to_f
         @intcalc_avg_ticket = item.volume.to_f / item.transactions.to_f
         item.avg_ticket_variance = @intcalc_avg_ticket / @total_avg_ticket
-      item.save
+        item.save
       end
     end
 
