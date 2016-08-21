@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818181822) do
+ActiveRecord::Schema.define(version: 20160821000346) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "amex_business_type"
+    t.decimal  "avg_ticket"
   end
 
   create_table "images", force: :cascade do |t|
@@ -187,8 +188,9 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.decimal  "avg_ticket_variance"
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -226,6 +228,7 @@ ActiveRecord::Schema.define(version: 20160818181822) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.decimal  "costs"
+    t.decimal  "avg_ticket"
   end
 
   add_index "inttableitems", ["inttype_id"], name: "index_inttableitems_on_inttype_id"

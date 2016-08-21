@@ -18,7 +18,7 @@ class StatementsController < ApplicationController
   # GET /statements/new
   def new
     @statement = @prospect.statements.new
-    average_ticket_calc(@prospect.description_id)
+    new_average_ticket_calc(@prospect.description_id)
     @statement.avg_ticket = @avg_ticket_calculation
   end
 
@@ -66,7 +66,8 @@ class StatementsController < ApplicationController
 
       @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
       @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
-      interchange_cost(@prospect.description_id,  @statement.vmd_trans, @statement.vmd_vol)
+      create_intcalcitems(@prospect.description_id)
+      interchange_cost(@statement.id,  @statement.vmd_trans, @statement.vmd_vol)
       @statement.vmd_interchange = @costs
 
 
@@ -153,17 +154,62 @@ class StatementsController < ApplicationController
     def amex_cost(payment_type, business_type, avg_ticket)
       @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
     end
-    def interchange_cost(description_id, total_transactions, total_vol)
+   
+    def create_intcalcitems(description_id)
       
       # Find all merchants in the database maching the primary description.
-      @intcalcitems = Intcalcitem.all.where(["description_id = ?", description_id])
+      @merchants_by_type = Merchant.all.where(["description_id = ?", description_id])
+      
+      @total_transactions = 0
+      @total_volume = 0
+      @number_of_merchants = 0
+      
+      
+      @merchants_by_type.each do |merchant|
+        @number_of_merchants += 1
+      @merchantintitems = merchant.intitems
+        @merchantintitems.each do |item|
+            @total_transactions += item.transactions
+            @total_volume += item.volume
+          if Intcalcitem.exists?(:statement_id => @statement.id, :inttype_id => item.inttype_id)
+            @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
+            @intcalcitem.transactions += item.transactions
+            @intcalcitem.volume += item.volume
+            @intcalcitem.save
+          else
+            @intcalcitem = @statement.intcalcitems.build
+            @intcalcitem.prospect_id = @prospect.id
+            @intcalcitem.inttype_id = item.inttype_id
+            @intcalcitem.transactions = item.transactions
+            @intcalcitem.volume = item.volume
+            @intcalcitem.description_id = @prospect.description_id
+            
+            @intcalcitem.save
+          end
+        end
+      end
+      @intcalcitems = Intcalcitem.where(:statement_id => @statement.id)
+      @intcalcitems.each do |item|  
+        item.inttype_percent = item.volume.to_f / @total_volume.to_f
+        @total_avg_ticket = @total_volume.to_f / @total_transactions.to_f
+        @intcalc_avg_ticket = item.volume.to_f / item.transactions.to_f
+        item.avg_ticket_variance = @intcalc_avg_ticket / @total_avg_ticket
+      item.save
+      end
+    end
+
+    def interchange_cost(id, total_transactions, total_vol)
+      
+    @intcalcitems = Intcalcitem.all.where(["statement_id = ?", id])
          
      @intcalcitems.each do |item|
         @inttype = Inttype.find_by_id(item.inttype_id)   
         @inttableitem = @statement.inttableitems.build
         @inttableitem.inttype_id = item.inttype_id
-        @inttableitem.transactions = total_transactions * item.inttype_percent
         @inttableitem.volume = total_vol * item.inttype_percent
+        @total_avg_ticket = total_vol.to_f / total_transactions.to_f
+        @inttableitem.avg_ticket = @total_avg_ticket * item.avg_ticket_variance
+        @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
         @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume.to_f * @inttype.percent )
         @inttableitem.save
       end
@@ -174,33 +220,9 @@ class StatementsController < ApplicationController
       end
       @costs
     end
-    def average_ticket_calc(description_id)
-      @intcalcitems = Intcalcitem.all.where(description_id: description_id)
-      @total_vol_calc = 0
-      @total_trans_calc = 0
-        @intcalcitems.each do |item|
-          @total_trans_calc += item.transactions
-          @total_vol_calc += item.volume
-        end
-      @avg_ticket_calculation = @total_vol_calc / @total_trans_calc
-    end
-
-    def check_card_assumption
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-
-      @check_card_vol_assumption = 0
-      @check_card_trans_assumption = 0
-      
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.per_item == 0.22
-        @check_card_vol_assumption += item.volume
-        @check_card_trans_assumption += item.transactions
-        end
-      end
-      @check_card_trans_assumption
-      @check_card_vol_assumption
-
+    def new_average_ticket_calc(description_id)
+      @description = Description.find_by_id(description_id)
+      @avg_ticket_calculation = @description.avg_ticket
     end
 
     def card_type_calculation(card_type_var)
@@ -219,7 +241,25 @@ class StatementsController < ApplicationController
       @fees      
     end
 
-    def adjust_inttableitems
+     def check_card_assumption
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+
+      @check_card_vol_assumption = 0
+      @check_card_trans_assumption = 0
+      
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.per_item == 0.22
+        @check_card_vol_assumption += item.volume
+        @check_card_trans_assumption += item.transactions
+        end
+      end
+      @check_card_trans_assumption
+      @check_card_vol_assumption
+
+    end
+
+     def adjust_inttableitems
       @inttableitems = Inttableitem.where(statement_id: @statement.id)
       #Step 2 - Find the top 5 VS types in terms of volume and rank them by effective rate 
         #Add "effective_rate" to inttableitems and calculate that
@@ -231,5 +271,5 @@ class StatementsController < ApplicationController
       #Step 7 - Repeat steps 5 and 6 until the number is suprased
       #Step 8 - Undo last iteration in Step 7 and move transactions from the third highest to the 4th or 2nd to close the gap.
 
-    end      
+    end
 end
