@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823145906) do
+ActiveRecord::Schema.define(version: 20160823165812) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -255,6 +255,11 @@ ActiveRecord::Schema.define(version: 20160823145906) do
     t.string   "biz_type"
     t.decimal  "max_ticket"
     t.text     "full_description"
+    t.boolean  "credit"
+    t.boolean  "debit"
+    t.boolean  "prepaid"
+    t.boolean  "regulated"
+    t.boolean  "TE"
   end
 
   create_table "lessons", force: :cascade do |t|
