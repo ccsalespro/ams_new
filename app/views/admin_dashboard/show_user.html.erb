@@ -10,7 +10,8 @@
     <h4 class="text-center visible-xs bold"><%= @user.first_name %> <%= @user.last_name %></h4>
 <% end -%>
 
-<p class="text-center bold">Created: <%= @user_created_at %></p>
+<p class="text-center bold no-margin">Created: <%= @user_created_at %></p>
+<p class="text-center bold">Phone: <%= @user.phone_number %></p>
 <center>
 <% if @user.subscribed == false %>
 <%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
