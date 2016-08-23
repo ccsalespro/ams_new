@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823165812) do
+ActiveRecord::Schema.define(version: 20160823185115) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -208,8 +208,9 @@ ActiveRecord::Schema.define(version: 20160823165812) do
     t.string   "phone_number"
     t.string   "email_address"
     t.text     "message"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "read",          default: false
   end
 
   create_table "intitems", force: :cascade do |t|
