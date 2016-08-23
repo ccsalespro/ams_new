@@ -30,19 +30,21 @@ end
   end
 
   def mark_complete
+    @prospect = Prospect.find(params[:prospect_id])
     @task = Task.find(params[:id])
     @task.completed_at = Time.now
     @task.completed = true
     @task.save
-    redirect_to :back
+    redirect_to edit_prospect_path(@prospect)
   end
 
    def mark_uncomplete
+    @prospect = Prospect.find(params[:prospect_id])
     @task = Task.find(params[:id])
     @task.completed_at = nil
     @task.completed = false
     @task.save
-    redirect_to :back
+    redirect_to edit_prospect_path(@prospect)
   end
 
   private

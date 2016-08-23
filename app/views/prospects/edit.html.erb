@@ -93,7 +93,7 @@
                         <strike class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-sm-3 col-md-2 no-padding">
                           <span class="small-pad">
-                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id}, class: '') do %>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
                             <i class="fa fa-check-square-o green task-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
                         <% end -%>
                           </span>
@@ -124,7 +124,7 @@
                       <span class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></span>
                       <span class="icon-panel col-sm-3 col-md-2 no-padding">
                         <span class="small-pad">
-                        <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id}, class: '') do %>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
                             <i class="fa fa-square-o black task-not-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
                         <% end -%>
                         </span>
@@ -251,7 +251,7 @@
                         <strike class="col-xs-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
-                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id}, class: '') do %>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
                             <i class="fa fa-check-square-o green task-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
                         <% end -%>
                           </span>
@@ -283,7 +283,7 @@
                         <span class="col-xs-10" style="padding: 0px !important;"><%= task.body %></span>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
-                          <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id}, class: '') do %>
+                          <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
                             <i class="fa fa-square-o black task-not-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
                         <% end -%>
                           </span>
