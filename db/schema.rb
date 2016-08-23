@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823143846) do
+ActiveRecord::Schema.define(version: 20160823145906) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -240,20 +240,21 @@ ActiveRecord::Schema.define(version: 20160823143846) do
     t.decimal  "percent"
     t.decimal  "per_item"
     t.decimal  "max"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "B2B",         default: false
-    t.boolean  "B2C",         default: false
-    t.boolean  "Keyed",       default: false
-    t.boolean  "Swiped",      default: false
-    t.boolean  "ecomm",       default: false
-    t.boolean  "CVV",         default: false
-    t.boolean  "Zip",         default: false
-    t.boolean  "Address",     default: false
-    t.boolean  "Name",        default: false
-    t.boolean  "Downgrade",   default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "B2B",              default: false
+    t.boolean  "B2C",              default: false
+    t.boolean  "Keyed",            default: false
+    t.boolean  "Swiped",           default: false
+    t.boolean  "ecomm",            default: false
+    t.boolean  "CVV",              default: false
+    t.boolean  "Zip",              default: false
+    t.boolean  "Address",          default: false
+    t.boolean  "Name",             default: false
+    t.boolean  "Downgrade",        default: false
     t.string   "biz_type"
     t.decimal  "max_ticket"
+    t.text     "full_description"
   end
 
   create_table "lessons", force: :cascade do |t|
