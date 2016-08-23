@@ -171,8 +171,8 @@ class StatementsController < ApplicationController
         @merchantintitems.each do |item|
             @total_transactions += item.transactions
             @total_volume += item.volume
-          if Intcalcitem.exists?(:statement_id => @statement.id, :inttype_id => item.inttype_id)
-            @intcalcitem = Intcalcitem.find_by(:statement_id => @statement.id, inttype_id: item.inttype_id)
+          if @intcalcitems.any? {|i| i.inttype_id == item.inttype_id}
+            @intcalcitem = @intcalcitems.find {|i| i.inttype_id == item.inttype_id}
             @intcalcitem.transactions += item.transactions
             @intcalcitem.volume += item.volume
           else
@@ -182,7 +182,6 @@ class StatementsController < ApplicationController
             @intcalcitem.transactions = item.transactions
             @intcalcitem.volume = item.volume
             @intcalcitem.description_id = @prospect.description_id
-
             @intcalcitems << @intcalcitem
           end
         end
