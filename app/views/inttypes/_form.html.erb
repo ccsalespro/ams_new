@@ -1,89 +1,235 @@
-<%= form_for(@inttype) do |f| %>
-  <% if @inttype.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@inttype.errors.count, "error") %> prohibited this inttype from being saved:</h2>
+<div class="container-fluid">
+  <%= form_for(@inttype) do |f| %>
+    <% if @inttype.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@inttype.errors.count, "error") %> prohibited this inttype from being saved:</h2>
 
-      <ul>
-      <% @inttype.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @inttype.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <div class="col-sm-12">
+      <div class="well">
+    <div class="field">
+      <%= f.label :card_type %><br>
+      <%= f.text_field :card_type, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :percent %><br>
+      <%= f.text_field :percent, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :per_item %><br>
+      <%= f.text_field :per_item, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :full_description %><br>
+      <%= f.text_area :full_description, class: 'form-control' %>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6">
+<div class="well">
+     <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :B2B %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              B2B
+          </label>
+      </div>
+    </div>
+    <div class="field">
+            <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :B2C %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              B2C
+          </label>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Keyed %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Keyed
+          </label>
+      </div>
+    </div>
+    <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Swiped %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Swiped
+          </label>
+      </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :ecomm %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Ecomm
+          </label>
+      </div>
+    </div>
+  </div>
+  <div class="well" style="margin-bottom: 10px !important;">
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Name %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Name
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Address %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Address
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Zip %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Zip
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :CVV %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              CVV
+          </label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-6">
+    <div class="well">
+       <div class="field">
+      <%= f.label "Max Fee", class: 'text-capitalize' %><br>
+      <%= f.text_field :max, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :biz_type, class: 'text-capitalize' %><br>
+      <%= f.text_field :biz_type, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= f.label :max_ticket, class: 'text-capitalize' %><br>
+      <%= f.text_field :max_ticket, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :Downgrade %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Downgrade
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :regulated %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Regulated
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :TE %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              T&E
+          </label>
+      </div>
+    </div>
+  </div>
+  <div class="well" style="padding-bottom: 25px !important; padding-top: 25px !important; margin-bottom: 10px !important;">
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :credit %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Credit
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :debit %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Debit
+          </label>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field checkbox ">
+          <label style="font-size: 1.5em" class="no-padding">
+              <%= f.check_box :prepaid %>
+              <span class="cr">
+                  <i class="cr-icon fa fa-check text-center"></i>
+              </span>
+              Prepaid
+          </label>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+ 
+    <div class="col-sm-12">
+      <%= f.submit 'Save', class: 'btn inttype-btn bold', style: 'width: 100% !important;' %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :card_type %><br>
-    <%= f.text_field :card_type %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :percent %><br>
-    <%= f.text_field :percent %>
-  </div>
-  <div class="field">
-    <%= f.label :per_item %><br>
-    <%= f.text_field :per_item %>
-  </div>
-  <div class="field">
-    <%= f.label :full_description %><br>
-    <%= f.text_area :full_description %>
-  </div>
-  <div class="field">
-    <%= f.label :max %><br>
-    <%= f.text_field :max %>
-  </div>
-   <div class="field">
-    <%= f.label :B2B %><br>
-    <%= f.check_box :B2B %>
-  </div>
-  <div class="field">
-    <%= f.label :B2C %><br>
-    <%= f.check_box :B2C %>
-  </div>
-  <div class="field">
-    <%= f.label :Keyed %><br>
-    <%= f.check_box :Keyed %>
-  </div>
-  <div class="field">
-    <%= f.label :Swiped %><br>
-    <%= f.check_box :Swiped %>
-  </div>
-  <div class="field">
-    <%= f.label :ecomm %><br>
-    <%= f.check_box :ecomm %>
-  </div>
-  <div class="field">
-    <%= f.label :CVV %><br>
-    <%= f.check_box :CVV %>
-  </div>
-  <div class="field">
-    <%= f.label :Zip %><br>
-    <%= f.check_box :Zip %>
-  </div>
-  <div class="field">
-    <%= f.label :Address %><br>
-    <%= f.check_box :Address %>
-  </div>
-  <div class="field">
-    <%= f.label :Name %><br>
-    <%= f.check_box :Name %>
-  </div>
-  <div class="field">
-    <%= f.label :Downgrade %><br>
-    <%= f.check_box :CVV %>
-  </div>
-  <div class="field">
-    <%= f.label :biz_type %><br>
-    <%= f.text_field :biz_type %>
-  </div>
-  <div class="field">
-    <%= f.label :max_ticket %><br>
-    <%= f.text_field :max_ticket %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+<br>

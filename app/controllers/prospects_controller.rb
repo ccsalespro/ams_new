@@ -13,6 +13,7 @@ class ProspectsController < ApplicationController
     if @search.result.none?
       @searchnone = "No Results"
     end
+    @unread_messages = InternalContact.where(read: false).count
   end
 
   # GET /prospects/1
