@@ -41,11 +41,11 @@
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
-        <div class="col-xs-8 margin-top-edit-prospect-btns">
+        <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important;">
             <span class="pull-right">
-                <%= button_tag("Save", :class => 'btn btn-primary') %>
+                <%= f.submit "Save", :class => 'btn btn-primary' %>
                 <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
-                <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
+                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(@prospect)) %>
             </span>
         </div>
     </div>
@@ -198,10 +198,11 @@
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
-        <div class="col-xs-8 margin-top-edit-prospect-btns">
+        <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important; margin-top: 18px !important;">
             <span class="pull-right">
-                <%= button_tag("Save", :class => 'btn btn-primary') %>
-                <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
+                <%= f.submit "Save", :class => 'btn btn-primary btn-sm' %>
+                <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary btn-sm'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
+                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary btn-sm'), new_prospect_statement_path(@prospect)) %>
             </span>
         </div>
     </div>
