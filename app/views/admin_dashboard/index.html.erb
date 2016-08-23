@@ -27,7 +27,7 @@
 			<th class="hidden-xs">Prospects</th>
 			<th class="hidden-xs">Statements</th>
 			<th class="hidden-xs">Programs</th>
-			<th class="hidden-xs">Created</th>
+			<th class="hidden-xs">Last Login</th>
 			<th class="hidden-xs text-center">Subscribed</th>
 			<th class="visible-xs text-center">Subbed</th>
 		</tr>
@@ -35,13 +35,13 @@
 	<tbody>
 		<% @users.each do |user| %>
 
-			<% date = user.created_at %>
-			<% date = date.to_s[0,10] %>
-			<% date = date.split("-") %>
-			<% timeyear = date[0] %>
-			<% timemonth = date[1] %>
-			<% timeday = date[2] %>
-			<% @user_created_at = "#{timemonth}/#{timeday}/#{timeyear}" %>
+			<% date = user.last_sign_in_at %>
+	    <% date = date.to_s[0,10] %>
+	    <% date = date.split("-") %>
+	    <% timeyear = date[0] %>
+	    <% timemonth = date[1] %>
+	    <% timeday = date[2] %>
+	    <% @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}" %>
 
 			<tr>
 				<td class="hidden-xs"><%= user.id %></td>
@@ -61,7 +61,7 @@
 					<% end -%>
 				<% end -%>
 				<td class="hidden-xs"><%= @count %></td>
-				<td class="hidden-xs"><%= @user_created_at %></td>
+				<td class="hidden-xs"><%= @user_last_sign_in %></td>
 				<td class="hidden-xs text-center"><%= user.subscribed? %></td>
 				<td class="visible-xs text-center" style="padding: 2px !important; "><%= user.subscribed? %></td>
 			</tr>

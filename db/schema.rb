@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20160823165812) do
 
+  create_table "actions", force: :cascade do |t|
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
     t.string   "body"
@@ -184,12 +190,12 @@ ActiveRecord::Schema.define(version: 20160823165812) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
     t.decimal  "avg_ticket_variance"
   end
 
@@ -422,9 +428,9 @@ ActiveRecord::Schema.define(version: 20160823165812) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
-    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
+    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -576,6 +582,7 @@ ActiveRecord::Schema.define(version: 20160823165812) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone_number"
+    t.boolean  "paid",                   default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
