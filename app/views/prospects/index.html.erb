@@ -1,5 +1,9 @@
     <% if @unread_messages > 0 && current_user.admin? %>
-      <h3 class="text-center"><%= link_to 'There Are ' + @unread_messages.to_s +  ' Unread Messages', internal_contacts_path, class: 'black' %></h3>
+        <% if @unread_messages != 1 %>
+            <h3 class="text-center"><%= link_to 'There Are ' + @unread_messages.to_s +  ' Unread Messages', internal_contacts_path, class: 'black' %></h3>
+        <% else %>
+             <h3 class="text-center"><%= link_to 'There Is ' + @unread_messages.to_s +  ' Unread Message', internal_contacts_path, class: 'black' %></h3>
+        <% end -%>
     <% end %>
 
 <br>

@@ -6,10 +6,11 @@
     <h1 class="text-center hidden-xs"><%= @user.email %></h1>
     <h4 class="text-center visible-xs bold"><%= @user.email %></h4>
 <% else %>
-    <h1 class="text-center hidden-xs"><%= @user.first_name %> <%= @user.last_name %></h1>
-    <h4 class="text-center visible-xs bold"><%= @user.first_name %> <%= @user.last_name %></h4>
+    <h1 class="text-center hidden-xs" style="margin-bottom: 0px !important;"><%= @user.first_name %> <%= @user.last_name %></h1>
+    <h4 class="text-center visible-xs bold" style="margin-bottom: 0px !important;"><%= @user.first_name %> <%= @user.last_name %></h4>
 <% end -%>
 
+<% if @user.first_name != nil && @user.last_name != nil %><h4 class="text-center bold" style="margin-top: 0px !important;"><%= @user.email %></h4><% end %>
 <p class="text-center bold no-margin">Created: <%= @user_created_at %></p>
 <p class="text-center bold">Phone: <%= @user.phone_number %></p>
 <center>

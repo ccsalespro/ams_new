@@ -9,17 +9,28 @@
       <th>Phone number</th>
       <th>Email address</th>
       <th>Message</th>
+      <th>Sent</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @internal_contacts.each do |internal_contact| %>
+    
+      <% date = internal_contact.created_at %>
+      <% date = date.to_s[0,10] %>
+      <% date = date.split("-") %>
+      <% timeyear = date[0] %>
+      <% timemonth = date[1] %>
+      <% timeday = date[2] %>
+      <% @internal_contact_created_at = "#{timemonth}/#{timeday}/#{timeyear}" %>
+
       <tr>
         <td><%= internal_contact.full_name %></td>
         <td><%= internal_contact.phone_number %></td>
         <td><%= internal_contact.email_address %></td>
         <td><%= internal_contact.message %></td>
+        <td><%= @internal_contact_created_at %></td>
         <td class="text-center"><%= link_to 'Delete', internal_contact, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-primary btn-sm' %></td>
       </tr>
     <% end %>
