@@ -67,7 +67,7 @@ class StatementsController < ApplicationController
       @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
       @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
       create_intcalcitems(@prospect.description_id)
-      interchange_cost(@statement.id,  @statement.vmd_trans, @statement.vmd_vol)
+      interchange_cost(@intcalcitems, @statement.id,  @statement.vmd_trans, @statement.vmd_vol)
       @statement.vmd_interchange = @costs
 
 
@@ -191,13 +191,13 @@ class StatementsController < ApplicationController
         @total_avg_ticket = @total_volume.to_f / @total_transactions.to_f
         @intcalc_avg_ticket = item.volume.to_f / item.transactions.to_f
         item.avg_ticket_variance = @intcalc_avg_ticket / @total_avg_ticket
-        item.save
       end
+      return @intcalcitems
     end
 
-    def interchange_cost(id, total_transactions, total_vol)
-      
-    @intcalcitems = Intcalcitem.all.where(["statement_id = ?", id])
+    def interchange_cost(intcalcitems, id, total_transactions, total_vol)
+      @intcalcitems = intcalcitems
+      @inttableitems = []
          
      @intcalcitems.each do |item|
         @inttype = Inttype.find_by_id(item.inttype_id)   
@@ -208,12 +208,12 @@ class StatementsController < ApplicationController
         @inttableitem.avg_ticket = @total_avg_ticket * item.avg_ticket_variance
         @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
         @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume.to_f * @inttype.percent )
-        @inttableitem.save
+        @inttableitems << @inttableitem
       end
       @costs = 0
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
       @inttableitems.each do |item|
         @costs += item.costs
+        item.save
       end
       @costs
     end

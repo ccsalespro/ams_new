@@ -40,8 +40,6 @@ gem 'redcarpet'
 
 gem 'jquery-datetimepicker-rails'
 
-gem 'activerecord-import', '~> 0.4.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
