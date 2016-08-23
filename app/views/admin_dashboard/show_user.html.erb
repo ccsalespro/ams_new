@@ -2,10 +2,15 @@
 	<i class="fa fa-chevron-left fa-3x black back-fab" aria-hidden="true"></i>
 <% end -%>
 <div class="container">
-<h1 class="text-center hidden-xs"><%= @user.email %></h1>
-<h4 class="text-center visible-xs bold"><%= @user.email %></h4>
+<% if @user.first_name == nil && @user.last_name == nil %>
+    <h1 class="text-center hidden-xs"><%= @user.email %></h1>
+    <h4 class="text-center visible-xs bold"><%= @user.email %></h4>
+<% else %>
+    <h1 class="text-center hidden-xs"><%= @user.first_name %> <%= @user.last_name %></h1>
+    <h4 class="text-center visible-xs bold"><%= @user.first_name %> <%= @user.last_name %></h4>
+<% end -%>
 
-<p class="text-center bold">Last Sign In: <%= @user_last_sign_in %></p>
+<p class="text-center bold">Created: <%= @user_created_at %></p>
 <center>
 <% if @user.subscribed == false %>
 <%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
