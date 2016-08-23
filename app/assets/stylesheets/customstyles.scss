@@ -31,6 +31,17 @@
     box-shadow: 0px 0px 5px 3px #BFBFBF !important;
 }
 
+.inttype-btn {
+    background-color: $main-color !important;
+    color: white !important;
+    transform: scale(1, 1) !important;
+    transition: transform 300ms ease-in-out !important;
+    &:hover {
+        transform: scale(1.02, 1.02) !important;
+        transition: transform 300ms ease-in-out !important;
+    }
+}
+
 .admin-btn {
     background-color: $main-color !important;
     border-radius: 50px !important;
