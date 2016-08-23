@@ -28,8 +28,60 @@
     <%= f.text_field :per_item %>
   </div>
   <div class="field">
+    <%= f.label :full_description %><br>
+    <%= f.text_area :full_description %>
+  </div>
+  <div class="field">
     <%= f.label :max %><br>
     <%= f.text_field :max %>
+  </div>
+   <div class="field">
+    <%= f.label :B2B %><br>
+    <%= f.check_box :B2B %>
+  </div>
+  <div class="field">
+    <%= f.label :B2C %><br>
+    <%= f.check_box :B2C %>
+  </div>
+  <div class="field">
+    <%= f.label :Keyed %><br>
+    <%= f.check_box :Keyed %>
+  </div>
+  <div class="field">
+    <%= f.label :Swiped %><br>
+    <%= f.check_box :Swiped %>
+  </div>
+  <div class="field">
+    <%= f.label :ecomm %><br>
+    <%= f.check_box :ecomm %>
+  </div>
+  <div class="field">
+    <%= f.label :CVV %><br>
+    <%= f.check_box :CVV %>
+  </div>
+  <div class="field">
+    <%= f.label :Zip %><br>
+    <%= f.check_box :Zip %>
+  </div>
+  <div class="field">
+    <%= f.label :Address %><br>
+    <%= f.check_box :Address %>
+  </div>
+  <div class="field">
+    <%= f.label :Name %><br>
+    <%= f.check_box :Name %>
+  </div>
+  <div class="field">
+    <%= f.label :Downgrade %><br>
+    <%= f.check_box :CVV %>
+  </div>
+  <div class="field">
+    <%= f.label :biz_type %><br>
+    <%= f.text_field :biz_type %>
+  </div>
+  <div class="field">
+    <%= f.label :max_ticket %><br>
+    <%= f.text_field :max_ticket %>
   </div>
   <div class="actions">
     <%= f.submit %>

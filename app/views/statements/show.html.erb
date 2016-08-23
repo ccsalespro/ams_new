@@ -53,6 +53,7 @@
      <th style="min-width: 73px;">Per Item</th>
      <th>Items</th>
      <th>Volume</th>
+     <th>Avg Ticket</th>
      <th>Fees</th>
    </tr>
 
@@ -65,6 +66,7 @@
     <td><%= number_to_currency(@inttype.per_item) %></td>
     <td><%= item.transactions %></td>
     <td><%= number_to_currency(item.volume) %></td>
+    <td><%= number_to_currency(item.avg_ticket) %></td>
     <td><%= number_to_currency(item.costs) %></td>
   </tr>
 <% end %>

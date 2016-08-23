@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819192424) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160823145906) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -175,6 +169,7 @@ ActiveRecord::Schema.define(version: 20160819192424) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "amex_business_type"
+    t.decimal  "avg_ticket"
   end
 
   create_table "images", force: :cascade do |t|
@@ -189,12 +184,13 @@ ActiveRecord::Schema.define(version: 20160819192424) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.decimal  "avg_ticket_variance"
   end
 
   add_index "intcalcitems", ["inttype_id"], name: "index_intcalcitems_on_inttype_id"
@@ -232,6 +228,7 @@ ActiveRecord::Schema.define(version: 20160819192424) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.decimal  "costs"
+    t.decimal  "avg_ticket"
   end
 
   add_index "inttableitems", ["inttype_id"], name: "index_inttableitems_on_inttype_id"
@@ -243,8 +240,21 @@ ActiveRecord::Schema.define(version: 20160819192424) do
     t.decimal  "percent"
     t.decimal  "per_item"
     t.decimal  "max"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "B2B",              default: false
+    t.boolean  "B2C",              default: false
+    t.boolean  "Keyed",            default: false
+    t.boolean  "Swiped",           default: false
+    t.boolean  "ecomm",            default: false
+    t.boolean  "CVV",              default: false
+    t.boolean  "Zip",              default: false
+    t.boolean  "Address",          default: false
+    t.boolean  "Name",             default: false
+    t.boolean  "Downgrade",        default: false
+    t.string   "biz_type"
+    t.decimal  "max_ticket"
+    t.text     "full_description"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -407,9 +417,9 @@ ActiveRecord::Schema.define(version: 20160819192424) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
+    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
-    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
