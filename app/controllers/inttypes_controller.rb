@@ -6,6 +6,10 @@ class InttypesController < ApplicationController
   # GET /inttypes.json
   def index
     @inttypes = Inttype.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @inttypes.to_csv }
+    end
   end
 
   def import

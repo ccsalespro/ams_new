@@ -9,4 +9,14 @@ class Inttype < ActiveRecord::Base
 			Inttype.create! row.to_hash
 		end	
 	end
+
+	def self.to_csv
+		CSV.generate do |csv|
+			csv << column_names
+			all.each do |inttype|
+				csv << inttype.attributes.values_at(*column_names)
+			end	
+		end
+	end
 end
+

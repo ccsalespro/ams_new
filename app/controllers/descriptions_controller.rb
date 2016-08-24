@@ -8,7 +8,7 @@ class DescriptionsController < ApplicationController
   # GET /descriptions.json
 
   def index
-      @descriptions = Description.all
+    @descriptions = Description.all
     respond_to do |format|
       format.html
       format.csv { render text: @descriptions.to_csv }
