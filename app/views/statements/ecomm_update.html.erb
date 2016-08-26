@@ -1,0 +1,19 @@
+<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+<%= form_for([@prospect, @statement]) do |f| %>
+
+  <div class="well clearfix">
+  <div class="field">
+      <%= f.label "Volume", :class => 'text' %>
+      <%= f.text_field(:ecomm_vol, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <div class="field">
+       <%= f.label "Percentage", :class => 'text' %>
+       <%= f.text_field(:ecomm_percentage, :class => "form-control", :id => "inputdefault") %>
+  </div>
+  <br>
+  <% @formid = 1 %>
+  <%= button_tag("Adjust", :class => 'btn btn-primary') %>
+  <br><br>
+<% end %>
+</div>
+</div>
