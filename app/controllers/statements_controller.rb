@@ -12,7 +12,8 @@ class StatementsController < ApplicationController
 
   def downgrade_edit
     @statement.form_name = "downgrade"
-    @statement.form_percentage = @statement.downgrade_percentage 
+    @statement.form_percentage = @statement.downgrade_percentage
+    @statement.form_volume = @statement.downgrade_vol 
     @statement.save
   end
 
@@ -24,7 +25,7 @@ class StatementsController < ApplicationController
   end
 
   def regulated_check_card_update
-    @statement.form_name = "unregulated_check_card"
+    @statement.form_name = "regulated_check_card"
     @statement.form_volume = @statement.downgrade_vol
     @statement.form_percentage = @statement.downgrade_percentage 
     @statement.save
@@ -82,41 +83,31 @@ class StatementsController < ApplicationController
         format.json { render json: @statement.errors, status: :unprocessable_entity }
       end
     end
+    downgrade_table_adjust
+  end
+
+  def downgrade_table_adjust
     if @statement.form_name == "downgrade"
+      @statement.downgrade_vol = ( @statement.vmd_vol * ( @statement.downgrade_percentage / 100) )
+      @statement.save
+      @change = @statement.downgrade_vol - @statement.form_volume
+      @non_downgrade_change = (@statement.vmd_vol - @statement.downgrade_vol) - (@statement.vmd_vol - @statement.form_volume)
     @inttableitems = Inttableitem.where(statement_id: @statement.id)
     @non_downgrade_items = []
     @downgrade_items = []
+    @downgrade_percentage_change = ( @change / @statement.form_volume )
+    @non_downgrade_percentage_change = ( @non_downgrade_change / (@statement.vmd_vol - @statement.form_volume))
     @inttableitems.each do |item|
       @inttype = Inttype.find_by_id(item.inttype_id)
       if @inttype.downgrade == true
-        @downgrade_items << item
+        item.volume += ( item.volume * @downgrade_percentage_change )
+        item.save
       else
-        @non_downgrade_items << item 
+         item.volume += ( item.volume * @non_downgrade_percentage_change )
+         item.save
       end
+     end
     end
-      @current_non_downgrade_vol = @statement.vmd_vol - @statement.downgrade_vol 
-      @new_downgrade_volume = ( @statement.vmd_vol * (@statement.downgrade_percentage / 100) )
-      @new_non_downgrade_vol = @statement.vmd_vol - @new_downgrade_volume
-      @change_volume = @new_non_downgrade_vol - @current_non_downgrade_vol
-      @non_downgrade_items.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        @item_change = ((item.volume / @current_non_downgrade_vol) * @change_volume)
-        item.volume += @item_change
-        item.transactions = (item.volume / item.avg_ticket)
-        item.costs = ( (item.volume * ( @inttype.percent / 100)) + (item.transactions * @inttype.per_item) )
-        item.save
-      end
-      @change_volume = @new_downgrade_volume - @statement.downgrade_vol
-      @downgrade_items.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        @item_change = ((item.volume / @statement.downgrade_vol) * @change_volume)
-        item.volume += @item_change
-        item.transactions = (item.volume / item.avg_ticket)
-        item.costs = ( (item.volume * ( @inttype.percent / 100)) + (item.transactions * @inttype.per_item) )
-        item.save
-      end
-    end
-    set_downgrades
   end
 
   # POST /statements
