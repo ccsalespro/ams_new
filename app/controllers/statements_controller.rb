@@ -1,6 +1,6 @@
 class StatementsController < ApplicationController
-  before_action :set_statement, only: [:show, :edit, :update, :destroy]
-  before_filter :load_prospect
+  before_action :set_statement, only: [:show, :edit, :update, :destroy, :downgrade_edit, :check_card_update, :btob_update, :moto_update, :interchange_update, :ecomm_update]
+  before_filter :load_prospect, except: [:downgrade_update]
   before_action :authenticate_user!
   before_action :require_subscribed
   
@@ -8,6 +8,53 @@ class StatementsController < ApplicationController
   # GET /statements.json
   def index
     @statements = @prospect.statements.all
+  end
+
+  def downgrade_edit
+    @statement.form_name = "downgrade"
+    @statement.form_percentage = @statement.downgrade_percentage
+    @statement.form_volume = @statement.downgrade_vol 
+    @statement.save
+  end
+
+  def unregulated_check_card_update
+    @statement.form_name = "unregulated_check_card"
+    @statement.form_volume = @statement.downgrade_vol
+    @statement.form_percentage = @statement.downgrade_percentage 
+    @statement.save
+  end
+
+  def regulated_check_card_update
+    @statement.form_name = "regulated_check_card"
+    @statement.form_volume = @statement.downgrade_vol
+    @statement.form_percentage = @statement.downgrade_percentage 
+    @statement.save
+  end
+
+  def btob_update
+    @statement.form_name = "btob" 
+    @statement.form_volume = @statement.downgrade_vol
+    @statement.form_percentage = @statement.downgrade_percentage
+    @statement.save
+  end
+
+  def moto_update
+    @statement.form_name = "moto" 
+    @statement.form_volume = @statement.downgrade_vol
+    @statement.form_percentage = @statement.downgrade_percentage
+    @statement.save
+  end
+
+  def ecomm_update
+    @statement.form_name = "ecomm" 
+    @statement.form_volume = @statement.downgrade_vol
+    @statement.form_percentage = @statement.downgrade_percentage
+    @statement.save
+  end
+
+  def interchange_update
+    @statement.form_name = "interchange" 
+    @statement.save
   end
 
   # GET /statements/1
@@ -24,6 +71,43 @@ class StatementsController < ApplicationController
 
   # GET /statements/1/edit
   def edit
+  end
+
+  def update 
+    respond_to do |format|
+      if @statement.update(statement_params)
+        format.html { redirect_to [@prospect, @statement], notice: 'Statement Was Successfully Updated.' }
+        format.json { render :show, status: :ok, location: @statement }
+      else
+        format.html { render :edit }
+        format.json { render json: @statement.errors, status: :unprocessable_entity }
+      end
+    end
+    downgrade_table_adjust
+  end
+
+  def downgrade_table_adjust
+    if @statement.form_name == "downgrade"
+      @statement.downgrade_vol = ( @statement.vmd_vol * ( @statement.downgrade_percentage / 100) )
+      @statement.save
+      @change = @statement.downgrade_vol - @statement.form_volume
+      @non_downgrade_change = (@statement.vmd_vol - @statement.downgrade_vol) - (@statement.vmd_vol - @statement.form_volume)
+    @inttableitems = Inttableitem.where(statement_id: @statement.id)
+    @non_downgrade_items = []
+    @downgrade_items = []
+    @downgrade_percentage_change = ( @change / @statement.form_volume )
+    @non_downgrade_percentage_change = ( @non_downgrade_change / (@statement.vmd_vol - @statement.form_volume))
+    @inttableitems.each do |item|
+      @inttype = Inttype.find_by_id(item.inttype_id)
+      if @inttype.downgrade == true
+        item.volume += ( item.volume * @downgrade_percentage_change )
+        item.save
+      else
+         item.volume += ( item.volume * @non_downgrade_percentage_change )
+         item.save
+      end
+     end
+    end
   end
 
   # POST /statements
@@ -69,13 +153,17 @@ class StatementsController < ApplicationController
       create_intcalcitems(@prospect.description_id)
       interchange_cost(@intcalcitems, @statement.id,  @statement.vmd_trans, @statement.vmd_vol)
       @statement.vmd_interchange = @costs
+      set_downgrades
+      set_moto
+      set_ecomm
+      set_btob
+      set_unregulated_check_card
+      set_regulated_check_card
 
 
     @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
     
-    check_card_assumption
-    @statement.check_card_trans = @check_card_trans_assumption
-    @statement.check_card_vol = @check_card_vol_assumption
+    
 
     card_type_calculation("VS")
     @statement.vs_volume = @volume
@@ -110,22 +198,6 @@ class StatementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /statements/1
-  # PATCH/PUT /statements/1.json
-  def update    
-    respond_to do |format|
-      if @statement.update(statement_params)
-        format.html { redirect_to [@prospect, @statement], notice: 'Statement Was Successfully Updated.' }
-        format.json { render :show, status: :ok, location: @statement }
-      else
-        format.html { render :edit }
-        format.json { render json: @statement.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /statements/1
-  # DELETE /statements/1.json
   def destroy
     @statement.destroy
     respond_to do |format|
@@ -146,7 +218,7 @@ class StatementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def statement_params
-      params.require(:statement).permit(:total_fees, :bathes, :avg_ticket, :check_card_vol, :amex_trans, :amex_vol, :vmd_trans, :vmd_vol, :debit_trans, :debit_vol, :interchange, :statement_month, :business_id, :business_type, :vmd_avg_ticket, :amex_avg_ticket, :debit_avg_ticket, :check_card_avg_ticket, :check_card_trans, :debit_network_fees, :check_card_interchange, :amex_interchange, :vmd_interchange, :total_vol)
+      params.require(:statement).permit(:downgrade_vol, :downgrade_percentage, :total_fees, :bathes, :avg_ticket, :check_card_vol, :amex_trans, :amex_vol, :vmd_trans, :vmd_vol, :debit_trans, :debit_vol, :interchange, :statement_month, :business_id, :business_type, :vmd_avg_ticket, :amex_avg_ticket, :debit_avg_ticket, :check_card_avg_ticket, :check_card_trans, :debit_network_fees, :check_card_interchange, :amex_interchange, :vmd_interchange, :total_vol)
     end
     def general_cost(payment_type, avg_ticket)
       @cost = Cost.where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
@@ -238,7 +310,7 @@ class StatementsController < ApplicationController
       @fees      
     end
 
-     def check_card_assumption
+     def set_regulated_check_card
       @inttableitems = Inttableitem.where(statement_id: @statement.id)
 
       @check_card_vol_assumption = 0
@@ -253,7 +325,75 @@ class StatementsController < ApplicationController
       end
       @check_card_trans_assumption
       @check_card_vol_assumption
+      @statement.check_card_trans = @check_card_trans_assumption
+      @statement.check_card_vol = @check_card_vol_assumption
+      @statement.check_card_percentage = ( ( @check_card_vol_assumption / @statement.vmd_vol) * 100 )
 
+    end
+
+    def set_downgrades
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @downgrade_volume = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.downgrade == true 
+          @downgrade_volume += item.volume
+        end
+      end
+      @statement.downgrade_vol = @downgrade_volume
+      @statement.downgrade_percentage = ( ( @downgrade_volume / @statement.vmd_vol ) * 100 )
+    end
+
+    def set_moto
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @moto_volume = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.keyed == true 
+          @moto_volume += item.volume
+        end
+      end
+      @statement.moto_vol = @moto_volume
+      @statement.moto_percentage = ( ( @moto_volume / @statement.vmd_vol ) * 100 )
+    end
+
+    def set_unregulated_check_card
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @unregulated_volume = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.debit == true && @inttype.regulated == false
+          @unregulated_volume += item.volume
+        end
+      end
+      @statement.unreg_debit_vol = @unregulated_volume
+      @statement.unreg_debit_percentage = ( ( @unregulated_volume / @statement.vmd_vol ) * 100 )
+    end
+
+    def set_ecomm
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @ecomm_volume = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.ecomm == true
+          @ecomm_volume += item.volume
+        end
+      end
+      @statement.ecomm_vol = @ecomm_volume
+      @statement.ecomm_percentage = ( ( @ecomm_volume / @statement.vmd_vol ) * 100 )
+    end
+
+    def set_btob
+      @inttableitems = Inttableitem.where(statement_id: @statement.id)
+      @btob_volume = 0
+      @inttableitems.each do |item|
+        @inttype = Inttype.find_by_id(item.inttype_id)
+        if @inttype.btob == true
+          @btob_volume += item.volume
+        end
+      end
+      @statement.btob_vol = @btob_volume
+      @statement.btob_percentage = ( ( @btob_volume / @statement.vmd_vol ) * 100 )
     end
 
      def adjust_inttableitems

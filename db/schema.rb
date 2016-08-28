@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823185115) do
+ActiveRecord::Schema.define(version: 20160826032955) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -243,16 +243,16 @@ ActiveRecord::Schema.define(version: 20160823185115) do
     t.decimal  "max"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.boolean  "B2B",              default: false
-    t.boolean  "B2C",              default: false
-    t.boolean  "Keyed",            default: false
-    t.boolean  "Swiped",           default: false
+    t.boolean  "btob",             default: false
+    t.boolean  "btoc",             default: false
+    t.boolean  "keyed",            default: false
+    t.boolean  "swiped",           default: false
     t.boolean  "ecomm",            default: false
-    t.boolean  "CVV",              default: false
-    t.boolean  "Zip",              default: false
-    t.boolean  "Address",          default: false
-    t.boolean  "Name",             default: false
-    t.boolean  "Downgrade",        default: false
+    t.boolean  "cvv",              default: false
+    t.boolean  "zip",              default: false
+    t.boolean  "address",          default: false
+    t.boolean  "name",             default: false
+    t.boolean  "downgrade",        default: false
     t.string   "biz_type"
     t.decimal  "max_ticket"
     t.text     "full_description"
@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(version: 20160823185115) do
     t.boolean  "debit"
     t.boolean  "prepaid"
     t.boolean  "regulated"
-    t.boolean  "TE"
+    t.boolean  "te"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -478,8 +478,8 @@ ActiveRecord::Schema.define(version: 20160823185115) do
     t.decimal  "total_vol"
     t.string   "business_type"
     t.integer  "prospect_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.decimal  "vs_transactions"
     t.decimal  "vs_volume"
     t.decimal  "vs_fees"
@@ -491,6 +491,21 @@ ActiveRecord::Schema.define(version: 20160823185115) do
     t.decimal  "mc_fees"
     t.decimal  "amex_per_item_cost"
     t.decimal  "amex_percentage_cost"
+    t.decimal  "check_card_percentage"
+    t.decimal  "unreg_debit_vol"
+    t.decimal  "unreg_debit_percentage"
+    t.decimal  "btob_vol"
+    t.decimal  "btob_percentage"
+    t.decimal  "downgrade_vol"
+    t.decimal  "downgrade_percentage"
+    t.decimal  "moto_vol"
+    t.decimal  "moto_percentage"
+    t.decimal  "ecomm_vol"
+    t.decimal  "ecomm_percentage"
+    t.decimal  "current_interchange"
+    t.string   "form_name"
+    t.decimal  "form_volume"
+    t.decimal  "form_percentage"
   end
 
   create_table "structures", force: :cascade do |t|
