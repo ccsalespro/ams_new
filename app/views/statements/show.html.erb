@@ -38,7 +38,7 @@
   <% @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%=number_with_precision(@transactions, precision: 0) %></td>
-    <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
+    <td class="grey-back" colspan="1"><%= number_to_currency(@statement.vmd_interchange) %></td>
 </tr>
 </table>
 </div>

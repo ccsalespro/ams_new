@@ -2,16 +2,14 @@
 <%= form_for([@prospect, @statement]) do |f| %>
 
   <div class="well clearfix">
-  <div class="field">
-      <%= f.label "Volume", :class => 'text' %>
-      <%= f.text_field(:moto_vol, :class => "form-control", :id => "inputdefault") %>
-  </div>
-  <div class="field">
-       <%= f.label "Percentage", :class => 'text' %>
-       <%= f.text_field(:moto_percentage, :class => "form-control", :id => "inputdefault") %>
+  <div class="form-group">
+       <p class="bold program-form-margin text-center">Keyed / MOTO %</p>
+        <div class="input-group">
+       <%= f.text_field :moto_percentage, :class => "form-control", :data => { type: 'number' } %>
+       <span class="input-group-addon">%</span>
+      </div>
   </div>
   <br>
-  <% @formid = 1 %>
   <%= button_tag("Adjust", :class => 'btn btn-primary') %>
   <br><br>
 <% end %>
