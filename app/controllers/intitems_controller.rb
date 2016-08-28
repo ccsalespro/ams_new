@@ -10,7 +10,7 @@ class IntitemsController < ApplicationController
 
   def import
     Intitem.import(params[:file])
-    redirect_to inttypes_path, notice: "Interchange Items imported"
+    redirect_to intitems_path, notice: "Interchange Items imported"
   end
 
   # GET /intitems/1
