@@ -141,7 +141,7 @@ class StatementsController < ApplicationController
           @inttableitem.avg_ticket = @statement.avg_ticket
           @inttableitem.volume = @change / 2
           @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
-          @inttableitem.costs = ( @inttableitem.volume * type.percent ) + ( @inttableitem.tansactions * type.per_item)
+          @inttableitem.costs = ( @inttableitem.volume * type.percent ) + ( @inttableitem.transactions * type.per_item)
           @inttableitem.save
         end
       else
