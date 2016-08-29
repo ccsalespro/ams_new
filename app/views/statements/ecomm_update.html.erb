@@ -11,4 +11,14 @@
   <br><br>
 <% end %>
 </div>
+<% @description = Description.find_by_id(@prospect.description_id) %>
+<center>
+    <h2>What are eCommerce transactions?</h2>
+</center>
+    <p><b>As a <%= @description.business_type_primary %> businesses, we are assuming that you accept most of your payments either in person or over the phone.</b>  If you have a website where you accept payments from an online shopping cart, our assumptions will need to be adjusted.
+
+    <br><br>We currently assume that only <b><%= number_with_precision(@statement.form_percentage, precision: 1) %>%</b> of your Visa, Mastercard Discover Volume or <b>$<%= number_with_precision(@statement.form_volume, precision: 0) %> come in from online payments</b> based on other <%= @description.business_type_primary %> businesses in our database.
+
+    <br><br>If a larger percentage of your transactions come from your website / online ordering, <b>please adjust the percentage above</b> to allow us to create an accurate proposal.</p>
+
 </div>

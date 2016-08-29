@@ -2,13 +2,26 @@
 <%= form_for([@prospect, @statement]) do |f| %>
 
   <div class="well clearfix">
-  <div class="field">
-       <%= f.label "Percentage", :class => 'text' %>
-       <%= f.text_field(:btob_percentage, :class => "form-control", :id => "inputdefault") %>
+  <div class="form-group">
+       <p class="bold program-form-margin text-center">Business to Business %</p>
+        <div class="input-group">
+       <%= f.text_field :btob_percentage, :class => "form-control", :data => { type: 'number' } %>
+       <span class="input-group-addon">%</span>
+      </div>
   </div>
   <br>
   <%= button_tag("Adjust", :class => 'btn btn-primary') %>
   <br><br>
 <% end %>
 </div>
+<% @description = Description.find_by_id(@prospect.description_id) %>
+<center>
+    <h2>What are business cards?</h2>
+</center>
+    <p><b>Most businesses sell their products and services to other businesses.</b>  Business / Corporate Cards carry a much higher interchange cost because of the rewards and risk associated with these card types.
+
+    <br><br>We are currently assumming that <b><%= number_with_precision(@statement.form_percentage, precision: 1) %>%</b> of your Visa, Mastercard Discover Volume or <b>$<%= number_with_precision(@statement.form_volume, precision: 0) %> comes in from these card types</b> based on other <%= @description.business_type_primary %> businesses in our database.
+
+    <br><br>If a larger percentage of your transactions come from business to business transactions, <b>please adjust the percentage above</b> to allow us to create an accurate proposal.</p>
+
 </div>

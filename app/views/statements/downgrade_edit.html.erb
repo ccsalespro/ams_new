@@ -14,4 +14,27 @@
   <br><br>
 <% end %>
 </div>
+<% @description = Description.find_by_id(@prospect.description_id) %>
+<center>
+    <h2>What are downgrade transactions?</h2>
+</center>
+    <p>Your goal is to qualify for the lowest possible processing cost on each transaction.  However, there are several factors / criteria that allow you to qualify for the lowest rate as set by Visa, Mastercard and the other card brands.  Without these qualifications, your transaction may be "Downgraded" meaning you are charged a significantly higher rate.</p>
+
+    <b>Qualifications</b>
+    <ul>
+      <li>Card Holder Data</li>
+      <li>Matching / Timely Batch</li>
+      <li>Method of Payment</li>
+    </ul>
+    
+    <p>Downgrades are tough to eliminate for a <%= @description.business_type_primary %> business, because you will occasionally be forced to run an old card where the magnetic stripe no longer work or take a phone sale without having access to the zip code to verify the billing information.  
+
+    <br><br>because of this, we are assuming that roughly <b><%= number_with_precision(@statement.form_percentage, precision: 1) %>%</b> of your Visa, Mastercard and Discover Volume or <b>$<%= number_with_precision(@statement.form_volume, precision: 0) %> should be downgraded.</b>  Be on the lookout the following words on the Interchange Table you will find on your statement:</p>
+
+    <ul>
+      <li>STANDARD</li>
+      <li>EIRF</li>
+    </ul>
+
+    <p>These two words indicate a group of downgraded transactions that are costing you significantly more than your average transaction.  If your feel our assumptions above are off for your particular business, please adjust the percentage accordingly.</p>
 </div>
