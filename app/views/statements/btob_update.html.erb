@@ -3,15 +3,10 @@
 
   <div class="well clearfix">
   <div class="field">
-      <%= f.label "Volume", :class => 'text' %>
-      <%= f.text_field(:btob_vol, :class => "form-control", :id => "inputdefault") %>
-  </div>
-  <div class="field">
        <%= f.label "Percentage", :class => 'text' %>
        <%= f.text_field(:btob_percentage, :class => "form-control", :id => "inputdefault") %>
   </div>
   <br>
-  <% @formid = 1 %>
   <%= button_tag("Adjust", :class => 'btn btn-primary') %>
   <br><br>
 <% end %>
