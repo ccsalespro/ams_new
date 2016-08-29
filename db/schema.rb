@@ -184,12 +184,12 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.decimal  "avg_ticket_variance"
   end
 
@@ -335,6 +335,16 @@ ActiveRecord::Schema.define(version: 20160826032955) do
   add_index "notes", ["prospect_id"], name: "index_notes_on_prospect_id"
   add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "stripe_plan_id"
+    t.decimal  "price"
+    t.integer  "trial_days"
+    t.text     "description"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "processors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                      null: false
@@ -413,9 +423,9 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
+    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
-    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -518,6 +528,18 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "plan_id"
+    t.boolean  "active"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id"
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
 
   create_table "systems", force: :cascade do |t|
     t.string   "name"
