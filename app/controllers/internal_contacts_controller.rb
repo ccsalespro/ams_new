@@ -6,6 +6,12 @@ class InternalContactsController < ApplicationController
   # GET /internal_contacts.json
   def index
     @internal_contacts = InternalContact.all
+    @internal_contacts.each do |message|
+      if message.read == false
+        message.read = true
+        message.save
+      end
+    end
   end
 
 

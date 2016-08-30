@@ -31,6 +31,17 @@
     box-shadow: 0px 0px 5px 3px #BFBFBF !important;
 }
 
+.inttype-btn {
+    background-color: $main-color !important;
+    color: white !important;
+    transform: scale(1, 1) !important;
+    transition: transform 300ms ease-in-out !important;
+    &:hover {
+        transform: scale(1.02, 1.02) !important;
+        transition: transform 300ms ease-in-out !important;
+    }
+}
+
 .admin-btn {
     background-color: $main-color !important;
     border-radius: 50px !important;
@@ -366,16 +377,16 @@ hr.style-two {
 
 .course-length { margin: 0px !important; margin-top: 5px !important;}
 
-@media screen and (max-width: 495px) {
-    .task-complete { font-size: 30px; margin-left: 0px !important;}
-    .task-not-complete { font-size: 30px; margin-right: 5px; margin-left: 0px !important; }
+@media screen and (max-width: 550px) {
+    .task-complete { font-size: 30px; margin-left: 2px !important;}
+    .task-not-complete { font-size: 30px; margin-right: 5px; margin-left: 2px !important; }
     .task-delete { font-size: 27px; vertical-align: top; }
 }
 
 @media screen and (max-width: 400px) {
-    .task-complete { font-size: 21px; margin-left: 0px !important;}
-    .task-not-complete { font-size: 21px; margin-right: 5px; margin-left: 0px !important; }
-    .task-delete { font-size: 20px; vertical-align: top; }
+    .task-complete { font-size: 21px; margin-left: 2px !important;}
+    .task-not-complete { font-size: 21px; margin-right: 5px; margin-left: 2px !important; }
+    .task-delete { font-size: 20px; vertical-align: 2px; }
 }
 
 .video-padding { padding-right: 0px !important; }
@@ -463,3 +474,26 @@ hr.style-two {
 .fiftythree { min-width: 53px !important; }
 
 .statement-name { min-width: 115px !important; }
+
+.hover {
+    transform: scale(1,1) !important;
+    transition: transform 300ms ease-in-out !important;
+    &:hover {
+        transform: scale(1.1,1.1) !important;
+        transition: transform 300ms ease-in-out !important;  
+    }
+}
+
+.modal-header {
+    background-color: #f5f5f5 !important;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+.nothing {
+    padding: 0px !important;
+    margin: 0px !important;
+    background: none !important;
+    border: none !important;
+    font-weight: bold !important;
+}

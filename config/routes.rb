@@ -55,6 +55,14 @@ Rails.application.routes.draw do
   get 'comparisons/show'
   get 'comparisons/decrease_savings'
   get 'comparisons/increase_savings'
+  get 'statements/downgrade_edit'
+  get 'statements/downgrade_update'
+  get 'statements/regulated_check_card_update'
+  get 'statements/unregulated_check_card_update'
+  get 'statements/btob_update'
+  get 'statements/moto_update'
+  get 'statements/ecomm_update'
+  get 'statements/interchange_update'
   get 'admin_dashboard/destroy_user'
   get 'admin_dashboard/index'
   get 'admin_dashboard/subscribe'
@@ -62,6 +70,13 @@ Rails.application.routes.draw do
   get 'admin_dashboard/make_admin'
   get 'admin_dashboard/remove_admin'
   get 'admin_dashboard/show_user'
+  get 'admin_dashboard/destroy_prospect'
+
+  get 'tickets/mark_important'
+  get 'tickets/mark_unimportant'
+
+  get 'tasks/mark_complete'
+  get 'tasks/mark_uncomplete'
 
    root to: 'static#index'
 
@@ -116,11 +131,7 @@ Rails.application.routes.draw do
         resources :comparisons
       end
       resources :notes
-      resources :tasks do
-        member do
-          patch :complete
-        end
-      end
+      resources :tasks
     end
 
     resources :users do
@@ -139,6 +150,8 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

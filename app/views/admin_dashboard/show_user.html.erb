@@ -1,26 +1,60 @@
-<%= link_to admin_dashboard_index_path, class: 'pull-left' do %>
+<%= link_to admin_dashboard_index_path, class: 'pull-left hidden-xs' do %>
 	<i class="fa fa-chevron-left fa-3x black back-fab" aria-hidden="true"></i>
 <% end -%>
 <div class="container">
-<h1 class="text-center"><%= @user.email %></h1>
+<% if @user.first_name == nil && @user.last_name == nil %>
+    <h1 class="text-center hidden-xs"><%= @user.email %></h1>
+    <h4 class="text-center visible-xs bold"><%= @user.email %></h4>
+<% else %>
+    <h1 class="text-center hidden-xs" style="margin-bottom: 0px !important;"><%= @user.first_name %> <%= @user.last_name %></h1>
+    <h4 class="text-center visible-xs bold" style="margin-bottom: 0px !important;"><%= @user.first_name %> <%= @user.last_name %></h4>
+<% end -%>
+
+<% if @user.first_name != nil && @user.last_name != nil %><h4 class="text-center bold" style="margin-top: 0px !important;"><%= @user.email %></h4><% end %>
+<p class="text-center bold no-margin">Created: <%= @user_created_at %></p>
+<p class="text-center bold">Phone: <%= @user.phone_number %></p>
 <center>
 <% if @user.subscribed == false %>
-<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Subscribe', {:controller => 'admin_dashboard', :action => 'subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% else %>
-<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Unsubscribe', {:controller => 'admin_dashboard', :action => 'unsubscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
 <% if @user.admin == false %>
-<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% else %>
-<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm') %>
+<%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
 <%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 </center>
 <br>
 
-<%= form_for [@user, Ticket.new], remote: true do |f| %>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tickets" style="padding: 7px !important;" class="black">Tickets</a></li>
+    <li class=""><a data-toggle="tab" href="#prospects" style="padding: 7px !important;" class="black">Prospects & Statements</a></li>
+    <li class=""><a data-toggle="tab" href="#programs" style="padding: 7px !important;" class="black">Programs</a></li>
+</ul><br>
+
+<div class="tab-content">
+<div id="tickets" class="tab-pane fade in active">
+
+<%= form_for [@user, Ticket.new] do |f| %>
     <div class="field">
-        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket' %>
+        <div class="input-group no-padding">
+        <div class="input-group-addon no-padding" style="padding-left: 8px !important; padding-top: 5px !important; padding-bottom: 0px !important;">
+            <div class="checkbox" style='margin: 0px !important;'>
+                    <label style="font-size: 1em" class="no-padding">
+                    
+                   <%= f.check_box :important %>
+                    <span class="cr no-padding">
+                        <i class="cr-icon fa fa-check text-center no-padding" data-toggle="tooltip" title="Important"></i>
+                    </span>
+                    
+                    </label>
+                </div>
+            </div>
+            <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Ticket', style: 'height: 36px !important;' %>
+            <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
+        </div>
     </div>
     <% end %>
     <div class="notes-margin">
@@ -30,4 +64,74 @@
         </div>
 
     </div>
+</div>
+
+
+
+
+
+<div id="prospects" class="tab-pane fade active">
+    <h3 class="text-center bold">User Prospects</h3>
+    <% if @user_prospects.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Prospects</h4>
+    </div>
+<% end -%>
+<% @user_prospects.each do |prospect| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+ <% if prospect.business_name != '' %>
+    <%= link_to prospect.business_name, edit_prospect_path(prospect), class: 'black' %>
+<% else %>
+<%= link_to 'No Prospect Name', prospect_path(prospect), class: 'black' %>
+<% end -%>
+   
+<%= link_to({:controller => 'admin_dashboard', :action => 'destroy_prospect', :id => prospect.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }) do %>
+    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+<% end %>
+
+    </div>
+<% end -%>
+<hr>
+<h3 class="text-center bold">User Statements</h3>
+    <% if @user_statements.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Statements</h4>
+    </div>
+<% end -%>
+<% @user_statements.each do |statement| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+ <% if statement.statement_month != '' %>
+    <%= link_to statement.statement_month, prospect_statement_path(statement.prospect_id, statement), class: 'black' %>
+<% else %>
+<%= link_to 'No Statement Month', prospect_statement_path(statement.prospect_id, statement), class: 'black' %>
+<% end -%>
+   
+<%= link_to prospect_statement_path(statement.prospect_id, statement), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+<% end %>
+
+    </div>
+<% end -%><br>
+</div>
+
+
+<div id="programs" class="tab-pane fade active">
+<h3 class="text-center bold">User Programs</h3>
+    <% if @user_pro.count == 0 %>
+    <div class="well" style="padding: 5px !important;">
+        <h4 class="text-center">No Programs</h4>
+    </div>
+<% end -%>
+<% @user_pro.each do |program| %>
+<div class="well" style="padding: 10px !important; margin: 5px !important; ">
+    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>
+                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+                    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+                <% end %>
+    </div>
+<% end -%>
+</div>
+
+
+</div>
 </div>

@@ -103,11 +103,13 @@ class ProgramsController < ApplicationController
   def edit
   end
 
+
   # POST /programs
   # POST /programs.json
   def create
     @program = @processor.programs.new(program_params)
-
+    
+    no_nils(@program)
 
     respond_to do |format|
       if @program.save
@@ -127,6 +129,7 @@ class ProgramsController < ApplicationController
   # PATCH/PUT /programs/1
   # PATCH/PUT /programs/1.json
   def update
+
     respond_to do |format|
       if @program.update(program_params)
         format.html { redirect_to processor_programs_path(@processor, @program), notice: 'Program was successfully updated.' }
@@ -136,6 +139,10 @@ class ProgramsController < ApplicationController
         format.json { render json: @program.errors, status: :unprocessable_entity }
       end
     end
+
+    no_nils(@program)
+    @program.save
+
   end
 
   # DELETE /programs/1
@@ -143,9 +150,155 @@ class ProgramsController < ApplicationController
   def destroy
     @program.destroy
     respond_to do |format|
-      format.html { redirect_to processor_programs_path(@processor), notice: 'Program was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Program was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def no_nils(program)
+      if program.max_volume == nil
+        program.max_volume = 0
+      end
+
+      if program.min_volume == nil
+        program.min_volume = 0
+      end
+
+      if program.up_front_bonus == nil
+        program.up_front_bonus = 0
+      end
+
+      if program.residual_split == nil
+        program.residual_split = 0
+      end
+
+      if program.min_per_item_fee == nil
+        program.min_per_item_fee = 0
+      end
+
+      if program.per_item_cost == nil
+        program.per_item_cost = 0
+      end
+
+      if program.min_bp_mark_up == nil
+        program.min_bp_mark_up = 0
+      end
+
+      if program.bin_sponsorship == nil
+        program..bin_sponsorship = 0
+      end
+
+      if program.min_monthly_fees == nil
+        program.min_monthly_fees = 0
+      end
+
+      if program.monthly_fee_costs == nil
+        program.monthly_fee_costs = 0
+      end
+
+      if program.monthly_pci_fee == nil
+        program.monthly_pci_fee = 0
+      end
+
+      if program.monthly_pci_cost == nil
+        program.monthly_pci_cost = 0
+      end
+
+      if program.min_monthly_debit_fee == nil
+        program.min_monthly_debit_fee = 0
+      end
+
+      if program.monthly_debit_fee_cost == nil
+        program.monthly_debit_fee_cost = 0
+      end
+
+      if program.annual_pci_fee == nil
+        program.annual_pci_fee = 0
+      end
+
+      if program.annual_pci_cost == nil
+        program.annual_pci_cost = 0
+      end
+
+      if program.vs_check_card_per_item == nil
+        program.vs_check_card_per_item = 0
+      end
+
+      if program.vs_check_card_access_percentage == nil
+        program.vs_check_card_access_percentage = 0
+      end
+
+      if program.visa_access_per_item == nil
+        program.visa_access_per_item = 0
+      end
+
+      if program.visa_access_percentage == nil
+        program.visa_access_percentage = 0
+      end
+
+      if program.mc_access_per_item == nil
+        program.mc_access_per_item = 0
+      end
+
+      if program.mc_access_percentage == nil
+        program.mc_access_percentage = 0
+      end
+
+      if program.disc_access_percentage == nil
+        program.disc_access_percentage = 0
+      end
+
+      if program.disc_access_per_item == nil
+        program.disc_access_per_item = 0
+      end
+
+      if program.min_per_batch_fee == nil
+        program.min_per_batch_fee = 0
+      end
+
+      if program.per_batch_cost == nil
+        program.per_batch_cost = 0
+      end
+
+      if program.min_pin_debit_per_item_fee == nil
+        program.min_pin_debit_per_item_fee = 0
+      end
+
+      if program.pin_debit_per_item_cost == nil
+        program.pin_debit_per_item_cost = 0
+      end
+
+      if program.next_day_funding_monthly_fee == nil
+        program.next_day_funding_monthly_fee = 0
+      end
+
+      if program.next_day_funding_monthly_cost == nil
+        program.next_day_funding_monthly_cost = 0
+      end
+
+      if program.min_amex_per_item_fee == nil
+        program.min_amex_per_item_fee = 0
+      end
+
+      if program.amex_per_item_cost == nil
+        program.amex_per_item_cost = 0
+      end
+
+      if program.min_amex_bp_fee == nil
+        program.min_amex_bp_fee = 0
+      end
+
+      if program.amex_bp_cost == nil
+        program.amex_bp_cost = 0
+      end
+
+      if program.min_application_fee == nil
+        program.min_application_fee = 0
+      end
+
+      if program.application_fee_cost == nil
+        program.application_fee_cost = 0
+      end
   end
 
   private

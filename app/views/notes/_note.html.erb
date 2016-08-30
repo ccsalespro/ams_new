@@ -2,7 +2,7 @@
 	<div class="clearfix delete note">
 		<div class="">
 		<div class="btn-group pull-right">
-				<%= link_to note, method: :delete, :class => 'delete-note', :remote => true do %>
+				<%= link_to note, method: :delete, :class => 'delete-note', :remote => true, data: { confirm: 'Are You Sure?' } do %>
 				    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
 				<% end %>
 		</div>

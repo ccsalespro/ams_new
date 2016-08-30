@@ -1,30 +1,48 @@
 <h3 class="text-center"><b>Program Summary</b></h3>
-<div class="col-xs-6 no-padding no-margin">
-<div class="hideme col-sm-6 col-lg-offset-6 col-md-offset-4 col-sm-offset-2"><%= link_to("Save As PDF", prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary' ) %></div>
-</div>
-<div class="col-sm-6 no-padding no-margin">
-<div class="col-sm-3 col-sm-offset-7 col-md-offset-5 col-lg-offset-3"><span class="pull-right hideme"><%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary' %></span></div></div>
-  <div class="clearfix"></div>
+<div class="container-fluid">
+
+<center>
+<div class="container">
+<div class="col-md-10 col-md-offset-1">
+<span class="pull-right hideme col-lg-offset-7" style=""><%= link_to("Save As PDF", prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary' ) %>  <%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary' %></span>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#interchange" style="padding: 7px !important;" class="black">Summary</a></li>
+        <li class=""><a data-toggle="tab" href="#tab2" style="padding: 7px !important;" class="black">Detail</a></li>
+    </ul>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1 visible-xs" style="padding: 0px !important;">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#interchange" style="padding: 7px !important;" class="black">Summary</a></li>
+        <li class=""><a data-toggle="tab" href="#tab2" style="padding: 7px !important;" class="black">Detail</a></li>
+    </ul>
+    </div>
+    </div>
+  </center>
+<br>
+
+<div class="tab-content">
+<div id="interchange" class="tab-pane fade in active">
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
 <table class="table table-striped table-bordered table-responsive">
   <tr class="total white">
   <th>Type</th>
-  <th>Volume</th>
   <th>Items</th>
+  <th>Volume</th>
   <th>Fees</th>
 </tr>
 <tr>
   <td>VS</td>
-  <td><%= number_to_currency(@statement.vs_volume) %></td>
   <td><%= number_with_precision(@statement.vs_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.vs_volume) %></td>
   <% @vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees) %>
   <% @total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees) %> 
   <td><%= number_to_currency(@total_visa_fees) %></td>
 </tr>
 <tr>
   <td>MC</td>
-  <td><%= number_to_currency(@statement.mc_volume) %></td>
   <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.mc_volume) %></td>
   <% @mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees) %>
   <% @total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees) %> 
   <td><%= number_to_currency(@total_mc_fees) %></td>
@@ -32,8 +50,8 @@
 
 <tr>
   <td>DS</td>
-  <td><%= number_to_currency(@statement.ds_volume) %></td>
   <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.ds_volume) %></td>
   <% @ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees) %>
   <% @total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees) %>
   <td><%= number_to_currency(@total_ds_fees) %></td>
@@ -41,16 +59,133 @@
 
 <tr>
   <td>Debit</td>
-  <td><%= number_to_currency(@statement.debit_vol) %></td>
   <td><%= number_with_precision(@statement.debit_trans, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.debit_vol) %></td>
   <% @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee)) %>
   <td><%= number_to_currency(@total_debit_fees) %></td>
 </tr>
 
 <tr class="bold-line">
   <td>AMEX</td>
-  <td><%= number_to_currency(@statement.amex_vol) %></td>
   <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.amex_vol) %></td>
+  <% @amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 ) ) %>
+  <% @total_amex_fees = (@comparison.amex_total_opt_blue + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up) %> 
+  <td><%= number_to_currency(@total_amex_fees) %></td>
+</tr>
+
+<tr class="bold-font">
+  <td class="grey-back">Total</td>
+  <% @total = @statement.total_vol %>
+  <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
+  <td class="grey-back" colspan="1"><%= number_with_precision(@transactions, precision: 0) %></td>
+  <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
+  <td class="grey-back" colspan="1"><%= number_to_currency(@comparison.total_program_fees) %></td>
+</tr>
+</table>
+
+
+
+<% if @statement.total_fees > 0 %>
+<div class="clearfix"></div>
+<table class="table table-striped table-bordered table-responsive">
+   <tr class="total white">
+     <th>Monthly Savings</th>
+     <th>Annual Savings</th>
+     <th>3 Year Savings</th>
+   </tr>
+  <tr>
+    <td><b><%= number_to_currency(@comparison.total_program_savings) %></b></td>
+    <td><b><%= number_to_currency(@comparison.total_program_savings * 12) %></b></td>
+    <td><b><%= number_to_currency(@comparison.total_program_savings * 36) %></b></td>
+  </tr>
+</table>
+<% end %>
+
+
+<table class="table table-striped table-bordered table-responsive">
+   <tr class="total white">
+     <th>Description</th>
+     <th>Volume</th>
+     <th>Fees</th>
+   </tr>
+
+<% @inttableitems = Inttableitem.where(statement_id: @statement.id) %>
+<% @inttableitems.take(15).each do |item| %>
+  <% @inttype = Inttype.find_by_id(item.inttype_id) %>
+  <tr>
+    <td><%=truncate(@inttype.description, :length => 20) %></td>
+    <td><%= number_to_currency(item.volume) %></td>
+    <td><%=  number_to_currency(item.costs) %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+</div>
+</div>
+
+<div id="tab2" class="tab-pane fade">
+
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
+<table class="table table-striped table-bordered table-responsive">
+  <tr class="total white">
+  <th>Type</th>
+  <th>Items</th>
+  <th>Volume</th>
+  <th>Costs</th>
+  <th>Access</th>
+  <th>Fees</th>
+</tr>
+<tr>
+  <td>VS</td>
+  <td><%= number_with_precision(@statement.vs_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.vs_volume) %></td>
+  <td><%= number_to_currency(@statement.vs_fees) %></td>
+  <td><%= number_to_currency(@comparison.total_vs_access_fees) %></td>
+  <% @vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees) %>
+  <% @total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees) %> 
+  <td><%= number_to_currency(@total_visa_fees) %></td>
+</tr>
+<tr>
+  <td>MC</td>
+  <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.mc_volume) %></td>
+  <td><%= number_to_currency(@statement.mc_fees) %></td>
+  <td><%= number_to_currency(@comparison.total_mc_access_fees) %></td>
+  <% @mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees) %>
+  <% @total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees) %> 
+  <td><%= number_to_currency(@total_mc_fees) %></td>
+</tr>
+
+<tr>
+  <td>DS</td>
+  <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.ds_volume) %></td>
+  <td><%= number_to_currency(@statement.ds_fees) %></td>
+  <td><%= number_to_currency(@comparison.total_ds_access_fees) %></td>
+  <% @ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees) %>
+  <% @total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees) %>
+  <td><%= number_to_currency(@total_ds_fees) %></td>
+</tr>
+
+<tr>
+  <td>Debit</td>
+  <td><%= number_with_precision(@statement.debit_trans, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.debit_vol) %></td>
+  <td><%= number_to_currency(@statement.debit_network_fees) %></td>
+  <td>N/A</td>
+  <% @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee)) %>
+  <td><%= number_to_currency(@total_debit_fees) %></td>
+</tr>
+
+<tr class="bold-line">
+  <td>AMEX</td>
+  <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
+  <td><%= number_to_currency(@statement.amex_vol) %></td>
+  <td><%= number_to_currency(@statement.amex_interchange) %></td>
+  <td>N/A</td>
   <% @amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 ) ) %>
   <% @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up) %> 
   <td><%= number_to_currency(@total_amex_fees) %></td>
@@ -60,12 +195,17 @@
   <td class="grey-back">Total</td>
   <% @total = @statement.total_vol %>
   <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans %>
-  <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
+  <% @total_cost = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees + @statement.debit_network_fees + @statement.amex_interchange %>
+  <% @total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees %>
   <td class="grey-back" colspan="1"><%= number_with_precision(@transactions, precision: 0) %></td>
-    <td class="grey-back" colspan="1"><%= number_to_currency(@comparison.total_program_fees) %></td>
+  <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
+  <td><%= number_to_currency(@total_cost) %></td>
+  <td><%= number_to_currency(@total_access_fees) %></td>
+  <td class="grey-back" colspan="1"><%= number_to_currency(@comparison.total_program_fees) %></td>
 </tr>
 </table>
 </div>
+
 
 <% if @statement.total_fees > 0 %>
 <div class="clearfix"></div>
@@ -85,7 +225,111 @@
 </div>
 <% end %>
 
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+<div class="col-xs-8 no-padding" style="padding-right: 10px !important;"">
+  
+    <table class="table table-responsive table-bordered table-striped">
+    <tr class="total white">
+      <th>Description</th>
+      <th>Qty</th>
+      <th>Cost</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>Monthly Fees</td>
+      <td>1</td>
+      <td><%= number_to_currency(@comparison.monthly_fees) %></td>
+      <td class="text-center"><%= number_to_currency(@comparison.monthly_fees) %></td>
+    </tr>
+    <tr>
+      <td>Monthly PCI</td>
+      <td>1</td>
+      <td><%= number_to_currency(@comparison.monthly_pci_fee) %></td>
+      <td class="text-center"><%= number_to_currency(@comparison.monthly_pci_fee) %></td>
+    </tr>
+    <tr>
+      <td>Batch Fees</td>
+      <td><%= @statement.batches %></td>
+      <td><%= number_to_currency(@comparison.per_batch_fee) %></td>
+      <td class="text-center"><%= number_to_currency(@comparison.batch_fees) %></td>
+    </tr>
+  </table>
+
+</div>
+
+<div class="col-xs-4 no-padding" style="padding-left: 10px !important;">
+  
+  <table class="table table-responsive table-bordered table-striped">
+    <tr class="total white">
+      <th>Description</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>Annual Fee</td>
+      <td class="text-center"><%= number_to_currency(@comparison.annual_fee) %></td>
+    </tr>
+    <tr>
+      <td>Application Fee</td>
+      <td class="text-center"><%= number_to_currency(@comparison.application_fee) %></td>
+    </tr>
+    <tr>
+      <td>Annual PCI Fee</td>
+      <td class="text-center"><%= number_to_currency(@comparison.annual_pci_fee) %></td>
+    </tr>
+  </table>
+
+</div>
+<div class="col-xs-12 no-padding" style="padding-right: 10px !important;"">
+  
+    <table class="table table-responsive table-bordered table-striped">
+    <tr class="total white">
+      <th>Description</th>
+      <th>Vol</th>
+      <th>Qty</th>
+      <th>Per Item</th>
+      <th>Percent</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>VMD Fees</td>
+      <td><%= number_to_currency(@statement.vmd_vol) %></td>
+      <td><%= number_with_precision(@statement.vmd_trans, precision: 0) %></td>
+      <td><%= number_to_currency(@comparison.per_item_fee) %></td>
+      <td><%= number_with_precision((@comparison.bp_mark_up.to_f / 100), precision: 2) %>%</td>
+      <td class="text-center"><%= number_to_currency((@comparison.total_vmd_trans_fees + @comparison.total_vmd_mark_up_fees)) %></td>
+    </tr>
+    <tr>
+      <td>VMD Interchange</td>
+      <td><%= number_to_currency(@statement.vmd_vol) %></td>
+      <td><%= number_with_precision(@statement.vmd_trans, precision: 0) %></td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td class="text-center"><%= number_to_currency(@statement.interchange) %></td>
+    </tr>
+    <% if @statement.amex_vol > 0 %>
+    <tr>
+      <td>AMEX Fees</td>
+      <td><%= number_to_currency(@statement.amex_vol) %></td>
+      <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
+      <td><%= number_to_currency(@comparison.amex_per_item_fee) %></td>
+      <td><%= number_with_precision((@comparison.amex_bp_mark_up.to_f / 100), precision: 2) %>%</td>
+      <td class="text-center"><%= number_to_currency(@comparison.amex_mark_up_fees + @comparison.amex_trans_fees) %></td>
+    </tr>
+    <tr>
+      <td>AMEX Opt Blue</td>
+      <td><%= number_to_currency(@statement.amex_vol) %></td>
+      <td><%= number_with_precision(@statement.amex_trans, precision: 0) %></td>
+      <td><%= number_to_currency(@comparison.amex_per_item_cost) %></td>
+      <td><%= number_with_precision((@comparison.amex_percentage_cost), precision: 2) %>%</td>
+      <td class="text-center"><%= number_to_currency(@comparison.amex_total_opt_blue) %></td>
+    </tr>
+    <% end %>
+  </table>
+
+</div>
+</div>
+
+  <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
 
 <table class="table table-striped table-bordered table-responsive">
    <tr class="total white">
@@ -104,5 +348,10 @@
   </tr>
 <% end %>
 </table>
+</div>
+
+</div>
+
+</div>
 
 </div>

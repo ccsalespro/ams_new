@@ -41,11 +41,11 @@
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
-        <div class="col-xs-8 margin-top-edit-prospect-btns">
+        <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important;">
             <span class="pull-right">
-                <%= button_tag("Save", :class => 'btn btn-primary') %>
+                <%= f.submit "Save", :class => 'btn btn-primary' %>
                 <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
-                <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
+                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(@prospect)) %>
             </span>
         </div>
     </div>
@@ -74,10 +74,10 @@
     <div class="notes-margin">
 
         <div class="tasks<%= @prospect.id %>">
-            <% @sorted_tasks.each do |task| %>
+            <% @tasks.each do |task| %>
             <% if task.completed? %>
-          <div class="well task-well">
-            <div class="clearfix delete">
+          <div class="well task-well delete">
+            <div class="clearfix">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
                         <small class="text-capitalize">
@@ -90,13 +90,15 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left green">
-                        <strike class="col-sm-9 col-md-10"><%= task.body %></strike>
+                        <strike class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-sm-3 col-md-2 no-padding">
                           <span class="small-pad">
-                        <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
+                            <i class="fa fa-check-square-o green task-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
+                        <% end -%>
                           </span>
-                          <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
-                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true, data: { confirm: 'Are You Sure?' } do %>
+                          <i class="fa fa-trash black task-complete" aria-hidden="true" style="margin-top: 3px !important;"></i>
                           <% end %>
                       </span>
                     </p>
@@ -119,15 +121,15 @@
                   </div>
                   <div class="clearfix"></div>
                   <p class="text-left red">
-                      <span class="col-sm-9 col-md-10"><%= task.body %></span>
+                      <span class="col-sm-9 col-md-10" style="padding: 0px !important;"><%= task.body %></span>
                       <span class="icon-panel col-sm-3 col-md-2 no-padding">
                         <span class="small-pad">
-                          <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                          <i class="fa fa-square-o black task-not-complete pull-right" aria-hidden="true"></i>
-                          <% end %>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
+                            <i class="fa fa-square-o black task-not-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
+                        <% end -%>
                         </span>
-                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
-                        <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                        <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true, data: { confirm: 'Are You Sure?' } do %>
+                        <i class="fa fa-trash trashy black task-complete" aria-hidden="true" style="margin-top: 3px !important;"></i>
                         <% end %>
                     </span>
                   </p>
@@ -196,10 +198,11 @@
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
-        <div class="col-xs-8 margin-top-edit-prospect-btns">
+        <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important; margin-top: 18px !important;">
             <span class="pull-right">
-                <%= button_tag("Save", :class => 'btn btn-primary') %>
-                <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %>
+                <%= f.submit "Save", :class => 'btn btn-primary btn-sm' %>
+                <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary btn-sm'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
+                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary btn-sm'), new_prospect_statement_path(@prospect)) %>
             </span>
         </div>
     </div>
@@ -228,11 +231,11 @@
     <div class="notes-margin">
 
         <div class="tasks<%= @prospect.id %>">
-            <% @sorted_tasks.each do |task| %>
+            <% @tasks.each do |task| %>
             <% if task.completed? %>
 
-          <div class="well task-well">
-            <div class="clearfix delete">
+          <div class="well task-well delete">
+            <div class="clearfix">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
                         <small class="text-capitalize">
@@ -245,13 +248,15 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left green">
-                        <strike class="col-xs-10"><%= task.body %></strike>
+                        <strike class="col-xs-10" style="padding: 0px !important;"><%= task.body %></strike>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
-                        <i class="fa fa-check-square-o green task-complete pull-right" aria-hidden="true"></i>
+                        <%= link_to({:controller => 'tasks', :action => 'mark_uncomplete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
+                            <i class="fa fa-check-square-o green task-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
+                        <% end -%>
                           </span>
                           <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
-                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <i class="fa fa-trash black task-complete" aria-hidden="true" style="margin-top: 3px !important;"></i>
                           <% end %>
                       </span>
                     </p>
@@ -261,8 +266,8 @@
 
         <% else %>
 
-            <div class="well task-well">
-            <div class="clearfix delete">
+            <div class="well task-well delete">
+            <div class="clearfix">
                 <div class="delete-btn-action">
                     <p class="pull-left no-margin-bottom">
                         <small class="text-capitalize">
@@ -275,15 +280,15 @@
                     </div>
                     <div class="clearfix"></div>
                     <p class="text-left red">
-                        <span class="col-xs-10"><%= task.body %></span>
+                        <span class="col-xs-10" style="padding: 0px !important;"><%= task.body %></span>
                         <span class="icon-panel col-xs-2 no-padding">
                           <span class="small-pad">
-                          <%= link_to complete_prospect_task_path(@prospect, task.id), method: :patch do %>
-                            <i class="fa fa-square-o black task-not-complete pull-right" aria-hidden="true"></i>
-                          <% end %>
+                          <%= link_to({:controller => 'tasks', :action => 'mark_complete', :id => task.id, :prospect_id => @prospect.id}, class: '') do %>
+                            <i class="fa fa-square-o black task-not-complete pull-right" style="margin-top: 5px !important;" aria-hidden="true"></i>
+                        <% end -%>
                           </span>
                           <%= link_to [@prospect, task], method: :delete, :class => 'delete-task pull-right', :remote => true do %>
-                          <i class="fa fa-trash black task-delete" aria-hidden="true"></i>
+                          <i class="fa fa-trash black task-complete" aria-hidden="true" style="margin-top: 2px !important;"></i>
                           <% end %>
                       </span>
                     </p>
@@ -318,7 +323,10 @@
     <h4 class="notes_title text-center">Notes</h4>
     <%= form_for [@prospect, Note.new], remote: true do |f| %>
     <div class="field">
-        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+        <div class="input-group">
+        <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note', :style => 'height: 36px !important;' %>
+        <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
+        </div>
     </div>
     <% end %>
     <div class="notes-margin">
@@ -331,8 +339,13 @@
     <hr>
     <h4 class="text-center">Statements</h4>
     <% @prospect.statements.each do |statement| %>
-    <div class="well statements-well">
+    <div class="well statements-well delete">
         <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+        <span class="pull-right">
+          <%= link_to prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, remote: true, class: 'delete-statement' do %>
+            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+          <% end -%>
+          </span>
     </div>
     <% end %>
 </div>
@@ -355,8 +368,15 @@
     <hr>
     <h4 class="text-center">Statements</h4>
     <% @prospect.statements.each do |statement| %>
-    <div class="well statements-well">
-        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+    <div class="clearfix">
+        <div class="well statements-well delete">
+            <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+              <span class="pull-right">
+              <%= link_to prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, remote: true, class: 'delete-statement' do %>
+                <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+              <% end -%>
+              </span>
+        </div>
     </div>
     <% end %><br>
 </div>

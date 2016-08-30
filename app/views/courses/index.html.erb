@@ -2,16 +2,24 @@
 
 <div class="container">
 
+<div class="col-md-8 col-md-offset-2 col-lg-12 col-lg-offset-0">
 <%= search_form_for @search do |f| %>
   <div class="input-group stylish-input-group clearfix">
     <%= f.search_field :name_or_description_cont, :class => 'form-control', :placeholder => 'Search' %>
             <span class="input-group-addon">
+            <% if @search.name_or_description_cont == nil %>
                 <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="glyphicon glyphicon-search" style="padding-top: 1px !important;"></span>
                 </button>
+              <% else %>
+                <%= link_to courses_path do %>
+                  <i class="fa fa-times-circle-o black big-fa" style="color: #575757 !important; padding-top: 1px !important; cursor: pointer; font-size: 20px !important;" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
             </span>
         </div>
         <% end %>
+      </div><div class="clearfix"></div>
       <br>
 
       <% if current_user.training_subscribed == false && current_user.admin == false %>
@@ -59,11 +67,13 @@
      <% end %>
      <% end -%>
 
-<div class="col-md-6">
+<% if @search.result.count == 1 %>
+
+<div class="col-md-12 hover">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="white no-margin hidden-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>min</span></h3>
-                    <h4 class="white no-margin visible-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>min</span></h4>
+                    <h4 class="white no-margin hidden-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
+                    <h4 class="white no-margin visible-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
                 </div>
                 <div class="panel-body course-panel-height">
                     <p><%= course.description %></p>
@@ -77,6 +87,29 @@
                 </div>
             </div>
         </div>
+
+<% else %>
+
+<div class="col-md-8 col-md-offset-2 hover col-lg-6 col-lg-offset-0 hover">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="white no-margin visible-lg visible-md"><%= truncate(course.name, length: 60) %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin hidden-xs hidden-lg hidden-md"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
+                </div>
+                <div class="panel-body course-panel-height">
+                    <p><%= course.description %></p>
+                </div>
+                <div class="panel-footer special-footer">
+                <% if current_user.training_subscribed == true %>
+                    <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
+                <% else %>
+                    <center><button class="btn btn-default bold disabled" data-toggle="tooltip" title="Please Subscribe">View</button></center>
+                <% end -%>
+                </div>
+            </div>
+        </div>
+        <% end -%>
 
 <% end -%>
 

@@ -49,44 +49,9 @@
     <%= f.text_field(:check_card_trans, :class => "form-control", :id => "inputdefault") %>
     </div>
 </div><div class="clearfix"></div></div><div class="clearfix"></div><br>
-<div class="well statement-wizard-well">
-<h4 class="text-center bold">AMEX</h4>
-<div class="field col-sm-6">
-     <div class="input-group">
-  <div class="input-group-addon">$</div>
-  <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
-  </div><br class="visible-xs">
-</div>
-<div class="field col-sm-6">
-     <div class="input-group">
-  <div class="input-group-addon">Items</div>
-    <%= f.text_field(:amex_trans, :class => "form-control", :id => "inputdefault") %>
-    </div>
-</div><div class="clearfix"></div></div><div class="clearfix"></div><br>
-<div class="well statement-wizard-well">
-<h4 class="text-center bold">Pin Debit</h4>
-<div class="field col-sm-6">
-     <div class="input-group">
-  <div class="input-group-addon">$</div>
-    <%= f.text_field(:debit_vol, :class => "form-control", :id => "inputdefault") %>
-    </div><br class="visible-xs">
-</div>
-<div class="field col-sm-6">
-     <div class="input-group">
-  <div class="input-group-addon">Items</div>
-    <%= f.text_field(:debit_trans, :class => "form-control", :id => "inputdefault") %>
-    </div>
-</div><div class="clearfix"></div></div><div class="clearfix"></div><br>
 <center><a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a></center>
 </div>
 <div id="steptwo" class="hidden">
-<div class="field col-sm-6">
-    <%= f.label "Visa-MC-Disc Interchange", :class => 'text text-capitalize' %>
-   <div class="input-group">
-    <div class="input-group-addon">$</div>
-    <%= f.text_field(:vmd_interchange, :class => "form-control", :id => "inputdefault") %>
-    </div>
-</div>
 <div class="field col-sm-6">
     <%= f.label "American Express Interchange", :class => 'text' %>
          <div class="input-group">

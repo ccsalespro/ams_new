@@ -3,4 +3,5 @@ a:after { content:' [' attr(href) '] '}
 .hideme { display: none !important; }
 .total { background-color: #002D64 !important; }
 .white { color: white; }
+.nav-tabs { display: none !important; }
 }
