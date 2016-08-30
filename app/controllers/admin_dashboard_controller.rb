@@ -58,15 +58,11 @@ class AdminDashboardController < ApplicationController
 		timeday = date[2]
 		@user_created_at = "#{timemonth}/#{timeday}/#{timeyear}"
 
-    @user_programusers = Programuser.where(user_id: @user.id)
-    @user_programs = Program.where(personal: true)
-    @user_pro = []
+	    @user_programusers = Programuser.where(user_id: @user.id)
+	    @user_pro = []
     	@user_programusers.each do |programuser|
-    		@user_programs.each do |program|
-    			if program.id == programuser.program_id
-    				@user_pro << program
-    			end
-    		end
+			@program = Program.find_by_id(programuser.program_id)
+			@user_pro << @program		
     	end
 
     	@user_statements = []
