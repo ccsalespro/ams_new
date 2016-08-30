@@ -6,11 +6,15 @@ class InttypesController < ApplicationController
   # GET /inttypes.json
   def index
     @inttypes = Inttype.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @inttypes.to_csv }
+    end
   end
 
   def import
     Inttype.import(params[:file])
-    redirect_to inttypes_path, notice: "Interchange Types imported"
+    redirect_to inttypes_path, notice: "Interchange Types Imported"
   end
 
   # GET /inttypes/1
@@ -34,7 +38,7 @@ class InttypesController < ApplicationController
 
     respond_to do |format|
       if @inttype.save
-        format.html { redirect_to @inttype, notice: 'Inttype was successfully created.' }
+        format.html { redirect_to inttypes_path, notice: 'Inttype was successfully created.' }
         format.json { render :show, status: :created, location: @inttype }
       else
         format.html { render :new }
@@ -48,7 +52,7 @@ class InttypesController < ApplicationController
   def update
     respond_to do |format|
       if @inttype.update(inttype_params)
-        format.html { redirect_to @inttype, notice: 'Inttype was successfully updated.' }
+        format.html { redirect_to inttypes_path, notice: 'Inttype was successfully updated.' }
         format.json { render :show, status: :ok, location: @inttype }
       else
         format.html { render :edit }
@@ -75,6 +79,6 @@ class InttypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inttype_params
-      params.require(:inttype).permit(:card_type, :description, :percent, :per_item, :max)
+      params.require(:inttype).permit(:card_type, :description, :full_description, :percent, :per_item, :max, :B2B, :B2C, :Keyed, :Swiped, :ecomm, :CVV, :Zip, :Address, :Name, :Downgrade, :biz_type, :max_ticket, :regulated, :TE, :credit, :debit, :prepaid)
     end
 end

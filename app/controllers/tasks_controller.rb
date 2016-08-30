@@ -29,9 +29,22 @@ end
     end
   end
 
-  def complete
-    @task.update_attribute(:completed_at, Time.now)
-    redirect_to :back
+  def mark_complete
+    @prospect = Prospect.find(params[:prospect_id])
+    @task = Task.find(params[:id])
+    @task.completed_at = Time.now
+    @task.completed = true
+    @task.save
+    redirect_to edit_prospect_path(@prospect)
+  end
+
+   def mark_uncomplete
+    @prospect = Prospect.find(params[:prospect_id])
+    @task = Task.find(params[:id])
+    @task.completed_at = nil
+    @task.completed = false
+    @task.save
+    redirect_to edit_prospect_path(@prospect)
   end
 
   private

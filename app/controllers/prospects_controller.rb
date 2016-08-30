@@ -13,6 +13,7 @@ class ProspectsController < ApplicationController
     if @search.result.none?
       @searchnone = "No Results"
     end
+    @unread_messages = InternalContact.where(read: false).count
   end
 
   # GET /prospects/1
@@ -31,9 +32,9 @@ class ProspectsController < ApplicationController
 
   # GET /prospects/1/edit
   def edit
-    @sorted_tasks = @prospect.tasks.sort_by{ |t| t.finish_date }
-    @completed_tasks = @sorted_tasks.select { |task| task.completed? == true }
-    @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false }
+    @tasks = @prospect.tasks
+    @completed_tasks = @tasks.select { |task| task.completed? == true }
+    @uncompleted_tasks = @tasks.select { |task| task.completed? == false }
     @next_task =  @uncompleted_tasks.first
   end
 
@@ -75,6 +76,10 @@ class ProspectsController < ApplicationController
       format.html { redirect_to prospects_url, notice: 'Prospect was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def paid
+
   end
 
   private

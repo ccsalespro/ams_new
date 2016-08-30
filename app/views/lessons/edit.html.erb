@@ -1,3 +1,37 @@
 <h1 class="text-center">Editing Lesson</h1>
 
-<%= render 'form' %>
+<div class="container">
+<%= form_for ([@course, @chapter, @lesson]) do |f| %>
+  <% if @lesson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+      <ul>
+      <% @lesson.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, :class => 'form-control' %>
+  </div>
+    <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :class => 'form-control', :rows => 10 %>
+  </div>
+  <div class="field">
+    <%= f.label :video %><br>
+    <%= f.text_field :video, :placeholder => '', :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :minutes %><br>
+    <%= f.number_field :minutes, :class => 'form-control' %>
+  </div><br>
+  <div class="actions">
+    <button class="btn btn-primary">Save</button>
+  </div>
+<% end %>
+</div>

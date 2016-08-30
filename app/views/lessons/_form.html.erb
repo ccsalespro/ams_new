@@ -18,11 +18,11 @@
   </div>
     <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_area :description, :class => 'form-control' %>
+    <%= f.text_area :description, :class => 'form-control', :rows => 10 %>
   </div>
   <div class="field">
     <%= f.label :video %><br>
-    <%= f.text_field :video, :placeholder => 'Resize Video To 500x280', :class => 'form-control' %>
+    <%= f.text_field :video, :placeholder => '', :class => 'form-control', value: '<iframe height="300vh" width="100%" src="PASTE_EMBED_URL_HERE" frameborder="0" allowfullscreen></iframe>' %>
   </div>
   <div class="field">
     <%= f.label :minutes %><br>

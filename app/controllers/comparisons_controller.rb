@@ -197,6 +197,8 @@ private
       c.next_day_funding_fee = p.next_day_funding_monthly_fee
       c.amex_per_item_fee = p.min_amex_per_item_fee
       c.amex_bp_mark_up = p.min_amex_bp_fee
+      c.amex_per_item_cost = s.amex_per_item_cost
+      c.amex_percentage_cost = s.amex_percentage_cost
       c.application_fee = p.min_application_fee
       c.per_batch_fee = p.min_per_batch_fee
       c.batch_fees = ( 
@@ -301,6 +303,10 @@ private
     c.amex_trans_fees = ( 
       s.amex_trans * 
       c.amex_per_item_fee )
+
+    c.amex_total_opt_blue = (
+      (c.amex_per_item_cost * s.amex_trans) +
+      (s.amex_vol * (c.amex_percentage_cost / 100)))
   end
 
   def set_debit_fees(c, s)

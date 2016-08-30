@@ -1,27 +1,23 @@
 <br><br>
 <div class="container">
 <div class="well">
-<h1 class="lesson-title">
+<h1 class="lesson-title col-xs-10 col-sm-11 no-padding text-left hidden-xs">
   <%= @course.name %>
-  <span class="pull-right time-font no-margin">
-  <% if user_signed_in? && current_user.admin? %>
-
-<ul class="no-dec pull-left">
-<li class="dropdown no-dec">
-  <a href="#" class="dropdown-toggle a-tag-for-navbar-links" data-toggle="dropdown"><i class="fa fa-ellipsis-v black menu" aria-hidden="true"></i><b class="caret"></b></a>
-  <ul class="dropdown-menu course-dropdown">
-		<li><%= link_to "Edit", edit_course_path(@course) %></li>
-		<li><%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' } %></li>
-  </ul>
-</li>
-</ul>
-
-  <% end -%>
-  </span>
-  <span class="pull-right time-font no-margin">
-  <b><%= @course_time %></b> Minutes
-  </span>
-</h1><hr>
+</h1>
+<h1 class="lesson-title no-padding visible-xs text-center">
+  <%= @course.name %>
+</h1>
+<span class="pull-right time-font no-margin col-xs-2 col-sm-1 no-padding text-right hidden-xs hidden-sm" style="padding-right: 10px !important;">
+<b><%= @course_time %></b>m
+</span>
+<span class="pull-right time-font no-margin col-xs-2 col-sm-1 no-padding text-right visible-sm" style="padding-right: 10px !important; font-size: 15px !important;">
+<b><%= @course_time %></b>m
+</span>
+<div class="clearfix visible-xs"></div>
+<span class="no-margin visible-xs text-center" style="padding-right: 10px !important; font-size: 30px !important;">
+<b><%= @course_time %></b>m
+</span>
+<hr>
 
 <h2 class="text-center"><b>Chapters</b></h2>
 
@@ -37,20 +33,29 @@
 					<% @chapter_time = @lesson_time %>
 				<% end -%>
 
-  	<h3><%= link_to chapter.name, course_chapter_path(@course, chapter), :class => 'black' %>
-  		<span class="pull-right"><b><%= @chapter_time %></b> Minutes</span>
-  	</h3>
+  	<h3 class="col-sm-10 col-xs-9 no-padding no-margin" style="margin-bottom: 0px !important;"><%= link_to chapter.name, course_chapter_path(@course, chapter), :class => 'black' %></h3>
+  		<div class="pull-right col-sm-2 col-xs-3 no-padding no-margin text-right" style="font-size: 20px !important; margin-bottom: 0px !important;"><b><%= @chapter_time %></b>m</div>
+  <div class="clearfix"></div>
   	<% if chapter != @chapters.last %>
-			<hr>
+			<hr style="margin: 5px !important;">
 		<% end -%>
   <% end -%>
+    <div class="clearfix"></div>
 
 </div>
 
 </div>
+
+<% if user_signed_in? && current_user.admin? %>
+<center>
+    <%= link_to "Edit", edit_course_path(@course), class: 'btn btn-primary' %>
+    <%= link_to "Delete", course_path(@course), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
+</center>
+  <% end -%>
 
 <% if user_signed_in? && current_user.admin? -%>
 <%= link_to new_course_chapter_path(@course), :class => 'btn fab-btn white' do %>
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
 <% end -%>
+<br>

@@ -1,4 +1,13 @@
+    <% if @unread_messages > 0 && current_user.admin? %>
+        <% if @unread_messages != 1 %>
+            <h3 class="text-center"><%= link_to 'There Are ' + @unread_messages.to_s +  ' Unread Messages', internal_contacts_path, class: 'black' %></h3>
+        <% else %>
+             <h3 class="text-center"><%= link_to 'There Is ' + @unread_messages.to_s +  ' Unread Message', internal_contacts_path, class: 'black' %></h3>
+        <% end -%>
+    <% end %>
+
 <br>
+
 <div class="container-fluid">
 
     <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
@@ -6,9 +15,15 @@
         <div class="input-group stylish-input-group">
             <%= f.search_field :business_name_or_contact_name_or_phone_or_email_cont, :class => 'form-control', :placeholder => 'Search' %>
             <span class="input-group-addon">
+            <% if @search.business_name_or_contact_name_or_phone_or_email_cont == nil %>
                 <button type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="glyphicon glyphicon-search" style="padding-top: 1px !important;"></span>
                 </button>
+              <% else %>
+                <%= link_to prospects_path do %>
+                  <i class="fa fa-times-circle-o black big-fa" style="color: #575757 !important; padding-top: 1px !important; cursor: pointer; font-size: 20px !important;" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
             </span>
         </div>
         <% end %>
@@ -91,7 +106,7 @@
                                     </button>
                                     <h4 class=""><%= prospect.business_name %></h4>
                                 </div>
-                                <div class="modal-body row">
+                                <div class="modal-body row" style="margin-right: 0px !important;">
                                     <div class="col-md-6">
 
                                         <%= form_for(prospect) do |f| %>
@@ -128,24 +143,20 @@
                                             <p class="text text-left">
                                                 <b>Stage</b>
                                             </p>
-                                            <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %><br><br>
-                                        </div>
+                                            <div class="col-xs-6 no-padding" style="padding-top: 5px !important;"><%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %></div><div class="col-xs-6 no-padding">
                                         <%= f.hidden_field(:description_id) %>
                                         <%= f.hidden_field(:description_primary) %>
                                         <%= f.hidden_field(:description_secondary) %>
                                         <%= f.hidden_field(:amex_business_type) %>
-                                        <div class="actions">
-                                            <%= button_tag("Update", :class => 'btn btn-primary') %>
-                                            <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
-                                            <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
-                                            <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
+                                            <%= f.submit "Update", :class => 'btn btn-primary pull-right' %></div>
                                         </div>
-                                        <% end %>
+                                        <% end -%>
+                                        
                                         <div class="clearfix"></div>
 
                                     </div>
 
-                                    <div class="col-md-6" id="right">
+                                    <div class="col-md-6" style="" id="right">
                                         <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
                                         <% @completed_tasks = @sorted_tasks.select { |task| task.completed? == true } %>
                                         <% @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false } %>
@@ -170,7 +181,10 @@
                                             </p>
                                             <%= form_for [prospect, Note.new], remote: true  do |f| %>
                                             <div class="field">
+                                                <div class="input-group">
                                                 <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
+                                                <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
+                                                </div>
                                             </div>
                                             <% end %>
                                             <div class="notes-margin">
@@ -183,8 +197,12 @@
                                         </div>
                                         <p><b>Statements</b></p>
                                         <% prospect.statements.each do |statement| %>
-                                        <div class="well statements-well">
+                                        <div class="well statements-well delete">
                                           <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(prospect, statement), :class => 'black' %>
+                                          <span class="pull-right"><%= link_to prospect_statement_path(prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'delete-statement', remote: true do %>
+                                            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+                                          <% end -%>
+                                          </span>
                                         </div>
                                         <% end %>
                                         <br>
@@ -193,6 +211,15 @@
                                     </div>
 
                                 </div>
+                                       <div class="panel-footer">
+                                        <div class="actions">
+                                            
+                                            <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
+                                            <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
+                                            <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
+                                        </div>
+                                        </div>
+
                             </div>
 
                         </div>
@@ -215,3 +242,4 @@
     <i class="fa fa-terminal admin-plus bold" aria-hidden="true"></i>
 <% end -%>
 <% end -%>
+

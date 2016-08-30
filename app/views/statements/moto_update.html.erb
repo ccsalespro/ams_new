@@ -1,0 +1,28 @@
+<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+<%= form_for([@prospect, @statement]) do |f| %>
+
+  <div class="well clearfix">
+  <div class="form-group">
+       <p class="bold program-form-margin text-center">Keyed / MOTO %</p>
+        <div class="input-group">
+       <%= f.text_field :moto_percentage, :class => "form-control", :data => { type: 'number' } %>
+       <span class="input-group-addon">%</span>
+      </div>
+  </div>
+  <br>
+  <%= button_tag("Adjust", :class => 'btn btn-primary') %>
+  <br><br>
+<% end %>
+</div>
+<% @description = Description.find_by_id(@prospect.description_id) %>
+<center>
+    <h2>What are Keyed / MOTO transactions?</h2>
+</center>
+    <p>As a <%= @description.business_type_primary %> business, we are assuming that you sell roughly <b><%= number_with_precision(@statement.form_percentage, precision: 1) %>%</b> of your Visa, Mastercard and Discover Volume or <b>$<%= number_with_precision(@statement.form_volume, precision: 0) %> over the phone.</b>  These transactions are considered Keyed or MOTO (mail order / telephone order) and carry a higher risk of chargeback.   
+
+    <br><br>Because of this higher risk, the card brands and banks have created <b>higher interchange fees</b> that are charged to the business owner.  If your business model includes taking a larger quantity of orders over the phone, please adjust the percentage above.
+
+    <br><br><b>IMPORTANT:</b>  In order to qualify for the lowest cost on Keyed / MOTO transactions, the business must perform AVS (Address Verification Services).  This means you are entering the billing zipcode when you run the transaction.  If you are not entering this information, all of your phone sales are being "Downgraded".  Return to the previous screen to adjust downgrades.
+
+    <br><br>*Consider using an online payment gateway to increase the data you collect at the point of sale to lower these costs and lower the risk of chargeback</p>
+</div>

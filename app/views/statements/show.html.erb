@@ -1,6 +1,11 @@
 <h3 class="text-center"><b>Interchange Summary</b></h3>
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-  <%= link_to(content_tag(:button, 'Compare Programs', :class => 'btn btn-primary'), prospect_statement_comparisons_path(@prospect, @statement)) %> 
+  
+
+
+<%= link_to(content_tag(:button, 'Compare Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
+<span class="pull-right hideme"><%= link_to "Statement Wizard", edit_prospect_statement_path(@prospect, @statement), class: 'btn btn-primary pull-right hidden' %></span>
+
 <table class="table table-striped table-bordered table-responsive">
   <tr class="total white">
   <th>Type</th>
@@ -33,10 +38,47 @@
   <% @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees %>
   <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
   <td class="grey-back" colspan="1"><%=number_with_precision(@transactions, precision: 0) %></td>
-    <td class="grey-back" colspan="1"><%= number_to_currency(@fees) %></td>
+    <td class="grey-back" colspan="1"><%= number_to_currency(@statement.vmd_interchange) %></td>
 </tr>
 </table>
 </div>
+
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+<h3 class="text-center"><b>Interchange Assumptions</b></h3>
+<table class="table table-striped table-bordered table-responsive">
+  <tr class="total white">
+    <th>Type</th>
+    <th>Volume</th>
+    <th>%</th>
+    <th></th>    
+  </tr>
+  <tr>
+    <td><b>Downgrades</b></td>
+    <td><%= number_to_currency(@statement.downgrade_vol) %></td>
+    <td><%= number_with_precision(@statement.downgrade_percentage, precision: 1) %>%</td>
+    <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'downgrade_edit', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
+  <tr>
+    <td><b>Keyed / MOTO</b></td>
+    <td><%= number_to_currency(@statement.moto_vol) %></td>
+    <td><%= number_with_precision(@statement.moto_percentage, precision: 1) %>%</td>
+     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'moto_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
+   <tr>
+    <td><b>Business Cards</b></td>
+    <td><%= number_to_currency(@statement.btob_vol) %></td>
+    <td><%= number_with_precision(@statement.btob_percentage, precision: 1) %>%</td>
+     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'btob_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
+  <tr>
+    <td><b>eCommerce</b></td>
+    <td><%= number_to_currency(@statement.ecomm_vol) %></td>
+    <td><%= number_with_precision(@statement.ecomm_percentage, precision: 1) %>%</td>
+     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'ecomm_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
+</table>
+</div>
+
 
 <div class="clearfix"></div>
 <h3 class="text-center"><b>Interchange Table</b></h3>
@@ -48,6 +90,7 @@
      <th style="min-width: 73px;">Per Item</th>
      <th>Items</th>
      <th>Volume</th>
+     <th>Avg Ticket</th>
      <th>Fees</th>
    </tr>
 
@@ -60,6 +103,7 @@
     <td><%= number_to_currency(@inttype.per_item) %></td>
     <td><%= item.transactions %></td>
     <td><%= number_to_currency(item.volume) %></td>
+    <td><%= number_to_currency(item.avg_ticket) %></td>
     <td><%= number_to_currency(item.costs) %></td>
   </tr>
 <% end %>
@@ -86,5 +130,7 @@
   </tr>
 <% end %>
 </table>
+
+<%= link_to(content_tag(:button, 'Adjust Interchange', :class => 'btn btn-primary pull-left'), {:controller => 'statements', :action => 'interchange_update', :id => @statement.id, :prospect_id => @prospect.id}) %>
 
 </div>

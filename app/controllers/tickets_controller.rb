@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to :back, notice: 'Note Added' }
+        format.html { redirect_to :back }
         format.js { render :layout => false }
       else
         format.html { render action: "new" }
@@ -30,6 +30,20 @@ end
     end
   end
 
+  def mark_important
+    @ticket = Ticket.find(params[:id])
+    @ticket.important = true
+    @ticket.save
+    redirect_to :back
+  end
+
+    def mark_unimportant
+    @ticket = Ticket.find(params[:id])
+    @ticket.important = false
+    @ticket.save
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
@@ -38,6 +52,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:body, :user_id, :admin_user_id)
+      params.require(:ticket).permit(:body, :user_id, :admin_user_id, :important)
     end
 end

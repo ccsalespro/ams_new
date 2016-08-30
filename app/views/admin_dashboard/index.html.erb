@@ -16,41 +16,43 @@
 	<b><%= @statements.count %></b> <% if @statements.count == 1 %> Statement <% else %> Statements <% end -%> <br>
 </h2>
 <br>
-<a id="more" class="black bold visible" style="cursor: pointer;">More Analytics</a>
+<a id="more" class="black bold visible no-dec" style="cursor: pointer;">More Analytics</a>
 </div>
 
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr class="total white">
-			<th>ID</th>
+			<th class="hidden-xs">ID</th>
 			<th>Email</th>
-			<th>Prospects</th>
-			<th>Statements</th>
-			<th>Programs</th>
-			<th>Created</th>
-			<th>Subscribed</th>
+			<th class="hidden-xs">Prospects</th>
+			<th class="hidden-xs">Statements</th>
+			<th class="hidden-xs">Programs</th>
+			<th class="hidden-xs">Last Login</th>
+			<th class="hidden-xs text-center">Subscribed</th>
+			<th class="visible-xs text-center">Subbed</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
 
-			<% date = user.created_at %>
-			<% date = date.to_s[0,10] %>
-			<% date = date.split("-") %>
-			<% timeyear = date[0] %>
-			<% timemonth = date[1] %>
-			<% timeday = date[2] %>
-			<% @user_created_at = "#{timemonth}/#{timeday}/#{timeyear}" %>
+			<% date = user.last_sign_in_at %>
+	    <% date = date.to_s[0,10] %>
+	    <% date = date.split("-") %>
+	    <% timeyear = date[0] %>
+	    <% timemonth = date[1] %>
+	    <% timeday = date[2] %>
+	    <% @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}" %>
 
 			<tr>
-				<td><%= user.id %></td>
-				<td><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
-				<td><%= user.prospects.count %></td>
+				<td class="hidden-xs"><%= user.id %></td>
+				<td class="hidden-xs"><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
+				<td class="visible-xs" style="padding: 2px !important;"><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
+				<td class="hidden-xs"><%= user.prospects.count %></td>
 				<% @statements = 0 %>
 				<% user.prospects.each do |p| %>
 				<% @statements += p.statements.count %>
 				<% end %>
-				<td><%= @statements %></td>
+				<td class="hidden-xs"><%= @statements %></td>
 				<% @personal_programs = Programuser.where(user_id: user.id) %>
 				<% @count = 0 %>
 				<% @personal_programs.each do |p| %>
@@ -58,9 +60,10 @@
 						<% @count += 1 %>
 					<% end -%>
 				<% end -%>
-				<td><%= @count %></td>
-				<td><%= @user_created_at %></td>
-				<td><%= user.subscribed? %></td>
+				<td class="hidden-xs"><%= @count %></td>
+				<td class="hidden-xs"><%= @user_last_sign_in %></td>
+				<td class="hidden-xs text-center"><%= user.subscribed? %></td>
+				<td class="visible-xs text-center" style="padding: 2px !important; "><%= user.subscribed? %></td>
 			</tr>
 		<% end -%>
 	</tbody>
