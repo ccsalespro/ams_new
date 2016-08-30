@@ -22,6 +22,7 @@ class ComparisonPdf < Prawn::Document
 		[["Type", "Volume", "Items", "Fees"]] + 
 		@comparison.card_types.map do |type|
 			[]
+		end
 	end
 
 end
