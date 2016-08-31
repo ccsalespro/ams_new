@@ -9,7 +9,7 @@ class ComparisonPdf < Prawn::Document
 		prospect_name
 		card_types
 		savings
-		interchange
+		
 	end
 
 	def prospect_name
