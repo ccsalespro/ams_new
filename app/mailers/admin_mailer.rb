@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-	default to: "benshirey89@gmail.com"
+	default to: "support@instantquotetool.com"
 
 	def new_user(user)
 		@user = user
