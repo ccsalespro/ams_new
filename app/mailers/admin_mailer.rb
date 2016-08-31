@@ -10,4 +10,9 @@ class AdminMailer < ApplicationMailer
 		@user = user
 		mail(subject: "Cancelled User: #{@user.email}")
 	end
+
+	def message_alert(message)
+		@message = message
+		mail(subject: "New Support Question")
+	end
 end
