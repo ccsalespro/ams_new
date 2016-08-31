@@ -1,5 +1,7 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome <%= @resource.first_name %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Your setup process is almost complete.</p>
+
+<p>Your email address: <%= @email %> can be confirmed by clicking the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
