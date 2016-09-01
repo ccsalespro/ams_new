@@ -52,7 +52,7 @@
                 <%= link_to( {:controller => 'programs', :action => 'clone', :id => program.id, :processor_id => @processor.id}, class: 'pull-right') do %>
                   <i class="fa fa-clone fa-2x black" aria-hidden="true"></i>
                 <% end -%>
-                <%= link_to( new_program_custom_field_path(@program), class: 'pull-right') do %>
+                <%= link_to( program_custom_fields_path(program), class: 'pull-right') do %>
                   <i class="fa fa-table fa-2x black" aria-hidden="true"></i>
                 <% end -%>
           </td>
@@ -96,7 +96,7 @@
                           <li class="list-group-item"><%= link_to 'Edit', edit_processor_program_path(@processor, program), class: 'btn btn-primary' %>
                               <%= link_to 'Delete', [@processor, program], method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
                               <%= link_to('Clone', {:controller => 'programs', :action => 'clone', :id => program.id, :processor_id => @processor.id}, class: 'btn btn-primary') %>
-                              <%= link_to('Custom Field', new_program_custom_field_path(@program), class: 'btn btn-primary') %>
+                              <%= link_to('Custom Field', program_custom_fields_path(program), class: 'btn btn-primary') %>
                          </li>
                          <% else %>
                           <li class="list-group-item">

@@ -125,7 +125,7 @@
 <% @user_pro.each do |program| %>
 <div class="well" style="padding: 10px !important; margin: 5px !important; ">
     <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>|| Private:<%= program.personal %>
-                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
+                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'WARNING!!! - ALL PROGRAM DATA WILL BE LOST' }, :class => 'pull-right' do %>
                     <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
                 <% end %>
     </div>

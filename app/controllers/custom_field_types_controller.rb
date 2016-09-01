@@ -1,6 +1,7 @@
 class CustomFieldTypesController < ApplicationController
   before_action :set_custom_field_type, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  before_action :require_admin
   # GET /custom_field_types
   # GET /custom_field_types.json
   def index
@@ -69,6 +70,6 @@ class CustomFieldTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def custom_field_type_params
-      params.require(:custom_field_type).permit(:name, :description)
+      params.require(:custom_field_type).permit(:name, :slug_string, :description)
     end
 end

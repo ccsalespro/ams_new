@@ -199,6 +199,29 @@ private
       c.annual_pci_fees = p.annual_pci_fee
       c.monthly_fees = p.min_monthly_fees
       c.annual_fee = 0
+
+      @custom_fields = CustomField.where(program_id: p.id)
+
+      @custom_fields.each do |field|
+
+      @slug_string = @custom_fields.custom_field_types.slug_string
+
+        case @slug_string
+
+        when "monthly_fee"
+          c.monthly_fees += field.amount
+        when "annual_fee"
+
+        when "vmd_per_item"
+
+        when "vmd_volume_bp"
+
+        when "sales_bonus"
+
+        when "one_time_fee"
+
+        end
+    end
   end
   
   def set_vmd_per_item_fees(c, s, per_item_fee)
