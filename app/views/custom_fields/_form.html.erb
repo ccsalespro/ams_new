@@ -1,33 +1,37 @@
-<%= form_for([@program, @custom_field]) do |f| %>
-  <% if @custom_field.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
+<div class="container-fluid">
+  <div class="well">
+    <%= form_for([@program, @custom_field]) do |f| %>
+      <% if @custom_field.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
 
-      <ul>
-      <% @custom_field.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @custom_field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="clearfix"></div>
-    <div class="form-group col-sm-6">
-      <%= f.label :custom_field %><br>
-      <%= collection_select( :custom_field, :custom_field_type_id, CustomFieldType.all, :id, :name, {}, { :multiple => false }) %>
-    </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <div class="clearfix"></div>
+        <div class="form-group col-sm-6 no-padding">
+          <%= f.label :custom_field %><br>
+          <%= collection_select( :custom_field, :custom_field_type_id, CustomFieldType.all, :id, :name, {}, { :multiple => false }) %>
+        </div><div class="clearfix"></div>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :amount %><br>
+        <%= f.text_field :amount, class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :cost %><br>
+        <%= f.text_field :cost, class: 'form-control' %>
+      </div><div class="clearfix"></div><br>
+      <div class="actions">
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :cost %><br>
-    <%= f.text_field :cost %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

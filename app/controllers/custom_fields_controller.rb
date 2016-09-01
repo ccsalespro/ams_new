@@ -30,7 +30,7 @@ class CustomFieldsController < ApplicationController
 
     respond_to do |format|
       if @custom_field.save
-        format.html { redirect_to [@program, @custom_field], notice: 'Custom field was successfully created.' }
+        format.html { redirect_to programs_path, notice: 'Custom field was successfully created.' }
         format.json { render :show, status: :created, location: @custom_field }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class CustomFieldsController < ApplicationController
   def update
     respond_to do |format|
       if @custom_field.update(custom_field_params)
-        format.html { redirect_to [@program, @custom_field], notice: 'Custom field was successfully updated.' }
+        format.html { redirect_to programs_path, notice: 'Custom field was successfully updated.' }
         format.json { render :show, status: :ok, location: @custom_field }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class CustomFieldsController < ApplicationController
   def destroy
     @custom_field.destroy
     respond_to do |format|
-      format.html { redirect_to program_custom_fields_path(@program, @custom_field), notice: 'Custom field was successfully destroyed.' }
+      format.html { redirect_to programs_path, notice: 'Custom field was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
