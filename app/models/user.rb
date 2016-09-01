@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     @processors = Processor.all.where(personal: false)
     @processors.each do |processor|
       @processoruser = Processoruser.new
-      @processoruser.user_id = current_user.id
+      @processoruser.user_id = self.id
       @processoruser.processor_id = processor.id
       @processoruser.save!
     end
