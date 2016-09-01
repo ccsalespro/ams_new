@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :subscribetocourses
   has_many :tickets, dependent: :destroy
 
-  after_create :create_notification
+  after_create :create_notification, :add_programs
   after_destroy :cancel_notification
 
   def create_notification
@@ -25,6 +25,24 @@ class User < ActiveRecord::Base
 
   def cancel_notification
     AdminMailer.cancelled_user(self).deliver
+  end
+
+  def add_programs
+    @programs = Program.all.where(personal: false)
+    @programs.each do |program|
+      @programuser = Programuser.new
+      @programuser.user_id = self.id
+      @programuser.program_id = program.id
+      @programuser.save!
+    end
+
+    @processors = Processor.all.where(personal: false)
+    @processors.each do |processor|
+      @processoruser = Processoruser.new
+      @processoruser.user_id = current_user.id
+      @processoruser.processor_id = processor.id
+      @processoruser.save!
+    end
   end
 end
 

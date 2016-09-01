@@ -40,6 +40,8 @@ gem 'redcarpet'
 
 gem 'jquery-datetimepicker-rails'
 
+gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
