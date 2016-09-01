@@ -7,6 +7,8 @@ class Programuser < ActiveRecord::Base
   def create_notification
     user = User.find_by_id(self.user_id)
     program = Program.find_by_id(self.program_id)
-    AdminMailer.new_program(program, user).deliver
+    if program.personal == true
+    	AdminMailer.new_program(program, user).deliver
+	end
   end
 end
