@@ -32,6 +32,7 @@ class ComparisonsController < ApplicationController
         set_compensation(         @comparison, program)
         set_conditional_savings(  @comparison, @statement)
         set_fixed_values(         @comparison)
+        set_custom_fields(        @comparison, @statement, program)
         @comparison.save
         @comparisons << @comparison
       end
@@ -199,28 +200,6 @@ private
       c.annual_pci_fees = p.annual_pci_fee
       c.monthly_fees = p.min_monthly_fees
       c.annual_fee = 0
-
-      @custom_fields = CustomField.where(program_id: p.id)
-
-      @custom_fields.each do |field|
-
-      @slug_string = @custom_fields.custom_field_types.slug_string
-
-        case @slug_string
-
-        when "monthly_fee"
-          c.monthly_fees += field.amount
-        when "annual_fee"
-          c.monthly_fees += ( field.amount.to_f / 12 )
-        when "vmd_per_item"
-
-        when "vmd_volume_bp"
-
-        when "sales_bonus"
-          p.up_front_bonus += field.amount
-        when "one_time_fee"
-        end
-    end
   end
   
   def set_vmd_per_item_fees(c, s, per_item_fee)
@@ -474,6 +453,68 @@ private
     @basis_points = ( 
       ( @bp_change / 
         s.vmd_vol ) * 10000 )
+  end
+
+  def set_custom_fields(c, s, p)
+    @custom_fields = CustomField.where(program_id: p.id)
+    if @custom_fields.first != nil
+
+      @custom_fields.each do |field|
+
+      @slug_string = field.custom_field_types.slug_string
+
+        case @slug_string
+
+        when "monthly_fee"
+          c.custom_monthly_fees += field.amount
+          c.custom_monthly_fee_costs += field.cost
+        when "annual_fee"
+          c.custom_annual_fees += field.amount
+          c.custom_annual_fee_costs += field.cost
+        when "vmd_per_item"
+          c.custom_vmd_per_item_fee += field.amount
+          c.custom_vmd_per_item_fee_cost += field.cost
+        when "vmd_volume_bp"
+          c.custom_vmd_volume_bp += field.amount
+          c.custom_vmd_volume_bp_cost += field.cost
+        when "amex_per_item"
+          c.custom_amex_per_item += field.amount
+          c.custom_amex_per_item_cost += field.cost
+        when "amex_volume_bp"
+          c.custom_amex_volume_bp += field.amount
+          c.custom_amex_volume_bp_cost += field.cost
+        when "pin_per_item"
+          c.custom_pin_per_item += field.amount
+          c.custom_pin_per_item_cost += field.cost
+        when "pin_volume_bp"
+          c.custom_pin_volume_bp += field.amount
+          c.custom_pin_volume_bp_cost += field.cost
+        when "sales_bonus"
+          c.custom_sales_bonus += field.amount
+          c.custom_sales_bonus_costs += field.cost
+        when "one_time_fee"
+          c.custom_one_time_fee += field.amount
+          c.custom_one_time_fee_costs += field.cost 
+        end
+      end
+      c.custom_total_vmd_per_item_fees = (s.vmd_trans * c.custom_vmd_per_item_fee)
+      c.custom_vmd_per_item_fee_costs = (s.vmd_trans * c.custom_vmd_per_item_fee_cost)
+
+      c.custom_total_vmd_volume_bp_fees = (s.vmd_vol * ( c.custom_vmd_volume_bp / 100 ) )
+      c.custom_vmd_volume_bp_costs = (s.vmd_vol * ( c.custom_vmd_volume_bp_cost / 100 ) )
+
+      c.custom_total_amex_per_item_fees = (s.amex_trans * c.custom_amex_per_item)
+      c.custom_amex_per_item_costs = (s.amex_trans * c.custom_amex_per_item_cost)
+
+      c.custom_total_amex_volume_bp_fees = (s.amex_vol * ( c.custom_amex_volume_bp / 100 ) )
+      c.custom_amex_volume_bp_costs = (s.amex_vol * ( c.custom_amex_volume_bp_cost / 100 ) )
+
+      c.custom_total_pin_per_item_fees = (s.debit_trans * c.custom_pin_per_item)
+      c.custom_pin_per_item_costs = (s.debit_trans * c.custom_pin_per_item_cost)
+
+      c.custom_total_pin_volume_bp_fees = (s.debit_vol * ( c.custom_pin_volume_bp / 100 ) )
+      c.custom_pin_volume_bp_costs = (s.debit_vol * ( c.custom_pin_volume_bp_cost / 100 ) )
+    end
   end
 
 end
