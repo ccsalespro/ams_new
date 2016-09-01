@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :custom_field_types
   resources :subscribetocourses
   get 'programs/clone'
 
@@ -122,7 +123,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :programs
+  resources :programs do
+    resources :custom_fields
+  end
 
     get 'calendars/index'
 

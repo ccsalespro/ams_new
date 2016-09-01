@@ -1,0 +1,33 @@
+<%= form_for([@program, @custom_field]) do |f| %>
+  <% if @custom_field.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
+
+      <ul>
+      <% @custom_field.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="clearfix"></div>
+    <div class="form-group col-sm-6">
+      <%= f.label :custom_field %><br>
+      <%= collection_select( :custom_field, :custom_field_type_id, CustomFieldType.all, :id, :name, {}, { :multiple => false }) %>
+    </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
