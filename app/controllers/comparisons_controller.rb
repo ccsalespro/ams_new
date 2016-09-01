@@ -211,15 +211,14 @@ private
         when "monthly_fee"
           c.monthly_fees += field.amount
         when "annual_fee"
-
+          c.monthly_fees += ( field.amount.to_f / 12 )
         when "vmd_per_item"
 
         when "vmd_volume_bp"
 
         when "sales_bonus"
-
+          p.up_front_bonus += field.amount
         when "one_time_fee"
-
         end
     end
   end
