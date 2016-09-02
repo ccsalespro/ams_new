@@ -479,7 +479,7 @@ hr.style-two {
     transform: scale(1,1) !important;
     transition: transform 300ms ease-in-out !important;
     &:hover {
-        transform: scale(1.1,1.1) !important;
+        transform: scale(1.05,1.05) !important;
         transition: transform 300ms ease-in-out !important;  
     }
 }

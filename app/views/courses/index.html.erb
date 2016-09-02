@@ -66,7 +66,8 @@
                     <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
                 </div>
                 <div class="panel-body course-panel-height">
-                    <p><%= course.description %></p>
+                    <p class="hidden-xs"><%= truncate(course.description, length: 500) %></p>
+                    <p class="visible-xs"><%= truncate(course.description, length: 200) %></p>
                 </div>
                 <div class="panel-footer special-footer">
                 <% if user_signed_in? && current_user.training_subscribed == true %>
