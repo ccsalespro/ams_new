@@ -5,7 +5,6 @@ class CreateCustomFields < ActiveRecord::Migration
       t.decimal :amount
       t.decimal :cost
       t.references :program, index: true, foreign_key: true
-      t.references :custom_field_type, index: true, foreign_key: true
 
       t.timestamps null: false
     end
