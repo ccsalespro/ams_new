@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901122516) do
+ActiveRecord::Schema.define(version: 20160901213141) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -137,6 +137,38 @@ ActiveRecord::Schema.define(version: 20160901122516) do
     t.decimal  "amex_per_item_cost"
     t.decimal  "amex_percentage_cost"
     t.decimal  "amex_total_opt_blue"
+    t.decimal  "custom_monthly_fees"
+    t.decimal  "custom_annual_fees"
+    t.decimal  "custom_vmd_per_item_fee"
+    t.decimal  "custom_vmd_volume_bp"
+    t.decimal  "custom_amex_per_item"
+    t.decimal  "custom_amex_volume_bp"
+    t.decimal  "custom_pin_per_item"
+    t.decimal  "custom_pin_volume_bp"
+    t.decimal  "custom_sales_bonus"
+    t.decimal  "custom_one_time_fee"
+    t.decimal  "custom_total_vmd_per_item_fees"
+    t.decimal  "custom_total_vmd_volume_bp_fees"
+    t.decimal  "custom_total_amex_per_item_fees"
+    t.decimal  "custom_total_amex_volume_bp_fees"
+    t.decimal  "custom_total_pin_per_item_fees"
+    t.decimal  "custom_total_pin_volume_bp_fees"
+    t.decimal  "custom_monthly_fee_costs"
+    t.decimal  "custom_annual_fee_costs"
+    t.decimal  "custom_vmd_per_item_fee_costs"
+    t.decimal  "custom_vmd_volume_bp_costs"
+    t.decimal  "custom_amex_per_item_costs"
+    t.decimal  "custom_amex_volume_bp_costs"
+    t.decimal  "custom_pin_per_item_costs"
+    t.decimal  "custom_pin_volume_bp_costs"
+    t.decimal  "custom_sales_bonus_costs"
+    t.decimal  "custom_one_time_fee_costs"
+    t.decimal  "custom_vmd_per_item_fee_cost"
+    t.decimal  "custom_vmd_volume_bp_cost"
+    t.decimal  "custom_amex_per_item_cost"
+    t.decimal  "custom_amex_volume_bp_cost"
+    t.decimal  "custom_pin_per_item_cost"
+    t.decimal  "custom_pin_volume_bp_cost"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -174,6 +206,7 @@ ActiveRecord::Schema.define(version: 20160901122516) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "slug_string"
   end
 
   create_table "custom_fields", force: :cascade do |t|

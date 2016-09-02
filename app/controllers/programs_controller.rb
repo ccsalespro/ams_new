@@ -87,6 +87,16 @@ class ProgramsController < ApplicationController
     @programuser.program_id = @clone.id
     @programuser.save
 
+    @custom_fields = CustomField.where(program_id: @program.id)
+    @custom_fields.each do |c|
+      @custom_field = @clone.custom_fields.new
+      @custom_field.name = c.name
+      @custom_field.custom_field_type_id = c.custom_field_type_id
+      @custom_field.amount = c.amount
+      @custom_field.cost = c.cost 
+      @custom_field.save
+    end
+
     redirect_to edit_processor_program_path(@processor, @clone)
   end
   # GET /programs/1

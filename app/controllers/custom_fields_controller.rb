@@ -2,7 +2,7 @@ class CustomFieldsController < ApplicationController
   before_action :load_program
   before_action :set_custom_field, only: [:show, :edit, :update, :destroy]
   before_action :load_custom_field_type, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /custom_fields
   # GET /custom_fields.json
   def index
