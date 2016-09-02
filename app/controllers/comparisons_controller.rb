@@ -115,6 +115,9 @@ class ComparisonsController < ApplicationController
 
   def show
     @program = Program.find_by_id(@comparison.program_id)
+    @statement = Statement.find_by_id(@comparison.statement_id)
+    @statement.presented_program = @program.name
+    @statement.save
   end
 
   def edit
