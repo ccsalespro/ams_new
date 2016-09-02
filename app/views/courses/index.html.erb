@@ -40,15 +40,17 @@
 <div class="col-md-12 hover">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="white no-margin hidden-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
-                    <h4 class="white no-margin visible-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
+                    <h5 class="white no-margin visible-lg visible-md"><%= truncate(course.name, length: 60) %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin hidden-xs hidden-lg hidden-md"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
                 </div>
                 <div class="panel-body course-panel-height">
-                    <p><%= course.description %></p>
+                    <p class="hidden-xs"><%= truncate(course.description, length: 500) %></p>
+                    <p class="visible-xs"><%= truncate(course.description, length: 200) %></p>
                 </div>
                 <div class="panel-footer special-footer">
                 <% if user_signed_in? && current_user.training_subscribed == true %>
-                    <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
+                    <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
                     <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
@@ -73,7 +75,7 @@
                 <% if user_signed_in? && current_user.training_subscribed == true %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-default bold' ) %></center>
+                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>
