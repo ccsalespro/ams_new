@@ -22,7 +22,7 @@
       </div><div class="clearfix"></div>
       <br>
 
-      <% if current_user.training_subscribed == false && current_user.admin == false %>
+      <% if user_signed_in? && current_user.training_subscribed == false && current_user.admin == false %>
                 <div class="well margin-top-edit-prospect-btns">
               <div class="row">
                   <div class="col-sm-8 col-xs-7">
