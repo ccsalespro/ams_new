@@ -1,33 +1,39 @@
-<%= form_for([@program, @custom_field]) do |f| %>
-  <% if @custom_field.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
+<div class="container-fluid">
+  <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <div class="well" style="padding-bottom: 10px !important;">
+      <%= form_for([@program, @custom_field]) do |f| %>
+        <% if @custom_field.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
 
-      <ul>
-      <% @custom_field.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+            <% @custom_field.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="clearfix"></div>
+        <div class="field" style="margin-bottom: 5px !important;">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control', required: true %>
+        </div>
+        <div class="field" style="margin-bottom: 5px !important;">
+          <%= f.label :amount %><br>
+          <%= f.text_field :amount, class: 'form-control', required: true %>
+        </div>
+        <div class="field" style="margin-bottom: 5px !important;">
+          <%= f.label :cost %><br>
+          <%= f.text_field :cost, class: 'form-control', required: true %>
+        </div>
+        <div class="form-group col-xs-6 no-padding">
+            <%= f.label :custom_field %><br>
+            <%= collection_select( :custom_field, :custom_field_type_id, CustomFieldType.all, :id, :name, {}, { :multiple => false }) %>
+          </div>
+        <div class="actions col-xs-6 no-padding">
+          <%= f.submit 'Save', class: 'btn btn-primary pull-right', required: true, style: 'margin-top: 15px !important;' %>
+        </div><div class="clearfix"></div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-  <div class="clearfix"></div>
-    <div class="form-group col-sm-6">
-      <%= f.label :custom_field %><br>
-      <%= collection_select( :custom_field, :custom_field_type_id, CustomFieldType.all, :id, :name, {}, { :multiple => false }) %>
-    </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :cost %><br>
-    <%= f.text_field :cost %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

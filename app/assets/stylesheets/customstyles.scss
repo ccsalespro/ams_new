@@ -497,3 +497,12 @@ hr.style-two {
     border: none !important;
     font-weight: bold !important;
 }
+
+.custom-field { display: none !important; }
+
+@media screen and (max-width: 400px) {
+    .custom-field {
+        display: block !important;
+        margin: 2.5px !important;
+    }
+}
