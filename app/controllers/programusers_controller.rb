@@ -1,7 +1,6 @@
 class ProgramusersController < ApplicationController
-  before_action :set_programuser, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :require_admin
   # GET /programusers
   # GET /programusers.json
   def index
@@ -20,6 +19,12 @@ class ProgramusersController < ApplicationController
 
   # GET /programusers/1/edit
   def edit
+  end
+
+  def destroy_programuser
+    @programuser = Programuser.where(user_id: current_user.id).where(program_id: params[:id]).first
+    @programuser.destroy
+    redirect_to programs_path, notice: 'Program Was Successfully Deleted'
   end
 
   # POST /programusers
