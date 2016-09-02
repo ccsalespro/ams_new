@@ -32,7 +32,7 @@ class ComparisonsController < ApplicationController
         set_compensation(         @comparison, program)
         set_conditional_savings(  @comparison, @statement)
         set_fixed_values(         @comparison)
-        set_custom_fields(        @comparison, @statement, program)
+        
         @comparison.save
         @comparisons << @comparison
       end
