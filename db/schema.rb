@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901213141) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160902132226) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -214,9 +208,9 @@ ActiveRecord::Schema.define(version: 20160901213141) do
     t.decimal  "amount"
     t.decimal  "cost"
     t.integer  "program_id"
-    t.integer  "custom_field_type_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "custom_field_type_id"
   end
 
   add_index "custom_fields", ["custom_field_type_id"], name: "index_custom_fields_on_custom_field_type_id"
@@ -393,16 +387,6 @@ ActiveRecord::Schema.define(version: 20160901213141) do
 
   add_index "notes", ["prospect_id"], name: "index_notes_on_prospect_id"
   add_index "notes", ["user_id"], name: "index_notes_on_user_id"
-
-  create_table "plans", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "stripe_plan_id"
-    t.decimal  "price"
-    t.integer  "trial_days"
-    t.text     "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
 
   create_table "processors", force: :cascade do |t|
     t.string   "name"
@@ -587,18 +571,6 @@ ActiveRecord::Schema.define(version: 20160901213141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "plan_id"
-    t.boolean  "active"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id"
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
 
   create_table "systems", force: :cascade do |t|
     t.string   "name"
