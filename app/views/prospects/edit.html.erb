@@ -346,6 +346,9 @@
             <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
           <% end -%>
           </span>
+          <% if statement.presented_program != nil %>
+        <p>Presented: <%= statement.presented_program %></p>
+      <% end %>
     </div>
     <% end %>
 </div>

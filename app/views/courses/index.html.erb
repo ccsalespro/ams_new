@@ -22,38 +22,6 @@
       </div><div class="clearfix"></div>
       <br>
 
-      <% if current_user.training_subscribed == false && current_user.admin == false %>
-                <div class="well margin-top-edit-prospect-btns">
-              <div class="row">
-                  <div class="col-sm-8 col-xs-7">
-                      <h2 class="cta visible-lg"><strong>Unlimited Access</strong></h2>
-                      <h3 class="cta visible-sm visible-md"><strong>Unlimited Access</strong></h3>
-                      <h4 class="cta visible-xs cta-font-size"><strong>Unlimited Access</strong></h4>
-                  </div>
-                  <div class="col-sm-4 col-xs-5 buy-courses-btn">
-                      <%= link_to "$19.00 Per Month", new_subscribetocourse_path, class: 'btn btn-primary btn-lg pull-right' %>
-                  </div>
-              </div>
-          </div>
-        
-      <% end -%>
-
-      <% if current_user.training_subscribed == false && current_user.admin == true %>
-          <div class="well margin-top-edit-prospect-btns">
-        <div class="row">
-            <div class="col-sm-8 col-xs-7">
-                <h2 class="cta visible-lg"><strong>Unlimited Access</strong></h2>
-                <h3 class="cta visible-sm visible-md"><strong>Unlimited Access</strong></h3>
-                <h4 class="cta visible-xs cta-font-size"><strong>Unlimited Access</strong></h4>
-            </div>
-            <div class="col-sm-4 col-xs-5 buy-courses-btn">
-                <%= link_to "Free Admin Access", new_subscribetocourse_path, class: 'btn btn-primary btn-lg pull-right' %>
-            </div>
-        </div>
-    </div>
-  
-    <% end -%>
-
 <% @courses.each do |course| %>
         
 <% @course_time = 0 %>
@@ -72,17 +40,19 @@
 <div class="col-md-12 hover">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="white no-margin hidden-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
-                    <h4 class="white no-margin visible-xs"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h4>
+                    <h5 class="white no-margin visible-lg visible-md"><%= truncate(course.name, length: 60) %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin hidden-xs hidden-lg hidden-md"><%= course.name %><span class="pull-right"><b><%= @course_time %></b>m</span></h5>
+                    <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
                 </div>
                 <div class="panel-body course-panel-height">
-                    <p><%= course.description %></p>
+                    <p class="hidden-xs"><%= truncate(course.description, length: 500) %></p>
+                    <p class="visible-xs"><%= truncate(course.description, length: 200) %></p>
                 </div>
                 <div class="panel-footer special-footer">
-                <% if current_user.training_subscribed == true %>
-                    <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
+                <% if user_signed_in? && current_user.training_subscribed == true %>
+                    <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><button class="btn btn-default bold disabled" data-toggle="tooltip" title="Please Subscribe">View</button></center>
+                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>
@@ -98,13 +68,14 @@
                     <h5 class="white no-margin visible-xs row"><span class="col-xs-9 no-padding"><%= course.name %></span><span class="col-xs-3 no-padding text-right"><b><%= @course_time %></b>m</span></h5>
                 </div>
                 <div class="panel-body course-panel-height">
-                    <p><%= course.description %></p>
+                    <p class="hidden-xs"><%= truncate(course.description, length: 500) %></p>
+                    <p class="visible-xs"><%= truncate(course.description, length: 200) %></p>
                 </div>
                 <div class="panel-footer special-footer">
-                <% if current_user.training_subscribed == true %>
-                    <center><%= link_to("View", course_path(course), :class => 'btn btn-default bold' ) %></center>
+                <% if user_signed_in? && current_user.training_subscribed == true %>
+                    <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><button class="btn btn-default bold disabled" data-toggle="tooltip" title="Please Subscribe">View</button></center>
+                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>
