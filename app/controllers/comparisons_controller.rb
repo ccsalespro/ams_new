@@ -19,6 +19,7 @@ class ComparisonsController < ApplicationController
         @comparison = Comparison.new
         set_comparison_references(@comparison, @statement, program)
         set_all_custom_field_c_values_to_zero(@comparison)
+        set_custom_fields(        @comparison, @statement, program)
         set_other_fees(           @comparison, @statement, program)    
         set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
         set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up) 
@@ -34,7 +35,6 @@ class ComparisonsController < ApplicationController
         set_compensation(         @comparison, program)
         set_conditional_savings(  @comparison, @statement)
         set_fixed_values(         @comparison)
-        set_custom_fields(        @comparison, @statement, program)
         @comparison.save
         @comparisons << @comparison
       end
@@ -330,13 +330,21 @@ private
     c.total_vmd_trans_fees + 
     c.amex_trans_fees + 
     c.total_vmd_access_fees + 
-    c.total_debit_fees )
+    c.total_debit_fees + 
+    c.custom_monthly_fees +
+    (c.custom_annual_fees / 12) +
+    c.custom_total_vmd_per_item_fees +
+    c.custom_total_vmd_volume_bp_fees +
+    c.custom_total_amex_per_item_fees +
+    c.custom_total_amex_volume_bp_fees +
+    c.custom_total_pin_per_item_fees +
+    c.custom_total_pin_volume_bp_fees)
   end
 
   def set_vmd_costs(c, s, p)
     c.bin_fee_costs = (
-      s.vmd_vol * 
-      (p.bin_sponsorship.to_f / 10000) )
+      ( s.vmd_vol * (p.bin_sponsorship.to_f / 10000) ) +
+      c.custom_vmd_volume_bp_costs )
     
     c.vs_trans_fee_costs = (
       s.vs_transactions * 
@@ -353,28 +361,33 @@ private
     c.total_vmd_trans_fee_costs = (
       c.ds_trans_fee_costs + 
       c.mc_trans_fee_costs + 
-      c.vs_trans_fee_costs )
+      c.vs_trans_fee_costs +
+      c.custom_vmd_per_item_fee_costs)
   end
 
   def set_amex_costs(c, s, p)
     c.amex_per_item_costs = (
-      s.amex_trans * 
-      p.amex_per_item_cost )
-    
+      (s.amex_trans * p.amex_per_item_cost ) +
+      c.custom_amex_per_item_costs)
+    if s.amex_trans > 0
     c.amex_mark_up_costs = (
-      s.amex_vol * 
-      (p.amex_bp_cost.to_f / 10000) )
+      (s.amex_vol * (p.amex_bp_cost.to_f / 10000 ) ) +
+       c.custom_amex_volume_bp_costs)
+    else
+      c.amex_mark_up_costs = 0
+    end
   end
 
   def set_debit_costs(c, s, p)
     c.debit_per_item_costs = (
-      s.debit_trans * 
-      p.pin_debit_per_item_cost )
+      (s.debit_trans * p.pin_debit_per_item_cost ) +
+      c.custom_pin_per_item_costs)
       
       if s.debit_trans > 0        
         c.total_debit_costs = (
         c.debit_per_item_costs + 
-        p.monthly_debit_fee_cost )      
+        p.monthly_debit_fee_cost +
+        c.custom_pin_volume_bp_costs )      
       else
         c.total_debit_costs = 0        
       end
@@ -397,7 +410,9 @@ private
       s.interchange + 
       p.monthly_fee_costs + 
       p.monthly_pci_cost + 
-      ( p.annual_pci_cost / 12 ) )
+      ( p.annual_pci_cost / 12 ) +
+      c.custom_monthly_fee_costs +
+      (c.custom_annual_fee_costs / 12 ) )
   end
 
   def set_compensation(c, p)
@@ -406,7 +421,10 @@ private
       c.total_program_costs ) * 
     ( p.residual_split.to_f / 100 ) )
     
-    c.total_program_bonus = p.up_front_bonus
+    c.total_program_bonus = 
+      p.up_front_bonus +
+      (c.custom_sales_bonus - c.custom_sales_bonus_costs)
+
   end
 
   def set_fixed_values(c)
@@ -504,24 +522,24 @@ private
         c.custom_vmd_per_item_fee_costs = (s.vmd_trans * c.custom_vmd_per_item_fee_cost)
       end
       if c.custom_vmd_volume_bp > 0 
-        c.custom_total_vmd_volume_bp_fees = (s.vmd_vol * ( c.custom_vmd_volume_bp / 100 ) )
-        c.custom_vmd_volume_bp_costs = (s.vmd_vol * ( c.custom_vmd_volume_bp_cost / 100 ) )
+        c.custom_total_vmd_volume_bp_fees = (s.vmd_vol * ( c.custom_vmd_volume_bp.to_f / 10000 ) )
+        c.custom_vmd_volume_bp_costs = (s.vmd_vol * ( c.custom_vmd_volume_bp_cost.to_f / 10000 ) )
       end
       if c.custom_amex_per_item > 0
         c.custom_total_amex_per_item_fees = (s.amex_trans * c.custom_amex_per_item)
         c.custom_amex_per_item_costs = (s.amex_trans * c.custom_amex_per_item_cost)
       end
       if c.custom_amex_volume_bp > 0
-        c.custom_total_amex_volume_bp_fees = (s.amex_vol * ( c.custom_amex_volume_bp / 100 ) )
-        c.custom_amex_volume_bp_costs = (s.amex_vol * ( c.custom_amex_volume_bp_cost / 100 ) )
+        c.custom_total_amex_volume_bp_fees = (s.amex_vol * ( c.custom_amex_volume_bp.to_f / 10000 ) )
+        c.custom_amex_volume_bp_costs = (s.amex_vol * ( c.custom_amex_volume_bp_cost.to_f / 10000 ) )
       end
       if c.custom_pin_per_item > 0
         c.custom_total_pin_per_item_fees = (s.debit_trans * c.custom_pin_per_item)
         c.custom_pin_per_item_costs = (s.debit_trans * c.custom_pin_per_item_cost)
       end
       if c.custom_pin_volume_bp > 0
-        c.custom_total_pin_volume_bp_fees = (s.debit_vol * ( c.custom_pin_volume_bp / 100 ) )
-        c.custom_pin_volume_bp_costs = (s.debit_vol * ( c.custom_pin_volume_bp_cost / 100 ) )
+        c.custom_total_pin_volume_bp_fees = (s.debit_vol * ( c.custom_pin_volume_bp.to_f / 10000 ) )
+        c.custom_pin_volume_bp_costs = (s.debit_vol * ( c.custom_pin_volume_bp_cost.to_f / 10000 ) )
       end
     end
   end
