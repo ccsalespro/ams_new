@@ -68,10 +68,13 @@ Rails.application.routes.draw do
   get 'admin_dashboard/index'
   get 'admin_dashboard/subscribe'
   get 'admin_dashboard/unsubscribe'
+    get 'admin_dashboard/training_subscribe'
+  get 'admin_dashboard/untraining_subscribe'
   get 'admin_dashboard/make_admin'
   get 'admin_dashboard/remove_admin'
   get 'admin_dashboard/show_user'
   get 'admin_dashboard/destroy_prospect'
+    get 'admin_dashboard/destroy_programuser_admin_panel'
 
   get 'tickets/mark_important'
   get 'tickets/mark_unimportant'

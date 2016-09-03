@@ -24,6 +24,11 @@
 <% else %>
 <%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
+<% if @user.training_subscribed == false %>
+<%= link_to('Unlock Courses', {:controller => 'admin_dashboard', :action => 'training_subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% else %>
+<%= link_to(' Lock Courses', {:controller => 'admin_dashboard', :action => 'untraining_subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% end -%>
 <%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 </center>
 <br>
@@ -124,8 +129,8 @@
 <% end -%>
 <% @user_pro.each do |program| %>
 <div class="well" style="padding: 10px !important; margin: 5px !important; ">
-    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>|| Private:<%= program.personal %>
-                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'WARNING!!! - ALL PROGRAM DATA WILL BE LOST' }, :class => 'pull-right' do %>
+    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %> || Private: <span class="text-capitalize"><%= program.personal %></span>
+                    <%= link_to({:controller => 'admin_dashboard', :action => 'destroy_programuser_admin_panel', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }) do %>
                     <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
                 <% end %>
     </div>

@@ -42,17 +42,21 @@
         <td><%= number_to_currency(program.min_per_item_fee) %></td>
         <td><%= program.system.name %></td>
         <td class="text-center" style="min-width: 130px !important;">
+              <% if current_user.admin? || program.personal == true %>
                 <%= link_to edit_processor_program_path(@processor, program), class: '' do %>
                   <i class="fa fa-pencil black fa-2x" aria-hidden="true"></i>
                 <% end -%>
+              <% end -%>
                 <%= link_to( {:controller => 'programusers', :action => 'destroy_programuser', :id => program.id}, class: '', data: { confirm: 'Are You Sure?' }) do %>
                   <i class="fa fa-trash-o fa-2x black" aria-hidden="true"></i>
                 <% end -%> 
-                <%= link_to( {:controller => 'programs', :action => 'clone', :id => program.id, :processor_id => @processor.id}, class: 'pull-right') do %>
-                  <i class="fa fa-clone fa-2x black" aria-hidden="true"></i>
-                <% end -%>
-                <%= link_to( program_custom_fields_path(program), class: '') do %>
+              <% if current_user.admin? || program.personal == true %>
+                <%= link_to( program_custom_fields_path(program), class: '', style: 'margin-right: 1px !important;') do %>
                   <i class="fa fa-table fa-2x black" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
+                <%= link_to( {:controller => 'programs', :action => 'clone', :id => program.id, :processor_id => @processor.id}, class: '') do %>
+                  <i class="fa fa-clone fa-2x black" aria-hidden="true"></i>
                 <% end -%>
           </td>
       </tr>

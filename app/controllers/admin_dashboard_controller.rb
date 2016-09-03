@@ -33,6 +33,49 @@ class AdminDashboardController < ApplicationController
 		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
 	end
 
+	def training_subscribe
+		@user = User.find_by_id(params[:id])
+		@user.training_subscribed = true
+		@user.save
+
+		@current_user_courses = Courseuser.where(user_id: current_user.id)
+		if @current_user_courses.count == 0
+		@courses = Course.all
+
+    @courses.each do |course|
+      @courseuser = Courseuser.new
+      @courseuser.user_id = current_user.id
+      @courseuser.course_id = course.id
+      @courseuser.save
+
+      course.chapters.each do |chapter|
+       @chapteruser = Chapteruser.new
+       @chapteruser.user_id = current_user.id
+       @chapteruser.course_id = course.id
+       @chapteruser.chapter_id = chapter.id
+       @chapteruser.save
+
+       chapter.lessons.each do |lesson|
+        @lessonuser = Lessonuser.new
+        @lessonuser.user_id = current_user.id
+        @lessonuser.course_id = course.id
+        @lessonuser.chapter_id = chapter.id
+        @lessonuser.lesson_id = lesson.id
+        @lessonuser.save
+       end
+      end
+    end
+  end
+		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
+	end
+
+	def untraining_subscribe
+		@user = User.find_by_id(params[:id])
+		@user.training_subscribed = false
+		@user.save
+		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
+	end
+
 	def make_admin
 		@user = User.find_by_id(params[:id])
 		@user.admin = true
@@ -46,6 +89,13 @@ class AdminDashboardController < ApplicationController
 		@user.save
 		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
 	end
+
+	 def destroy_programuser_admin_panel
+	 	@user = User.find_by_id(params[:user_id])
+    @programuser = Programuser.where(user_id: @user.id).where(program_id: params[:program_id]).first
+    @programuser.destroy
+    redirect_to :back, notice: 'Program Was Successfully Deleted From User'
+  end
 
 
 	def show_user
