@@ -98,7 +98,12 @@ class AdminDashboardController < ApplicationController
   end
 
   def assign_programs
+  	@user = User.find_by_id(params[:user_id])
+  	@program = Program.find_by_id(params[:program_id])
+  	@program_processor = Processor.find_by_id(@program.processor_id)
 
+
+  	@users = User.where(subscribed: true)
   end
 
 

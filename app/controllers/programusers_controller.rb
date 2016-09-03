@@ -32,6 +32,10 @@ class ProgramusersController < ApplicationController
   def create
     @programuser = Programuser.new(programuser_params)
 
+    if Programuser.exists?(user_id: @programuser.user_id, program_id: @programuser.program_id)
+      redirect_to :back, notice: 'Program Already Assigned To User!'
+    else
+
     respond_to do |format|
       if @programuser.save
         format.html { redirect_to :back, notice: 'Program Was Successfully Assigned To User' }
@@ -41,6 +45,9 @@ class ProgramusersController < ApplicationController
         format.json { render json: @programuser.errors, status: :unprocessable_entity }
       end
     end
+
+  end
+
   end
 
   # PATCH/PUT /programusers/1
