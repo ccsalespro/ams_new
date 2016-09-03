@@ -3,6 +3,9 @@ class SubscribersController < ApplicationController
 	before_filter :authenticate_user!
 	
 	def new
+		if current_user.subscribed == true
+			redirect_to prospects_path
+		end
 	end
 
 	def update
