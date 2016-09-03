@@ -122,6 +122,17 @@
 
 <div id="programs" class="tab-pane fade active">
 <h3 class="text-center bold">User Programs</h3>
+<br>
+<h4 class="text-center bold">Assign Program</h4>
+    <%= form_for(Programuser.new) do |f| %>
+        <p class="text-center">
+            <%= collection_select( :programuser, :program_id, Program.all, :id, :name, {}, { :multiple => false }) %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+            <%= f.submit "Assign", class: 'btn btn-primary' %>
+        </p>
+    <% end -%>
+<br><br>
+
     <% if @user_pro.count == 0 %>
     <div class="well" style="padding: 5px !important;">
         <h4 class="text-center">No Programs</h4>

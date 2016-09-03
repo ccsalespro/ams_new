@@ -27,6 +27,13 @@ Rails.application.routes.draw do
   resources :internal_contacts
   resources :processorusers
   get 'programusers/destroy_programuser'
+  resources :programusers do
+    collection do
+      get 'programusers/new'
+      get 'programusers/create'
+    end
+  end
+  
 
   resources :intcalcitems do
     collection { post :import }
@@ -68,13 +75,14 @@ Rails.application.routes.draw do
   get 'admin_dashboard/index'
   get 'admin_dashboard/subscribe'
   get 'admin_dashboard/unsubscribe'
-    get 'admin_dashboard/training_subscribe'
+  get 'admin_dashboard/training_subscribe'
   get 'admin_dashboard/untraining_subscribe'
   get 'admin_dashboard/make_admin'
   get 'admin_dashboard/remove_admin'
   get 'admin_dashboard/show_user'
   get 'admin_dashboard/destroy_prospect'
-    get 'admin_dashboard/destroy_programuser_admin_panel'
+  get 'admin_dashboard/destroy_programuser_admin_panel'
+  get 'admin_dashboard/assign_programs'
 
   get 'tickets/mark_important'
   get 'tickets/mark_unimportant'

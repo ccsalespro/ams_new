@@ -97,6 +97,10 @@ class AdminDashboardController < ApplicationController
     redirect_to :back, notice: 'Program Was Successfully Deleted From User'
   end
 
+  def assign_programs
+
+  end
+
 
 	def show_user
 		@user = User.find_by_id(params[:id])
@@ -112,7 +116,7 @@ class AdminDashboardController < ApplicationController
 	    @user_pro = []
     	@user_programusers.each do |programuser|
 			@program = Program.find_by_id(programuser.program_id)
-			@user_pro << @program		
+			@user_pro << @program
     	end
 
     	@user_statements = []
@@ -123,6 +127,7 @@ class AdminDashboardController < ApplicationController
 			end
 
 			@user_prospects = Prospect.where(user_id: @user.id)
+
 
 	end
 
