@@ -86,6 +86,7 @@ class ProgramsController < ApplicationController
     @programuser = Programuser.new
     @programuser.user_id = current_user.id
     @programuser.program_id = @clone.id
+    @programuser.edit_permission = true
     @programuser.save
 
     @custom_fields = CustomField.where(program_id: @program.id)
