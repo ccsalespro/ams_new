@@ -241,7 +241,7 @@
 <i class="fa fa-plus fab-plus" aria-hidden="true"></i>
 <% end %>
 <% if current_user.admin? %>
-<%= link_to({:controller => 'admin_dashboard', :action => 'index'}, class: 'btn btn-primary admin-btn bold') do %>
+<%= link_to users_path, class: 'btn btn-primary admin-btn bold' do %>
     <i class="fa fa-terminal admin-plus bold" aria-hidden="true"></i>
 <% end -%>
 <% end -%>

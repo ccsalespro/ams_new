@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :internal_contacts
   resources :processorusers
   get 'programusers/destroy_programuser'
+  get 'programusers/toggle_edit_permission'
   resources :programusers do
     collection do
       get 'programusers/new'

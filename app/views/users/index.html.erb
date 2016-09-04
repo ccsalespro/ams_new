@@ -19,6 +19,25 @@
 <a id="more" class="black bold visible no-dec" style="cursor: pointer;">More Analytics</a>
 </div>
 
+    <div class="col-xs-12">
+        <%= search_form_for @search do |f| %>
+        <div class="input-group stylish-input-group">
+            <%= f.search_field :email_or_first_name_or_last_name_or_phone_number_cont, :class => 'form-control', :placeholder => 'Search' %>
+            <span class="input-group-addon">
+            <% if @search.email_or_first_name_or_last_name_or_phone_number_cont == nil %>
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search" style="padding-top: 1px !important;"></span>
+                </button>
+              <% else %>
+                <%= link_to users_path do %>
+                  <i class="fa fa-times-circle-o black big-fa" style="color: #575757 !important; padding-top: 1px !important; cursor: pointer; font-size: 20px !important;" aria-hidden="true"></i>
+                <% end -%>
+              <% end -%>
+            </span>
+        </div>
+        <% end %>
+    </div> <div class="clearfix"></div><br>
+
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr class="total white">

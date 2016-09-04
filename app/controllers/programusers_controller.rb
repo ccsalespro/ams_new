@@ -27,6 +27,23 @@ class ProgramusersController < ApplicationController
     redirect_to programs_path, notice: 'Program Was Successfully Deleted'
   end
 
+
+def toggle_edit_permission
+   @programuser = Programuser.where(user_id: params[:user_id]).where(program_id: params[:program_id]).first
+     if @programuser.edit_permission == true
+      @programuser.edit_permission = false
+     else
+      @programuser.edit_permission = true
+     end
+   @programuser.save
+   
+   if @programuser.edit_permission == true
+     redirect_to :back, notice: 'Edit Permission Given'
+    else
+     redirect_to :back, notice: 'Edit Permission Taken'
+    end
+end
+
   # POST /programusers
   # POST /programusers.json
   def create
