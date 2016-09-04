@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902175520) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160904000656) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "body"
@@ -498,8 +492,9 @@ ActiveRecord::Schema.define(version: 20160902175520) do
   create_table "programusers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "program_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "edit_permission", default: false
   end
 
   add_index "programusers", ["program_id"], name: "index_programusers_on_program_id"
