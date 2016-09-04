@@ -82,6 +82,6 @@ class ProgramusersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def programuser_params
-      params.require(:programuser).permit(:user_id, :program_id)
+      params.require(:programuser).permit(:user_id, :program_id, :edit_permission)
     end
 end
