@@ -2,6 +2,9 @@ class SubscribetocoursesController < ApplicationController
   before_action :set_subscribetocourse, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  def index
+  end
+  
   def new
   end
 
