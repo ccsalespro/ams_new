@@ -42,7 +42,8 @@
         <td><%= number_to_currency(program.min_per_item_fee) %></td>
         <td><%= program.system.name %></td>
         <td class="text-center" style="min-width: 130px !important;">
-              <% if current_user.admin? || program.personal == true %>
+              <% @programuser = Programuser.where(user_id: current_user.id).where(program_id: program.id).last %>
+              <% if @programuser.edit_permission == true %>
                 <%= link_to edit_processor_program_path(@processor, program), class: '' do %>
                   <i class="fa fa-pencil black fa-2x" aria-hidden="true"></i>
                 <% end -%>
@@ -50,7 +51,8 @@
                 <%= link_to( {:controller => 'programusers', :action => 'destroy_programuser', :id => program.id}, class: '', data: { confirm: 'Are You Sure?' }) do %>
                   <i class="fa fa-trash-o fa-2x black" aria-hidden="true"></i>
                 <% end -%> 
-              <% if current_user.admin? || program.personal == true %>
+              <% @programuser = Programuser.where(user_id: current_user.id).where(program_id: program.id).last %>
+              <% if @programuser.edit_permission == true %>
                 <%= link_to( program_custom_fields_path(program), class: '', style: 'margin-right: 1px !important;') do %>
                   <i class="fa fa-table fa-2x black" aria-hidden="true"></i>
                 <% end -%>
@@ -88,9 +90,10 @@
                         <li class="list-group-item">
                             <b>Basis Points:
                             </b><%= program.min_bp_mark_up %></li>
-                        <% if program.personal == true || current_user.admin == true %>
+                        <% @programuser = Programuser.where(user_id: current_user.id).where(program_id: program.id).last %>
+                        <% if @programuser.edit_permission == true %>
                           <li class="list-group-item"><%= link_to 'Edit', edit_processor_program_path(@processor, program), class: 'btn btn-primary' %>
-                              <%= link_to 'Delete', [@processor, program], method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
+                              <%= link_to( {:controller => 'programusers', :action => 'destroy_programuser', :id => program.id}, class: 'btn btn-primary', data: { confirm: 'Are You Sure?' }) %>
                               <%= link_to('Clone', {:controller => 'programs', :action => 'clone', :id => program.id, :processor_id => @processor.id}, class: 'btn btn-primary') %>
                               <div class="clearfix custom-field"></div>
                               <%= link_to('Custom Field', program_custom_fields_path(program), class: 'btn btn-primary wide-btn') %>

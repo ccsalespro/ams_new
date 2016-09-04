@@ -47,16 +47,6 @@ class LessonsController < ApplicationController
       end
     end
 
-      @subscribed_users = User.where(training_subscribed: true)
-      @subscribed_users.each do |user|
-      @lessonuser = Lessonuser.new
-      @lessonuser.user_id = user.id
-      @lessonuser.course_id = @course.id
-      @lessonuser.chapter_id = @chapter.id
-      @lessonuser.lesson_id = @lesson.id
-      @lessonuser.save
-    end
-
   end
 
   # PATCH/PUT /lessons/1
