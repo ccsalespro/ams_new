@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905020200) do
+ActiveRecord::Schema.define(version: 20160905024448) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -501,6 +501,7 @@ ActiveRecord::Schema.define(version: 20160905020200) do
   end
 
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"
+  add_index "prospects", ["user_id", "created_at"], name: "index_prospects_on_user_id_and_created_at"
   add_index "prospects", ["user_id"], name: "index_prospects_on_user_id"
 
   create_table "stages", force: :cascade do |t|
