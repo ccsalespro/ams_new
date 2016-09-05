@@ -563,7 +563,7 @@ ActiveRecord::Schema.define(version: 20160905020200) do
     t.string   "presented_program"
   end
 
-  add_index "statements", ["prospect_id"], name: "index_statements_on_prospect_id"
+  add_index "statements", ["prospect_id", "created_at"], name: "index_statements_on_prospect_id_and_created_at"
 
   create_table "structures", force: :cascade do |t|
     t.string   "name"
