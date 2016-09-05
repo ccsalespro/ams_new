@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904000656) do
+ActiveRecord::Schema.define(version: 20160905020200) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -562,6 +562,8 @@ ActiveRecord::Schema.define(version: 20160904000656) do
     t.decimal  "form_percentage"
     t.string   "presented_program"
   end
+
+  add_index "statements", ["prospect_id"], name: "index_statements_on_prospect_id"
 
   create_table "structures", force: :cascade do |t|
     t.string   "name"
