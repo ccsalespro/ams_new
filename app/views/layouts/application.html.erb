@@ -17,9 +17,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
    <%= stylesheet_link_tag('print', :media => :print) %>
 
+    <%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
+
 	  <title>IQ</title>
         <%= stylesheet_link_tag('application', :media => 'all') %>
-        <%= javascript_include_tag "application" %>
+        <%= javascript_include_tag 'application' %>
         <%= csrf_meta_tags %>
 	</head>
 <body>
@@ -62,7 +64,7 @@
 
                     <% if user_signed_in? && current_user.subscribed == false %>
                       <li class="">
-                        <%= link_to('Subscribe', new_subscriber_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                        <%= link_to('Subscribe', new_subscription_path, :class => 'a-tag-for-navbar-links nav-font') %>
                       </li>
                     <% end -%>
 

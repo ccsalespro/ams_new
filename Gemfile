@@ -21,12 +21,13 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'coffee-script-source', '1.8.0'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 
 gem 'ransack'
 
 gem 'stripe'
+
+gem 'stripe_event', '~> 1.5'
 
 gem 'administrate'
 
@@ -39,6 +40,8 @@ gem 'font-awesome-sass'
 gem 'redcarpet'
 
 gem 'jquery-datetimepicker-rails'
+
+gem 'jquery-turbolinks'
 
 gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
 

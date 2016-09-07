@@ -19,7 +19,7 @@
                   </div>
                   <div class="col-md-4">
                     <% if user_signed_in? && current_user.subscribed == false %>
-                      <%= link_to "Start 30 Day Free Trial", new_subscriber_path, :class => 'btn btn-lg btn-primary btn-block bold' %>  
+                      <%= link_to "Start 30 Day Free Trial", new_subscription_path, :class => 'btn btn-lg btn-primary btn-block bold' %>  
                     <% else %>
                         <%= link_to "Start 30 Day Free Trial", static_pricing_path, :class => 'btn btn-lg btn-primary btn-block bold' %>
                     <% end -%>
