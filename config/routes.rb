@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root to: 'static#index'
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   resources :custom_field_types
   resources :courseusers
   resources :systems
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :images
   resource :subscription
+  resource :card
 
   resources :lessonusers do
     member do

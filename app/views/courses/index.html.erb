@@ -52,7 +52,7 @@
                 <% if user_signed_in? && current_user.training_subscribed == true %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
+                    <center><%= link_to("Start Your Free Trial", new_subscription_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <% if user_signed_in? && current_user.training_subscribed == true %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><%= link_to("Start Your Free Trial", new_subscriber_path, :class => 'btn btn-primary bold' ) %></center>
+                    <center><%= link_to("Start Your Free Trial", new_subscription_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>

@@ -5,6 +5,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
+    if current_user.subscribed == true
+      redirect_to prospects_path
+    end
   end
 
   def create
@@ -22,13 +25,11 @@ class SubscriptionsController < ApplicationController
     current_user.update(
         stripeid: customer.id,
         stripe_subscription_id: subscription.id,
-        card_last4: customer.default_source.last4,
-        card_exp_month: params[:card_exp_month],
-        card_exp_year: params[:card_exp_year],
-        card_type: params[:card_brand]
+        subscribed: true,
+        training_subscribed: true,
       )
 
-    fail
+    raise subscription
   end
   
   def destroy

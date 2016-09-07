@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   after_create :create_notification, :add_programs
   after_destroy :cancel_notification
 
+  def stripe_subscribed?
+    stripe_subscription_id?
+  end
+
   def create_notification
     AdminMailer.new_user(self).deliver
   end
