@@ -1,59 +1,59 @@
 <div class="container-fluid">
-<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-<h2 class="black-standard bold"><span class="hidden-xs">User Profile </span><span class="visible-xs"><center>User Profile </center></span>
-<span class="pull-right hidden-xs"><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></span>
-<span class="visible-xs"><center><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></center></span></h2>
+  <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <h2 class="black-standard bold"><span class="hidden-xs">User Profile </span><span class="visible-xs"><center>User Profile </center></span>
+    <span class="pull-right hidden-xs"><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></span>
+    <span class="visible-xs"><center><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></center></span></h2>
 
-  <div class="well">
-<%= devise_error_messages! %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-<div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number, :class => 'form-control' %>
-  </div>
+      <div class="well">
+        <%= devise_error_messages! %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="field">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :phone_number %><br />
+        <%= f.text_field :phone_number, :class => 'form-control' %>
+      </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
-    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
-  </div>
+      <div class="field">
+        <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
+        <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
-  </div>
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
-  </div>
-  <br>
-  <div class="actions text-center">
-  <%= button_tag("Update", :class => 'btn btn-primary') %>
-  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), static_index_path) %>
-  </div>
-<% end %>
+      <div class="field">
+        <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+      </div>
+      <br>
+      <div class="actions text-center">
+        <%= button_tag("Update", :class => 'btn btn-primary') %>
+        <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), static_index_path) %>
+      </div>
+    <% end %>
 
-<% if current_user.stripe_subscribed? %>
+  <% if current_user.stripe_subscribed? %>
 
-<h3>Edit Payment Info</h3>
+    <h3>Replace Card on File</h3>
 
-<%= form_tag subscription_path, method: :put, id: "payment-form" do %>
+    <%= form_tag subscription_path, method: :put, id: "payment-form" do %>
       <span class="payment-errors"></span>
 
       <div class="field">
@@ -79,17 +79,27 @@
         </label>
       </div>
 
-
       <input type="submit" class="submit" value="Update Card">
     <% end %>
-<div class="text-center">
-<h3>Cancel My Account</h3>
-<%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
-</div>
+    <div class="text-center">
+    <h3>Cancel My Account</h3>
+    <%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
+    </div>
 
   <% end %>
+  </div>
+</div>
 
+<script type="text/javascript">
+$(document).ready(function(){    
+    //Check if the current URL contains '#'
+    if(document.URL.indexOf("#")==-1){
+        // Set the URL to whatever it was plus "#".
+        url = document.URL+"#";
+        location = "#";
 
-</div>
-</div>
-</div>
+        //Reload the page
+        location.reload(true);
+    }
+});
+</script>
