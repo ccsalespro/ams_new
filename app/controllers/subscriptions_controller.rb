@@ -29,10 +29,30 @@ class SubscriptionsController < ApplicationController
         training_subscribed: true,
       )
 
-    raise subscription
+    redirect_to root_path
+  end
+
+  def update
+    customer = Stripe::Customer.retrieve(current_user.stripeid)
+    subscription = customer.subscriptions.retrieve(current_user.stripe_subscription_id)
+    subscription.source = params[:stripeToken]
+    subscription.save
+
+    redirect_to edit_user_registration_path, notice: "Your Payment Information Updated Successfully"
+
+
   end
   
   def destroy
+    customer = Stripe::Customer.retrieve(current_user.stripeid)
+    customer.subscriptions.retrieve(current_user.stripe_subscription_id).delete
+    current_user.update(
+      stripe_subscription_id: nil,
+      subscribed: false,
+      training_subscribed: false
+    )
+
+    redirect_to root_path, notice: "Your subscription has been canceled."
   end
 
   private

@@ -53,88 +53,43 @@
 
 <h3>Edit Payment Info</h3>
 
-<%= form_tag card_path, method: :put, id: "payment-form" do %>
+<%= form_tag subscription_path, method: :put, id: "payment-form" do %>
       <span class="payment-errors"></span>
 
       <div class="field">
         <label>
           <span>Card Number</span>
-          <input value="4242 4242 4242 4242" type="text" size="20" data-stripe="number" class="form-controll">
+          <input type="text" size="20" data-stripe="number" class="form-controll">
         </label>
       </div>
 
       <div class="field">
         <label>
           <span>Expiration (MM/YY)</span>
-          <input value="12" type="text" size="2" data-stripe="exp_month" class="form-controll">
+          <input type="text" size="2" data-stripe="exp_month" class="form-controll">
         </label>
         <span> / </span>
-        <input value="20" type="text" size="2" data-stripe="exp_year" class="form-controll">
+        <input type="text" size="2" data-stripe="exp_year" class="form-controll">
       </div>
 
       <div class="form-row">
         <label>
           <span>CVC</span>
-          <input value="123" type="text" size="4" data-stripe="cvc">
+          <input type="text" size="4" data-stripe="cvc">
         </label>
       </div>
 
 
       <input type="submit" class="submit" value="Update Card">
     <% end %>
+<div class="text-center">
+<h3>Cancel My Account</h3>
+<%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
+</div>
 
   <% end %>
 
-<div class="text-center">
-<h3>Cancel My Account</h3>
-<%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), registration_path(resource_name), data: { confirm: "Are You Sure?" }, method: :delete) %>
+
 </div>
 </div>
 </div>
-</div>
-<br>
-
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-<script type="text/javascript">
-  Stripe.setPublishableKey($("meta[name='stripe-key']").attr("content"))
-
-  $(function() {
-    var $form = $('#payment-form');
-    $form.submit(function(event) {
-      // Disable the submit button to prevent repeated clicks:
-      $form.find('.submit').prop('disabled', true);
-
-      // Request a token from Stripe:
-      Stripe.card.createToken($form, stripeResponseHandler);
-
-      // Prevent the form from being submitted:
-      return false;
-    });
-  });
-
-function stripeResponseHandler(status, response) {
-  // Grab the form:
-  var $form = $('#payment-form');
-
-  if (response.error) { // Problem!
-
-    // Show the errors on the form:
-    $form.find('.payment-errors').text(response.error.message);
-    $form.find('.submit').prop('disabled', false); // Re-enable submission
-
-  } else { // Token was created!
-
-    // Get the token ID:
-    var token = response.id;
-
-    // Insert the token ID into the form so it gets submitted to the server:
-    $form.append($('<input type="hidden" name="stripeToken">').val(token));
-
-    // Submit the form:
-    $form.get(0).submit();
-  }
-};
-
-
-</script>
