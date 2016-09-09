@@ -335,9 +335,11 @@ class ProgramsController < ApplicationController
     end
 
     def require_edit_permission
-      @programuser = Programuser.where(user_id: current_user.id).where(program_id: @program.id).last
-      unless @programuser.edit_permission?
-        redirect_to programs_path, notice: "You are not authorized to edit this program - Contact Administrator"
+      if current_user.admin != true
+        @programuser = Programuser.where(user_id: current_user.id).where(program_id: @program.id).last
+        unless @programuser.edit_permission?
+          redirect_to programs_path, notice: "You are not authorized to edit this program - Contact Administrator"
+        end
       end
   end
 end
