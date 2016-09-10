@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907033931) do
+ActiveRecord::Schema.define(version: 20160910204602) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -320,11 +320,12 @@ ActiveRecord::Schema.define(version: 20160907033931) do
     t.string   "title"
     t.string   "video"
     t.integer  "minutes"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "chapter_id"
     t.datetime "completed_at"
     t.text     "description"
+    t.integer  "lesson_number"
   end
 
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"

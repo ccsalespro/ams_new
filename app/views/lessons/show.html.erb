@@ -1,8 +1,26 @@
 <br><br>
 
+<% @next_lesson = Lesson.where(lesson_number: @lesson.lesson_number + 1).first %>
+<% @last_lesson = Lesson.where(lesson_number: @lesson.lesson_number - 1).first %>
 
 <div class="container">
 <div class="well">
+
+<% if @lesson.lesson_number != 1 %>
+<% @lessonuser = Lessonuser.where(lesson_id = @last_lesson.id) %>
+  <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary' %>
+<% else %>
+  <button class="disabled btn btn-primary">Previous Lesson</button>
+<% end %>
+
+<span class="pull-right">
+  <% if @next_lesson.blank? != true %>
+    <%= link_to 'Next Lesson', course_chapter_lesson_path(@course, @chapter, @next_lesson), class: 'btn btn-primary' %>
+  <% else %>
+    <button class="disabled btn btn-primary">Next Lesson</button>
+  <% end -%>
+</span><br>
+
 <div class="">
 <h1 class="lesson-title">
   <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>

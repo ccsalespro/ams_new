@@ -112,6 +112,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   
+  get 'lessonusers/link_complete'
   get 'programusers/destroy_programuser'
   get 'programs/clone'
   get 'blogs/index'

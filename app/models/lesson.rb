@@ -6,4 +6,6 @@ class Lesson < ActiveRecord::Base
 		!completed_at.blank?
 	end
 
+  default_scope -> { order(lesson_number: :asc) }
+
 end
