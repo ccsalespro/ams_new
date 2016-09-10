@@ -1,0 +1,88 @@
+<div class="container-fluid"><br>
+
+	<h1 class="text-center">Tickets</h1>
+
+	<ul class="nav nav-tabs">
+  <li class="active black bold"><a data-toggle="tab" href="#important" class="black bold">Important</a></li>
+  <li class="black bold"><a data-toggle="tab" href="#unimportant" class="black bold">Regular</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="important" class="tab-pane fade in active"><br>
+    <% @important_tickets.each do |ticket| %>
+    	<% date = ticket.created_at %>
+	    <% date = date.to_s[0,10] %>
+	    <% date = date.split("-") %>
+	    <% timeyear = date[0] %>
+	    <% timemonth = date[1] %>
+	    <% timeday = date[2] %>
+	    <% @ticket_made_on = "#{timemonth}/#{timeday}/#{timeyear}" %>
+		<% @ticket_maker = User.where(id: ticket.admin_user_id) %>
+			<div class="clearfix delete">
+			<% if ticket.important == true %>
+				<div class="well" style="border: 2px solid red !important; border-radius: 5px !important; padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;">
+				<% else %>
+				<div style="padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;" class="well">
+				<% end -%>
+				<div class="btn-group pull-right">
+					
+					<% if ticket.important == false %>
+						<%= link_to({:controller => 'tickets', :action => 'mark_important', :id => ticket.id}, class: '') do %>
+							<i class="fa fa-square-o black" style="margin-top: 5px !important;" aria-hidden="true"></i>
+						<% end -%>
+					<% else %>
+						<%= link_to({:controller => 'tickets', :action => 'mark_unimportant', :id => ticket.id}, class: '') do %>
+							<i class="fa fa-check-square-o black" style="margin-top: 5px !important;" aria-hidden="true"></i>
+						<% end -%>
+					<% end -%>
+
+						<%= link_to user_ticket_path(ticket.user_id, ticket), method: :delete, :class => 'delete-ticket', :remote => true, data: { confirm: 'Are You Sure?' } do %>
+						   <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+						<% end %>
+				</div>
+				<p class="text-left no-margin-bottom"><small class=""><strong><%= @ticket_maker.first.email %> (<%= @ticket_made_on %>)</strong></small></p>
+					<p class="text-left"><%= ticket.body %></p>
+				</div>
+			</div>
+	<% end -%>
+  </div>
+  <div id="unimportant" class="tab-pane fade"><br>
+    <% @unimportant_tickets.each do |ticket| %>
+    	<% date = ticket.created_at %>
+	    <% date = date.to_s[0,10] %>
+	    <% date = date.split("-") %>
+	    <% timeyear = date[0] %>
+	    <% timemonth = date[1] %>
+	    <% timeday = date[2] %>
+	    <% @ticket_made_on = "#{timemonth}/#{timeday}/#{timeyear}" %>
+		<% @ticket_maker = User.where(id: ticket.admin_user_id) %>
+			<div class="clearfix delete">
+			<% if ticket.important == true %>
+				<div class="well" style="border: 2px solid red !important; border-radius: 5px !important; padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;">
+				<% else %>
+				<div style="padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;" class="well">
+				<% end -%>
+				<div class="btn-group pull-right">
+					
+					<% if ticket.important == false %>
+						<%= link_to({:controller => 'tickets', :action => 'mark_important', :id => ticket.id}, class: '') do %>
+							<i class="fa fa-square-o black" style="margin-top: 5px !important;" aria-hidden="true"></i>
+						<% end -%>
+					<% else %>
+						<%= link_to({:controller => 'tickets', :action => 'mark_unimportant', :id => ticket.id}, class: '') do %>
+							<i class="fa fa-check-square-o black" style="margin-top: 5px !important;" aria-hidden="true"></i>
+						<% end -%>
+					<% end -%>
+
+						<%= link_to user_ticket_path(ticket.user_id, ticket), method: :delete, :class => 'delete-ticket', :remote => true, data: { confirm: 'Are You Sure?' } do %>
+						   <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+						<% end %>
+				</div>
+				<p class="text-left no-margin-bottom"><small class=""><strong><%= @ticket_maker.first.email %> (<%= @ticket_made_on %>)</strong></small></p>
+					<p class="text-left"><%= ticket.body %></p>
+				</div>
+			</div>
+	<% end -%>
+  </div>
+</div>
+</div>

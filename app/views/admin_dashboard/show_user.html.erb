@@ -143,7 +143,7 @@
                      <% end -%>
 
                 <%= link_to({:controller => 'programusers', :action => 'toggle_edit_permission', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
-                    <% @programuser = Programuser.where(user_id: @user.id).where(program_id: program.id).first %>
+                    <% @programuser = Programuser.where(user_id: @user.id, program_id: program.id).first %>
                     <% if @programuser.edit_permission == true %>
                         <i class="fa fa-pencil big-fa green" aria-hidden="true"></i>
                     <% else %>

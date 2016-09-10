@@ -1,5 +1,12 @@
 <%= div_for(ticket) do %>
 <% @ticket_maker = User.where(id: ticket.admin_user_id) %>
+			<% date = ticket.created_at %>
+	    <% date = date.to_s[0,10] %>
+	    <% date = date.split("-") %>
+	    <% timeyear = date[0] %>
+	    <% timemonth = date[1] %>
+	    <% timeday = date[2] %>
+	    <% @ticket_made_on = "#{timemonth}/#{timeday}/#{timeyear}" %>
 	<div class="clearfix delete">
 	<% if ticket.important == true %>
 		<div class="well" style="border: 2px solid red !important; border-radius: 5px !important; padding: 10px !important; margin-bottom: 5px !important; padding-bottom: 5px !important;">
@@ -22,7 +29,7 @@
 				   <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
 				<% end %>
 		</div>
-		<p class="text-left no-margin-bottom"><small class=""><strong><%= @ticket_maker.first.email %></strong></small></p>
+		<p class="text-left no-margin-bottom"><small class=""><strong><%= @ticket_maker.first.email %> (<%= @ticket_made_on %>)</strong></small></p>
 			<p class="text-left"><%= ticket.body %></p>
 		</div>
 	</div>

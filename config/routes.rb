@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     collection do
       get 'programusers/new'
       get 'programusers/create'
+      get 'programusers/toggle_edit_permission'
     end
   end
   
@@ -112,7 +113,6 @@ Rails.application.routes.draw do
   end
   
   get 'programusers/destroy_programuser'
-  get 'programusers/toggle_edit_permission'
   get 'programs/clone'
   get 'blogs/index'
   get 'tasks/index'
@@ -139,6 +139,7 @@ Rails.application.routes.draw do
   get 'admin_dashboard/destroy_prospect'
   get 'admin_dashboard/destroy_programuser_admin_panel'
   get 'admin_dashboard/assign_programs'
+  get 'admin_dashboard/all_tickets'
   get 'tickets/mark_important'
   get 'tickets/mark_unimportant'
   get 'tasks/mark_complete'

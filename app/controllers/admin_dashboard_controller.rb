@@ -140,6 +140,11 @@ class AdminDashboardController < ApplicationController
 
 	end
 
+	def all_tickets
+		@tickets = Ticket.all
+		@important_tickets, @unimportant_tickets = @tickets.partition { |ticket| ticket.important == true }
+	end
+
 	 def destroy_prospect
 	 	@prospect = Prospect.find_by_id(params[:id])
     @prospect.destroy

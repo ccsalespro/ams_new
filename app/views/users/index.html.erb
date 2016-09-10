@@ -19,6 +19,8 @@
 <a id="more" class="black bold visible no-dec" style="cursor: pointer;">More Analytics</a>
 </div>
 
+<center><%= link_to('All Tickets', {:controller => 'admin_dashboard', :action => 'all_tickets'}, class: 'bold btn btn-primary')  %></center><br>
+
     <div class="col-xs-12">
         <%= search_form_for @search do |f| %>
         <div class="input-group stylish-input-group">
