@@ -1,5 +1,4 @@
 class ProgramusersController < ApplicationController
-  before_action :require_admin, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   # GET /programusers
   # GET /programusers.json
@@ -40,7 +39,7 @@ def toggle_edit_permission
    if @programuser.edit_permission == true
      redirect_to :back, notice: 'Edit Permission Given'
     else
-     redirect_to :back, notice: 'Edit Permission Taken'
+     redirect_to :back, notice: 'Edit Permission Removed'
     end
 end
 
