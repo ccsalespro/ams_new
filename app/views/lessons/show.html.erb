@@ -1,15 +1,16 @@
 <br><br>
+<center>
 
 <% @next_lesson = Lesson.where(lesson_number: @lesson.lesson_number + 1).where(course_id: @course.id).first %>
 <% @last_lesson = Lesson.where(lesson_number: @lesson.lesson_number - 1).where(course_id: @course.id).first %>
 
 <div class="container">
-  <div class="well" style="max-width: 550px; min-width: 550px;">
+  <div class="well" style="max-width: 800px;">
     <% if @lesson.lesson_number != 1 %>
     <% @lessonuser = Lessonuser.where(lesson_id = @last_lesson.id) %>
-      <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary' %>
+      <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary pull-left' %>
     <% else %>
-      <%= link_to 'Back to Courses', courses_path, class: 'btn btn-primary' %>
+      <%= link_to 'Back to Courses', courses_path, class: 'btn btn-primary pull-left' %>
     <% end %>
 
     <span class="pull-right">
@@ -18,10 +19,10 @@
       <% else %>
         <%= link_to 'Courses', courses_path, class: 'btn btn-primary' %>
       <% end -%>
-    </span><br>
+    </span><br><br>
 
     <div class="">
-      <h1 class="lesson-title">
+      <h1 class="lesson-title text-left">
         <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
         <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> 
         <span class="col-xs-1 no-padding hidden-xs" style="margin-bottom: 10px !important;">
@@ -42,7 +43,7 @@
      <%= @lesson.video.html_safe %>
      </div>
      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-right: 10px !important;">
-     	<div class="well">
+     	<div class="well text-left">
      		<%= @lesson.description.html_safe %>
      	</div>
      </div>
@@ -57,3 +58,4 @@
   </div>
 <% end -%>
 <br>
+</center>
