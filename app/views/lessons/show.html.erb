@@ -4,74 +4,50 @@
 <% @last_lesson = Lesson.where(lesson_number: @lesson.lesson_number - 1).where(course_id: @course.id).first %>
 
 <div class="container">
-<div class="well">
+  <div class="well" style="max-width: 550px; min-width: 550px;">
+    <% if @lesson.lesson_number != 1 %>
+    <% @lessonuser = Lessonuser.where(lesson_id = @last_lesson.id) %>
+      <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to 'Back to Courses', courses_path, class: 'btn btn-primary' %>
+    <% end %>
 
-<% if @lesson.lesson_number != 1 %>
-<% @lessonuser = Lessonuser.where(lesson_id = @last_lesson.id) %>
-  <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary' %>
-<% else %>
-  <button class="disabled btn btn-primary">Previous Lesson</button>
-<% end %>
+    <span class="pull-right">
+      <% if @next_lesson.blank? != true %>
+        <%= link_to 'Next Lesson', course_chapter_lesson_path(@course, @chapter, @next_lesson), class: 'btn btn-primary' %>
+      <% else %>
+        <%= link_to 'Courses', courses_path, class: 'btn btn-primary' %>
+      <% end -%>
+    </span><br>
 
-<span class="pull-right">
-  <% if @next_lesson.blank? != true %>
-    <%= link_to 'Next Lesson', course_chapter_lesson_path(@course, @chapter, @next_lesson), class: 'btn btn-primary' %>
-  <% else %>
-    <button class="disabled btn btn-primary">Next Lesson</button>
-  <% end -%>
-</span><br>
-
-<div class="">
-<h1 class="lesson-title">
-  <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
-  <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> 
-  <span class="col-xs-1 no-padding hidden-xs" style="margin-bottom: 10px !important;">
-  	  <span class="pull-right time-font no-margin">
-
-
-<span><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b>m<% else %>m<% end -%></span>
+    <div class="">
+      <h1 class="lesson-title">
+        <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
+        <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> 
+        <span class="col-xs-1 no-padding hidden-xs" style="margin-bottom: 10px !important;">
+        	  <span class="pull-right time-font no-margin">
 
 
-<div class="clearfix"></div><br>
-  </span>
-  </span>
-</h1>
-</div>
-<div class="clearfix"></div>
+        <span><b><%= @lesson.minutes %></b><% if @lesson.minutes == nil %> <b>0</b>m<% else %>m<% end -%></span>
 
 
-<% if @lesson.video != "" %>
-<center class="visible-sm visible-xs">
-  <%= @lesson.video.html_safe %>
-  <span class="visible-xs visible-sm"><br></span>
- </center>
-  <% end -%>
-
-<% if @lesson.video != "" %>
- <div class="row">
-
- <div class="hidden-xs hidden-sm col-md-6 col-lg-6" style="padding-right: 10px !important;">
- <%= @lesson.video.html_safe %>
- </div>
- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 description-padding pull-right">
- 	<div class="well">
- 		<%= @lesson.description.html_safe %>
- 	</div>
- </div>
-
- </div>
- <% else -%>
- <div class="row">
-
-  <div class="well">
-    <center><%= @lesson.description.html_safe %></center>
+        <div class="clearfix"></div><br>
+        </span>
+        </span>
+      </h1>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-right: 10px !important;">
+     <%= @lesson.video.html_safe %>
+     </div>
+     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-right: 10px !important;">
+     	<div class="well">
+     		<%= @lesson.description.html_safe %>
+     	</div>
+     </div>
+    </div>
   </div>
-
-
- </div>
- <% end -%>
-
-</div>
 </div>
 
 <% if user_signed_in? && current_user.admin? %>

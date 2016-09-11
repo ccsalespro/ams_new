@@ -38,6 +38,7 @@ class LessonsController < ApplicationController
   # POST /lessons.json
   def create
     @lesson = @chapter.lessons.new(lesson_params)
+    @lesson.course_id = @course.id
 
     respond_to do |format|
       if @lesson.save
