@@ -1,7 +1,7 @@
 <br><br>
 
-<% @next_lesson = Lesson.where(lesson_number: @lesson.lesson_number + 1).where(chapter_id: @chapter.id).first %>
-<% @last_lesson = Lesson.where(lesson_number: @lesson.lesson_number - 1).where(chapter_id: @chapter.id).first %>
+<% @next_lesson = Lesson.where(lesson_number: @lesson.lesson_number + 1).where(course_id: @course.id).first %>
+<% @last_lesson = Lesson.where(lesson_number: @lesson.lesson_number - 1).where(course_id: @course.id).first %>
 
 <div class="container">
 <div class="well">
