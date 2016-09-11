@@ -29,6 +29,10 @@
   <div class="field">
     <%= f.label :minutes %><br>
     <%= f.number_field :minutes, :class => 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Lesson Number', class: 'text-capitalize' %><br>
+    <%= f.number_field :lesson_number, :class => 'form-control', required: true %>
   </div><br>
   <div class="actions">
     <button class="btn btn-primary">Save</button>

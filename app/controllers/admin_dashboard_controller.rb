@@ -136,8 +136,6 @@ class AdminDashboardController < ApplicationController
 			end
 
 			@user_prospects = Prospect.where(user_id: @user.id)
-
-
 	end
 
 	def all_tickets
