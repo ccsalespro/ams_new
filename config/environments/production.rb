@@ -76,5 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.default_url_options = { host: "frozen-headland-63528.herokuapp.com" } 
+  config.action_mailer.default_url_options = { host: "instantquotetool.com" } 
 end
+
+STRIPE_SECRET = "sk_live_cd7JZJdSrtSXs2bfDFrsPasC"
+STRIPE_PUBLIC = "pk_live_28NISFSUiSkGu5yPiJQuhAKw"

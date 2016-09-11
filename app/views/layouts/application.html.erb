@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>IQ</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +18,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
    <%= stylesheet_link_tag('print', :media => :print) %>
 
-	  <title>IQ</title>
-        <%= stylesheet_link_tag('application', :media => 'all') %>
-        <%= javascript_include_tag "application" %>
-        <%= csrf_meta_tags %>
+    <%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <%= stylesheet_link_tag('application', :media => 'all') %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
 	</head>
 <body>
 
@@ -62,7 +64,7 @@
 
                     <% if user_signed_in? && current_user.subscribed == false %>
                       <li class="">
-                        <%= link_to('Subscribe', new_subscriber_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                        <%= link_to('Subscribe', new_subscription_path, :class => 'a-tag-for-navbar-links nav-font') %>
                       </li>
                     <% end -%>
 
@@ -73,6 +75,9 @@
                     <% end -%>
                     <li>
                         <%= link_to("Support", new_internal_contact_path, :class => 'a-tag-for-navbar-links nav-font') %>
+                    </li>
+                    <li>
+                        <%= link_to("Training", courses_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
 
                     <li class="dropdown">

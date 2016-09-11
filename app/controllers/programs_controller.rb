@@ -6,6 +6,7 @@ class ProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_subscribed
   before_action :require_program_ownership, only: [:edit, :destroy]
+  before_action :require_edit_permission, only: [:edit, :destroy]
   
   # GET /programs
   # GET /programs.json
@@ -85,7 +86,18 @@ class ProgramsController < ApplicationController
     @programuser = Programuser.new
     @programuser.user_id = current_user.id
     @programuser.program_id = @clone.id
+    @programuser.edit_permission = true
     @programuser.save
+
+    @custom_fields = CustomField.where(program_id: @program.id)
+    @custom_fields.each do |c|
+      @custom_field = @clone.custom_fields.new
+      @custom_field.name = c.name
+      @custom_field.custom_field_type_id = c.custom_field_type_id
+      @custom_field.amount = c.amount
+      @custom_field.cost = c.cost 
+      @custom_field.save
+    end
 
     redirect_to edit_processor_program_path(@processor, @clone)
   end
@@ -123,6 +135,7 @@ class ProgramsController < ApplicationController
     @programuser = Programuser.new
     @programuser.user_id = current_user.id
     @programuser.program_id = @program.id
+    @programuser.edit_permission = true
     @programuser.save
   end
 
@@ -320,4 +333,13 @@ class ProgramsController < ApplicationController
         redirect_to programs_path, :notice => 'Not Authorized To Edit Program!'
       end
     end
+
+    def require_edit_permission
+      if current_user.admin != true
+        @programuser = Programuser.where(user_id: current_user.id).where(program_id: @program.id).last
+        unless @programuser.edit_permission?
+          redirect_to programs_path, notice: "You are not authorized to edit this program - Contact Administrator"
+        end
+      end
+  end
 end

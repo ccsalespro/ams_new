@@ -1,7 +1,8 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
   before_action :require_training_subscribed, only: [:show]
-  before_action :require_admin, only: [:new, :create, :update, :edit, :destroy, :index]
+  before_action :require_admin, only: [:new, :create, :update, :edit, :destroy]
 
   # GET /courses
   # GET /courses.json
@@ -25,6 +26,32 @@ class CoursesController < ApplicationController
         end
       end
     end
+
+    if Courseuser.where(course_id: @course.id).where(user_id: current_user.id).blank? && current_user.training_subscribed?
+      @courseuser = Courseuser.new
+       @courseuser.user_id = current_user.id
+       @courseuser.course_id = @course.id
+       @courseuser.save
+
+      @course.chapters.each do |chapter|
+        @chapteruser = Chapteruser.new
+        @chapteruser.user_id = current_user.id
+        @chapteruser.course_id = @course.id
+        @chapteruser.chapter_id = chapter.id
+        @chapteruser.save
+
+        chapter.lessons.each do |lesson|
+          @lessonuser = Lessonuser.new
+          @lessonuser.user_id = current_user.id
+          @lessonuser.course_id = @course.id
+          @lessonuser.chapter_id = chapter.id
+          @lessonuser.lesson_id = lesson.id
+          @lessonuser.save
+        end
+      end
+    end  
+
+
 
   end
 
@@ -50,14 +77,6 @@ class CoursesController < ApplicationController
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
-    end
-
-    @subscribed_users = User.where(training_subscribed: true)
-    @subscribed_users.each do |user|
-      @courseuser = Courseuser.new
-      @courseuser.user_id = user.id
-      @courseuser.course_id = @course.id
-      @courseuser.save
     end
   end
 

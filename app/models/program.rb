@@ -3,6 +3,7 @@ class Program < ActiveRecord::Base
   has_many :programusers, dependent: :destroy
   has_many :users, through: :programusers
   has_many :comparisons, dependent: :destroy
+  has_many :custom_fields
   belongs_to :system
 
 

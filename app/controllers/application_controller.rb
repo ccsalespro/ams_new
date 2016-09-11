@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user_subscribed?
+    user_signed_in? && current_user.subscribed?
+  end
+  helper_method :current_user_subscribed?
+
 
   protected
 

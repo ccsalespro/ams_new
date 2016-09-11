@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826032955) do
+ActiveRecord::Schema.define(version: 20160911015558) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -131,6 +131,38 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.decimal  "amex_per_item_cost"
     t.decimal  "amex_percentage_cost"
     t.decimal  "amex_total_opt_blue"
+    t.decimal  "custom_monthly_fees"
+    t.decimal  "custom_annual_fees"
+    t.decimal  "custom_vmd_per_item_fee"
+    t.decimal  "custom_vmd_volume_bp"
+    t.decimal  "custom_amex_per_item"
+    t.decimal  "custom_amex_volume_bp"
+    t.decimal  "custom_pin_per_item"
+    t.decimal  "custom_pin_volume_bp"
+    t.decimal  "custom_sales_bonus"
+    t.decimal  "custom_one_time_fee"
+    t.decimal  "custom_total_vmd_per_item_fees"
+    t.decimal  "custom_total_vmd_volume_bp_fees"
+    t.decimal  "custom_total_amex_per_item_fees"
+    t.decimal  "custom_total_amex_volume_bp_fees"
+    t.decimal  "custom_total_pin_per_item_fees"
+    t.decimal  "custom_total_pin_volume_bp_fees"
+    t.decimal  "custom_monthly_fee_costs"
+    t.decimal  "custom_annual_fee_costs"
+    t.decimal  "custom_vmd_per_item_fee_costs"
+    t.decimal  "custom_vmd_volume_bp_costs"
+    t.decimal  "custom_amex_per_item_costs"
+    t.decimal  "custom_amex_volume_bp_costs"
+    t.decimal  "custom_pin_per_item_costs"
+    t.decimal  "custom_pin_volume_bp_costs"
+    t.decimal  "custom_sales_bonus_costs"
+    t.decimal  "custom_one_time_fee_costs"
+    t.decimal  "custom_vmd_per_item_fee_cost"
+    t.decimal  "custom_vmd_volume_bp_cost"
+    t.decimal  "custom_amex_per_item_cost"
+    t.decimal  "custom_amex_volume_bp_cost"
+    t.decimal  "custom_pin_per_item_cost"
+    t.decimal  "custom_pin_volume_bp_cost"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"
@@ -163,6 +195,27 @@ ActiveRecord::Schema.define(version: 20160826032955) do
   add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"
   add_index "courseusers", ["user_id"], name: "index_courseusers_on_user_id"
 
+  create_table "custom_field_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "slug_string"
+  end
+
+  create_table "custom_fields", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "amount"
+    t.decimal  "cost"
+    t.integer  "program_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "custom_field_type_id"
+  end
+
+  add_index "custom_fields", ["custom_field_type_id"], name: "index_custom_fields_on_custom_field_type_id"
+  add_index "custom_fields", ["program_id"], name: "index_custom_fields_on_program_id"
+
   create_table "descriptions", force: :cascade do |t|
     t.string   "business_type_primary"
     t.string   "business_type_secondary"
@@ -184,12 +237,12 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.integer  "inttype_id"
     t.integer  "transactions"
     t.decimal  "volume"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "statement_id"
     t.integer  "prospect_id"
     t.decimal  "inttype_percent"
     t.integer  "description_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
     t.decimal  "avg_ticket_variance"
   end
 
@@ -267,14 +320,17 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.string   "title"
     t.string   "video"
     t.integer  "minutes"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "chapter_id"
     t.datetime "completed_at"
     t.text     "description"
+    t.integer  "lesson_number"
+    t.integer  "course_id"
   end
 
   add_index "lessons", ["chapter_id"], name: "index_lessons_on_chapter_id"
+  add_index "lessons", ["course_id"], name: "index_lessons_on_course_id"
 
   create_table "lessonusers", force: :cascade do |t|
     t.integer  "user_id"
@@ -334,16 +390,6 @@ ActiveRecord::Schema.define(version: 20160826032955) do
 
   add_index "notes", ["prospect_id"], name: "index_notes_on_prospect_id"
   add_index "notes", ["user_id"], name: "index_notes_on_user_id"
-
-  create_table "plans", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "stripe_plan_id"
-    t.decimal  "price"
-    t.integer  "trial_days"
-    t.text     "description"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
 
   create_table "processors", force: :cascade do |t|
     t.string   "name"
@@ -423,9 +469,9 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.decimal  "swiped_flat_rate"
     t.decimal  "min_check_card_per_item_surcharge"
     t.decimal  "min_credit_per_item_surcharge"
-    t.decimal  "keyed_flat_rate"
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
+    t.decimal  "keyed_flat_rate"
   end
 
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
@@ -433,8 +479,9 @@ ActiveRecord::Schema.define(version: 20160826032955) do
   create_table "programusers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "program_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "edit_permission", default: false
   end
 
   add_index "programusers", ["program_id"], name: "index_programusers_on_program_id"
@@ -457,6 +504,7 @@ ActiveRecord::Schema.define(version: 20160826032955) do
   end
 
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"
+  add_index "prospects", ["user_id", "created_at"], name: "index_prospects_on_user_id_and_created_at"
   add_index "prospects", ["user_id"], name: "index_prospects_on_user_id"
 
   create_table "stages", force: :cascade do |t|
@@ -516,30 +564,16 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.string   "form_name"
     t.decimal  "form_volume"
     t.decimal  "form_percentage"
+    t.string   "presented_program"
   end
+
+  add_index "statements", ["prospect_id", "created_at"], name: "index_statements_on_prospect_id_and_created_at"
 
   create_table "structures", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "subscribetocourses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "plan_id"
-    t.boolean  "active"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id"
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
 
   create_table "systems", force: :cascade do |t|
     t.string   "name"
@@ -560,6 +594,20 @@ ActiveRecord::Schema.define(version: 20160826032955) do
 
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+
+  create_table "team_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "user_id"
@@ -593,9 +641,30 @@ ActiveRecord::Schema.define(version: 20160826032955) do
     t.string   "last_name"
     t.string   "phone_number"
     t.boolean  "paid",                   default: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
+    t.string   "stripe_subscription_id"
+    t.string   "card_last4"
+    t.integer  "card_exp_month"
+    t.integer  "card_exp_year"
+    t.string   "card_type"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

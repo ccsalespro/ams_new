@@ -1,0 +1,29 @@
+<%= form_for(@custom_field_type) do |f| %>
+  <% if @custom_field_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@custom_field_type.errors.count, "error") %> prohibited this custom_field_type from being saved:</h2>
+
+      <ul>
+      <% @custom_field_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :slug_string %><br>
+    <%= f.text_field :slug_string %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

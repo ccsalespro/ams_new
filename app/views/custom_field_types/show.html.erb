@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @custom_field_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @custom_field_type.description %>
+</p>
+
+<%= link_to 'Edit', edit_custom_field_type_path(@custom_field_type) %> |
+<%= link_to 'Back', custom_field_types_path %>

@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <h3 class="text-center">Custom Fields For: <br> <%= @program.name %></h3>
+
+  <%= link_to 'New Custom Field', new_program_custom_field_path(@program), class: 'btn btn-primary', style: 'margin-bottom: 5px !important;' %>
+
+  <table class="table table-bordered table-hover table-responsive">
+    <thead>
+      <tr class="total white">
+        <th>Type</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Cost</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @custom_fields.each do |custom_field| %>
+        <tr>
+          <td><%= custom_field.custom_field_type.name %></td>
+          <td><%= custom_field.name %></td>
+          <td><%= custom_field.amount %></td>
+          <td><%= custom_field.cost %></td>
+          <td class="text-center" style="min-width: 75px !important; width: 75px !important;">
+            <%= link_to edit_program_custom_field_path(@program, custom_field) do %>
+              <i class="fa fa-pencil black fa-2x" aria-hidden="true"></i>
+            <% end -%>
+            <%= link_to [@program, custom_field], method: :delete, data: { confirm: 'Are You Sure?' } do %>
+              <i class="fa fa-trash-o fa-2x black" aria-hidden="true"></i>
+            <% end -%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+</div>

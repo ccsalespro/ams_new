@@ -460,7 +460,7 @@ hr.style-two {
     padding-right: 0px !important;
     padding-left: 0px !important;
     padding-bottom: 15px !important;
-    margin: 0px !important; 
+    margin: 0px !important;
 }
 
 .nothing {
@@ -479,8 +479,8 @@ hr.style-two {
     transform: scale(1,1) !important;
     transition: transform 300ms ease-in-out !important;
     &:hover {
-        transform: scale(1.1,1.1) !important;
-        transition: transform 300ms ease-in-out !important;  
+        transform: scale(1.05,1.05) !important;
+        transition: transform 300ms ease-in-out !important;
     }
 }
 
@@ -496,4 +496,13 @@ hr.style-two {
     background: none !important;
     border: none !important;
     font-weight: bold !important;
+}
+
+.custom-field { display: none !important; }
+
+@media screen and (max-width: 400px) {
+    .custom-field {
+        display: block !important;
+        margin: 2.5px !important;
+    }
 }

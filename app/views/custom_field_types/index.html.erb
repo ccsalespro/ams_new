@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Custom Field Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Slug String</th>
+      <th>Custom field</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @custom_field_types.each do |custom_field_type| %>
+      <tr>
+        <td><%= custom_field_type.name %></td>
+        <td><%= custom_field_type.description %></td>
+        <td><%= custom_field_type.slug_string %></td>
+        <td><%= link_to 'Show', custom_field_type %></td>
+        <td><%= link_to 'Edit', edit_custom_field_type_path(custom_field_type) %></td>
+        <td><%= link_to 'Destroy', custom_field_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Custom field type', new_custom_field_type_path %>

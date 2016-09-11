@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
 
-  resources :subscribetocourses
-  get 'programs/clone'
-
+  root to: 'static#index'
+  devise_for :users, controllers: { registrations: "registrations" }
+  resources :custom_field_types
   resources :courseusers
+  resources :systems
+  resources :structures
+  resources :internal_contacts
+  resources :processorusers
+  resources :stages
+  resources :notes
+  resources :comments
+  resources :images
+  resource :subscription
+  resource :card
 
   resources :lessonusers do
     member do
@@ -11,7 +21,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :systems
   resources :courses do
     resources :chapters do
       resources :lessons do
@@ -22,10 +31,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :structures
-  resources :internal_contacts
-  resources :processorusers
-  resources :programusers
+  
+  
+  resources :programusers do
+    collection do
+      get 'programusers/new'
+      get 'programusers/create'
+      get 'programusers/toggle_edit_permission'
+    end
+  end
+  
 
   resources :intcalcitems do
     collection { post :import }
@@ -39,63 +54,9 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  resources :stages
-  resources :notes
-  resources :comments
-  resources :images
-
-
-   devise_for :users, controllers: { registrations: "registrations" }
-
   resources :blogs do
     resources :comments
   end
-  get 'blogs/index'
-  get 'tasks/index'
-  get 'comparisons/show'
-  get 'comparisons/decrease_savings'
-  get 'comparisons/increase_savings'
-  get 'statements/downgrade_edit'
-  get 'statements/downgrade_update'
-  get 'statements/regulated_check_card_update'
-  get 'statements/unregulated_check_card_update'
-  get 'statements/btob_update'
-  get 'statements/moto_update'
-  get 'statements/ecomm_update'
-  get 'statements/interchange_update'
-  get 'admin_dashboard/destroy_user'
-  get 'admin_dashboard/index'
-  get 'admin_dashboard/subscribe'
-  get 'admin_dashboard/unsubscribe'
-  get 'admin_dashboard/make_admin'
-  get 'admin_dashboard/remove_admin'
-  get 'admin_dashboard/show_user'
-  get 'admin_dashboard/destroy_prospect'
-
-  get 'tickets/mark_important'
-  get 'tickets/mark_unimportant'
-
-  get 'tasks/mark_complete'
-  get 'tasks/mark_uncomplete'
-
-   root to: 'static#index'
-
-   get 'static/index'
-   get 'static/services'
-   get 'static/about'
-   get 'static/contact'
-   get 'static/portfolio_1'
-   get 'static/portfolio_item'
-   get 'static/blog_home_2'
-   get 'static/blog_post'
-   get 'static/full_width'
-   get 'static/sidebar'
-   get 'static/faq'
-   get 'static/error'
-   get 'static/pricing'
-
-
-  resources :subscribers
 
   resources :merchants do
     collection { post :import }
@@ -122,9 +83,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :programs
-
-    get 'calendars/index'
+  resources :programs do
+    resources :custom_fields
+  end
 
     resources :prospects do
       resources :statements do
@@ -150,8 +111,54 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
-
   
+  get 'lessonusers/link_complete'
+  get 'programusers/destroy_programuser'
+  get 'programs/clone'
+  get 'blogs/index'
+  get 'tasks/index'
+  get 'comparisons/show'
+  get 'comparisons/decrease_savings'
+  get 'comparisons/increase_savings'
+  get 'statements/downgrade_edit'
+  get 'statements/downgrade_update'
+  get 'statements/regulated_check_card_update'
+  get 'statements/unregulated_check_card_update'
+  get 'statements/btob_update'
+  get 'statements/moto_update'
+  get 'statements/ecomm_update'
+  get 'statements/interchange_update'
+  get 'admin_dashboard/destroy_user'
+  get 'admin_dashboard/index'
+  get 'admin_dashboard/subscribe'
+  get 'admin_dashboard/unsubscribe'
+  get 'admin_dashboard/training_subscribe'
+  get 'admin_dashboard/untraining_subscribe'
+  get 'admin_dashboard/make_admin'
+  get 'admin_dashboard/remove_admin'
+  get 'admin_dashboard/show_user'
+  get 'admin_dashboard/destroy_prospect'
+  get 'admin_dashboard/destroy_programuser_admin_panel'
+  get 'admin_dashboard/assign_programs'
+  get 'admin_dashboard/all_tickets'
+  get 'tickets/mark_important'
+  get 'tickets/mark_unimportant'
+  get 'tasks/mark_complete'
+  get 'tasks/mark_uncomplete'
+  get 'static/index'
+  get 'static/services'
+  get 'static/about'
+  get 'static/contact'
+  get 'static/portfolio_1'
+  get 'static/portfolio_item'
+  get 'static/blog_home_2'
+  get 'static/blog_post'
+  get 'static/full_width'
+  get 'static/sidebar'
+  get 'static/faq'
+  get 'static/error'
+  get 'static/pricing'
+  get 'calendars/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,4 +1,4 @@
-<%= link_to admin_dashboard_index_path, class: 'pull-left hidden-xs' do %>
+<%= link_to users_path, class: 'pull-left hidden-xs' do %>
 	<i class="fa fa-chevron-left fa-3x black back-fab" aria-hidden="true"></i>
 <% end -%>
 <div class="container">
@@ -23,6 +23,11 @@
 <%= link_to('Make Admin', {:controller => 'admin_dashboard', :action => 'make_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% else %>
 <%= link_to('Remove Admin', {:controller => 'admin_dashboard', :action => 'remove_admin', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% end -%>
+<% if @user.training_subscribed == false %>
+<%= link_to('Unlock Courses', {:controller => 'admin_dashboard', :action => 'training_subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% else %>
+<%= link_to(' Lock Courses', {:controller => 'admin_dashboard', :action => 'untraining_subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
 <%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 </center>
@@ -117,6 +122,9 @@
 
 <div id="programs" class="tab-pane fade active">
 <h3 class="text-center bold">User Programs</h3>
+
+<br><br>
+
     <% if @user_pro.count == 0 %>
     <div class="well" style="padding: 5px !important;">
         <h4 class="text-center">No Programs</h4>
@@ -124,11 +132,27 @@
 <% end -%>
 <% @user_pro.each do |program| %>
 <div class="well" style="padding: 10px !important; margin: 5px !important; ">
-    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %>
-                    <%= link_to processor_program_path(program.processor_id, program), method: :delete, data: { confirm: 'Are You Sure?' }, :class => 'pull-right' do %>
-                    <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                <% end %>
-    </div>
+    <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %> || Private: <span class="text-capitalize"><%= program.personal %></span>
+        <%= link_to({:controller => 'admin_dashboard', :action => 'destroy_programuser_admin_panel', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }) do %>
+        <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
+    <% end %>
+
+     <%= link_to({:controller => 'admin_dashboard', :action => 'assign_programs', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', style: 'margin-right: 5px !important;') do %>
+            <i class="fa fa-users big-fa black" aria-hidden="true"></i>
+         <% end -%>
+
+    <%= link_to({:controller => 'programusers', :action => 'toggle_edit_permission', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
+        <% @programuser = Programuser.where(user_id: @user.id).where(program_id: program.id).first %>
+        <% if @programuser.edit_permission == true %>
+            <i class="fa fa-pencil big-fa green" aria-hidden="true"></i>
+        <% else %>
+            <i class="fa fa-pencil big-fa red" aria-hidden="true"></i>
+        <% end -%>
+    <% end %>
+    <%= link_to( program_custom_fields_path(program), class: 'pull-right', style: 'margin-right: 5px !important; margin-top: 1px !important;') do %>
+      <i class="fa fa-table black" aria-hidden="true"></i>
+    <% end -%>
+  </div>
 <% end -%>
 </div>
 

@@ -1,0 +1,22 @@
+<div class="container-fluid text-center" style="padding-top: 10px !important;">
+
+<h1 class="no-margin"><%= @program_processor.name %></h1>
+<h3 class="no-margin" style="margin-bottom: 50px !important"><%= @program.name %></h3>
+<div class="clearfix"></div>
+
+    <%= form_for(Programuser.new) do |f| %>
+            <%= collection_select( :programuser, :user_id, User.where(subscribed: true), :id, :email, {}, { :multiple => false }) %>
+            <%= f.hidden_field :program_id, value: @program.id %><div class="clearfix" style="margin-bottom: 5px !important;"></div>
+                <div class="checkbox" style='margin: 0px !important; margin-right: 40px !important; display: inline !important; vertical-align: 0px !important; width: 50px !important;'>
+                    <label style="font-size: 1em" class="no-padding">
+                     <p style="display: inline-block !important;">Permission To Edit</p>
+                   <%= f.check_box :edit_permission %>
+                    <span class="cr no-padding" style="margin-top: 0px !important; display: inline-block !important;">
+                        <i class="cr-icon fa fa-check text-center no-padding"></i>
+                    </span>
+                    </label>
+                </div>
+            <%= f.submit "Assign", class: 'btn btn-primary btn-sm', style: 'padding-top: 1px !important; padding-bottom: 1px !important; margin-top: 0px !important; vertical-align: text-top !important;' %>
+    <% end -%>
+
+</div>

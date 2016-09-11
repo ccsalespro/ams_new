@@ -1,59 +1,126 @@
 <div class="container-fluid">
-<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-<h2 class="black-standard bold"><span class="hidden-xs">User Profile </span><span class="visible-xs"><center>User Profile </center></span>
-<span class="pull-right hidden-xs"><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></span>
-<span class="visible-xs"><center><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></center></span></h2>
+  <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <h2 class="black-standard bold"><span class="hidden-xs">User Profile </span><span class="visible-xs"><center>User Profile </center></span>
+    <span class="pull-right hidden-xs"><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></span>
+    <span class="visible-xs"><center><%= link_to(content_tag(:button, 'Program Wizard', :class => 'btn btn-primary'), programs_path) %></center></span></h2>
 
-  <div class="well">
-<%= devise_error_messages! %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-<div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, :class => 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number, :class => 'form-control' %>
-  </div>
+      <div class="well">
+        <%= devise_error_messages! %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="field">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, :class => 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.label :phone_number %><br />
+        <%= f.text_field :phone_number, :class => 'form-control' %>
+      </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
+        <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+      </div>
+      <br>
+      <div class="actions text-center">
+        <%= button_tag("Update", :class => 'btn btn-primary') %>
+        <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), static_index_path) %>
+      </div>
+    <% end %>
+
+  <% if current_user.stripe_subscribed? %>
+</br>
+</br>
+  <div class="container" style="width: 100%; max-width: 450px">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="display: inline;font-weight: bold;">
+                        Replace Card on File
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <%= form_tag subscription_path, method: :put, id: "payment-form" do %>
+                    <span class="payment-errors"></span>
+                    <div class="form-group">
+                        <label for="cardNumber">
+                            CARD NUMBER</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" data-stripe="number" placeholder="Valid Card Number"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7 col-md-7">
+                            <div class="form-group" class="pull-left">
+                                <label for="expityMonth">
+                                    EXPIRATION DATE</label>
+                                <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
+                                    <input type="text" class="form-control" data-stripe="exp_month" placeholder="MM" required />
+                                </div>
+                                <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
+                                    <input type="text" class="form-control" data-stripe="exp_year" placeholder="YY" required /></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5 pull-right">
+                            <div class="form-group">
+                                <label for="cvCode">
+                                    CV CODE</label>
+                                <input type="password" class="form-control" data-stripe="cvc" placeholder="CVC" required />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="submit btn btn-primary" value="Change Default Card">
+                  <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="text-center">
+    <h3>Cancel My Account</h3>
+    <%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
+    </div>
+
   <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(Leave Blank If You Don't Want To Change It)</i><br />
-    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
-  </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(We Need Your Current Password to Confirm Your Changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
-  </div>
-  <br>
-  <div class="actions text-center">
-  <%= button_tag("Update", :class => 'btn btn-primary') %>
-  <%= link_to(content_tag(:button, 'Back', :class => 'btn btn-primary'), static_index_path) %>
-  </div>
-<% end %>
 
-<div class="text-center">
-<h3>Cancel My Account</h3>
-<%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), registration_path(resource_name), data: { confirm: "Are You Sure?" }, method: :delete) %>
-</div>
-</div>
-</div>
-</div>
-<br>
+<script type="text/javascript">
+$(document).ready(function(){    
+    //Check if the current URL contains '#'
+    if(document.URL.indexOf("#")==-1){
+        // Set the URL to whatever it was plus "#".
+        url = document.URL+"#";
+        location = "#";
+
+        //Reload the page
+        location.reload(true);
+    }
+});
+</script>

@@ -15,11 +15,13 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    respond_to do |format|
-      format.js
-      format.html
+    @lesson = Lesson.find(params[:id])
+    @lessonuser = Lessonuser.find_by(lesson_id: @lesson.id, user_id: current_user.id)
+    if @lessonuser.completed_at.blank? == true
+      @lessonuser.completed_at = Time.now
+      @lessonuser.save
+      redirect_to course_chapter_lesson_path(@course, @chapter, @lesson)
     end
-
   end
 
   # GET /lessons/new
@@ -36,6 +38,7 @@ class LessonsController < ApplicationController
   # POST /lessons.json
   def create
     @lesson = @chapter.lessons.new(lesson_params)
+    @lesson.course_id = @course.id
 
     respond_to do |format|
       if @lesson.save
@@ -45,16 +48,15 @@ class LessonsController < ApplicationController
         format.html { render :new }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
-    end
-
-      @subscribed_users = User.where(training_subscribed: true)
-      @subscribed_users.each do |user|
-      @lessonuser = Lessonuser.new
-      @lessonuser.user_id = user.id
-      @lessonuser.course_id = @course.id
-      @lessonuser.chapter_id = @chapter.id
-      @lessonuser.lesson_id = @lesson.id
-      @lessonuser.save
+        @subscribed_users = User.where(training_subscribed: true)
+        @subscribed_users.each do |user|
+          @lessonuser = Lessonuser.new
+          @lessonuser.user_id = user.id
+          @lessonuser.course_id = @course.id
+          @lessonuser.chapter_id = @chapter.id
+          @lessonuser.lesson_id = @lesson.id
+          @lessonuser.save
+        end
     end
 
   end
@@ -104,6 +106,6 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:title, :video, :minutes, :description, :chapter_id, :course_id)
+      params.require(:lesson).permit(:title, :video, :minutes, :description, :chapter_id, :course_id, :lesson_number)
     end
 end
