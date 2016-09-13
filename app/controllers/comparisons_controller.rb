@@ -1,6 +1,6 @@
 class ComparisonsController < ApplicationController
   before_action :load_prospect, :load_statement
-  before_action :load_comparison, only: [:show, :edit, :update]
+  before_action :load_comparison, only: [:show, :edit, :update, :savings_summary, :savings_detail]
   before_action :authenticate_user!
   before_action :require_subscribed
 
@@ -118,6 +118,31 @@ class ComparisonsController < ApplicationController
     @statement = Statement.find_by_id(@comparison.statement_id)
     @statement.presented_program = @program.name
     @statement.save
+    respond_to do |format| 
+      format.html
+    end
+  end
+
+  def savings_summary
+    respond_to do |format|
+    format.pdf do
+        pdf = ComparisonPdf.new(@prospect, @statement, @comparison, view_context, current_user)
+        send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end
+  end
+
+  def savings_detail
+    respond_to do |format|
+    format.pdf do 
+        pdf = DetailPdf.new(@prospect, @statement, @comparison, view_context, current_user)
+        send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end
   end
 
   def edit

@@ -92,7 +92,12 @@ Rails.application.routes.draw do
 
     resources :prospects do
       resources :statements do
-        resources :comparisons
+        resources :comparisons do 
+          member do
+            get 'savings_summary'
+            get 'savings_detail'
+          end
+        end
       end
       resources :notes
       resources :tasks
