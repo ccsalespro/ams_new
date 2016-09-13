@@ -10,6 +10,7 @@ class DetailPdf < Prawn::Document
 		prospect_name
 		card_types
 		savings_amounts
+		
 		user_labels
 		user_contact
 

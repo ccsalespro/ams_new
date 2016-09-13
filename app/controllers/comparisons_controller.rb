@@ -118,31 +118,31 @@ class ComparisonsController < ApplicationController
     @statement = Statement.find_by_id(@comparison.statement_id)
     @statement.presented_program = @program.name
     @statement.save
-    
     respond_to do |format| 
       format.html
-      end
     end
   end
 
   def savings_summary
-    @program = Program.find_by_id(@comparison.program_id)
-    @statement = Statement.find_by_id(@comparison.statement_id)
+    respond_to do |format|
     format.pdf do
         pdf = ComparisonPdf.new(@prospect, @statement, @comparison, view_context, current_user)
         send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
                               type: "application/pdf",
                               disposition: "inline"
+      end
+    end
   end
 
   def savings_detail
-    @program = Program.find_by_id(@comparison.program_id)
-    @statement = Statement.find_by_id(@comparison.statement_id)
-    format.pdf do
+    respond_to do |format|
+    format.pdf do 
         pdf = DetailPdf.new(@prospect, @statement, @comparison, view_context, current_user)
         send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
                               type: "application/pdf",
                               disposition: "inline"
+      end
+    end
   end
 
   def edit
