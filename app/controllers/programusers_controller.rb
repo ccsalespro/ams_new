@@ -1,5 +1,6 @@
 class ProgramusersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_programuser, except: [:index, :new, :create]
   # GET /programusers
   # GET /programusers.json
   def index
@@ -20,15 +21,7 @@ class ProgramusersController < ApplicationController
   def edit
   end
 
-  def destroy_programuser
-    @programuser = Programuser.where(user_id: current_user.id).where(program_id: params[:id]).first
-    @programuser.destroy
-    redirect_to programs_path, notice: 'Program Was Successfully Deleted'
-  end
-
-
 def toggle_edit_permission
-   @programuser = Programuser.where(user_id: params[:user_id]).where(program_id: params[:program_id]).first
      if @programuser.edit_permission == true
       @programuser.edit_permission = false
      else
@@ -85,7 +78,7 @@ end
   def destroy
     @programuser.destroy
     respond_to do |format|
-      format.html { redirect_to programusers_url, notice: 'programuser was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'program relationship was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -93,7 +86,7 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_programuser
-      @programuser = programuser.find(params[:id])
+      @programuser = Programuser.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :notes
   resources :comments
   resources :images
+  resources :programusers
   resource :subscription
   resource :card
 
@@ -30,17 +31,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  
-  
-  resources :programusers do
-    collection do
-      get 'programusers/new'
-      get 'programusers/create'
-      get 'programusers/toggle_edit_permission'
-    end
-  end
-  
 
   resources :intcalcitems do
     collection { post :import }
@@ -83,6 +73,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :processors do
+    resources :programs do
+      member do
+        get 'clone'
+      end
+    end
+  end
+
   resources :programs do
     resources :custom_fields
   end
@@ -113,7 +111,6 @@ Rails.application.routes.draw do
   end
   
   get 'lessonusers/link_complete'
-  get 'programusers/destroy_programuser'
   get 'programs/clone'
   get 'blogs/index'
   get 'tasks/index'

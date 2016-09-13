@@ -131,9 +131,10 @@
     </div>
 <% end -%>
 <% @user_pro.each do |program| %>
+<% @programuser = Programuser.where(user_id: @user.id).where(program_id: program.id).last %>
 <div class="well" style="padding: 10px !important; margin: 5px !important; ">
     <%= link_to program.name, edit_processor_program_path(program.processor_id, program), class: 'black' %> || Private: <span class="text-capitalize"><%= program.personal %></span>
-        <%= link_to({:controller => 'admin_dashboard', :action => 'destroy_programuser_admin_panel', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }) do %>
+        <%= link_to( programuser_path(@programuser), class: 'pull-right', data: { confirm: 'Are You Sure?' }, method: :delete) do %>
         <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
     <% end %>
 
@@ -141,7 +142,7 @@
             <i class="fa fa-users big-fa black" aria-hidden="true"></i>
          <% end -%>
 
-    <%= link_to({:controller => 'programusers', :action => 'toggle_edit_permission', :user_id => @user.id, :program_id => program.id}, class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
+    <%= link_to(programuser_path(@programuser), class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
         <% @programuser = Programuser.where(user_id: @user.id).where(program_id: program.id).first %>
         <% if @programuser.edit_permission == true %>
             <i class="fa fa-pencil big-fa green" aria-hidden="true"></i>
