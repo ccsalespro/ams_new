@@ -142,8 +142,7 @@
             <i class="fa fa-users big-fa black" aria-hidden="true"></i>
          <% end -%>
 
-    <%= link_to(programuser_path(@programuser), class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
-        <% @programuser = Programuser.where(user_id: @user.id).where(program_id: program.id).first %>
+    <%= link_to(toggle_edit_permission_programuser_path(@programuser), class: 'pull-right', data: { confirm: 'Are You Sure?' }, style: 'margin-right: 5px !important;') do %>
         <% if @programuser.edit_permission == true %>
             <i class="fa fa-pencil big-fa green" aria-hidden="true"></i>
         <% else %>

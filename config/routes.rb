@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   resources :notes
   resources :comments
   resources :images
-  resources :programusers
   resource :subscription
   resource :card
 
@@ -81,6 +80,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :programusers do
+    member do
+      get 'toggle_edit_permission'
+    end
+  end
+
   resources :programs do
     resources :custom_fields
   end
@@ -111,7 +116,6 @@ Rails.application.routes.draw do
   end
   
   get 'lessonusers/link_complete'
-  get 'programs/clone'
   get 'blogs/index'
   get 'tasks/index'
   get 'comparisons/show'
