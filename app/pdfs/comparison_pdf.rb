@@ -8,16 +8,14 @@ class ComparisonPdf < Prawn::Document
 		@view = view
 		@user = user
 		prospect_name
+		user_labels
 		card_types
 		savings_amounts
-		user_labels
-		user_contact
-
-		
 	end
 
-	def prospect_name
-		text "Savings Summary: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	def user_labels
+		move_down 0
+		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def user_labels
