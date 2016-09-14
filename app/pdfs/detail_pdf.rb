@@ -41,16 +41,52 @@ class DetailPdf < Prawn::Document
 		total_transactions
 		total_program_costs
 		total_access_fees
-		[["Type", "Volume", "Items", "Costs", "Access", "Fees"], 
-		["VS", to_currency(@statement.vs_volume), to_integer(@statement.vs_transactions), to_currency(@statement.vs_fees), to_currency(@comparison.total_vs_access_fees), to_currency(@total_visa_fees)],
-		["MC", to_currency(@statement.mc_volume), to_integer(@statement.mc_transactions), to_currency(@statement.mc_fees), to_currency(@comparison.total_mc_access_fees), to_currency(@total_mc_fees)],
-		["DS", to_currency(@statement.ds_volume), to_integer(@statement.ds_transactions), to_currency(@statement.ds_fees), to_currency(@comparison.total_ds_access_fees), to_currency(@total_ds_fees)],
-		["Debit", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@statement.debit_network_fees), "N/A", to_currency(@total_debit_fees)],
-		["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@statement.amex_interchange), "N/A", to_currency(@total_amex_fees)],
-		["Totals", to_currency(@statement.total_vol), to_integer(@transactions), to_currency(@total_cost), to_currency(@total_access_fees), to_currency(@comparison.total_program_fees)]]
-
+		
+		if @statement.amex_vol == 0 && @statement.debit_vol == 0
+			card_type_header + 
+			card_type_vmd_rows +
+			card_type_totals
+		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
+			card_type_header + 
+			card_type_vmd_rows +
+			card_type_amex_row +
+			card_type_totals
+		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
+			card_type_header + 
+			card_type_vmd_rows +
+			card_type_debit_row +
+			card_type_totals
+		else
+			card_type_header + 
+			card_type_vmd_rows +
+			card_type_amex_row +
+			card_type_debit_row +
+			card_type_totals
+		end
 	end
 
+	def card_type_header
+		[["Type", "Volume", "Items", "Costs", "Access", "Fees"]]
+	end
+
+	def card_type_vmd_rows
+		[["VS", to_currency(@statement.vs_volume), to_integer(@statement.vs_transactions), to_currency(@statement.vs_fees), to_currency(@comparison.total_vs_access_fees), to_currency(@total_visa_fees)],
+		["MC", to_currency(@statement.mc_volume), to_integer(@statement.mc_transactions), to_currency(@statement.mc_fees), to_currency(@comparison.total_mc_access_fees), to_currency(@total_mc_fees)],
+		["DS", to_currency(@statement.ds_volume), to_integer(@statement.ds_transactions), to_currency(@statement.ds_fees), to_currency(@comparison.total_ds_access_fees), to_currency(@total_ds_fees)]]
+	end
+
+	def card_type_totals
+		[["Totals", to_currency(@statement.total_vol), to_integer(@transactions), to_currency(@total_cost), to_currency(@total_access_fees), to_currency(@comparison.total_program_fees)]]
+	end
+
+	def card_type_debit_row
+		[["Debit", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@statement.debit_network_fees), "N/A", to_currency(@total_debit_fees)]]
+	end
+
+	def card_type_amex_row
+		[["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@statement.amex_interchange), "N/A", to_currency(@total_amex_fees)]]
+	end
+ 
 	def savings_amounts
 		move_down 20
 		table savings_row do
