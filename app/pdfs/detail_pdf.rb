@@ -8,13 +8,10 @@ class DetailPdf < Prawn::Document
 		@view = view
 		@user = user
 		prospect_name
+		user_labels
 		card_types
 		savings_amounts
 		individual_cost_table
-		user_labels
-		user_contact
-
-		
 	end
 
 	def individual_cost_table
@@ -124,23 +121,8 @@ class DetailPdf < Prawn::Document
 	end
 
 	def user_labels
-		bounding_box([12,215], :width => 50, :height => 200) do
-		text "Contact:", style: :bold
-		move_down 5 
-		text "Phone:", style: :bold
-		move_down 5
-		text "Email:", style: :bold
-	   	end
-	end
-
-	def user_contact
-		bounding_box([67,215], :width => 300, :height => 300) do
-		text "#{@user.first_name} #{@user.last_name}"
-		move_down 5
-		text "#{@user.phone_number}"
-		move_down 5
-		text "#{@user.email}"
-	   	end
+		move_down 0
+		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def savings_row
