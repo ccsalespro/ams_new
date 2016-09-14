@@ -5,16 +5,70 @@ class DetailPdf < Prawn::Document
 		@prospect = prospect
 		@statement = statement
 		@comparison = comparison
+		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
 		prospect_name
 		user_labels
-		card_types
-		savings_amounts
+		card_types_table
+		savings_amounts_table
 		individual_cost_table
+		individual_fields_table
 	end
 
-	def card_types
+	def individual_fields_table
+		move_down 20
+		table field_rows do
+			row(0..6).border_width = 0.3
+			row(0).font_style = :bold
+			row(-1).font_style = :bold
+			columns(0..3).align = :left
+			row(0).align = :center
+			columns(0).width = 65
+			columns(1..5).width = 90
+			self.row_colors = ["f2f2f2", "FFFFFF"]
+			self.header = true
+			self.row(0).background_color = '002D64'
+			self.row(0).text_color = 'FFFFFF'
+			self.position = :center
+	end
+
+	def field_rows
+		@monthly_fee_fields = []
+		@annual_fee_fields = []
+		@one_time_fields = []
+		@vmd_per_item_fields = []
+		@vmd_vol_bp_fields = []
+		@amex_per_item_fields = []
+		@amex_vol_bp_fields = []
+		@debit_per_item_fields = []
+		@debit_vol_bp_fields = []
+		@custom_fields = @program.custom_fields
+		@custom_fields.each do |cf|
+		case cf.custom_field_type.slug_string
+			when "monthly_fee"
+				@monthly_fee_fields << cf 
+			when "annual_fee"
+				@annual_fee_fields << cf 
+			when "one_time_fee"
+				@one_time_fields << cf 
+			when "vmd_per_item"
+				@vmd_per_item_fields << cf
+			when "vmd_vol_bp"
+				@vmd_vol_bp_fields << cf 
+			when "amex_per_item"
+				@amex_per_item_fields << cf 
+			when "amex_vol_bp"
+				@amex_vol_bp_fields << cf 
+			when "debit_per_item"
+				@debit_per_item_fields << cf 
+			when "debit_vol_bp"
+				@debit_vol_bp_fields << cf
+		end
+	  end	
+	end
+
+	def card_types_table
 		move_down 20
 		table card_type_rows do
 			row(0..6).border_width = 0.3
@@ -41,7 +95,7 @@ class DetailPdf < Prawn::Document
 		total_transactions
 		total_program_costs
 		total_access_fees
-		
+
 		if @statement.amex_vol == 0 && @statement.debit_vol == 0
 			card_type_header + 
 			card_type_vmd_rows +
@@ -87,7 +141,7 @@ class DetailPdf < Prawn::Document
 		[["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@statement.amex_interchange), "N/A", to_currency(@total_amex_fees)]]
 	end
  
-	def savings_amounts
+	def savings_amounts_table
 		move_down 20
 		table savings_row do
 			row(0..1).border_width = 0.3
