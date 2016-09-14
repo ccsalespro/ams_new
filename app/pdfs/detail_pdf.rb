@@ -67,7 +67,7 @@ class DetailPdf < Prawn::Document
 		table card_type_rows do
 			row(0..6).border_width = 0.3
 			row(0).font_style = :bold
-			row(6).font_style = :bold
+			row(-1).font_style = :bold
 			columns(0..3).align = :left
 			row(0).align = :center
 			columns(0).width = 65
