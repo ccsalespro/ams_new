@@ -106,7 +106,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def prospect_name
-		text "Savings Summary: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
 	end
 
 	def user_labels
