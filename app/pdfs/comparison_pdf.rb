@@ -13,29 +13,13 @@ class ComparisonPdf < Prawn::Document
 		savings_amounts
 	end
 
+	def prospect_name
+		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	end
+	
 	def user_labels
 		move_down 0
 		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
-	end
-
-	def user_labels
-		bounding_box([45,385], :width => 50, :height => 200) do
-		text "Contact:", style: :bold
-		move_down 5 
-		text "Phone:", style: :bold
-		move_down 5
-		text "Email:", style: :bold
-	   	end
-	end
-
-	def user_contact
-		bounding_box([100,385], :width => 300, :height => 300) do
-		text "#{@user.first_name} #{@user.last_name}"
-		move_down 5
-		text "#{@user.phone_number}"
-		move_down 5
-		text "#{@user.email}"
-	   	end
 	end
 
 	def card_types
