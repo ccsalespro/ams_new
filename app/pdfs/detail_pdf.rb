@@ -22,7 +22,6 @@ class DetailPdf < Prawn::Document
 		table individual_cost_rows do
 			row(0..6).border_width = 0.3
 			row(0).font_style = :bold
-			row(6).font_style = :bold
 			columns(0..3).align = :left
 			row(0).align = :center
 			columns(0).width = 130
@@ -46,9 +45,24 @@ class DetailPdf < Prawn::Document
 		total_transactions
 		total_program_costs
 		total_access_fees
-		[["Description", "Volume", "Qty", "Per Item", "Percent", "Amount"], 
-		["VMD Fees", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), to_currency(@comparison.per_item_fee), to_percent_two(@comparison.bp_mark_up.to_f / 100), to_currency(@comparison.total_vmd_trans_fees + @comparison.total_vmd_mark_up_fees)],
-		["VMD Interchange", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), "Varies", "Varies", to_currency(@statement.interchange)]]
+		
+		if @statement.amex_vol == 0 && @statement.debit_vol == 0
+			individual_cost_header + 
+			vmd_rows
+		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
+			individual_cost_header + 
+			vmd_rows +
+			amex_rows
+		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
+			individual_cost_header + 
+			vmd_rows +
+			debit_rows
+		else
+			individual_cost_header + 
+			vmd_rows +
+			amex_rows +
+			debit_rows
+		end
 	end
 
 	def card_types
@@ -110,7 +124,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def user_labels
-		bounding_box([12,285], :width => 50, :height => 200) do
+		bounding_box([12,215], :width => 50, :height => 200) do
 		text "Contact:", style: :bold
 		move_down 5 
 		text "Phone:", style: :bold
@@ -120,7 +134,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def user_contact
-		bounding_box([67,285], :width => 300, :height => 300) do
+		bounding_box([67,215], :width => 300, :height => 300) do
 		text "#{@user.first_name} #{@user.last_name}"
 		move_down 5
 		text "#{@user.phone_number}"
@@ -133,6 +147,25 @@ class DetailPdf < Prawn::Document
 		[["Monthly Savings", "Annual Savings", "3 Year Savings"], 
 		[to_currency(@comparison.total_program_savings), to_currency(@comparison.total_program_savings * 12), to_currency(@comparison.total_program_savings * 36)]]
 
+	end
+
+	def individual_cost_header
+		[["Description", "Volume", "Qty", "Per Item", "Percent", "Amount"]]
+	end
+
+	def vmd_rows
+		[["VMD Fees", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), to_currency(@comparison.per_item_fee), to_percent_two(@comparison.bp_mark_up.to_f / 100), to_currency(@comparison.total_vmd_trans_fees + @comparison.total_vmd_mark_up_fees)]] +
+		[["VMD Interchange", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), "Varies", "Varies", to_currency(@statement.interchange)]]
+	end
+
+	def amex_rows
+		[["Amex Fees", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_per_item_fee), to_percent_two(@comparison.amex_bp_mark_up.to_f / 100), to_currency(@statement.interchange)]] +
+		[["Amex Opt Blue", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_per_item_cost), to_percent_two(@comparison.amex_percentage_cost), to_currency(@comparison.amex_total_opt_blue)]]
+	end
+
+	def debit_rows
+		[["Debit Fees", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@comparison.pin_debit_per_item_fee), to_percent_two(0), to_currency(@comparison.pin_debit_per_item_fee * @statement.debit_trans)]] +
+		[["Debit Network Fees", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), "Varies", "Varies", to_currency(@statement.debit_network_fees)]]
 	end
 
 	def interchange
@@ -192,4 +225,5 @@ class DetailPdf < Prawn::Document
 	def total_access_fees
 		@total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
 	end
+
 end
