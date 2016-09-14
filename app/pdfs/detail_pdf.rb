@@ -14,54 +14,6 @@ class DetailPdf < Prawn::Document
 		individual_cost_table
 	end
 
-	def individual_cost_table
-		move_down 20
-		table individual_cost_rows do
-			row(0..6).border_width = 0.3
-			row(0).font_style = :bold
-			columns(0..3).align = :left
-			row(0).align = :center
-			columns(0).width = 130
-			columns(1).width = 80
-			columns(2).width = 50
-			columns(3..5).width = 85
-			self.row_colors = ["f2f2f2", "FFFFFF"]
-			self.header = true
-			self.row(0).background_color = '002D64'
-			self.row(0).text_color = 'FFFFFF'
-			self.position = :center
-		end
-	end
-
-	def individual_cost_rows
-		total_vs_fees
-		total_mc_fees
-		total_ds_fees
-		total_amex_fees
-		total_debit_fees
-		total_transactions
-		total_program_costs
-		total_access_fees
-		
-		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			individual_cost_header + 
-			vmd_rows
-		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			individual_cost_header + 
-			vmd_rows +
-			amex_rows
-		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			individual_cost_header + 
-			vmd_rows +
-			debit_rows
-		else
-			individual_cost_header + 
-			vmd_rows +
-			amex_rows +
-			debit_rows
-		end
-	end
-
 	def card_types
 		move_down 20
 		table card_type_rows do
@@ -113,6 +65,54 @@ class DetailPdf < Prawn::Document
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
+		end
+	end
+
+	def individual_cost_table
+		move_down 20
+		table individual_cost_rows do
+			row(0..6).border_width = 0.3
+			row(0).font_style = :bold
+			columns(0..3).align = :left
+			row(0).align = :center
+			columns(0).width = 130
+			columns(1).width = 80
+			columns(2).width = 50
+			columns(3..5).width = 85
+			self.row_colors = ["f2f2f2", "FFFFFF"]
+			self.header = true
+			self.row(0).background_color = '002D64'
+			self.row(0).text_color = 'FFFFFF'
+			self.position = :center
+		end
+	end
+
+	def individual_cost_rows
+		total_vs_fees
+		total_mc_fees
+		total_ds_fees
+		total_amex_fees
+		total_debit_fees
+		total_transactions
+		total_program_costs
+		total_access_fees
+		
+		if @statement.amex_vol == 0 && @statement.debit_vol == 0
+			individual_cost_header + 
+			vmd_rows
+		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
+			individual_cost_header + 
+			vmd_rows +
+			amex_rows
+		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
+			individual_cost_header + 
+			vmd_rows +
+			debit_rows
+		else
+			individual_cost_header + 
+			vmd_rows +
+			amex_rows +
+			debit_rows
 		end
 	end
 
