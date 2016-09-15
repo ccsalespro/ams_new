@@ -19,21 +19,242 @@ class DetailPdf < Prawn::Document
 	def individual_fields_table
 		move_down 20
 		table field_rows do
-			row(0..6).border_width = 0.3
+			row(0..30).border_width = 0.3
 			row(0).font_style = :bold
-			row(-1).font_style = :bold
-			columns(0..3).align = :left
+			columns(0..4).align = :left
 			row(0).align = :center
-			columns(0).width = 65
-			columns(1..5).width = 90
+			columns(0).width = 135
+			columns(1).width = 180
+			columns(2).width = 75
+			columns(3).width = 60
+			columns(4).width = 65
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
 			self.row(0).background_color = '002D64'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
+		end
+	end
+
+	def individual_field_header
+		["Description", "Type", "Qty", "Cost", "Amount"]
+	end
+
+	def statement_fee_row
+		["Statement Fee", "Monthly Fee", "1", to_currency(@comparison.monthly_fees), to_currency(@comparison.monthly_fees)]
+	end
+
+	def monthly_pci_fee_row
+		["PCI Fee", "Monthly Fee", "1", to_currency(@comparison.monthly_pci_fees), to_currency(@comparison.monthly_pci_fees)]
+	end
+
+	def annual_fee_row
+		["Annual Fee", "Annual Fee", "1", to_currency(@comparison.annual_pci_fee), to_currency(@comparison.annual_pci_fee)]
+	end
+
+	def application_fee_row
+		["Application Fee", "One Time Fee", "1", to_currency(@comparison.application_fee), to_currency(@comparison.application_fee)]
+	end
+
+	def batch_fee_row
+		["Settlement Fee", "Per Batch Fee", to_integer(@statement.batches), to_currency(@comparison.per_batch_fee), to_currency(@comparison.batch_fees)]
+	end
+
+	def custom_monthly_fee_rows
+		if @monthly_fee_fields != nil
+		@monthly_fee_array = []
+			@monthly_fee_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << "1"
+				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
+				@monthly_fee_array << @array
+			end
+		@monthly_fee_array
+		end
+	end
+
+	def custom_annual_fee_rows
+		if @annual_fee_fields != nil
+		@annual_fee_array = []
+			@annual_fee_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << "1"
+				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
+				@annual_fee_array << @array
+			end
+		@annual_fee_array
+		end
+	end
+
+	def custom_one_time_fee_rows
+		if @one_time_fields != nil
+		@one_time_array = []
+			@one_time_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << "1"
+				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
+				@one_time_array << @array
+			end
+		@one_time_array
+		end
+	end
+
+	def custom_vmd_per_item_rows
+		if @vmd_per_item_fields != nil
+		@build_array = []
+			@vmd_per_item_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_integer(@statement.vmd_trans)
+				@array << to_currency(fee.amount) 
+				@array << to_currency(@statement.vmd_trans * fee.amount)
+				@build_array << @array
+			end
+		@build_array
+		end
+	end
+
+	def custom_vmd_vol_bp_rows
+		if @vmd_vol_bp_fields != nil
+		@build_array = []
+			@vmd_vol_bp_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_currency(@statement.vmd_vol)
+				@array << "#{to_integer(fee.amount)} BP" 
+				@array << to_currency(@statement.vmd_vol * (fee.amount.to_f / 10000))
+				@build_array << @array
+			end
+		@build_array
+		end
+	end
+
+	def custom_amex_per_item_rows
+		if @amex_per_item_fields != nil
+		@build_array = []
+			@amex_per_item_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_integer(@statement.amex_trans)
+				@array << to_currency(fee.amount) 
+				@array << to_currency(@statement.amex_trans * fee.amount)
+				@build_array << @array
+			end
+		@build_array
+		end
+	end
+
+	def custom_amex_vol_bp_rows
+		if @amex_vol_bp_fields != nil
+		@build_array = []
+			@amex_vol_bp_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_currency(@statement.amex_vol)
+				@array << "#{to_integer(fee.amount)} BP" 
+				@array << to_currency(@statement.amex_vol * (fee.amount.to_f / 10000))
+				@build_array << @array
+			end
+		@build_array
+		end
+	end
+
+	def custom_debit_per_item_rows
+		if @debit_per_item_fields != nil
+		@build_array = []
+			@debit_per_item_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_integer(@statement.debit_trans)
+				@array << to_currency(fee.amount) 
+				@array << to_currency(@statement.debit_trans * fee.amount)
+				@build_array << @array
+			end
+		@build_array
+		end
+	end
+
+	def custom_debit_vol_bp_rows
+		if @debit_vol_bp_fields != nil
+		@build_array = []
+			@debit_vol_bp_fields.each do |fee|
+				@array = []
+				@array << fee.name
+				@array << "#{fee.custom_field_type.name}"
+				@array << to_currency(@statement.debit_vol)
+				@array << "#{to_integer(fee.amount)} BP" 
+				@array << to_currency(@statement.debit_vol * (fee.amount.to_f / 10000))
+				@build_array << @array
+			end
+		@build_array
+		end
 	end
 
 	def field_rows
+		custom_field_arrays
+		@field_rows = []
+		@field_rows << individual_field_header
+		if @comparison.monthly_fees > 0
+			@field_rows << statement_fee_row
+		end
+		if @comparison.monthly_pci_fee > 0
+			@field_rows << monthly_pci_fee_row
+		end
+		if @monthly_fee_fields != nil
+			@field_rows += custom_monthly_fee_rows
+		end
+		if @comparison.annual_pci_fee > 0
+			@field_rows << annual_fee_row
+		end
+		if @annual_fee_fields != nil
+			@field_rows += custom_annual_fee_rows
+		end
+		if @comparison.application_fee > 0
+			@field_rows << application_fee_row
+		end
+		if @one_time_fields != nil
+			@field_rows += custom_one_time_fee_rows
+		end
+		if @vmd_per_item_fields != nil
+			@field_rows += custom_vmd_per_item_rows
+		end
+		if @vmd_vol_bp_fields != nil
+			@field_rows += custom_vmd_vol_bp_rows
+		end
+		if @amex_per_item_fields != nil
+			@field_rows += custom_amex_per_item_rows
+		end
+		if @amex_vol_bp_fields != nil
+			@field_rows += custom_amex_vol_bp_rows
+		end
+		if @debit_per_item_fields != nil
+			@field_rows += custom_debit_per_item_rows
+		end
+		if @debit_vol_bp_fields != nil
+			@field_rows += custom_debit_vol_bp_rows
+		end
+		if @statement.batches > 0
+			@field_rows << batch_fee_row
+		end
+
+		return @field_rows
+	end
+
+	def custom_field_arrays
 		@monthly_fee_fields = []
 		@annual_fee_fields = []
 		@one_time_fields = []
@@ -45,27 +266,27 @@ class DetailPdf < Prawn::Document
 		@debit_vol_bp_fields = []
 		@custom_fields = @program.custom_fields
 		@custom_fields.each do |cf|
-		case cf.custom_field_type.slug_string
-			when "monthly_fee"
-				@monthly_fee_fields << cf 
-			when "annual_fee"
-				@annual_fee_fields << cf 
-			when "one_time_fee"
-				@one_time_fields << cf 
-			when "vmd_per_item"
-				@vmd_per_item_fields << cf
-			when "vmd_vol_bp"
-				@vmd_vol_bp_fields << cf 
-			when "amex_per_item"
-				@amex_per_item_fields << cf 
-			when "amex_vol_bp"
-				@amex_vol_bp_fields << cf 
-			when "debit_per_item"
-				@debit_per_item_fields << cf 
-			when "debit_vol_bp"
-				@debit_vol_bp_fields << cf
-		end
-	  end	
+			case cf.custom_field_type.slug_string
+				when "monthly_fee"
+					@monthly_fee_fields << cf 
+				when "annual_fee"
+					@annual_fee_fields << cf 
+				when "one_time_fee"
+					@one_time_fields << cf 
+				when "vmd_per_item"
+					@vmd_per_item_fields << cf
+				when "vmd_volume_bp"
+					@vmd_vol_bp_fields << cf 
+				when "amex_per_item"
+					@amex_per_item_fields << cf 
+				when "amex_volume_bp"
+					@amex_vol_bp_fields << cf 
+				when "pin_per_item"
+					@debit_per_item_fields << cf 
+				when "pin_volume_bp"
+					@debit_vol_bp_fields << cf
+			end
+	  	end	
 	end
 
 	def card_types_table
@@ -218,7 +439,6 @@ class DetailPdf < Prawn::Document
 	def savings_row
 		[["Monthly Savings", "Annual Savings", "3 Year Savings"], 
 		[to_currency(@comparison.total_program_savings), to_currency(@comparison.total_program_savings * 12), to_currency(@comparison.total_program_savings * 36)]]
-
 	end
 
 	def individual_cost_header

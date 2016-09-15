@@ -297,13 +297,13 @@
       <td class="text-center"><%= number_to_currency(@comparison.monthly_fees) %></td>
     </tr>
     <% end %>
-    <% if @comparison.monthly_pci_fee > 0 %>
+    <% if @comparison.monthly_pci_fees > 0 %>
     <tr>
       <td>PCI</td>
       <td>Monthly</td>
       <td>1</td>
-      <td><%= number_to_currency(@comparison.monthly_pci_fee) %></td>
-      <td class="text-center"><%= number_to_currency(@comparison.monthly_pci_fee) %></td>
+      <td><%= number_to_currency(@comparison.monthly_pci_fees) %></td>
+      <td class="text-center"><%= number_to_currency(@comparison.monthly_pci_fees) %></td>
     </tr>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("monthly_fee") %>
