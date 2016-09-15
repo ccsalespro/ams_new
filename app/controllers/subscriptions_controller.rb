@@ -21,15 +21,35 @@ class SubscriptionsController < ApplicationController
         source: params[:stripeToken],
         plan: "1030"
       )
+    options = {
+      stripeid: customer.id,
+      stripe_subscription_id: subscription.id,
+      subscribed: true,
+      training_subscribed: true
+    }
+
+    options.merge!(
+      card_last4: params[:card_last4],
+      card_exp_month: params[:card_exp_month],
+      card_exp_year: params[:card_exp_year],
+      card_type: params[:card_brand]
+    ) if params[:card_brand]
+    
+    current_user.update(options)
+    
+    redirect_to root_path
+  end
+
+  def add_card_info
+    customer = Stripe::Customer.retrieve(current_user.stripeid)
+    card = customer.sources.first
 
     current_user.update(
-        stripeid: customer.id,
-        stripe_subscription_id: subscription.id,
-        subscribed: true,
-        training_subscribed: true,
+      card_last4: card.last4,
+      card_exp_month: card.exp_month,
+      card_exp_year: card.exp_year,
+      card_type: card.brand
       )
-
-    redirect_to root_path
   end
 
   def update
@@ -39,8 +59,8 @@ class SubscriptionsController < ApplicationController
     subscription.save
 
     redirect_to edit_user_registration_path, notice: "Your Payment Information Updated Successfully"
-
-
+    
+    add_card_info    
   end
   
   def destroy
