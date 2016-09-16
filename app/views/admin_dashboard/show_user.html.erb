@@ -29,7 +29,9 @@
 <% else %>
 <%= link_to(' Lock Courses', {:controller => 'admin_dashboard', :action => 'untraining_subscribe', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
 <% end -%>
-<%= link_to('Delete', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% if @user.stripe_subscription_id != nil %>
+<%= link_to('Cancel Subscription', {:controller => 'admin_dashboard', :action => 'destroy_user', :id => @user.id}, class: 'btn btn-primary btn-sm', data: { confirm: 'Are You Sure?' }) %>
+<% end %> 
 </center>
 <br>
 
