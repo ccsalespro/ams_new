@@ -19,8 +19,15 @@ class AdminDashboardController < ApplicationController
 
 	def destroy_user
 		@user = User.find_by_id(params[:id])
-		@user.destroy
-		redirect_to admin_dashboard_index_path
+		customer = Stripe::Customer.retrieve(@user.stripeid)
+		customer.subscriptions.retrieve(@user.stripe_subscription_id).delete
+		@user.update(
+        stripe_subscription_id: nil,
+        subscribed: false,
+        training_subscribed: false
+      )
+
+      redirect_to users_path, notice: "subscription cancelled"
 	end
 
 	def subscribe

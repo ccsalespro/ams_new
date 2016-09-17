@@ -1,4 +1,4 @@
-<div class="container" style="max-width: 500px;">
+<div class="container" style="max-width: 450px;">
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <div class="panel panel-default">
@@ -10,42 +10,55 @@
                 <div class="panel-body">
                     <%= form_tag subscription_path, id: "payment-form" do %>
                     <span class="payment-errors"></span>
-                    <div class="form-group">
-                        <label for="cardNumber">
-                            CARD NUMBER</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" data-stripe="number" placeholder="Valid Card Number"
-                                required autofocus />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    <% if current_user.card_type? %>
+                        <div class="card-on-file">
+                            <p>Your current card on file is:</p>
+                            <div><%= current_user.card_type %> **** **** **** <%= current_user.card_last4 %></div>
+                            <div>Expires: <%= current_user.card_exp_month %> / <%= current_user.card_exp_year %></div>
+                            <p><%= link_to "Use a different card", "#", class: "use-different-card" %></p>
+                            <hr />
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-7 col-md-7">
-                            <div class="form-group" class="pull-left">
-                                <label for="expityMonth">
-                                    EXPIRATION DATE</label>
-                                <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
-                                    <input type="text" class="form-control" data-stripe="exp_month" placeholder="MM" required />
+                    <% end %>
+                    <div class="card-fields <%= card_fields_class %>">
+                        <div class="form-group">
+                            <label for="cardNumber">
+                                CARD NUMBER</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-stripe="number" placeholder="Valid Card Number" autofocus />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group" class="pull-left">
+                                    <label for="expityMonth">
+                                        EXPIRATION DATE</label>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
+                                        <input type="text" class="form-control" data-stripe="exp_month" placeholder="MM" />
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
+                                        <input type="text" class="form-control" data-stripe="exp_year" placeholder="YY" /></div>
                                 </div>
-                                <div class="col-xs-6 col-lg-6 pl-ziro" style="padding-left: 0px;">
-                                    <input type="text" class="form-control" data-stripe="exp_year" placeholder="YY" required /></div>
                             </div>
-                        </div>
-                        <div class="col-xs-5 col-md-5 pull-right">
-                            <div class="form-group">
-                                <label for="cvCode">
-                                    CV CODE</label>
-                                <input type="password" class="form-control" data-stripe="cvc" placeholder="CVC" required />
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cvCode">
+                                        CV CODE</label>
+                                    <input type="password" class="form-control" data-stripe="cvc" placeholder="CVC" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="submit btn btn-primary" value="Begin Trial">
+                    <input type="submit" class="submit btn btn-primary" value="Subscribe">
                   <% end %>
+                    <% if current_user.stripeid == nil %>
+                    <hr />
+                    <p><b>Trial Days Remaining: 30</b></p>
+                    <% end %>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 

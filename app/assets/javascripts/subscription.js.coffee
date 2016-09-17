@@ -14,7 +14,7 @@ jQuery ->
 
     # Prevent the form from submitting with the default action
     false
-
+    
   $('.use-different-card').on "click", ->
     $(".card-on-file").hide()
     $(".card-fields").removeClass("hidden")

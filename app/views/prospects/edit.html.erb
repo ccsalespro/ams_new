@@ -57,6 +57,10 @@
     <br>
     <% end %>
 
+    <div>
+        <b><%= "Business Type: #{@prospect.description_secondary}" %></b>
+    </div>
+
     <h4 class="notes_title text-center">Actions</h4>
     <%= form_for [@prospect, Task.new] do |f| %>
 

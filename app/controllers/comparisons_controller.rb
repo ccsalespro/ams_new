@@ -1,6 +1,6 @@
 class ComparisonsController < ApplicationController
   before_action :load_prospect, :load_statement
-  before_action :load_comparison, only: [:show, :edit, :update]
+  before_action :load_comparison, only: [:show, :edit, :update, :savings_summary, :savings_detail]
   before_action :authenticate_user!
   before_action :require_subscribed
 
@@ -118,6 +118,31 @@ class ComparisonsController < ApplicationController
     @statement = Statement.find_by_id(@comparison.statement_id)
     @statement.presented_program = @program.name
     @statement.save
+    respond_to do |format| 
+      format.html
+    end
+  end
+
+  def savings_summary
+    respond_to do |format|
+    format.pdf do
+        pdf = ComparisonPdf.new(@prospect, @statement, @comparison, view_context, current_user)
+        send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end
+  end
+
+  def savings_detail
+    respond_to do |format|
+    format.pdf do 
+        pdf = DetailPdf.new(@prospect, @statement, @comparison, view_context, current_user)
+        send_data pdf.render, filename: "#{@prospect.business_name} Proposal.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
+    end
   end
 
   def edit
@@ -131,7 +156,7 @@ class ComparisonsController < ApplicationController
       set_vmd_access_fees(      @comparison, @statement)
       set_amex_fees(            @comparison, @statement)
       set_debit_fees(           @comparison, @statement)      
-      set_total_fees(           @comparison, @statement)     
+      set_total_fees(           @comparison, @statement)   
       set_compensation(         @comparison, @program)
       set_conditional_savings(  @comparison, @statement)
       @comparison.save  
@@ -141,7 +166,7 @@ class ComparisonsController < ApplicationController
 private
   def comparison_params
       params.require(:comparison).permit(:id, :bp_mark_up, :per_item_fee, :amex_bp_mark_up, :amex_per_item_fee, :pin_debit_bp_mark_up, :debit_trans_fees,
-      :monthly_fees, :per_batch_fee, :monthly_pci_fees, :annual_pci_fees, :application_fee, :annual_fee, :monthly_debit_fee, :next_day_funding_fee, :pin_debit_per_item_fee )
+      :monthly_fees, :per_batch_fee, :monthly_pci_fees, :monthly_pci_fee, :annual_pci_fees, :application_fee, :annual_fee, :monthly_debit_fee, :next_day_funding_fee, :pin_debit_per_item_fee )
   end
 
   def load_comparison
@@ -427,7 +452,12 @@ private
     c.total_program_bonus = 
       p.up_front_bonus +
       (c.custom_sales_bonus - c.custom_sales_bonus_costs)
-
+    if c.application_fee > 0
+      c.total_program_bonus += (c.application_fee - p.application_fee_cost)
+    end
+    if c.custom_one_time_fee > 0
+      c.total_program_bonus += (c.custom_one_time_fee - c.custom_one_time_fee_costs)
+    end
   end
 
   def set_fixed_values(c)

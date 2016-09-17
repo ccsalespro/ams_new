@@ -41,6 +41,10 @@ gem 'redcarpet'
 
 gem 'jquery-datetimepicker-rails'
 
+gem 'prawn'
+
+gem 'prawn-table'
+
 gem 'jquery-turbolinks'
 
 gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
