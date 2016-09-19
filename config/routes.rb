@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :team_users
+  resources :teams
   root to: 'static#index'
   devise_for :users, controllers: { registrations: "registrations" }
   resources :custom_field_types

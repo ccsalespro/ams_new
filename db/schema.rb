@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916214848) do
+ActiveRecord::Schema.define(version: 20160916215552) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -594,6 +594,24 @@ ActiveRecord::Schema.define(version: 20160916214848) do
 
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+
+  create_table "team_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "team_users", ["team_id"], name: "index_team_users_on_team_id"
+  add_index "team_users", ["user_id"], name: "index_team_users_on_user_id"
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.string   "bill_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "user_id"
