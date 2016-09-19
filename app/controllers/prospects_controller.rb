@@ -8,10 +8,11 @@ class ProspectsController < ApplicationController
   # GET /prospects
   # GET /prospects.json
   def index
+    @course = Course.find_by_id(15)
     @search = current_user.prospects.search(params[:q])
     @prospects = @search.result
     if @search.result.none?
-      @searchnone = "No Results"
+      @searchnone = "No Prospects"
     end
     @unread_messages = InternalContact.where(read: false).count
   end

@@ -33,7 +33,7 @@
 					<% @chapter_time = @lesson_time %>
 				<% end -%>
 
-  	<h3 class="col-sm-10 col-xs-9 no-padding no-margin" style="margin-bottom: 0px !important;"><%= link_to chapter.name, course_chapter_path(@course, chapter), :class => 'black' %></h3>
+  	<h3 class="col-sm-10 col-xs-9 no-padding no-margin" style="margin-bottom: 0px !important;"><%= link_to chapter.name, course_chapter_path(@course, chapter), :class => 'btn btn-primary' %></h3>
   		<div class="pull-right col-sm-2 col-xs-3 no-padding no-margin text-right" style="font-size: 20px !important; margin-bottom: 0px !important;"><b><%= @chapter_time %></b>m</div>
   <div class="clearfix"></div>
   	<% if chapter != @chapters.last %>
