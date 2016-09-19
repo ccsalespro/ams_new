@@ -1,5 +1,6 @@
 class TeamUsersController < ApplicationController
   before_action :set_team_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_admin
 
   # GET /team_users
   # GET /team_users.json

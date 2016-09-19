@@ -18,11 +18,17 @@ class User < ActiveRecord::Base
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
 
-  after_create :create_notification, :add_programs
+  after_create :create_notification, :add_programs, :make_subscribed
   after_destroy :cancel_notification
 
   def stripe_subscribed?
     stripe_subscription_id?
+  end
+
+  def make_subscribed
+    self.subscribed = true
+    self.training_subscribed = true
+    self.save
   end
 
   def create_notification
