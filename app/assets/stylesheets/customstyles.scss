@@ -11,6 +11,15 @@
 
 .alert { border-radius: 0px !important; }
 
+/* Background Image Full Class */
+.full {
+    background: url(grey-background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 // Main Color Var
   $main-color: #002D64;
   .btn-primary { background-color: $main-color; border: $main-color; }
