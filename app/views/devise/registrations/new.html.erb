@@ -11,14 +11,14 @@
       <iframe width="460" height="263" src="https://www.youtube.com/embed/VGhHb7eLWiw" frameborder="0" allowfullscreen></iframe>
       </div>
   </div>
-  <div class="col-sm-5 col-sm-offset-0 hidden-xs hidden-md hidden-lg"><br /><br /><br /><br />
+  <div class="col-sm-5 col-sm-offset-0 hidden-xs hidden-md hidden-lg"><br />
     <%= image_tag('devices.png', :size => '350x190') %><br /><br /><br />
     <div class="well" style="width:350px;">
       <iframe width="310" height="170" src="https://www.youtube.com/embed/VGhHb7eLWiw" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
-  <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-2 col-xs-12 col-lg-5 col-lg-offset-1"><br /><br />
-    <div class="well welly welly-lg hidden-xs hidden-sm" style="min-width:350px;max-width:350px;">
+  <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-2 col-xs-12 col-lg-5 col-lg-offset-1">
+    <div class="well welly welly-lg hidden-xs hidden-sm" style="min-width:350px;max-width:350px;margin-top:40px;">
       <h3 class="text-center">Sign Up</h3><br />
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -67,7 +67,6 @@
 
 
     <div class="well welly welly-sm visible-xs visible-sm" style="min-width:300px;max-width:350px;">
-    <h3 class="text-center">Sign Up</h3><br />
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
