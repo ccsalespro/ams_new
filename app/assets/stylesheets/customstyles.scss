@@ -11,15 +11,6 @@
 
 .alert { border-radius: 0px !important; }
 
-/* Background Image Full Class */
-.full {
-    background: url(light-grey-background.png) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-
 // Main Color Var
   $main-color: #002D64;
   .btn-primary { background-color: $main-color; border: $main-color; }
@@ -485,6 +476,15 @@ hr.style-two {
 .fiftythree { min-width: 53px !important; }
 
 .statement-name { min-width: 115px !important; }
+
+/* Background Image Full Class */
+.full {
+    background: url(light-grey-background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
 
 .hover {
     transform: scale(1,1) !important;
