@@ -26,6 +26,34 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user_subscribed?
 
+  def require_team_edit(team)
+    @team = team
+    @team_user = TeamUser.where(user_id: current_user.id).where(team_id: @team.id).first
+
+    case @team.team_type.description
+      when "Processor"
+        unless @team_user.team_user_role.name == "Employee"
+          redirect_to teams_path, notice: "You Are Not Authorized to Edit This Team"
+        end
+      when "ISO"
+        unless @team_user.team_user_role.name == "Owner"
+          redirect_to teams_path, notice: "You Are Not Authorized to Edit This Team"
+        end
+      when "Affiliate"
+        unless @team_user.team_user_role.name == "Reseller"
+          redirect_to teams_path, notice: "You Are Not Authorized to Edit This Team"
+        end
+      when "Recruiter"
+        unless @team_user.team_user_role.name == "Recruiter"
+          redirect_to teams_path, notice: "You Are Not Authorized to Edit This Team"
+        end
+      when "Admin"
+        unless @team_user.team_user_role.name == "Admin"
+          redirect_to teams_path, notice: "You Are Not Authorized to Edit This Team"
+        end
+    end 
+  end
+  helper_method :require_team_edit
 
   protected
 

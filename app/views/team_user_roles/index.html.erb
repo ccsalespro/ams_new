@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Team User Roles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Bill to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @team_user_roles.each do |team_user_role| %>
+      <tr>
+        <td><%= team_user_role.name %></td>
+        <td><%= team_user_role.description %></td>
+        <td><%= team_user_role.bill_to %></td>
+        <td><%= link_to 'Show', team_user_role %></td>
+        <td><%= link_to 'Edit', edit_team_user_role_path(team_user_role) %></td>
+        <td><%= link_to 'Destroy', team_user_role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Team user role', new_team_user_role_path %>

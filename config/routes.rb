@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :team_user_roles
+  resources :team_types
   resources :team_users
   resources :teams
   root to: 'static#index'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916215552) do
+ActiveRecord::Schema.define(version: 20160921122618) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -595,23 +595,40 @@ ActiveRecord::Schema.define(version: 20160916215552) do
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
+  create_table "team_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "team_user_roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "bill_to"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "team_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
-    t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "team_user_role_id"
   end
 
   add_index "team_users", ["team_id"], name: "index_team_users_on_team_id"
+  add_index "team_users", ["team_user_role_id"], name: "index_team_users_on_team_user_role_id"
   add_index "team_users", ["user_id"], name: "index_team_users_on_user_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.string   "bill_to"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "team_type_id"
   end
+
+  add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id"
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "user_id"
@@ -649,6 +666,14 @@ ActiveRecord::Schema.define(version: 20160916215552) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
     t.string   "stripe_subscription_id"
     t.string   "card_last4"
     t.integer  "card_exp_month"
@@ -658,6 +683,9 @@ ActiveRecord::Schema.define(version: 20160916215552) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

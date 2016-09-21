@@ -70,6 +70,6 @@ class TeamUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_user_params
-      params.require(:team_user).permit(:user_id, :team_id, :role)
+      params.require(:team_user).permit(:user_id, :team_id, :team_user_role_id)
     end
 end
