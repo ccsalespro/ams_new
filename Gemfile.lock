@@ -80,6 +80,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.5.5)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     erubis (2.7.0)
     excon (0.52.0)
     execjs (2.7.0)
@@ -242,6 +245,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise (~> 3.5, >= 3.5.6)
+  devise_invitable
   font-awesome-sass
   jbuilder (~> 2.0)
   jquery-datetimepicker-rails

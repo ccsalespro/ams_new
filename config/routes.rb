@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :team_user_roles
   resources :team_types
   resources :team_users
-  resources :teams
   root to: 'static#index'
   devise_for :users, controllers: { registrations: "registrations" }
   resources :custom_field_types
@@ -18,6 +17,10 @@ Rails.application.routes.draw do
   resources :images
   resource :subscription
   resource :card
+
+  resources :teams do 
+    resources :team_users, path: :users
+  end
 
   resources :lessonusers do
     member do

@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  attr_accessor :email
+
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :prospects, dependent: :destroy
@@ -18,8 +20,9 @@ class User < ActiveRecord::Base
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
 
-  after_create :create_notification, :add_programs, :make_subscribed
+  after_create :create_notification, :add_programs, :make_subscribed, :create_affiliate_relationship
   after_destroy :cancel_notification
+
 
   def stripe_subscribed?
     stripe_subscription_id?
@@ -37,6 +40,15 @@ class User < ActiveRecord::Base
 
   def cancel_notification
     AdminMailer.cancelled_user(self).deliver
+  end
+
+  def create_affiliate_relationship
+    @team = Team.find_by_id(params[:team_id])
+    if @team.team_type.description == "Affiliate" && self.invited_by_id != nil
+      @team_user = TeamUser.new
+      @team_user.team_id = @team.id
+      @team_user.user_id = self.id
+    end
   end
 
   def add_programs

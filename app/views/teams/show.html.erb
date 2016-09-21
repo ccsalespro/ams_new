@@ -3,7 +3,17 @@
 <p>
   <strong>Name:</strong>
   <%= @team.name %>
-</p>
+</p><br />
+
+<h4>Invite User</h4>
+<%= form_for [@project, ProjectUser.new] do |f| %>
+  <div>
+    <%= f.text_field :email, required: true %>
+  </div>
+  <%= f.submit "Invite" %>
+<%  end %><br />
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
+
+
