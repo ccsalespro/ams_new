@@ -1,6 +1,8 @@
 class TeamUsersController < ApplicationController
   before_action :set_team_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :require_admin
+  before_action :set_team, except: [:show]
 
   # GET /team_users
   # GET /team_users.json
@@ -25,14 +27,20 @@ class TeamUsersController < ApplicationController
   # POST /team_users
   # POST /team_users.json
   def create
-    @team_user = TeamUser.new(team_user_params)
+    @team_user = @team.team_users.new(team_user_params)
+    @team_user.team = @team
 
     respond_to do |format|
       if @team_user.save
-        format.html { redirect_to @team_user, notice: 'Team user was successfully created.' }
-        format.json { render :show, status: :created, location: @team_user }
+        @team_users = TeamUser.where(user_id: @team_user.user_id).where("team_id != ?", @team_user.team_id)
+        if @team_users.empty? || @team.team_type_id == 2 || @team.team_type_id == 1
+          format.html { redirect_to team_path(@team), notice: 'Team user was successfully created.' }
+        else 
+          @team_user.delete 
+          format.html { redirect_to team_path(@team), notice: 'User Already on Another Team - Contact support@instantquotetool.com' }
+        end
       else
-        format.html { render :new }
+        format.html { redirect_to team_path(@team), notice: "User is Already Associated with #{@team.name} Team" }
         format.json { render json: @team_user.errors, status: :unprocessable_entity }
       end
     end
@@ -68,8 +76,14 @@ class TeamUsersController < ApplicationController
       @team_user = TeamUser.find(params[:id])
     end
 
+    def set_team
+      @team = Team.find(params[:team_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_user_params
-      params.require(:team_user).permit(:user_id, :team_id, :team_user_role_id)
+      params.require(:team_user).permit(:email, :user_id, :team_id, :team_user_role_id)
     end
+    
+
 end

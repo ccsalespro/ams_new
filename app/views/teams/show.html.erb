@@ -1,19 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="container text-center"><br />
+  <div class="well welly">
+	<h1>Welcome Members of <%= @team.name %></h1><br />
+		<% @team_user = TeamUser.where(user_id: current_user.id).where(team_id: @team.id).first %>
+		<% @manage_ids = [2, 1, 4, 7, 8, 9] %>
+		<% if @manage_ids.include? @team_user.team_user_role_id %>
+			<h4>Invite User</h4>
+			<%= form_for [@team, TeamUser.new] do |f| %>
+			  <div>
+			    <%= f.text_field :email, required: true %>
+			  </div>
+			  <%= f.submit "Invite" %><br />
+			<% end %>
+		<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
-</p><br />
-
-<h4>Invite User</h4>
-<%= form_for [@project, ProjectUser.new] do |f| %>
-  <div>
-    <%= f.text_field :email, required: true %>
+	<h4>Members</h4>
+	<table class="table table-striped table-responsive">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @team.users.each do |user| %>
+			<tr>
+				<td><%= user.first_name %> <%= user.last_name %></td>
+				<td><%= user.email %></td>
+				<% if user.confirmed_at == nil %>
+				<td><span class="label label-danger">Unconfirmed</span></td>
+				<% elsif user.confirmed_at != nil && user.stripe_subscription_id == nil %>
+				<td><span class="label label-primary">Trial User</span></td>
+				<% elsif user.confirmed_at != nil && user.stripe_subscription_id != nil %>
+				<td><span class="label label-success">Active</span></td>
+				<% else %>
+				<td><span class="label label-info">Unknown Status</span></td>
+				<% end %>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= link_to 'Back to Teams', teams_path, class: 'btn btn-primary' %>
   </div>
-  <%= f.submit "Invite" %>
-<%  end %><br />
+</div>
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+
+
+	
 
 
