@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :tickets, dependent: :destroy
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
+  has_many :charges
 
   after_create :create_notification, :add_programs, :make_subscribed
   after_destroy :cancel_notification
