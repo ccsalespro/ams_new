@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921195046) do
+ActiveRecord::Schema.define(version: 20160924153726) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -686,6 +686,7 @@ ActiveRecord::Schema.define(version: 20160921195046) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
+    t.string   "avatar"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
