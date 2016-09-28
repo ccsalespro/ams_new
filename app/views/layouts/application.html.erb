@@ -66,12 +66,11 @@
                         <%= link_to('Subscribe', new_subscription_path, :class => 'a-tag-for-navbar-links nav-font') %>
                       </li>
                     <% end -%>
-
-                    <% if user_signed_in? && current_user.subscribed? %>
+                    <% if user_signed_in? %>
                     <li>
                         <%= link_to("Prospects", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>
-                    <% end -%>
+                    <% end %>
                     <li>
                         <%= link_to("Support", new_internal_contact_path, :class => 'a-tag-for-navbar-links nav-font') %>
                     </li>

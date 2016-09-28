@@ -11,8 +11,15 @@ class RecordCharges
 			card_last4: charge.source.last4,
 			card_exp_month: charge.source.exp_month,
 			card_exp_year: charge.source.exp_year,
-			card_type: charge.source.brand
-		)		
+			card_type: charge.source.brand,
+			paid: charge.paid
+		)	
+		if charge.paid?
+			user.stripe_subscription_active = true
+		else
+			user.stripe_subscription_active = false
+		end
+		user.save	
 	end
 end
 

@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   
+  get 'subscriptions/weekly'
   get 'lessonusers/link_complete'
   get 'blogs/index'
   get 'tasks/index'
