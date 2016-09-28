@@ -50,13 +50,6 @@ gem 'jquery-turbolinks'
 
 gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
 
-gem 'carrierwave'
-
-gem 'image'
-
-gem 'rmagick'
-
-gem 'fog'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

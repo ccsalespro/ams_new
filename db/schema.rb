@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(version: 20160924153726) do
   add_index "chapterusers", ["course_id"], name: "index_chapterusers_on_course_id"
   add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
 
+  create_table "charges", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "stripeid"
+    t.integer  "amount"
+    t.string   "card_last4"
+    t.string   "card_exp_month"
+    t.string   "card_exp_year"
+    t.string   "card_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "charges", ["stripeid"], name: "index_charges_on_stripeid", unique: true
+
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
     t.text     "body"
@@ -506,13 +520,6 @@ ActiveRecord::Schema.define(version: 20160924153726) do
   add_index "prospects", ["description_id"], name: "index_prospects_on_description_id"
   add_index "prospects", ["user_id", "created_at"], name: "index_prospects_on_user_id_and_created_at"
   add_index "prospects", ["user_id"], name: "index_prospects_on_user_id"
-
-  create_table "sorts", force: :cascade do |t|
-    t.string   "sort_by"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "stages", force: :cascade do |t|
     t.string   "name"
