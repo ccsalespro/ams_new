@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" style="text-align: center;">
                     <h3 class="panel-title" style="display: inline;font-weight: bold;">
-                        Profile Billing Details
+                        $99 Monthly Subscription
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <%= hidden_field_tag "plan_id", "1002" %>
-                    <input type="submit" class="submit btn btn-primary" value="$99 Monthly Subscription"><br /><br />
+                    <input type="submit" class="submit btn btn-primary" value="Start Subscription"><br /><br />
                   <% end %>
                     <%= link_to "Switch to Weekly ($29.00)", subscriptions_weekly_path, class: "btn btn-primary" %>
                 </div>
