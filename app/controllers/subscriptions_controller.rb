@@ -10,6 +10,9 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def weekly
+  end
+
   def create
     customer =  if current_user.stripeid?
                   Stripe::Customer.retrieve(current_user.stripeid)
@@ -19,13 +22,14 @@ class SubscriptionsController < ApplicationController
         
     subscription = customer.subscriptions.create(
         source: params[:stripeToken],
-        plan: "1030"
+        plan: params[:plan_id]
       )
     options = {
       stripeid: customer.id,
       stripe_subscription_id: subscription.id,
       subscribed: true,
-      training_subscribed: true
+      training_subscribed: true,
+      stripe_subscription_active: true
     }
 
     options.merge!(
@@ -48,7 +52,8 @@ class SubscriptionsController < ApplicationController
       card_last4: card.last4,
       card_exp_month: card.exp_month,
       card_exp_year: card.exp_year,
-      card_type: card.brand
+      card_type: card.brand,
+      stripe_subscription_active: true
       )
   end
 

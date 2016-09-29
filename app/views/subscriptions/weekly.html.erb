@@ -4,7 +4,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" style="text-align: center;">
                     <h3 class="panel-title" style="display: inline;font-weight: bold;">
-                        $99 Monthly Subscription
+                        $29 Weekly Subscription
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -49,10 +49,10 @@
                             </div>
                         </div>
                     </div>
-                    <%= hidden_field_tag "plan_id", "1002" %>
+                    <%= hidden_field_tag "plan_id", "1040" %>
                     <input type="submit" class="submit btn btn-primary" value="Start Subscription"><br /><br />
                   <% end %>
-                    <%= link_to "Switch to Weekly ($29.00)", subscriptions_weekly_path, class: "btn btn-primary" %>
+                    <%= link_to "Switch to Monthly ($99.00)", new_subscription_path, class: "btn btn-primary" %>
                 </div>
             </div>
         </div>
