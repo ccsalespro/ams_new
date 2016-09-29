@@ -42,23 +42,42 @@ class TeamsController < ApplicationController
       end
     end
 
-    @today_prospects = 0
+    @six_days_ago_prospects = 0
+    @five_days_ago_prospects = 0
+    @four_days_ago_prospects = 0
+    @three_days_ago_prospects = 0
+    @two_days_ago_prospects = 0
+    @one_day_ago_prospects = 0
+    @todays_prospects = 0
+
     @team.users.each do |user|
       user.prospects.each do |prospect|
-        if prospect.created_at.strftime("%m/%d/%Y") >= 7.days.ago.strftime("%m/%d/%Y")
-          @today_prospects += 1
+        if prospect.created_at.strftime("%m/%d/%Y") == 6.days.ago.strftime("%m/%d/%Y")
+          @six_days_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == 5.days.ago.strftime("%m/%d/%Y")
+           @five_days_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == 4.days.ago.strftime("%m/%d/%Y")
+           @four_days_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == 3.days.ago.strftime("%m/%d/%Y")
+           @three_days_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == 2.days.ago.strftime("%m/%d/%Y")
+           @two_days_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == 1.day.ago.strftime("%m/%d/%Y")
+           @one_day_ago_prospects += 1
+        elsif prospect.created_at.strftime("%m/%d/%Y") == Date.today.strftime("%m/%d/%Y")
+           @todays_prospects += 1
         end
       end
     end
 
-    @todays_date = Date.today.strftime("%d")
-    @tomorrows_date = Date.tomorrow.strftime("%d")
-    @two_days_ahead_date = (Date.tomorrow + 1.day).strftime("%d")
-    @three_days_ahead_date = (Date.tomorrow + 2.day).strftime("%d")
-    @four_days_ahead_date = (Date.tomorrow + 3.day).strftime("%d")
-    @five_days_ahead_date = (Date.tomorrow + 4.day).strftime("%d")
-    @six_days_ahead_date = (Date.tomorrow + 5.day).strftime("%d")
-    @seven_days_ahead_date = (Date.tomorrow + 6.day).strftime("%d")
+    @six_days_ago = (Date.today - 6.days).strftime("%d")
+    @five_days_ago = (Date.today - 5.days).strftime("%d")
+    @four_days_ago = (Date.today - 4.days).strftime("%d")
+    @three_days_ago = (Date.today - 3.days).strftime("%d")
+    @two_days_ago = (Date.today - 2.days).strftime("%d")
+    @one_day_ago = (Date.today - 1.day).strftime("%d")
+    @today = Date.today.strftime("%d")
+
   end
 
   # GET /teams/new

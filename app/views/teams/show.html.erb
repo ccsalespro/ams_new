@@ -380,26 +380,26 @@
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-            d: <%= @todays_date %>,
-            a: <%= @today_prospects %>,
+            d: <%= @six_days_ago %>,
+            a: <%= @six_days_ago_prospects %>,
         }, {
-            d:  <%= @tomorrows_date %>,
-            a: 75,
+            d: <%= @five_days_ago %>,
+            a: <%= @five_days_ago_prospects %>,
         }, {
-            d: <%= @two_days_ahead_date %>,
-            a: 50,
+            d: <%= @four_days_ago %>,
+            a: <%= @four_days_ago_prospects %>,
         }, {
-            d: <%= @three_days_ahead_date %>,
-            a: 75,
+            d: <%= @three_days_ago %>,
+            a: <%= @three_days_ago_prospects %>,
         }, {
-            d: <%= @four_days_ahead_date %>,
-            a: 50,
+            d: <%= @two_days_ago %>,
+            a: <%= @two_days_ago_prospects %>,
         }, {
-            d: <%= @five_days_ahead_date %>,
-            a: 75,
+            d: <%= @one_day_ago %>,
+            a: <%= @one_day_ago_prospects %>,
         }, {
-            d: <%= @six_days_ahead_date %>,
-            a: 100,
+            d: <%= @today %>,
+            a: <%= @todays_prospects %>,
         }],
         xkey: 'd',
         ykeys: ['a'],
