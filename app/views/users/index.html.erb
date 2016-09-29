@@ -98,8 +98,10 @@
 				<td class="hidden-xs"><span class="label label-info">None</span></td>
 				<% elsif user.stripe_subscription_active == true %>
 				<td class="hidden-xs"><span class="label label-success">Current</span></td>
-				<% else %>
+				<% elsif user.stripe_subscription_id != nil && user.stripe_subscription_active == false %>
 				<td class="hidden-xs"><span class="label label-danger">Past Due</span></td>
+				<% else %>
+				<td class="hidden-xs"><span class="label label-warning">Exception</span></td>
 				<% end %>
 				<% if user.subscribed == false %>
 				<td class="hidden-xs"><span class="label label-danger">Denied</span></td>
