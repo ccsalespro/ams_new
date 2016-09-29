@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160924153726) do
-=======
 ActiveRecord::Schema.define(version: 20160928045231) do
->>>>>>> 67df187d4e176c32b1ae3d48b5bfd1e87be14de1
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -704,15 +700,10 @@ ActiveRecord::Schema.define(version: 20160928045231) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-<<<<<<< HEAD
-    t.integer  "invitations_count",      default: 0
-    t.string   "avatar"
-=======
     t.integer  "invitations_count",          default: 0
     t.string   "avatar"
     t.datetime "trial_end_date"
     t.boolean  "stripe_subscription_active"
->>>>>>> 67df187d4e176c32b1ae3d48b5bfd1e87be14de1
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

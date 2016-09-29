@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
   resources :team_user_roles
   resources :team_types
-=======
+
   mount StripeEvent::Engine, at: '/stripe/webhook'
 
->>>>>>> 67df187d4e176c32b1ae3d48b5bfd1e87be14de1
   resources :team_users
   root to: 'static#index'
   devise_for :users, controllers: { registrations: "registrations" }
