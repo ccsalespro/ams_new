@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount StripeEvent::Engine, at: '/stripe/webhook'
+
   resources :team_users
   resources :teams
   root to: 'static#index'
@@ -122,6 +124,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   
+  get 'subscriptions/weekly'
   get 'lessonusers/link_complete'
   get 'blogs/index'
   get 'tasks/index'

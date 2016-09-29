@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916215552) do
+ActiveRecord::Schema.define(version: 20160928045231) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -39,6 +39,21 @@ ActiveRecord::Schema.define(version: 20160916215552) do
   add_index "chapterusers", ["chapter_id"], name: "index_chapterusers_on_chapter_id"
   add_index "chapterusers", ["course_id"], name: "index_chapterusers_on_course_id"
   add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
+
+  create_table "charges", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "stripeid"
+    t.integer  "amount"
+    t.string   "card_last4"
+    t.string   "card_exp_month"
+    t.string   "card_exp_year"
+    t.string   "card_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "paid"
+  end
+
+  add_index "charges", ["stripeid"], name: "index_charges_on_stripeid", unique: true
 
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
@@ -595,23 +610,40 @@ ActiveRecord::Schema.define(version: 20160916215552) do
   add_index "tasks", ["prospect_id"], name: "index_tasks_on_prospect_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
+  create_table "team_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "team_user_roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "bill_to"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "team_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
-    t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "team_user_role_id"
   end
 
   add_index "team_users", ["team_id"], name: "index_team_users_on_team_id"
+  add_index "team_users", ["team_user_role_id"], name: "index_team_users_on_team_user_role_id"
   add_index "team_users", ["user_id"], name: "index_team_users_on_user_id"
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.string   "bill_to"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "team_type_id"
   end
+
+  add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id"
 
   create_table "tickets", force: :cascade do |t|
     t.integer  "user_id"
@@ -625,26 +657,26 @@ ActiveRecord::Schema.define(version: 20160916215552) do
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                      default: "",    null: false
+    t.string   "encrypted_password",         default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",              default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "subscribed",             default: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.boolean  "subscribed",                 default: false
     t.string   "stripeid"
-    t.boolean  "admin",                  default: false
-    t.boolean  "training_subscribed",    default: false
+    t.boolean  "admin",                      default: false
+    t.boolean  "training_subscribed",        default: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone_number"
-    t.boolean  "paid",                   default: false
+    t.boolean  "paid",                       default: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -654,10 +686,24 @@ ActiveRecord::Schema.define(version: 20160916215552) do
     t.integer  "card_exp_month"
     t.integer  "card_exp_year"
     t.string   "card_type"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",          default: 0
+    t.string   "avatar"
+    t.datetime "trial_end_date"
+    t.boolean  "stripe_subscription_active"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

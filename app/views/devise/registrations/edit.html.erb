@@ -109,9 +109,23 @@
 </div>
     <div class="text-center">
     <h3>Cancel My Account</h3>
-    <%= link_to(content_tag(:button, 'Cancel My Account', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
+    <%= link_to(content_tag(:button, 'Pause Subscription', :class => 'btn btn-primary'), subscription_path, data: { confirm: "Are You Sure?" }, method: :delete) %>
     </div>
 
   <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){    
+    //Check if the current URL contains '#'
+    if(document.URL.indexOf("#")==-1){
+        // Set the URL to whatever it was plus "#".
+        url = document.URL+"#";
+        location = "#";
+
+        //Reload the page
+        location.reload(true);
+    }
+});
+</script>
