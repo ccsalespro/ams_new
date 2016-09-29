@@ -86,7 +86,7 @@
 				<td class="hidden-xs"><%= @count %></td>
 				<td class="hidden-xs"><%= @user_last_sign_in %></td>
 				<td class="hidden-xs"><%= user.sign_in_count %></td>
-				<td class="hidden-xs"><%= user.stripe_subscribed? %></td>
+				<td class="hidden-xs"><%= user.stripe_subscription_active %></td>
 				<td class="hidden-xs text-center"><%= user.subscribed? %></td>
 				<td class="visible-xs text-center" style="padding: 2px !important; "><%= user.subscribed? %></td>
 			</tr>
