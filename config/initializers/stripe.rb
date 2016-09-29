@@ -16,8 +16,12 @@ class RecordCharges
 		)	
 		if charge.paid?
 			user.stripe_subscription_active = true
+			user.subscribed = true
+			user.training_subscribed = true
 		else
 			user.stripe_subscription_active = false
+			user.subscribed = false
+			user.training_subscribed = false
 		end
 		user.save	
 	end
