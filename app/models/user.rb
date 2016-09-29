@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
     self.subscribed = true
     self.training_subscribed = true
     self.trial_end_date = 7.days.from_now
+    self.stripe_subscription_active = false
     self.save
   end
 
