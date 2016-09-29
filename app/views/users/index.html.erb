@@ -50,9 +50,8 @@
 			<th class="hidden-xs">Programs</th>
 			<th class="hidden-xs">Last Login</th>
 			<th class="hidden-xs">Login Count</th>
-			<th class="hidden-xs">Active</th>
-			<th class="hidden-xs text-center">Subscribed</th>
-			<th class="visible-xs text-center">Subbed</th>
+			<th class="hidden-xs">Payment</th>
+			<th class="hidden-xs text-center">Access</th>
 			<th class="hidden-xs">Trial End</th>
 		</tr>
 	</thead>
@@ -95,9 +94,22 @@
 				<td class="hidden-xs"><%= @count %></td>
 				<td class="hidden-xs"><%= @user_last_sign_in %></td>
 				<td class="hidden-xs"><%= user.sign_in_count %></td>
-				<td class="hidden-xs"><%= user.stripe_subscription_active %></td>
-				<td class="hidden-xs text-center"><%= user.subscribed? %></td>
-				<td class="visible-xs text-center" style="padding: 2px !important; "><%= user.subscribed? %></td>
+				<% if user.stripe_subscription_id == nil %>
+				<td class="hidden-xs"><span class="label label-info">None</span></td>
+				<% elsif user.stripe_subscription_active == true %>
+				<td class="hidden-xs"><span class="label label-success">Current</span></td>
+				<% elsif user.stripe_subscription_id != nil && user.stripe_subscription_active == false %>
+				<td class="hidden-xs"><span class="label label-danger">Past Due</span></td>
+				<% else %>
+				<td class="hidden-xs"><span class="label label-warning">Exception</span></td>
+				<% end %>
+				<% if user.subscribed == false %>
+				<td class="hidden-xs"><span class="label label-danger">Denied</span></td>
+				<% elsif user.stripe_subscription_active == false && user.trial_end_date > Time.now %>
+				<td class="hidden-xs"><span class="label label-info">Trial</span></td>
+				<% else %>
+				<td class="hidden-xs"><span class="label label-success">Granted</span></td>
+				<% end %>
 				<td class="hidden-xs"><%= @trial_end_date %></td>
 			</tr>
 		<% end -%>

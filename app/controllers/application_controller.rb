@@ -11,17 +11,17 @@ class ApplicationController < ActionController::Base
   end
   def require_subscribed
     user = current_user
-  	if user.subscribed == false
-      redirect_to new_subscription_path, notice: "Please Subscribe"
-    elsif user.trial_end_date < Time.now && user.stripe_subscription_id == nil
-        user.subscribed = false
-        user.save
+    	if user.subscribed == false
         redirect_to new_subscription_path, notice: "Please Subscribe"
-    else
-      if user.stripe_subscription_id != nil && user.stripe_subscription_active == false
-        redirect_to edit_user_registration_path, notice: "Failed Transaction - Please Update Card" 
+      elsif user.trial_end_date < Time.now && user.stripe_subscription_id == nil
+          user.subscribed = false
+          user.save
+          redirect_to new_subscription_path, notice: "Please Subscribe"
+      else
+        if user.stripe_subscription_id != nil && user.stripe_subscription_active == false
+          redirect_to edit_user_registration_path, notice: "Failed Transaction - Please Update Card" 
+        end
       end
-    end
   end
 
    def require_training_subscribed
