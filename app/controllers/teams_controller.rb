@@ -12,6 +12,53 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @prospects = 0
+    @team.users.each do |user|
+      @prospects += user.prospects.count
+    end
+    @statements = 0
+    @team.users.each do |user|
+      user.prospects.each do |prospect|
+        @statements += prospect.statements.count
+      end
+    end
+    @today_tasks = 0
+    @team.users.each do |user|
+      user.prospects.each do |prospect|
+        prospect.tasks.each do |task|
+          if task.finish_date.strftime("%m/%d/%Y") == Time.now.strftime("%m/%d/%Y")
+            @today_tasks += 1
+          end
+        end
+      end
+    end
+    @active_users = 0
+    @inactive_users = 0
+    @team.users.each do |user|
+      if user.last_sign_in_at.strftime("%m/%d/%Y") >= 7.days.ago.strftime("%m/%d/%Y")
+        @active_users += 1
+      else
+        @inactive_users += 1
+      end
+    end
+
+    @today_prospects = 0
+    @team.users.each do |user|
+      user.prospects.each do |prospect|
+        if prospect.created_at.strftime("%m/%d/%Y") >= 7.days.ago.strftime("%m/%d/%Y")
+          @today_prospects += 1
+        end
+      end
+    end
+
+    @todays_date = Date.today.strftime("%d")
+    @tomorrows_date = Date.tomorrow.strftime("%d")
+    @two_days_ahead_date = (Date.tomorrow + 1.day).strftime("%d")
+    @three_days_ahead_date = (Date.tomorrow + 2.day).strftime("%d")
+    @four_days_ahead_date = (Date.tomorrow + 3.day).strftime("%d")
+    @five_days_ahead_date = (Date.tomorrow + 4.day).strftime("%d")
+    @six_days_ahead_date = (Date.tomorrow + 5.day).strftime("%d")
+    @seven_days_ahead_date = (Date.tomorrow + 6.day).strftime("%d")
   end
 
   # GET /teams/new

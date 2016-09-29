@@ -17,4 +17,6 @@
 //= require turbolinks
 //= require jquery.datetimepicker
 //= require jquery.datetimepicker/init
+//= require raphael
+//= require morris
 //= require_tree .

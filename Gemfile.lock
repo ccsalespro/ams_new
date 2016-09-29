@@ -120,6 +120,8 @@ GEM
     minitest (5.9.0)
     momentjs-rails (2.11.1)
       railties (>= 3.1)
+    morrisjs-rails (0.5.1)
+      railties (> 3.1, < 5)
     multi_json (1.12.1)
     neat (1.8.0)
       sass (>= 3.3)
@@ -182,6 +184,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    raphael-rails (2.1.2)
     rdoc (4.2.2)
       json (~> 1.4)
     redcarpet (3.0.0)
@@ -252,12 +255,14 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   mandrill-api (~> 1.0, >= 1.0.53)
+  morrisjs-rails
   pg
   prawn
   prawn-table
   rails (= 4.2.5.1)
   rails_12factor
   ransack
+  raphael-rails
   redcarpet
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
