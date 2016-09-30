@@ -1,8 +1,8 @@
-<br>
+    <br>
         <div class="container-fluid">
             <div class="row">
                 <div class="hidden-xs col-sm-6" >
-                    <h1 class="no-margin" style="margin-top: 0px !important;">Dashboard</h1>
+                    <h1 class="no-margin" style="margin-top: 0px !important;"><%= @user.first_name %> <%= @user.last_name %></h1>
                 </div>
                 <div class="col-sm-6 no-padding hidden-xs" style="padding-right: 15px !important;">
                     <%= link_to 'Create New Team', new_team_path, class: 'btn btn-primary pull-right', style: 'vertical-align: text-bottom;' %></h1>
@@ -94,6 +94,46 @@
         <% end %><br>
 
             <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Training
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <% @courses.each do |course| %>
+                                        <% course_lessons = Lesson.where(course_id: course.id).count %>
+                                        <% lessonusers = Lessonuser.where(user_id: @user.id, course_id: course.id).where.not(completed_at: nil).count %>
+                                        <% @status = (lessonusers.to_f / course_lessons.to_f * 100) %>
+                                        <h4><%= course.name %></h4>
+                                        <div class="progress">
+                                            <% if @status != 100 %>
+                                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= @status.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= @status.to_i %>%;">
+                                                <%= @status.to_i %>%
+                                              </div>
+                                            <% else %>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= @status.to_i %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= @status.to_i %>%;">
+                                                <%= @status.to_i %>%
+                                              </div>
+                                            <% end -%>
+                                        </div>
+                                    <% end -%>
+                                </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+
+                </div>
+                <!-- /.col-lg-12 -->
+
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -158,10 +198,10 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group overflow">
-                                <a class="list-group-item" style="margin-right: 5px; background-color: #F2F2F2;">
+                                <%= link_to team_path(@team), class: 'list-group-item', style: "margin-right: 5px; background-color: #F2F2F2;" do %>
                                     <i class="fa fa-table" style="margin-right: 10px;"></i> <b>All Users</b>
                                     <span class="pull-right bold"><%= @team.users.count %></span>
-                                </a>
+                                <% end -%>
                                 <% @team.users.each do |user| %>
                                     <%= link_to team_show_individual_team_user_path(:user_id => user.id, :team_id => @team.id), class: 'list-group-item', style: 'margin-right: 5px;' do %>
                                         <% if user.first_name == nil || user.last_name == nil %>

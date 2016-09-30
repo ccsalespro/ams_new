@@ -82,6 +82,78 @@ class TeamsController < ApplicationController
 
   end
 
+  def show_individual_team_user
+    @team = Team.find(params[:team_id])
+    @active_team_users = @team.users.where.not(last_sign_in_at: nil)
+    @user = User.find(params[:user_id])
+
+    @prospects = @user.prospects.count
+
+    @statements = 0
+    @user.prospects.each do |prospect|
+      @statements += prospect.statements.count
+    end
+
+    @today_tasks = 0
+      @user.prospects.each do |prospect|
+        prospect.tasks.each do |task|
+          if task.finish_date.strftime("%m/%d/%Y") == Time.now.strftime("%m/%d/%Y")
+            @today_tasks += 1
+          end
+        end
+      end
+
+    @active_users = 0
+    @inactive_users = 0
+     @active_team_users.each do |user|
+      if user.last_sign_in_at.strftime("%m/%d/%Y") >= 7.days.ago.strftime("%m/%d/%Y")
+        @active_users += 1
+      else
+        @inactive_users += 1
+      end
+    end
+
+    @six_days_ago_prospects = 0
+    @five_days_ago_prospects = 0
+    @four_days_ago_prospects = 0
+    @three_days_ago_prospects = 0
+    @two_days_ago_prospects = 0
+    @one_day_ago_prospects = 0
+    @todays_prospects = 0
+
+      @user.prospects.each do |prospect|
+        if prospect.created_at.localtime.strftime("%m/%d/%Y") == 6.days.ago.localtime.strftime("%m/%d/%Y")
+          @six_days_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == 5.days.ago.localtime.strftime("%m/%d/%Y")
+           @five_days_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == 4.days.ago.localtime.strftime("%m/%d/%Y")
+           @four_days_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == 3.days.ago.localtime.strftime("%m/%d/%Y")
+           @three_days_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == 2.days.ago.localtime.strftime("%m/%d/%Y")
+           @two_days_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == 1.day.ago.localtime.strftime("%m/%d/%Y")
+           @one_day_ago_prospects += 1
+        elsif prospect.created_at.localtime.strftime("%m/%d/%Y") == Time.now.localtime.strftime("%m/%d/%Y")
+           @todays_prospects += 1
+        end
+      end
+
+    @six_days_ago = (Time.now.localtime - 6.days).localtime.strftime("%d")
+    @five_days_ago = (Time.now.localtime - 5.days).localtime.strftime("%d")
+    @four_days_ago = (Time.now.localtime - 4.days).localtime.strftime("%d")
+    @three_days_ago = (Time.now.localtime - 3.days).localtime.strftime("%d")
+    @two_days_ago = (Time.now.localtime - 2.days).localtime.strftime("%d")
+    @one_day_ago = (Time.now.localtime - 1.day).localtime.strftime("%d")
+    @today = Time.now.localtime.strftime("%d")
+
+    @courses = Course.all
+    @lessonusers = Lessonuser.where(user_id: @user.id).where.not(completed_at: nil).count
+    @lessons = Lesson.all.count
+    @status = (@lessonusers.to_f / @lessons.to_f * 100)
+
+  end
+
   # GET /teams/new
   def new
     @team = Team.new
