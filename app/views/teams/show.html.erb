@@ -158,12 +158,12 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group overflow">
-                                <a href="#" class="list-group-item" style="margin-right: 5px;">
+                                <a class="list-group-item" style="margin-right: 5px; background-color: #F2F2F2;">
                                     <i class="fa fa-table" style="margin-right: 10px;"></i> <b>All Users</b>
                                     <span class="pull-right bold"><%= @team.users.count %></span>
                                 </a>
                                 <% @team.users.each do |user| %>
-                                    <a href="#" class="list-group-item" style="margin-right: 5px;">
+                                    <a class="list-group-item" style="margin-right: 5px;">
                                         <% if user.first_name == nil || user.last_name == nil %>
                                             <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.email %>
                                         <% else %>
