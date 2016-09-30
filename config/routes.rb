@@ -23,8 +23,9 @@ Rails.application.routes.draw do
 
   resources :teams do 
     resources :team_users, path: :users
+    resources :chats
   end
-
+  
   resources :lessonusers do
     member do
       patch :complete

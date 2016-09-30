@@ -522,3 +522,26 @@ hr.style-two {
     overflow-y: scroll !important;
     height: 300px;
 }
+
+.chat-bubble-not-user {
+    background: $main-color !important;
+    border-radius: 10px !important;
+    margin: 3px !important;
+    margin-bottom: 0px !important;
+    margin-left: 10px !important;
+    padding: 10px !important;
+    max-width: 50% !important;
+    color: white;
+}
+
+
+.chat-bubble-user {
+    background: grey !important;
+    border-radius: 10px !important;
+    margin: 3px !important;
+    margin-bottom: 0px !important;
+    margin-right: 8px !important;
+    padding: 10px !important;
+    max-width: 50% !important;
+    color: white;
+}

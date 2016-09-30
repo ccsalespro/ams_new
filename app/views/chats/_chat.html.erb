@@ -1,0 +1,31 @@
+<%= div_for(chat) do %>
+
+	<% user = User.where(id: chat.user_id).first %>
+
+	<% if chat.user_id != current_user.id %>
+	<div class="btn-group pull-left">
+				<span class="fa-stack fa-lg">
+				  <i class="fa fa-circle fa-stack-2x" style="font-size: 45px;"></i>
+				  <i class="fa fa-user fa-stack-1x fa-inverse" style="font-size: 24px; margin-top: 2px; margin-left: 1px;"></i>
+				</span>
+			</div>
+		<div class="clearfix delete chat chat-bubble-not-user pull-left">
+				<p class="text-left no-margin"><%= chat.message %></p>
+		</div><div class="clearfix"></div>
+		<p class="text-left no-margin" style="margin-left: 46px !important; margin-bottom: 5px !important;"><small style="font-size: 10.5px;"><%= user.first_name %> <%= user.last_name %> -- <%= time_ago_in_words(chat.created_at) %></small></p>
+		<div class="clearfix"></div>
+	<% else %>
+	<div class="btn-group pull-right">
+				<span class="fa-stack fa-lg">
+				  <i class="fa fa-circle fa-stack-2x" style="font-size: 45px;"></i>
+				  <i class="fa fa-user fa-stack-1x fa-inverse" style="font-size: 24px; margin-top: 2px; margin-left: 1px;"></i>
+				</span>
+			</div>
+	<div class="clearfix delete chat chat-bubble-user pull-right">
+				<p class="text-left no-margin"><%= chat.message %></p>
+		</div><div class="clearfix"></div>
+		<p class="text-right no-margin" style="margin-right: 47px !important; margin-bottom: 5px !important;"><small style="font-size: 10.5px;"><%= user.first_name %> <%= user.last_name %> -- <%= time_ago_in_words(chat.created_at) %></small></p>
+		<div class="clearfix"></div>
+	<% end -%>
+
+<% end %>

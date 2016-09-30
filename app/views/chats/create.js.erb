@@ -1,0 +1,5 @@
+$(document).ready(function () {
+  $('.chats<%= @team.id %>').append("<%= j render @chat %>").fadeIn();
+  $('.body').val("");
+  $('#chat_div').scrollTop($('#chat_div')[0].scrollHeight);
+});
