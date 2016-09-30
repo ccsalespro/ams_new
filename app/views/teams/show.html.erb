@@ -139,8 +139,8 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><%= @team.users.count %></div>
-                                    <div><% if @team.users.count == 1 %>User<% else %>Users<% end -%></div>
+                                    <div class="huge"><%= @active_team_users.count %></div>
+                                    <div><% if @active_team_users.count == 1 %>User<% else %>Users<% end -%></div>
                                 </div>
                             </div>
                         </div>
@@ -148,12 +148,23 @@
                 </div>
             </div>
             <!-- /.row -->
+            <hr style="margin: 5px !important; margin-bottom: 15px !important; border: 2px solid #D4D4D4;">
+
+<% @team_user = TeamUser.where(user_id: current_user.id).where(team_id: @team.id).first %>
+        <% @manage_ids = [2, 1, 4, 7, 8, 9] %>
+        <% if @manage_ids.include? @team_user.team_user_role_id %>
+            <%= form_for [@team, TeamUser.new] do |f| %>
+             <h3 class="no-margin text-center bold" style="margin-bottom: 5px !important;">Invite User</h3>
+              <div class="input-group">
+                <%= f.text_field :email, required: true, class: 'form-control input-lg', placeholder: 'Invite User', style: '' %>
+                <div class="input-group-addon"><%= f.submit 'Invite', class: 'nothing' %></div>
+              </div>
+              
+            <% end %>
+        <% end %><br>
+
             <div class="row">
                 <div class="col-lg-8">
-             
-  
-      
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Prospects By Date
@@ -322,7 +333,11 @@
                             <div class="list-group overflow">
                                 <% @team.users.each do |user| %>
                                     <a href="#" class="list-group-item" style="margin-right: 5px;">
-                                        <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
+                                        <% if user.first_name == nil || user.last_name == nil %>
+                                            <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.email %>
+                                        <% else %>
+                                            <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
+                                        <% end -%>
                                         <span class="pull-right text-muted small"><em>
                                             <% if user.confirmed_at == nil %>
                                                     <span class="label label-danger">Unconfirmed</span>
@@ -407,8 +422,5 @@
         hideHover: 'auto',
         resize: true
     });
-    
-
-
 
 </script>
