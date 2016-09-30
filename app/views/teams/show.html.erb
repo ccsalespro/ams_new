@@ -125,7 +125,11 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body" id="chat_div">
                             <div class="chat chats<%= @team.id %>" style="padding: 15px;"> 
+                                <% if @team.chats.count != 0 %>
                                     <%= render :partial => @team.chats %>
+                                <% elsif @team.chats.count == 0 %>
+                                    <h3 class="text-center remove">No Messages</h3>
+                                <% end -%>
                             </div>
                         </div>
                         <!-- /.panel-body -->
