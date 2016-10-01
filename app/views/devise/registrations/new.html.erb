@@ -66,7 +66,8 @@
     </div>
 
 
-    <div class="well welly welly-sm visible-xs visible-sm" style="min-width:300px;max-width:350px;">
+<center>
+    <div class="well visible-xs visible-sm" style="max-width:350px;">
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
@@ -112,6 +113,7 @@
       <%= render "devise/shared/links" %>
       </div>
     </div>
+    </center>
   </div>
 </div>
 <div class="col-xs-12 hidden-sm hidden-md hidden-lg text-center"><br /><br />

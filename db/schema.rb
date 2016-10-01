@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928045231) do
+ActiveRecord::Schema.define(version: 20160930140255) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(version: 20160928045231) do
   end
 
   add_index "charges", ["stripeid"], name: "index_charges_on_stripeid", unique: true
+
+  create_table "chats", force: :cascade do |t|
+    t.string   "message"
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "blog_id"
@@ -648,6 +656,7 @@ ActiveRecord::Schema.define(version: 20160928045231) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "team_type_id"
+    t.integer  "chat_id"
   end
 
   add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id"

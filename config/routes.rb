@@ -23,8 +23,10 @@ Rails.application.routes.draw do
 
   resources :teams do 
     resources :team_users, path: :users
+    get 'show_individual_team_user'
+    resources :chats
   end
-
+  
   resources :lessonusers do
     member do
       patch :complete
