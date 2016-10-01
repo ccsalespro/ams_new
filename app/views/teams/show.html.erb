@@ -164,7 +164,7 @@
                                 </a>
                                 <% @team.users.each do |user| %>
                                     <%= link_to team_show_individual_team_user_path(:user_id => user.id, :team_id => @team.id), class: 'list-group-item', style: 'margin-right: 5px;' do %>
-                                        <% if user.first_name == nil || user.last_name == nil %>
+                                        <% if user.first_name == nil || user.last_name == nil || user.first_name == '' || user.last_name == '' %>
                                             <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.email %>
                                         <% else %>
                                             <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
