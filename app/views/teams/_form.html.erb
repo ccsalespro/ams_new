@@ -23,13 +23,19 @@
           <%= f.label :team %><br>
           <%= collection_select( :team, :team_type_id, TeamType.all, :id, :description, {}, { :multiple => false }) %>
         </div>
-        <% else %>
+        <% elsif current_user.processor_employee? %>
         <div class="form-group col-xs-6 no-padding">
           <%= f.label :team %><br>
           <%= collection_select( :team, :team_type_id, TeamType.where("description != ?", "Admin"), :id, :description, {}, { :multiple => false }) %>
         </div>
+        <% else %>
+        <div class="form-group col-xs-6 no-padding">
+          <%= f.label :team %><br>
+          <%= collection_select( :team, :team_type_id, TeamType.where("description != ?", "Admin").where("description != ?", "Processor"), :id, :description, {}, { :multiple => false }) %>
+        </div>
         <% end %>
         <div class="actions col-xs-6 no-padding">
           <%= f.submit 'Save', class: 'btn btn-primary pull-right', required: true, style: 'margin-top: 15px !important;' %>
+          <%= link_to 'Back to Teams', teams_path, class: 'btn btn-primary pull-right', required: true, style: 'margin-top: 15px !important; margin-right: 10px !important;' %>
         </div><div class="clearfix"></div>
       <% end %>

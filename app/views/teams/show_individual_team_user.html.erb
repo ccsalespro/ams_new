@@ -4,14 +4,6 @@
                 <div class="hidden-xs col-sm-6" >
                     <h1 class="no-margin" style="margin-top: 0px !important;"><% if @user.first_name == nil || @user.first_name == '' || @user.last_name == nil || @user.last_name == '' %><%= @user.email %><% else %><%= @user.first_name %> <%= @user.last_name %><% end -%></h1>
                 </div>
-                <div class="col-sm-6 no-padding hidden-xs" style="padding-right: 15px !important;">
-                    <%= link_to 'Create New Team', new_team_path, class: 'btn btn-primary pull-right', style: 'vertical-align: text-bottom;' %></h1>
-                </div>
-                <div class="col-sm-6 no-padding visible-xs" style="padding-right: 15px !important;">
-                    <center>
-                        <%= link_to 'Create New Team', new_team_path, class: 'btn btn-primary', style: 'vertical-align: text-bottom;' %></h1>
-                    </center>
-                </div>
                 <!-- /.col-lg-12 -->
             </div><br>
             <!-- /.row -->
@@ -69,8 +61,8 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><%= @team.users.count %></div>
-                                    <div><% if @team.users.count == 1 %>User<% else %>Users<% end -%></div>
+                                    <div class="huge"><%= @user.sign_in_count %></div>
+                                    <div>Login Count</div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +99,11 @@
                                     <% @courses.each do |course| %>
                                         <% course_lessons = Lesson.where(course_id: course.id).count %>
                                         <% lessonusers = Lessonuser.where(user_id: @user.id, course_id: course.id).where.not(completed_at: nil).count %>
-                                        <% @status = (lessonusers.to_f / course_lessons.to_f * 100) %>
+                                        <% if lessonusers == nil %>
+                                        <% @status = 0 %>
+                                        <% else %>
+                                        <% @status = ((lessonusers.to_f / course_lessons.to_f) * 100) %>
+                                        <% end %>
                                         <h4><%= course.name %></h4>
                                         <div class="progress">
                                             <% if @status != 100 %>

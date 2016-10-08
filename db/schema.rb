@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930140255) do
+ActiveRecord::Schema.define(version: 20161002010244) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -530,13 +530,6 @@ ActiveRecord::Schema.define(version: 20160930140255) do
   add_index "prospects", ["user_id", "created_at"], name: "index_prospects_on_user_id_and_created_at"
   add_index "prospects", ["user_id"], name: "index_prospects_on_user_id"
 
-  create_table "sorts", force: :cascade do |t|
-    t.string   "sort_by"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "stages", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -713,6 +706,7 @@ ActiveRecord::Schema.define(version: 20160930140255) do
     t.string   "avatar"
     t.datetime "trial_end_date"
     t.boolean  "stripe_subscription_active"
+    t.boolean  "processor_employee"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
