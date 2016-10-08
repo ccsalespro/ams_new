@@ -14,8 +14,7 @@ class TeamUser < ActiveRecord::Base
 			self.user = if existing_user.present?
 			            existing_user
 			          else
-			          	Rails.logger.debug "**** #{email} ****"
-			            User.invite!(email: 'altoonayouth@gmail.com')
+			            User.invite!(email: email)
 			          end
 		end
 	end
