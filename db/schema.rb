@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161002010244) do
+ActiveRecord::Schema.define(version: 20161018221946) do
 
   create_table "blogs", force: :cascade do |t|
     t.string   "title"
@@ -638,6 +638,7 @@ ActiveRecord::Schema.define(version: 20161002010244) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "team_user_role_id"
+    t.string   "email"
   end
 
   add_index "team_users", ["team_id"], name: "index_team_users_on_team_id"

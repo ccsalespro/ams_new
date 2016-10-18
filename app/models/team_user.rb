@@ -1,5 +1,4 @@
 class TeamUser < ActiveRecord::Base
-	attr_accessor :email
 	
 	belongs_to :user
 	belongs_to :team
