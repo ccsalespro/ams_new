@@ -8,15 +8,13 @@ class TeamUser < ActiveRecord::Base
 	after_create :set_team_user_role
 
 	def set_user_id
-		email = self.email
-		if email != nil
-			existing_user = User.find_by(email: email)
+		@email = self.email
+		if @email != nil
+			existing_user = User.find_by(email: @email)
 			self.user = if existing_user.present?
 			            existing_user
 			          else
-			            User.invite!(email: email) do |u|
-  							u.confirm!
-  						end
+			            User.invite!(:email => @email)
 			          end
 		end
 	end
