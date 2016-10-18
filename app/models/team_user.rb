@@ -8,6 +8,7 @@ class TeamUser < ActiveRecord::Base
 	after_create :set_team_user_role
 
 	def set_user_id
+		email = self.email
 		if email != nil
 			existing_user = User.find_by(email: email)
 			self.user = if existing_user.present?
