@@ -14,7 +14,9 @@ class TeamUser < ActiveRecord::Base
 			self.user = if existing_user.present?
 			            existing_user
 			          else
-			            User.invite!(email: email)
+			            User.invite!(email: email) do |u|
+  							u.confirm!
+  						end
 			          end
 		end
 	end
