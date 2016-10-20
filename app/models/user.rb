@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
   end
 
   def make_subscribed
-    self.subscribed = true
-    self.training_subscribed = true
-    self.trial_end_date = 7.days.from_now
+    self.subscribed = false
+    self.training_subscribed = false
+    self.trial_end_date = 30.days.from_now
     self.stripe_subscription_active = false
     self.processor_employee = false
     self.save
