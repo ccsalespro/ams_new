@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  devise :invitable, :database_authenticatable, :registerable, :confirmable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :prospects, dependent: :destroy
@@ -38,11 +38,11 @@ class User < ActiveRecord::Base
   end
 
   def create_notification
-    AdminMailer.new_user(self).deliver
+      AdminMailer.new_user(self).deliver
   end
 
   def cancel_notification
-    AdminMailer.cancelled_user(self).deliver
+      AdminMailer.cancelled_user(self).deliver
   end
 
   def add_programs
