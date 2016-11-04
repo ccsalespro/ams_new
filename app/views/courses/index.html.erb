@@ -75,7 +75,7 @@
                 <% if user_signed_in? && current_user.training_subscribed == true %>
                     <center><%= link_to("View", course_path(course), :class => 'btn btn-primary bold' ) %></center>
                 <% else %>
-                    <center><%= link_to("Sign Up (7 Days Free)", new_subscription_path, :class => 'btn btn-primary bold' ) %>   <%= link_to("Sign In", new_user_session_path, :class => 'btn btn-primary bold' ) %></center>
+                    <center><%= link_to("Free 30 Day Trial", new_subscription_path, :class => 'btn btn-primary bold' ) %>   <%= link_to("Sign In", new_user_session_path, :class => 'btn btn-primary bold' ) %></center>
                 <% end -%>
                 </div>
             </div>
