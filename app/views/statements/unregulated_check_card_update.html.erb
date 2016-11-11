@@ -2,17 +2,26 @@
 <%= form_for([@prospect, @statement]) do |f| %>
 
   <div class="well clearfix">
-  <div class="field">
-      <%= f.label "Unregulated Volume", :class => 'text' %>
-      <%= f.text_field(:unreg_debit_vol, :class => "form-control", :id => "inputdefault") %>
-  </div>
-  <div class="field">
-       <%= f.label "Unregulated Percentage", :class => 'text' %>
-       <%= f.text_field(:unreg_debit_percentage, :class => "form-control", :id => "inputdefault") %>
+  <div class="form-group">
+       <p class="bold program-form-margin text-center">Unregulated Check Card %</p>
+        <div class="input-group">
+       <%= f.text_field :unreg_debit_percentage, :class => "form-control", :data => { type: 'number' } %>
+       <span class="input-group-addon">%</span>
+      </div>
   </div>
   <br>
   <%= button_tag("Adjust", :class => 'btn btn-primary') %>
   <br><br>
 <% end %>
 </div>
+<% @description = Description.find_by_id(@prospect.description_id) %>
+<center>
+    <h2>What are regulated check cards?</h2>
+</center>
+    <p><b>Several years back, the federal government passed the "Durbin Amendment" to regulate how much large banks could charge to process check cards.</b>  However, many of the smaller / regional banks were not regulated.  Depending on where your business is geographically, this percentage could vary.
+
+    <br><br>We are currently assumming that <b><%= number_with_precision(@statement.form_percentage, precision: 1) %>%</b> of your Visa, Mastercard Discover Volume or <b>$<%= number_with_precision(@statement.form_volume, precision: 0) %> comes in from these card types</b> based on other <%= @description.business_type_primary %> businesses in our database.
+
+    <br><br>If a larger or smaller percentage of your transactions come from unregulated check card transactions, <b>please adjust the percentage above</b> to allow us to create an accurate proposal.</p>
+
 </div>

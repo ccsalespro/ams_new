@@ -76,6 +76,18 @@
     <td><%= number_with_precision(@statement.ecomm_percentage, precision: 1) %>%</td>
      <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'ecomm_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
   </tr>
+  <tr>
+    <td><b>Reg Check Cards</b></td>
+    <td><%= number_to_currency(@statement.check_card_vol) %></td>
+    <td><%= number_with_precision(@statement.check_card_percentage, precision: 1) %>%</td>
+     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'regulated_check_card_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
+  <tr>
+    <td><b>Un-Reg Check Cards</b></td>
+    <td><%= number_to_currency(@statement.unreg_debit_vol) %></td>
+    <td><%= number_with_precision(@statement.unreg_debit_percentage, precision: 1) %>%</td>
+     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'unregulated_check_card_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
+  </tr>
 </table>
 </div>
 
