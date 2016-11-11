@@ -7,8 +7,7 @@ class ComparisonsController < ApplicationController
   def index 
     @test = Comparison.where(statement_id: @statement.id).first
     if @test != nil
-      @comparisons = Comparison.where(statement_id: @statement.id)
-      @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
+      update_comparison_interchange
     else    
       load_qualified_programs(@statement)
       if @programs.first == nil
@@ -41,6 +40,18 @@ class ComparisonsController < ApplicationController
       @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
     end
     end
+  end
+
+  def update_comparison_interchange
+      @comparisons = Comparison.where(statement_id: @statement.id)
+      @comparisons.each do |comparison|
+        @program = Program.find_by_id(comparison.program_id)
+        set_total_fees(comparison, @statement)
+        set_conditional_savings(comparison, @statement)
+        set_total_costs(comparison, @statement, @program)
+        comparison.save
+      end
+      @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
   end
   
  def decrease_savings
