@@ -6,6 +6,10 @@ class CostsController < ApplicationController
   # GET /costs.json
   def index
     @costs = Cost.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @costs.to_csv }
+    end
   end
 
   def import
