@@ -162,6 +162,7 @@ class ComparisonsController < ApplicationController
   def update
     @program = Program.find_by_id(@comparison.program_id)
     @comparison.update(comparison_params)
+      pricing_wizard_no_nill(@comparison)
       set_vmd_per_item_fees(    @comparison, @statement, @comparison.per_item_fee)
       set_vmd_mark_up(          @comparison, @statement, @comparison.bp_mark_up) 
       set_vmd_access_fees(      @comparison, @statement)
@@ -261,7 +262,7 @@ private
     c.total_vmd_trans_fees = ( 
       c.vs_trans_fees + 
       c.mc_trans_fees + 
-      c.mc_trans_fees )
+      c.ds_trans_fees )
   end
 
   def set_vmd_mark_up(c, s, bp_mark_up)
@@ -622,5 +623,11 @@ private
     c.custom_total_pin_volume_bp_fees = 0
     c.custom_pin_volume_bp_costs = 0
   end
+
+  def pricing_wizard_no_nill(c)
+    if c.monthly_pci_fees == nil
+      c.monthly_pci_fees = 0
+    end
+  end 
 
 end
