@@ -7,6 +7,8 @@ class SubscriptionsController < ApplicationController
   def new
     if current_user.subscribed == true
       redirect_to prospects_path
+    elsif current_user.subscribed == false && current_user.stripeid?
+      redirect_to subscriptions_weekly_path
     end
   end
 
