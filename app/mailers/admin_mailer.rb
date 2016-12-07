@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-	default to: "support@instantquotetool.com"
+	default to: "support@rmsuniversity.com"
 
 
 	def mandrill_client
@@ -25,10 +25,10 @@ class AdminMailer < ApplicationMailer
 		template_name = "new-program"
 		template_content = []
 		message = {
-			to: [{email: "support@instantquotetool.com", name: "Support"}],
+			to: [{email: "support@rmsuniversity.com", name: "Support"}],
 			subject: "New Program: #{program.name}",
 			merge_vars: [
-				{rcpt: "support@instantquotetool.com",
+				{rcpt: "support@rmsuniversity.com",
 				 vars: [
 				 	{name: "PROGRAM_NAME", content: program.name},
 				 	{name: "PROGRAM_MIN_VOL", content: program.min_volume},
