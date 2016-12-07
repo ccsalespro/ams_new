@@ -14,28 +14,12 @@ class User < ActiveRecord::Base
   has_many :courseusers, dependent: :destroy
   has_many :chapterusers, dependent: :destroy
   has_many :lessonusers, dependent: :destroy
-  belongs_to :subscribetocourses
   has_many :tickets, dependent: :destroy
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
-  has_many :charges
 
-  after_create :create_notification, :add_programs, :make_subscribed
+  after_create :create_notification, :add_programs
   after_destroy :cancel_notification
-
-
-  def stripe_subscribed?
-    stripe_subscription_id?
-  end
-
-  def make_subscribed
-    self.subscribed = false
-    self.training_subscribed = false
-    self.trial_end_date = 30.days.from_now
-    self.stripe_subscription_active = false
-    self.processor_employee = false
-    self.save
-  end
 
   def create_notification
       AdminMailer.new_user(self).deliver

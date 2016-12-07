@@ -79,5 +79,3 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "instantquotetool.com" } 
 end
 
-STRIPE_SECRET = "sk_live_cd7JZJdSrtSXs2bfDFrsPasC"
-STRIPE_PUBLIC = "pk_live_28NISFSUiSkGu5yPiJQuhAKw"

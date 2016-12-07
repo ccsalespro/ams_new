@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
 
   def index
-    if user_signed_in? && current_user.subscribed == true
+    if user_signed_in?
       redirect_to prospects_path
     end
   end

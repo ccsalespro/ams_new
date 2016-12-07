@@ -2,7 +2,6 @@ class ProspectsController < ApplicationController
   before_action :set_prospect, only: [:show, :edit, :update, :destroy]
   before_action :load_description, only: [:new]
   before_action :authenticate_user!
-  before_action :require_subscribed
 
 
   # GET /prospects

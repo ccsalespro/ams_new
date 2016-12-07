@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   resources :team_user_roles
   resources :team_types
 
-  mount StripeEvent::Engine, at: '/stripe/webhook'
-
   resources :team_users
   root to: 'static#index'
-  devise_for :users, controllers: { registrations: "registrations" , :invitations => 'users/invitations'}
+  devise_for :users, controllers: {:invitations => 'users/invitations'}
   resources :custom_field_types
   resources :courseusers
   resources :systems
@@ -132,9 +130,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
   
-  get 'subscriptions/weekly'
   get 'lessonusers/link_complete'
-  get 'blogs/index'
   get 'tasks/index'
   get 'comparisons/show'
   get 'comparisons/decrease_savings'

@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20161018221946) do
 
-  create_table "blogs", force: :cascade do |t|
-    t.string   "title"
-    t.string   "body"
-    t.string   "author"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -40,21 +32,6 @@ ActiveRecord::Schema.define(version: 20161018221946) do
   add_index "chapterusers", ["course_id"], name: "index_chapterusers_on_course_id"
   add_index "chapterusers", ["user_id"], name: "index_chapterusers_on_user_id"
 
-  create_table "charges", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "stripeid"
-    t.integer  "amount"
-    t.string   "card_last4"
-    t.string   "card_exp_month"
-    t.string   "card_exp_year"
-    t.string   "card_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.boolean  "paid"
-  end
-
-  add_index "charges", ["stripeid"], name: "index_charges_on_stripeid", unique: true
-
   create_table "chats", force: :cascade do |t|
     t.string   "message"
     t.integer  "team_id"
@@ -62,17 +39,6 @@ ActiveRecord::Schema.define(version: 20161018221946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "comments", force: :cascade do |t|
-    t.integer  "blog_id"
-    t.text     "body"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "comments", ["blog_id"], name: "index_comments_on_blog_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "comparisons", force: :cascade do |t|
     t.integer  "statement_id"
@@ -246,14 +212,6 @@ ActiveRecord::Schema.define(version: 20161018221946) do
     t.datetime "updated_at",              null: false
     t.string   "amex_business_type"
     t.decimal  "avg_ticket"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string   "filename"
-    t.string   "content_type"
-    t.binary   "file_contents"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
   end
 
   create_table "intcalcitems", force: :cascade do |t|
@@ -592,12 +550,6 @@ ActiveRecord::Schema.define(version: 20161018221946) do
 
   add_index "statements", ["prospect_id", "created_at"], name: "index_statements_on_prospect_id_and_created_at"
 
-  create_table "structures", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "systems", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -667,35 +619,24 @@ ActiveRecord::Schema.define(version: 20161018221946) do
   add_index "tickets", ["user_id"], name: "index_tickets_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                      default: "",    null: false
-    t.string   "encrypted_password",         default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",              default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.boolean  "subscribed",                 default: false
-    t.string   "stripeid"
-    t.boolean  "admin",                      default: false
-    t.boolean  "training_subscribed",        default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "admin",                  default: false
+    t.boolean  "training_subscribed",    default: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone_number"
-    t.boolean  "paid",                       default: false
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "stripe_subscription_id"
-    t.string   "card_last4"
-    t.integer  "card_exp_month"
-    t.integer  "card_exp_year"
-    t.string   "card_type"
+    t.boolean  "paid",                   default: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -703,14 +644,11 @@ ActiveRecord::Schema.define(version: 20161018221946) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",          default: 0
+    t.integer  "invitations_count",      default: 0
     t.string   "avatar"
-    t.datetime "trial_end_date"
-    t.boolean  "stripe_subscription_active"
     t.boolean  "processor_employee"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"

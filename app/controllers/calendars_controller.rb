@@ -1,6 +1,5 @@
 class CalendarsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_subscribed
   def index
     @prospects = current_user.prospects
     @tasks = current_user.tasks

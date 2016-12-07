@@ -2,7 +2,6 @@ class ComparisonsController < ApplicationController
   before_action :load_prospect, :load_statement
   before_action :load_comparison, only: [:show, :edit, :update, :savings_summary, :savings_detail]
   before_action :authenticate_user!
-  before_action :require_subscribed
 
   def index 
     @test = Comparison.where(statement_id: @statement.id).first

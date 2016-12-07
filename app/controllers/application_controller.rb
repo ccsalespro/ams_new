@@ -9,29 +9,6 @@ class ApplicationController < ActionController::Base
   		redirect_to root_url, notice: "Unauthorized Access!"
   	end
   end
-  def require_subscribed
-    user = current_user
-    	if user.subscribed == false
-        redirect_to new_subscription_path
-      elsif user.stripe_subscription_id != nil && user.stripe_subscription_active == false
-          redirect_to edit_user_registration_path, notice: "Failed Transaction - Please Update Card" 
-      end
-  end
-
-   def require_training_subscribed
-    require_subscribed
-    if current_user.subscribed == true 
-      current_user.training_subscribed = true 
-    else
-      current_user.training_subscribed = false
-    end
-    current_user.save 
-  end
-
-  def current_user_subscribed?
-    user_signed_in? && current_user.subscribed?
-  end
-  helper_method :current_user_subscribed?
 
   def require_team_edit(team)
     @team = team

@@ -1,7 +1,6 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :require_subscribed
 
    def create
     @team = Team.find(params[:team_id])

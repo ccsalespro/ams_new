@@ -2,7 +2,6 @@ class StatementsController < ApplicationController
   before_action :set_statement, only: [:show, :edit, :update, :destroy, :unregulated_check_card_update, :regulated_check_card_update, :downgrade_edit, :check_card_update, :btob_update, :moto_update, :interchange_update, :ecomm_update]
   before_filter :load_prospect, except: [:downgrade_update]
   before_action :authenticate_user!
-  before_action :require_subscribed
   
   # GET /statements
   # GET /statements.json
