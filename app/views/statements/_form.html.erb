@@ -1,5 +1,5 @@
 <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-<%= form_for([@prospect, @statement]) do |f| %>
+<%= form_for([@prospect, @statement], html: {id: "statementForm"}) do |f| %>
   <% if @statement.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@statement.errors.count, "error") %> prohibited this statement from being saved:</h2>
@@ -13,47 +13,55 @@
   <% end %>
   <div class="text-center hidden-sm hidden-xs">
   <div class="field">
-    <h3>Statement for<br><b><%= @prospect.business_name %></b></h3>
-  </div>
-  <div class="field">
-    <h3>Type is <b><%= @prospect.description_primary%> | <%= @prospect.description_secondary %></b></h3>
+    <h2>New Statement: <b><%= @prospect.business_name %></b></h2>
   </div>
   </div>
   <div class="text-center visible-sm visible-xs">
-  <div class="field"><br>
-    <h4 class="custom-font-size-state">Statement For<br><b><%= @prospect.business_name %></b></h4>
-  </div>
   <div class="field">
-    <h4 class="custom-font-size-state">Type is <b><%= @prospect.description_primary%> | <%= @prospect.description_secondary %></b></h4>
+    <h3>Statement: <b><%= @prospect.business_name %></b></h3>
   </div>
   </div><br>
   <div class="well clearfix">
   <div class="field">
-      <%= f.label "Statement Month", :class => 'text' %>
-      <%= f.text_field(:statement_month, :class => "form-control", :id => "inputdefault") %>
+      <%= f.text_field(:statement_month, :class => "form-control input-lg", :id => "inputdefault", :placeholder => "Name Your Statement") %>
+  </div><br>
+  <div class="field">
+       <%= f.label "Total Volume (Required)", :class => 'text statement-text-label' %>
+       <div class="input-group one-margin-field">
+       <div class="input-group-addon">$</div>
+       <%= f.text_field(:total_vol, :placeholder => "Include AMEX & Debit", :class => "form-control input-lg", :id => "volumeAmount") %>
+       </div>
   </div>
   <div class="field">
-       <%= f.label "Total Volume", :class => 'text' %>
-       <%= f.text_field(:total_vol, :class => "form-control", :id => "inputdefault") %>
+      <%= f.label "American Express Volume", :class => 'text statement-text-label' %>
+      <div class="input-group one-margin-field">
+       <div class="input-group-addon">$</div>
+      <%= f.text_field(:amex_vol, :class => "form-control input-lg", :id => "amexVol") %>
+      </div>
   </div>
   <div class="field">
-      <%= f.label "American Express Volume", :class => 'text' %>
-      <%= f.text_field(:amex_vol, :class => "form-control", :id => "inputdefault") %>
-  </div>
-  <div class="field">
-      <%= f.label "Pin Debit Volume", :class => 'text' %>
-      <%= f.text_field(:debit_vol, :class => "form-control", :id => "inputdefault") %>
+      <%= f.label "Pin Debit Volume", :class => 'text statement-text-label' %>
+      <div class="input-group one-margin-field">
+       <div class="input-group-addon">$</div>
+      <%= f.text_field(:debit_vol, :class => "form-control input-lg", :id => "debitVol") %>
+      </div>
   </div>
     <div class="field">
-      <%= f.label "Average Ticket Size", :class => 'text' %>
-      <%= f.text_field(:avg_ticket, :class => "form-control", :id => "inputdefault", :value => (number_with_precision(@statement.avg_ticket, :precision => 2) || 0)) %>
+      <%= f.label "Average Ticket Size", :class => 'text statement-text-label' %>
+      <div class="input-group one-margin-field">
+       <div class="input-group-addon">$</div>
+      <%= f.text_field(:avg_ticket, :class => "form-control input-lg", :id => "avgTicket", :value => (number_with_precision(@statement.avg_ticket, :precision => 2) || 0)) %>
+      </div>
   </div>
   <div class="field">
-      <%= f.label "Total Current Fees", :class => 'text' %>
-      <%= f.text_field(:total_fees, :class => "form-control", :id => "inputdefault", :placeholder => 'Optional') %>
+      <%= f.label "Total Current Fees", :class => 'text statement-text-label' %>
+      <div class="input-group">
+       <div class="input-group-addon">$</div>
+      <%= f.text_field(:total_fees, :class => "form-control input-lg", :id => "totalFees", :placeholder => 'Optional') %>
+      </div>
   </div><br>
   <center>
-  <%= button_tag("Create", :class => 'btn btn-primary') %>
+  <%= button_tag("Create", :class => 'btn btn-primary', :id => 'statementFormButton') %>
   <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %><br><br>
 </center>
   <div class="field">
