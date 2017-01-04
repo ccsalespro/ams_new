@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<br />
+
     <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
         <%= search_form_for @search do |f| %>
         <div class="input-group stylish-input-group">
@@ -80,154 +80,21 @@
 
                 <tbody>
                     <% @prospects.each do |prospect| %>
-                    <tr class="clickme-<%= prospect.id %> clickme">
-                        <td class="text-left"><%= prospect.business_name %></td>
-                        <td class="text-left"><%= prospect.contact_name %></td>
-                        <td class="text-left"><%= prospect.phone %></td>
-                        <td class="text-left"><%= prospect.email %></td>
-                        <td class="text-left"><%= prospect.stage.name %></td>
-                    </tr>
-                    <script>
-                        $(document).ready(function () {
-                            $('.clickme-<%= prospect.id %>').click(function () {
-                                $('#<%= prospect.id %>').modal('show');
-                            });
-                        });
-                    </script>
+                            <tr class="clickme" data-href= "<%= edit_prospect_path(prospect) %>">
+                                <td class="text-left"><%= prospect.business_name %></td>
+                                <td class="text-left"><%= prospect.contact_name %></td>
+                                <td class="text-left"><%= prospect.phone %></td>
+                                <td class="text-left"><%= prospect.email %></td>
+                                <td class="text-left"><%= prospect.stage.name %></td>
+                            </tr>
 
-                    <!-- Modal -->
-                    <div id="<%= prospect.id %>" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close be-gone" data-dismiss="modal">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                    </button>
-                                    <h4 class=""><%= prospect.business_name %></h4>
-                                </div>
-                                <div class="modal-body row" style="margin-right: 0px !important;">
-                                    <div class="col-md-6">
-
-                                        <%= form_for(prospect) do |f| %>
-                                        <% if prospect.errors.any? %>
-                                        <div id="error_explanation">
-                                            <h2><%= pluralize(prospect.errors.count, "error") %>
-                                                prohibited this prospect from being saved:</h2>
-
-                                            <ul>
-                                                <% prospect.errors.full_messages.each do |message| %>
-                                                <li><%= message %></li>
-                                                <% end %>
-                                            </ul>
-                                        </div>
-                                        <% end %>
-
-                                        <div class="field">
-                                            <%= f.label :business_name, :class => 'text pull-left' %>
-                                            <%= f.text_field(:business_name, :class => "form-control", :id => "inputdefault") %>
-                                        </div>
-                                        <div class="field">
-                                            <%= f.label :contact_name, :class => 'text pull-left' %>
-                                            <%= f.text_field(:contact_name, :class => "form-control", :id => "inputdefault") %>
-                                        </div>
-                                        <div class="field">
-                                            <%= f.label :phone, :class => 'text pull-left' %>
-                                            <%= f.phone_field(:phone, :class => "form-control", :id => "inputdefault") %>
-                                        </div>
-                                        <div class="field">
-                                            <%= f.label :email, :class => 'text pull-left' %>
-                                            <%= f.email_field(:email, :class => "form-control", :id => "inputdefault",:maxlength => 35) %>
-                                        </div>
-                                        <div class="field text-left">
-                                            <p class="text text-left">
-                                                <b>Stage</b>
-                                            </p>
-                                            <div class="col-xs-6 no-padding" style="padding-top: 5px !important;"><%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %></div><div class="col-xs-6 no-padding">
-                                        <%= f.hidden_field(:description_id) %>
-                                        <%= f.hidden_field(:description_primary) %>
-                                        <%= f.hidden_field(:description_secondary) %>
-                                        <%= f.hidden_field(:amex_business_type) %>
-                                            <%= f.submit "Update", :class => 'btn btn-primary pull-right' %></div>
-                                        </div>
-                                        <% end -%>
-                                        
-                                        <div class="clearfix"></div>
-
-                                    </div>
-
-                                    <div class="col-md-6" style="" id="right">
-                                        <% @sorted_tasks = prospect.tasks.sort_by{ |t| t.finish_date } %>
-                                        <% @completed_tasks = @sorted_tasks.select { |task| task.completed? == true } %>
-                                        <% @uncompleted_tasks = @sorted_tasks.select { |task| task.completed? == false } %>
-                                        <% @next_task =  @uncompleted_tasks.first %>
-                                        <br>
-                                        <div class="well next-task-well">
-                                            <h4 class="no-margin text-left">Next Action:
-                                                <% if @uncompleted_tasks.size == 0 %>
-                                            <% else %>
-                                                <span class="pull-right"><%= @next_task.finish_date.strftime("%m/%d/%Y") %></span><% end %></h4>
-                                            <% if @uncompleted_tasks.size == 0 %>
-                                            <p class="text-left"><%= link_to "Add An Action", edit_prospect_path(prospect), :class => 'grey' %></p>
-                                        <% else %>
-                                            <p class="text-left">
-                                                <span class="break"><%= @next_task.body %></span>
-                                            </p>
-                                            <% end %>
-                                        </div>
-                                        <div class="well notes-margin">
-                                            <p class="notes_title text-center">
-                                                <b>Notes</b>
-                                            </p>
-                                            <%= form_for [prospect, Note.new], remote: true  do |f| %>
-                                            <div class="field">
-                                                <div class="input-group">
-                                                <%= f.text_field :body, class: "form-control body", :required => true, :placeholder => 'Add Note' %>
-                                                <div class="input-group-addon"><%= f.submit 'Create', class: 'nothing' %></div>
-                                                </div>
-                                            </div>
-                                            <% end %>
-                                            <div class="notes-margin">
-
-                                                <div class="notes<%= prospect.id %>">
-                                                    <%= render :partial => prospect.notes %>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <p><b>Statements</b></p>
-                                        <% prospect.statements.each do |statement| %>
-                                        <div class="well statements-well delete">
-                                          <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(prospect, statement), :class => 'black' %>
-                                          <span class="pull-right"><%= link_to prospect_statement_path(prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'delete-statement', remote: true do %>
-                                            <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
-                                          <% end -%>
-                                          </span>
-                                          <% if statement.presented_program != nil %>
-                                            <p>Presented: <%= statement.presented_program %></p>
-                                          <% end %>
-                                        </div>
-                                        <% end %>
-                                        <br>
+                            <script type="text/javascript">
+                                $("tr[data-href]").click(function() {
+                                  window.location = $(this).data("href")
+                                })
+                            </script>
 
 
-                                    </div>
-
-                                </div>
-                                       <div class="panel-footer">
-                                        <div class="actions">
-                                            
-                                            <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_path(prospect)) %>
-                                            <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), prospect, method: :delete, data: { confirm: 'Are you sure?' }) %>
-                                            <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(prospect_id: prospect.id)) %>
-                                        </div>
-                                        </div>
-
-                            </div>
-
-                        </div>
-                    </div>
                     <% end %>
                 </tbody>
             </table>

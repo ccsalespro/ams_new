@@ -30,7 +30,7 @@ class DetailPdf < Prawn::Document
 			columns(4).width = 65
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -301,7 +301,7 @@ class DetailPdf < Prawn::Document
 			columns(1..5).width = 90
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -372,7 +372,7 @@ class DetailPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 171.666
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
@@ -392,7 +392,7 @@ class DetailPdf < Prawn::Document
 			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end

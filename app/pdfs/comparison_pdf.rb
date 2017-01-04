@@ -34,7 +34,7 @@ class ComparisonPdf < Prawn::Document
 			columns(1..3).width = 125
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -103,7 +103,7 @@ class ComparisonPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 150
 			self.header = true
-			self.row(0).background_color = '002D64'
+			self.row(0).background_color = '03af52'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
