@@ -12,7 +12,7 @@
 .alert { border-radius: 0px !important; }
 
 // Main Color Var
-  $main-color: #002D64;
+  $main-color: #03af52;
   .btn-primary { background-color: $main-color; border: $main-color; }
   .panel-primary .panel-heading { background-color: $main-color !important;}
   .panel-primary { border: 1px solid $main-color;}
@@ -444,6 +444,8 @@ hr.style-two {
 .btn-primary:hover {
     transform: scale(1.05, 1.05);
     transition: transform 300ms ease-in-out;
+    background-color: $main-color !important; 
+    border: $main-color !important;
 }
 
 .program-menu { font-size: 22px !important; }
