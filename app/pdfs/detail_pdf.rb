@@ -10,7 +10,6 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
-		
 		prospect_name
 		user_labels
 		card_types_table
@@ -431,12 +430,14 @@ class DetailPdf < Prawn::Document
 	end
 
 	def prospect_name
+		image open("http://www.rmsuniversity.com/assets/retriever-logo-308c7eaf63c930ffb8cc76068519bc7ee5bae90ff040768efc7e2c5e5fdf176c.png"), :height => 40, :at => [190,720]
+		move_down 40
 		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
 	end
 
 	def user_labels
 		move_down 0
-		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
+		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: 877-599-3875  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def savings_row
