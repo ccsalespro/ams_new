@@ -430,8 +430,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def prospect_name
-		image open("http://www.rmsuniversity.com/assets/retriever-logo-308c7eaf63c930ffb8cc76068519bc7ee5bae90ff040768efc7e2c5e5fdf176c.png"), :height => 40, :at => [190,720]
-		move_down 40
+
 		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
 	end
 
