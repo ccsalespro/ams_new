@@ -18,16 +18,7 @@ class User < ActiveRecord::Base
   has_many :team_users, dependent: :destroy
   has_many :teams, through: :team_users
 
-  after_create :create_notification, :add_programs
-  after_destroy :cancel_notification
-
-  def create_notification
-      AdminMailer.new_user(self).deliver
-  end
-
-  def cancel_notification
-      AdminMailer.cancelled_user(self).deliver
-  end
+  after_create :add_programs, :subscribe
 
   def add_programs
     @programs = Program.all.where(personal: false)
@@ -45,6 +36,12 @@ class User < ActiveRecord::Base
       @processoruser.processor_id = processor.id
       @processoruser.save!
     end
+  end
+
+  def subscribe
+    self.subscribed = true
+    self.traininig_subscribed = true
+    self.save
   end
 end
 
