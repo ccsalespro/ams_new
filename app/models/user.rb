@@ -39,8 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribe
-    self.subscribed = true
-    self.traininig_subscribed = true
+    self.training_subscribed = true
     self.save
   end
 end
