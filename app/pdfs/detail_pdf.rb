@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class DetailPdf < Prawn::Document
 
 	def initialize(prospect, statement, comparison, view, user)
@@ -8,6 +10,7 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
+		image open("http://www.rmsuniversity.com/assets/retriever-logo-white-0bae85f8160a55b61ce239736cbb12b1f6b31689b4ed13078a04b6007b7a9fd8.png")
 		prospect_name
 		user_labels
 		card_types_table
