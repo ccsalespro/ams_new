@@ -1,25 +1,39 @@
 class ComparisonPdf < Prawn::Document
 
 	def initialize(prospect, statement, comparison, view, user)
-		super(top_margin: 70)
+		super(top_margin: 50)
 		@prospect = prospect
 		@statement = statement
 		@comparison = comparison
 		@view = view
 		@user = user
+		image "#{Rails.root}/app/assets/images/retriever-logo.png", :height => 40
+		company_info
 		prospect_name
 		user_labels
 		card_types
 		savings_amounts
 	end
 
-	def prospect_name
-		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	def company_info
+		move_down 10
+		text "Phone:  877-599-3875", size: 15, style: :bold, align: :left
+		text "Website:  rmsnpc.com", size: 15, style: :bold, align: :left
 	end
-	
+
+	def prospect_name
+		move_up 80
+		text "Proposal: #{@prospect.business_name}", size: 20, style: :bold, align: :right
+		move_down 5
+	end
+
 	def user_labels
+		text "Contact: #{@user.first_name} #{@user.last_name}", size: 12, style: :bold, align: :right
+		move_down 4
+		text "Phone: #{@user.phone_number}", size: 12, style: :bold, align: :right
+		move_down 4
+		text "Email: #{@user.email}", size: 12, style: :bold, align: :right
 		move_down 0
-		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def card_types

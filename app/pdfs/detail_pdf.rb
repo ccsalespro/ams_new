@@ -9,6 +9,7 @@ class DetailPdf < Prawn::Document
 		@view = view
 		@user = user
 		image "#{Rails.root}/app/assets/images/retriever-logo.png", :height => 40
+		company_info
 		prospect_name
 		user_labels
 		savings_amounts_table
@@ -25,9 +26,10 @@ class DetailPdf < Prawn::Document
 		text "#{@one_time_cursor_possition} - #{@total_one_time_table_height}"
 	end
 
-	def prospect_name
-		move_down 40
-		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	def company_info
+		move_down 10
+		text "Phone:  877-599-3875", size: 15, style: :bold, align: :left
+		text "Website:  rmsnpc.com", size: 15, style: :bold, align: :left
 	end
 
 	def card_type_title
@@ -535,12 +537,18 @@ class DetailPdf < Prawn::Document
 	end
 
 	def prospect_name
-		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+		move_up 80
+		text "Proposal: #{@prospect.business_name}", size: 20, style: :bold, align: :right
+		move_down 5
 	end
 
 	def user_labels
+		text "Contact: #{@user.first_name} #{@user.last_name}", size: 12, style: :bold, align: :right
+		move_down 4
+		text "Phone: #{@user.phone_number}", size: 12, style: :bold, align: :right
+		move_down 4
+		text "Email: #{@user.email}", size: 12, style: :bold, align: :right
 		move_down 0
-		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def savings_row
