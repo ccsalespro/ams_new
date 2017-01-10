@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class DetailPdf < Prawn::Document
 
 	def initialize(prospect, statement, comparison, view, user)
@@ -10,16 +8,90 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
+		image "#{Rails.root}/app/assets/images/retriever-logo.png", :height => 40
 		prospect_name
 		user_labels
-		card_types_table
 		savings_amounts_table
+		card_type_title
+		card_types_table
+		individual_costs_title
 		individual_cost_table
 		individual_fields_table
+		one_time_fees_table
+	end
+
+	def last_title
+		move_down 10
+		text "#{@one_time_cursor_possition} - #{@total_one_time_table_height}"
+	end
+
+	def prospect_name
+		move_down 40
+		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
+	end
+
+	def card_type_title
+		move_down 30
+		text "Card Type Summary", size: 16, style: :bold, align: :center
+	end
+
+	def individual_costs_title
+		move_down 30
+		text "Itemized Costs", size: 16, style: :bold, align: :center
+	end
+
+	def other_fees_title
+		text "Other Fees", size: 16, style: :bold, align: :center
+	end
+
+	def one_time_title
+		text "One Time Fees", size: 16, style: :bold, align: :center
+	end
+
+	def one_time_fees_table
+		if @annual_fee_fields.empty? == false || @one_time_fields.empty? == false || @comparison.annual_pci_fees > 0
+		@one_time_table_row_height = font.ascender - font.descender + font.line_gap
+		@one_time_table_height = @one_time_table_row_height * (one_time_field_rows.count)
+		@total_one_time_table_height = @one_time_table_height + 5 + 10 + 10
+		@one_time_cursor_possition = cursor
+		if cursor - @total_one_time_table_height < 0
+			start_new_page
+		end
+			one_time_title
+			move_down 5
+			table one_time_field_rows do
+				row(0..30).border_width = 0.3
+				row(0).font_style = :bold
+				columns(0..4).align = :left
+				row(0).align = :center
+				columns(0).width = 135
+				columns(1).width = 180
+				columns(2).width = 75
+				columns(3).width = 60
+				columns(4).width = 65
+				self.row_colors = ["f2f2f2", "FFFFFF"]
+				self.header = true
+				self.row(0).background_color = '03af52'
+				self.row(0).text_color = 'FFFFFF'
+				self.position = :center
+			end
+		end
+	end
+
+	def one_time_field_header
+		["Description", "Type", "Qty", "Cost", "Amount"]
 	end
 
 	def individual_fields_table
-		move_down 20
+		@field_table_row_height = font.ascender - font.descender + font.line_gap
+		@field_table_height = @field_table_row_height * (field_rows.count + 1)
+		@total_table_height = @field_table_height + 20 + 5 + 10 + 20
+		@cursor_possition = cursor
+		if cursor - @total_table_height < 0
+			start_new_page
+		end
+		other_fees_title
+		move_down 5
 		table field_rows do
 			row(0..30).border_width = 0.3
 			row(0).font_style = :bold
@@ -36,6 +108,7 @@ class DetailPdf < Prawn::Document
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
+		move_down 30
 	end
 
 	def individual_field_header
@@ -48,6 +121,10 @@ class DetailPdf < Prawn::Document
 
 	def monthly_pci_fee_row
 		["PCI Fee", "Monthly Fee", "1", to_currency(@comparison.monthly_pci_fees), to_currency(@comparison.monthly_pci_fees)]
+	end
+
+	def monthly_debit_fee_row
+		["Debit Fee", "Monthly Fee", "1", to_currency(@comparison.monthly_debit_fee), to_currency(@comparison.monthly_debit_fee)]
 	end
 
 	def annual_fee_row
@@ -206,18 +283,12 @@ class DetailPdf < Prawn::Document
 		end
 	end
 
-	def field_rows
+	def one_time_field_rows
 		custom_field_arrays
 		@field_rows = []
-		@field_rows << individual_field_header
-		if @comparison.monthly_fees > 0
-			@field_rows << statement_fee_row
-		end
-		if @comparison.monthly_pci_fee > 0
-			@field_rows << monthly_pci_fee_row
-		end
-		if @monthly_fee_fields != nil
-			@field_rows += custom_monthly_fee_rows
+		@field_rows << one_time_field_header		
+		if @one_time_fields != nil
+			@field_rows += custom_one_time_fee_rows
 		end
 		if @comparison.annual_pci_fee > 0
 			@field_rows << annual_fee_row
@@ -228,8 +299,25 @@ class DetailPdf < Prawn::Document
 		if @comparison.application_fee > 0
 			@field_rows << application_fee_row
 		end
-		if @one_time_fields != nil
-			@field_rows += custom_one_time_fee_rows
+
+		return @field_rows
+	end
+
+	def field_rows
+		custom_field_arrays
+		@field_rows = []
+		@field_rows << individual_field_header
+		if @comparison.monthly_fees > 0
+			@field_rows << statement_fee_row
+		end
+		if @comparison.monthly_pci_fee > 0
+			@field_rows << monthly_pci_fee_row
+		end
+		if @statement.debit_vol > 0 && @comparison.monthly_debit_fee > 0
+			@field_rows << monthly_debit_fee_row
+		end
+		if @monthly_fee_fields != nil
+			@field_rows += custom_monthly_fee_rows
 		end
 		if @vmd_per_item_fields != nil
 			@field_rows += custom_vmd_per_item_rows
@@ -292,15 +380,17 @@ class DetailPdf < Prawn::Document
 	end
 
 	def card_types_table
-		move_down 20
+		move_down 5
 		table card_type_rows do
 			row(0..6).border_width = 0.3
 			row(0).font_style = :bold
 			row(-1).font_style = :bold
 			columns(0..3).align = :left
 			row(0).align = :center
-			columns(0).width = 65
-			columns(1..5).width = 90
+			columns(0).width = 75
+			columns(1).width = 100
+			columns(2).width = 85
+			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
 			self.row(0).background_color = '03af52'
@@ -318,26 +408,31 @@ class DetailPdf < Prawn::Document
 		total_transactions
 		total_program_costs
 		total_access_fees
+		other_fees_total
 
 		if @statement.amex_vol == 0 && @statement.debit_vol == 0
 			card_type_header + 
 			card_type_vmd_rows +
+			other_fees_row +
 			card_type_totals
 		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
 			card_type_header + 
 			card_type_vmd_rows +
 			card_type_amex_row +
+			other_fees_row +
 			card_type_totals
 		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
 			card_type_header + 
 			card_type_vmd_rows +
 			card_type_debit_row +
+			other_fees_row +
 			card_type_totals
 		else
 			card_type_header + 
 			card_type_vmd_rows +
 			card_type_amex_row +
 			card_type_debit_row +
+			other_fees_row +
 			card_type_totals
 		end
 	end
@@ -363,6 +458,14 @@ class DetailPdf < Prawn::Document
 	def card_type_amex_row
 		[["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@statement.amex_interchange), "N/A", to_currency(@total_amex_fees)]]
 	end
+
+	def other_fees_row
+		[["Other Fees", "-", "-", "-", "-", to_currency(@other_fees)]]
+	end
+
+	def other_fees_total
+    	@other_fees = ( @comparison.total_program_fees - (@total_amex_fees + @total_debit_fees + @total_visa_fees + @total_mc_fees + @total_ds_fees))
+    end
  
 	def savings_amounts_table
 		move_down 20
@@ -382,7 +485,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def individual_cost_table
-		move_down 20
+		move_down 5
 		table individual_cost_rows do
 			row(0..6).border_width = 0.3
 			row(0).font_style = :bold
@@ -398,6 +501,8 @@ class DetailPdf < Prawn::Document
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
+		move_down 30
+		@cursor_possition = cursor
 	end
 
 	def individual_cost_rows
@@ -430,13 +535,12 @@ class DetailPdf < Prawn::Document
 	end
 
 	def prospect_name
-
 		text "Proposal Detail: #{@prospect.business_name}", size: 20, style: :bold, align: :center
 	end
 
 	def user_labels
 		move_down 0
-		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: 877-599-3875  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
+		text "Contact: #{@user.first_name} #{@user.last_name}  |  Phone: #{@user.phone_number}  |  Email: #{@user.email}", size: 9, style: :bold, align: :center
 	end
 
 	def savings_row
@@ -506,7 +610,7 @@ class DetailPdf < Prawn::Document
 
 	def total_amex_fees
 		@amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 )) + (@statement.amex_trans * @comparison.amex_per_item_fee)
-		@total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up)
+		@total_amex_fees = (@statement.amex_interchange + @amex_mark_up)
 	end
 
 	def total_debit_fees
