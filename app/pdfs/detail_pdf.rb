@@ -23,6 +23,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def proposal_note
+		move_down 20
 		text "#{@comparison.notes}", size: 13, style: :italic, align: :left
 	end
 
