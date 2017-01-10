@@ -19,6 +19,11 @@ class DetailPdf < Prawn::Document
 		individual_cost_table
 		individual_fields_table
 		one_time_fees_table
+		proposal_note
+	end
+
+	def proposal_note
+		text "#{@comparison.notes}", size: 13, style: :italic, align: :left
 	end
 
 	def last_title

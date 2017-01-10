@@ -19,7 +19,7 @@
 <div id="interchange" class="tab-pane fade">
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
 <%= link_to(content_tag(:button, '< Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<span class="pull-right hideme" style=""><%= link_to("PDF", savings_summary_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %><%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
+<span class="pull-right hideme" style=""><%= link_to("PDF", savings_summary_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %><%= link_to "Proposal Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
 
 <% if @statement.total_fees > 0 %>
 <div class="clearfix"></div>
@@ -122,7 +122,7 @@
 
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hideme2">
 <%= link_to(content_tag(:button, '< Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<span class="pull-right hideme" style=""><%= link_to("PDF", savings_detail_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %>  <%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
+<span class="pull-right hideme" style=""><%= link_to("PDF", savings_detail_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %>  <%= link_to "Proposal Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
 
 <% if @statement.total_fees > 0 %>
 <div class="clearfix"></div>

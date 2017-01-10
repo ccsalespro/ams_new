@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018221946) do
+ActiveRecord::Schema.define(version: 20170110040650) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 20161018221946) do
     t.decimal  "custom_amex_volume_bp_cost"
     t.decimal  "custom_pin_per_item_cost"
     t.decimal  "custom_pin_volume_bp_cost"
+    t.text     "notes"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"

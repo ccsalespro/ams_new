@@ -13,6 +13,12 @@ class ComparisonPdf < Prawn::Document
 		user_labels
 		card_types
 		savings_amounts
+		proposal_note
+	end
+
+	def proposal_note
+		move_down 20
+		text "#{@comparison.notes}", size: 13, style: :italic, align: :left
 	end
 
 	def company_info
