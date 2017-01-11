@@ -42,6 +42,7 @@ class ComparisonsController < ApplicationController
         set_vmd_mark_up(          @comparison, @statement, @comparison.starting_bp)
         set_total_fees(           @comparison, @statement)
         set_total_savings(        @comparison, @statement)
+        set_compensation(         @comparison, program)
         @comparison.save
         @comparisons << @comparison
       end
