@@ -11,18 +11,15 @@
 <p class="visible-xs text-center">B = Bonus | R = Residual<br>BP = Basis Points | TF = Trans Fee<br>S = Savings | P = Proposal</p>
 
               <span class="">
-              <% c = @comparisons.first %>
-              <% if c.total_program_savings > 1 %>
-              <%= link_to({:controller => 'comparisons', :action => 'decrease_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
-                <i class="fa fa-angle-left" aria-hidden="true"></i> Decrease Savings
+              <%= link_to({:controller => 'comparisons', :action => 'increase_margin', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
+                <i class="fa fa-angle-left" aria-hidden="true"></i> Increase Margin
               <% end -%>
-              <% end %>
 
                <% c = @comparisons.first %>
               <% p = Program.find_by_id(c.program_id) %>
               <% if c.bp_mark_up > p.min_bp_mark_up %>
-                <%= link_to({:controller => 'comparisons', :action => 'increase_savings', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
-                  Increase Savings <i class="fa fa-angle-right" aria-hidden="true"></i>
+                <%= link_to({:controller => 'comparisons', :action => 'decrease_margin', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
+                  Decrease Margin <i class="fa fa-angle-right" aria-hidden="true"></i>
                 <% end -%>
               <% end %>
               </span>

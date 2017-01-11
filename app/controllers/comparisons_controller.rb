@@ -33,12 +33,52 @@ class ComparisonsController < ApplicationController
         set_compensation(         @comparison, program)
         set_conditional_savings(  @comparison, @statement)
         set_fixed_values(         @comparison)
+        
+        set_per_item_change(      @comparison, @statement)
+        set_bp_change(            @comparison, @statement, @comparison.per_item_change)
+        set_starting_fees(        @comparison)
+        
+        set_vmd_per_item_fees(    @comparison, @statement, @comparison.starting_per_item )
+        set_vmd_mark_up(          @comparison, @statement, @comparison.starting_bp)
+        set_total_fees(           @comparison, @statement)
+        set_total_savings(        @comparison, @statement)
         @comparison.save
         @comparisons << @comparison
       end
       @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
     end
     end
+  end
+
+  def set_starting_fees(c)
+    c.starting_per_item = (c.per_item_fee + (c.per_item_change * 2))
+    c.starting_bp = (c.bp_mark_up + (c.bp_change * 2))
+    c.change_counter = 0
+  end
+
+  def set_per_item_change(c, s)
+    @change = (c.savings_fixed * 0.2 )
+    @per_item_change = ( ( @change * 0.5 ) / s.vmd_trans )
+
+    if @per_item_change > 0.02
+        @per_item_change = 0.02
+    end
+
+    c.per_item_change = @per_item_change
+  end  
+
+  def set_bp_change(c, s, per_item_change)
+    @change = (c.savings_fixed * 0.2 )
+    @bp_change = (
+      @change - 
+      ( per_item_change * 
+        @statement.vmd_trans ) )
+
+    @basis_points = ( 
+      ( @bp_change / 
+        s.vmd_vol ) * 10000 )
+
+    c.bp_change = @basis_points
   end
 
   def update_comparison_interchange
@@ -53,73 +93,46 @@ class ComparisonsController < ApplicationController
       @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
   end
   
- def decrease_savings
+ def decrease_margin
     @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
-    @comparisons.each do |comparison|
-      if comparison.total_program_savings > 0
+      @comparisons.each do |comparison|
         @program = Program.find_by_id(comparison.program_id)
-        set_per_item_change(comparison, @statement)
-        set_vmd_per_item_fees(comparison, @statement, (comparison.per_item_fee += @per_item_change) )
-        set_bp_change(comparison, @statement, @per_item_change)
-        set_vmd_mark_up(comparison, @statement, (comparison.bp_mark_up += @basis_points))
+        comparison.change_counter -= 1
+        if comparison.change_counter < -1
+          set_vmd_per_item_fees(    comparison, @statement, @program.min_per_item_fee)
+          set_vmd_mark_up(          comparison, @statement, @program.min_bp_mark_up)
+        else
+          @basis_points = comparison.starting_bp + (comparison.bp_change * (comparison.change_counter))
+          @basis_points = @basis_points.round(-1)
+          @per_item = comparison.starting_per_item + (comparison.per_item_change * (comparison.change_counter))
+          set_vmd_per_item_fees(    comparison, @statement, @per_item)
+          set_vmd_mark_up(          comparison, @statement, @basis_points)
+        end  
         set_total_fees(comparison, @statement)
         set_total_savings(comparison, @statement)
-
-        if comparison.total_program_savings < 5
-          @change = comparison.total_program_savings
-          @basis_points = ( @change / @statement.vmd_vol ) * 10000 
-          set_vmd_mark_up(comparison, @statement, (comparison.bp_mark_up += @basis_points))
-          comparison.total_program_fees += ( @statement.vmd_vol * (@basis_points.to_f / 10000) )
-          set_total_savings(comparison, @statement)     
-        end  
         set_compensation(comparison, @program)
         comparison.save
       end
-    end
     render 'index'
   end
 
   
 
-  def increase_savings
+  def increase_margin
     @comparisons = Comparison.where(statement_id: @statement.id).order(total_program_savings: :desc)
-    @comparisons.each do |comparison|
-      if comparison.total_program_savings < comparison.savings_fixed
+      @comparisons.each do |comparison|
         @program = Program.find_by_id(comparison.program_id)
-        
-        set_per_item_change(comparison, @statement)
-        @per_item = comparison.per_item_fee - @per_item_change
-        set_vmd_per_item_fees(comparison, @statement, @per_item )
-        set_bp_change(comparison, @statement, @per_item_change)
-        
-        @total_basis_points = comparison.bp_mark_up - @basis_points 
-        set_vmd_mark_up(comparison, @statement, @total_basis_points)
+        comparison.change_counter += 1
+        @basis_points = comparison.starting_bp + (comparison.bp_change * (comparison.change_counter))
+        @basis_points = @basis_points.round(-1)
+        @per_item = comparison.starting_per_item + (comparison.per_item_change * (comparison.change_counter))
+        set_vmd_per_item_fees(    comparison, @statement, @per_item)
+        set_vmd_mark_up(          comparison, @statement, @basis_points) 
         set_total_fees(comparison, @statement)
         set_total_savings(comparison, @statement)
-        
-        @diff = comparison.savings_fixed - comparison.total_program_savings 
-        if @diff < 10
-        set_vmd_per_item_fees(    comparison, @statement, @program.min_per_item_fee)
-        set_vmd_mark_up(          comparison, @statement, @program.min_bp_mark_up)
-        set_other_fees(           comparison, @statement, @program)  
-        set_vmd_access_fees(      comparison, @statement)
-        set_amex_fees(            comparison, @statement)
-        set_debit_fees(           comparison, @statement)    
-        set_total_fees(           comparison, @statement)     
-        set_vmd_costs(            comparison, @statement, @program)
-        set_amex_costs(           comparison, @statement, @program)
-        set_debit_costs(          comparison, @statement, @program)
-        set_other_costs(          comparison, @statement, @program) 
-        set_total_costs(          comparison, @statement, @program)
-        set_compensation(         comparison, @program)
-        set_conditional_savings(  comparison, @statement)
-        set_fixed_values(         comparison)
-                  
-        end  
         set_compensation(comparison, @program)
         comparison.save
       end
-    end
     render 'index'
   end
 
@@ -505,6 +518,8 @@ private
     if @per_item_change > 0.02
         @per_item_change = 0.02
     end
+
+    c.per_item_change = @per_item_change
   end  
 
   def set_bp_change(c, s, per_item_change)
@@ -517,6 +532,8 @@ private
     @basis_points = ( 
       ( @bp_change / 
         s.vmd_vol ) * 10000 )
+
+    c.bp_change = @basis_points
   end
 
     def set_custom_fields(c, s, p)
