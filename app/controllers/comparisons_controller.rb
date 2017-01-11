@@ -189,7 +189,7 @@ class ComparisonsController < ApplicationController
 
 private
   def comparison_params
-      params.require(:comparison).permit(:id, :notes, :bp_mark_up, :per_item_fee, :amex_bp_mark_up, :amex_per_item_fee, :pin_debit_bp_mark_up, :debit_trans_fees,
+      params.require(:comparison).permit(:id, :per_item_change, :notes, :bp_mark_up, :per_item_fee, :amex_bp_mark_up, :amex_per_item_fee, :pin_debit_bp_mark_up, :debit_trans_fees,
       :monthly_fees, :per_batch_fee, :monthly_pci_fees, :monthly_pci_fee, :annual_pci_fees, :application_fee, :annual_fee, :monthly_debit_fee, :next_day_funding_fee, :pin_debit_per_item_fee )
   end
 
