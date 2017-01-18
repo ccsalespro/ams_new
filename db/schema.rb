@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110141621) do
+ActiveRecord::Schema.define(version: 20170117221633) do
+
+  create_table "cc_fields", force: :cascade do |t|
+    t.integer  "comparison_id"
+    t.integer  "custom_field_type_id"
+    t.string   "name"
+    t.decimal  "amount"
+    t.decimal  "cost"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "cc_fields", ["comparison_id"], name: "index_cc_fields_on_comparison_id"
+  add_index "cc_fields", ["custom_field_type_id"], name: "index_cc_fields_on_custom_field_type_id"
 
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
@@ -189,6 +202,14 @@ ActiveRecord::Schema.define(version: 20170110141621) do
 
   add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"
   add_index "courseusers", ["user_id"], name: "index_courseusers_on_user_id"
+
+  create_table "custom_comparison_field_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "slug_string"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "custom_field_types", force: :cascade do |t|
     t.string   "name"

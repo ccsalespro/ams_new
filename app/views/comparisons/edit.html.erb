@@ -110,7 +110,17 @@
 						<div class="input-group-addon">$</div>
 						<%= f.text_field :next_day_funding_fee, class: 'form-control' %><br>
 					</div>
-				</div><div class="clearfix"></div><br>
+				</div>
+
+					<%= f.fields_for :cc_fields do |ff| %>
+					  <div class="col-sm-6"><br>
+					  	<b><%= ff.text_field :name %></b><br>
+					  	<div class="input-group">
+					  		<div class="input-group-addon">$</div>
+					    	<%= ff.text_field :amount, class: 'form-control' %>
+					    </div>
+					  </div>
+					<% end %><div class="clearfix"></div><br>
 				<a id="backto_stepone_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
 				<%= f.submit "Save", class: 'btn btn-primary' %>
 			</div>

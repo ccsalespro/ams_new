@@ -362,7 +362,7 @@ class DetailPdf < Prawn::Document
 		@amex_vol_bp_fields = []
 		@debit_per_item_fields = []
 		@debit_vol_bp_fields = []
-		@custom_fields = @program.custom_fields
+		@custom_fields = @comparison.cc_fields
 		@custom_fields.each do |cf|
 			case cf.custom_field_type.slug_string
 				when "monthly_fee"

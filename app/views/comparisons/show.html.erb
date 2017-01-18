@@ -344,7 +344,7 @@
     </tr>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("monthly_fee") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -357,7 +357,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("vmd_per_item") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -370,7 +370,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("amex_per_item") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -383,7 +383,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("pin_per_item") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -396,7 +396,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("vmd_volume_bp") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -409,7 +409,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("pin_volume_bp") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -422,7 +422,7 @@
     <% end %>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("amex_volume_bp") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -464,7 +464,7 @@
     </tr>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("annual_fee") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
@@ -486,7 +486,7 @@
     </tr>
     <% end %>
     <% @type = CustomFieldType.find_by_slug_string("one_time_fee") %>
-    <% @fields = @program.custom_fields.where(custom_field_type_id: @type.id) %>
+    <% @fields = @comparison.cc_fields.where(custom_field_type_id: @type.id) %>
     <% if @fields != nil %>
       <% @fields.each do |field| %>
       <tr>
