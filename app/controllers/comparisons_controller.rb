@@ -473,7 +473,8 @@ private
       c.amex_per_item_costs + 
       c.amex_mark_up_costs + 
       c.total_debit_costs + 
-      s.interchange + 
+      s.interchange +
+      c.total_vmd_access_fees + 
       p.monthly_fee_costs + 
       p.monthly_pci_cost + 
       ( p.annual_pci_cost / 12 ) +
