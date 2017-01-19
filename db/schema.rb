@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117221633) do
+ActiveRecord::Schema.define(version: 20170119205038) do
 
   create_table "cc_fields", force: :cascade do |t|
     t.integer  "comparison_id"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20170117221633) do
     t.decimal  "monthly_pci_fees"
     t.decimal  "annual_fee"
     t.decimal  "annual_pci_fees"
-    t.integer  "bp_mark_up"
+    t.decimal  "bp_mark_up"
     t.decimal  "per_item_fee"
     t.decimal  "vs_access_per_item_fee"
     t.decimal  "vs_access_percentage_fee"
