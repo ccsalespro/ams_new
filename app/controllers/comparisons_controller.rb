@@ -66,9 +66,12 @@ class ComparisonsController < ApplicationController
 
     if @per_item_change > 0.02
         @per_item_change = 0.02
+    elsif @per_item_change < 0.01
+        @per_item_change = 0.01
     end
 
-    c.per_item_change = @per_item_change
+      c.per_item_change = @per_item_change
+
   end  
 
   def set_bp_change(c, s, per_item_change)
@@ -82,7 +85,12 @@ class ComparisonsController < ApplicationController
       ( @bp_change / 
         s.vmd_vol ) * 10000 )
 
-    c.bp_change = @basis_points
+    if @basis_points < 5
+      @basis_points = 5
+    end
+
+      c.bp_change = @basis_points
+
   end
 
   def update_comparison_interchange
@@ -500,11 +508,11 @@ private
   end
 
   def set_conditional_savings(c, s)
-     if s.total_fees > 0
-          set_total_savings(c, s)
-        else
-          c.total_program_savings = 0
-        end 
+    if s.total_fees > 0
+      set_total_savings(c, s)
+    else
+      c.total_program_savings = 0
+    end 
   end
   
   def set_total_savings(c, s)
@@ -515,32 +523,7 @@ private
       if c.total_program_savings < 0 && c.total_program_savings > -0.01
         c.total_program_savings = 0
       end
-  end
-
-  def set_per_item_change(c, s)
-    @change = (c.savings_fixed * 0.2 )
-    @per_item_change = ( ( @change * 0.5 ) / s.vmd_trans )
-
-    if @per_item_change > 0.02
-        @per_item_change = 0.02
-    end
-
-    c.per_item_change = @per_item_change
-  end  
-
-  def set_bp_change(c, s, per_item_change)
-    @change = (c.savings_fixed * 0.2 )
-    @bp_change = (
-      @change - 
-      ( per_item_change * 
-        @statement.vmd_trans ) )
-
-    @basis_points = ( 
-      ( @bp_change / 
-        s.vmd_vol ) * 10000 )
-
-    c.bp_change = @basis_points
-  end
+  end 
 
     def create_cc_fields(c, p)
       @custom_fields = CustomField.where(program_id: p.id)
