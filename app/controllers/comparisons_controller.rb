@@ -384,6 +384,9 @@ private
   end
 
    def set_total_fees(c, s)
+    c.batch_fees = ( 
+        s.batches * 
+        c.per_batch_fee )
     c.total_program_fees = (
     c.monthly_fees + 
     c.monthly_pci_fees + 
