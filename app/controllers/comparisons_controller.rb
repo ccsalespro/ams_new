@@ -96,6 +96,7 @@ class ComparisonsController < ApplicationController
   def update_comparison_interchange
       @comparisons = Comparison.where(statement_id: @statement.id)
       @comparisons.each do |comparison|
+        comparison_no_nil(comparison)
         @program = Program.find_by_id(comparison.program_id)
         set_total_fees(comparison, @statement)
         set_conditional_savings(comparison, @statement)
@@ -186,6 +187,7 @@ class ComparisonsController < ApplicationController
   def update
     @program = Program.find_by_id(@comparison.program_id)
     @comparison.update(comparison_params)
+      comparison_no_nil(@comparison)
       pricing_wizard_no_nill(@comparison)
       set_all_custom_field_c_values_to_zero(@comparison)
       update_custom_field_values(@comparison, @statement, @program)
@@ -726,4 +728,46 @@ private
     end
   end 
 
+  def comparison_no_nil(c)
+    if c.bp_mark_up == nil 
+      c.bp_mark_up = 0
+    end
+    if c.per_item_fee == nil 
+      c.per_item_fee = 0
+    end
+    if c.amex_bp_mark_up == nil 
+      c.amex_bp_mark_up = 0
+    end
+    if c.amex_per_item_fee == nil 
+      c.amex_per_item_fee = 0
+    end
+    if c.pin_debit_per_item_fee == nil 
+      c.pin_debit_per_item_fee = 0
+    end
+    if c.monthly_fees == nil 
+      c.monthly_fees = 0
+    end
+    if c.per_batch_fee == nil 
+      c.per_batch_fee = 0
+    end
+    if c.monthly_pci_fees == nil 
+      c.monthly_pci_fees = 0
+    end
+    if c.annual_pci_fees == nil 
+      c.annual_pci_fees = 0
+    end
+    if c.application_fee == nil 
+      c.application_fee = 0
+    end
+    if c.annual_fee == nil 
+      c.annual_fee = 0
+    end
+    if c.monthly_debit_fee == nil 
+      c.monthly_debit_fee = 0
+    end
+    if c.next_day_funding_fee == nil 
+      c.next_day_funding_fee = 0
+    end
+
+  end
 end
