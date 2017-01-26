@@ -131,80 +131,81 @@ class StatementsController < ApplicationController
   def create
 
     @statement = @prospect.statements.new(statement_params)
-    
-    @statement.vmd_avg_ticket = @statement.avg_ticket
-    @statement.amex_avg_ticket = @statement.avg_ticket
-    @statement.debit_avg_ticket = @statement.avg_ticket
-    @statement.batches = 30
-    
-      
-    if @statement.amex_vol == nil
-      @statement.amex_vol = 0
-      @statement.amex_trans = 0
-      @statement.amex_interchange = 0
-      @statement.amex_per_item_cost = 0
-      @statement.amex_percentage_cost = 0
-    else
-      @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
-      amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
-      @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
-      @statement.amex_per_item_cost = @cost.per_item_value
-      @statement.amex_percentage_cost = @cost.percentage_value
-    end
-  
-    if @statement.debit_vol == nil
-      @statement.debit_vol = 0
-      @statement.debit_trans = 0
-      @statement.debit_network_fees = 0
-    else
-      @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
-      general_cost("debit", @statement.avg_ticket)
-      @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
-    end
-
-   
-
-      @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
-      @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
-      create_intcalcitems(@prospect.description_id)
-      interchange_cost(@intcalcitems, @statement.id,  @statement.vmd_trans, @statement.vmd_vol)
-      @statement.vmd_interchange = @costs
-      set_downgrades
-      set_moto
-      set_ecomm
-      set_btob
-      set_unregulated_check_card
-      set_regulated_check_card
-
-
-    @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
-    
-    
-
-    card_type_calculation("VS")
-    @statement.vs_volume = @volume
-    @statement.vs_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.vs_fees = @fees
-
-    card_type_calculation("MC")
-    @statement.mc_volume = @volume
-    @statement.mc_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.mc_fees = @fees
-
-   
-    card_type_calculation("DS")
-    @statement.ds_volume = @volume
-    @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.ds_fees = @fees
-
-     if @statement.total_fees == nil
-      @statement.total_fees = 0
-    else
-      @statement.total_fees
-    end
 
     respond_to do |format|
       if @statement.save
+        @statement.vmd_avg_ticket = @statement.avg_ticket
+        @statement.amex_avg_ticket = @statement.avg_ticket
+        @statement.debit_avg_ticket = @statement.avg_ticket
+        @statement.batches = 30
+        
+          
+        if @statement.amex_vol == nil
+          @statement.amex_vol = 0
+          @statement.amex_trans = 0
+          @statement.amex_interchange = 0
+          @statement.amex_per_item_cost = 0
+          @statement.amex_percentage_cost = 0
+        else
+          @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
+          amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
+          @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
+          @statement.amex_per_item_cost = @cost.per_item_value
+          @statement.amex_percentage_cost = @cost.percentage_value
+        end
+      
+        if @statement.debit_vol == nil
+          @statement.debit_vol = 0
+          @statement.debit_trans = 0
+          @statement.debit_network_fees = 0
+        else
+          @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
+          general_cost("debit", @statement.avg_ticket)
+          @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
+        end
+
+       
+
+          @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
+          @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
+          create_intcalcitems(@prospect.description_id)
+          interchange_cost(@intcalcitems, @statement.id,  @statement.vmd_trans, @statement.vmd_vol)
+          @statement.vmd_interchange = @costs
+          set_downgrades
+          set_moto
+          set_ecomm
+          set_btob
+          set_unregulated_check_card
+          set_regulated_check_card
+
+
+        @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
+        
+        
+
+        card_type_calculation("VS")
+        @statement.vs_volume = @volume
+        @statement.vs_transactions = @volume / @statement.vmd_avg_ticket
+        @statement.vs_fees = @fees
+
+        card_type_calculation("MC")
+        @statement.mc_volume = @volume
+        @statement.mc_transactions = @volume / @statement.vmd_avg_ticket
+        @statement.mc_fees = @fees
+
+       
+        card_type_calculation("DS")
+        @statement.ds_volume = @volume
+        @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
+        @statement.ds_fees = @fees
+
+         if @statement.total_fees == nil
+          @statement.total_fees = 0
+        else
+          @statement.total_fees
+        end
+        @statement.save
+        
         format.html { redirect_to prospect_statement_path(@prospect, @statement), notice: 'Statement was successfully created.' }
         format.json { render :edit, status: :created, location: @statement }
       else

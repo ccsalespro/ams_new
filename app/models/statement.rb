@@ -4,6 +4,10 @@ class Statement < ActiveRecord::Base
   has_many :inttypes, through: :inttableitems
   has_many :intcalcitems, dependent: :destroy
   has_many :comparisons, dependent: :destroy
-  validates_presence_of :total_vol
+  validates :total_vol, presence: true, numericality: true
+  validates :amex_vol, allow_nil: true, numericality: true
+  validates :debit_vol, allow_nil: true, numericality: true
+  validates :total_fees, allow_nil: true, numericality: true
+  validates :avg_ticket, presence: true, numericality: true
   default_scope -> { order(created_at: :desc) }
 end
