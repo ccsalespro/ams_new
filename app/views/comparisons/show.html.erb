@@ -264,7 +264,7 @@
       <td><%= number_with_precision(@statement.vmd_trans, precision: 0) %></td>
       <td>Varies</td>
       <td>Varies</td>
-      <td class="text-center"><%= number_to_currency(@statement.interchange) %></td>
+      <td class="text-center"><%= number_to_currency(@statement.vmd_interchange) %></td>
     </tr>
     <% if @statement.amex_vol > 0 %>
     <tr>
