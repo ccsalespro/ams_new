@@ -12,7 +12,9 @@ class DetailPdf < Prawn::Document
 		company_info
 		prospect_name
 		user_labels
-		savings_amounts_table
+		if @statement.total_fees > 0
+			savings_amounts_table
+		end
 		card_type_title
 		card_types_table
 		individual_costs_title
