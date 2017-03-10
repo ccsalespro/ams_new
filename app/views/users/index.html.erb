@@ -3,9 +3,7 @@
 <div class="well">
 <h2 class="no-margin">
 	<b><%= @allusers.count %></b> <% if @allusers.count == 1 %> Total User <% else %> Total Users <% end -%> <br>
-	<b><%= @subscribed_users.count %></b> <% if @subscribed_users.count == 1 %> Subscribed User <% else %> Subscribed Users <% end -%> <br>
 	<b><%= @admins.count %></b> <% if @admins.count == 1 %> Admin <% else %> Admins <% end -%><br>
-	<b><%= @course_subscribers.count %></b> <% if @course_subscribers.count == 1 %> Training User <% else %> Training Users <% end -%>
 </h2>
 <h2 id="more_analytics" class="no-margin hidden">
 	<b><%= @prospects.count %></b> <% if @prospects.count == 1 %> Prospect <% else %> Prospects <% end -%> <br>
@@ -43,16 +41,13 @@
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr class="total white">
-			<th class="hidden-xs">ID</th>
+			<th class="">ID</th>
+			<th class="">Name</th>
 			<th>Email</th>
-			<th class="hidden-xs">Prospects</th>
-			<th class="hidden-xs">Statements</th>
-			<th class="hidden-xs">Programs</th>
-			<th class="hidden-xs">Last Login</th>
-			<th class="hidden-xs">Login Count</th>
-			<th class="hidden-xs">Payment</th>
-			<th class="hidden-xs text-center">Access</th>
-			<th class="hidden-xs">Trial End</th>
+			<th class="">Prospects</th>
+			<th class="">Statements</th>
+			<th class="">Last Login</th>
+			<th class="">Login Count</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -66,51 +61,18 @@
 	    <% timeday = date[2] %>
 	    <% @user_last_sign_in = "#{timemonth}/#{timeday}/#{timeyear}" %>
 
-	    <% trial_date = user.trial_end_date %>
-	    <% trial_date = trial_date.to_s[0,10] %>
-	    <% trial_date = trial_date.split("-") %>
-	    <% timeyear = trial_date[0] %>
-	    <% timemonth = trial_date[1] %>
-	    <% timeday = trial_date[2] %>
-	    <% @trial_end_date = "#{timemonth}/#{timeday}/#{timeyear}" %>
-
 			<tr>
-				<td class="hidden-xs"><%= user.id %></td>
-				<td class="hidden-xs"><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
-				<td class="visible-xs" style="padding: 2px !important;"><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
-				<td class="hidden-xs"><%= user.prospects.count %></td>
-				<% @statements = 0 %>
+				<td class=""><%= user.id %></td>
+				<td class=""><%= "#{user.first_name} #{user.last_name}" %></td>
+				<td class=""><%= link_to(user.email, {:controller => 'admin_dashboard', :action => 'show_user', :id => user.id}, class: 'black bold')  %></td>
+				<td class=""><%= user.prospects.count %></td>
+				<% @statement_count = 0 %>
 				<% user.prospects.each do |p| %>
-				<% @statements += p.statements.count %>
+				<% @statement_count += p.statements.count %>
 				<% end %>
-				<td class="hidden-xs"><%= @statements %></td>
-				<% @personal_programs = Programuser.where(user_id: user.id) %>
-				<% @count = 0 %>
-				<% @personal_programs.each do |p| %>
-					<% if p.program.personal == true %>
-						<% @count += 1 %>
-					<% end -%>
-				<% end -%>
-				<td class="hidden-xs"><%= @count %></td>
-				<td class="hidden-xs"><%= @user_last_sign_in %></td>
-				<td class="hidden-xs"><%= user.sign_in_count %></td>
-				<% if user.stripe_subscription_id == nil %>
-				<td class="hidden-xs"><span class="label label-info">None</span></td>
-				<% elsif user.stripe_subscription_active == true %>
-				<td class="hidden-xs"><span class="label label-success">Current</span></td>
-				<% elsif user.stripe_subscription_id != nil && user.stripe_subscription_active == false %>
-				<td class="hidden-xs"><span class="label label-danger">Past Due</span></td>
-				<% else %>
-				<td class="hidden-xs"><span class="label label-warning">Exception</span></td>
-				<% end %>
-				<% if user.subscribed == false %>
-				<td class="hidden-xs"><span class="label label-danger">Denied</span></td>
-				<% elsif user.stripe_subscription_active == false && user.trial_end_date > Time.now %>
-				<td class="hidden-xs"><span class="label label-info">Trial</span></td>
-				<% else %>
-				<td class="hidden-xs"><span class="label label-success">Granted</span></td>
-				<% end %>
-				<td class="hidden-xs"><%= @trial_end_date %></td>
+				<td class=""><%= @statement_count %></td>
+				<td class=""><%= @user_last_sign_in %></td>
+				<td class=""><%= user.sign_in_count %></td>
 			</tr>
 		<% end -%>
 	</tbody>
