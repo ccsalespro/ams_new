@@ -1,14 +1,12 @@
 class AdminDashboardController < ApplicationController
 	before_action :require_admin
 	def index
-		@users = User.all.order(subscribed: :desc).order(:created_at)
+		@users = User.all.order(:created_at)
 		@search = @users.search(params[:q])
     @users = @search.result
 
     @allusers = User.all
-		@subscribed_users = User.where(subscribed: true)
 		@admins = User.where(admin: true)
-		@course_subscribers = User.where(training_subscribed: true)
 		@prospects = Prospect.all
 		@notes = Note.all
 		@tasks = Task.all
@@ -18,74 +16,10 @@ class AdminDashboardController < ApplicationController
 	end
 
 	def destroy_user
-		@user = User.find_by_id(params[:id])
-		customer = Stripe::Customer.retrieve(@user.stripeid)
-		customer.subscriptions.retrieve(@user.stripe_subscription_id).delete
-		@user.update(
-        stripe_subscription_id: nil,
-        subscribed: false,
-        training_subscribed: false
-      )
-
+	  @user = User.find_by_id(params[:id])
       redirect_to users_path, notice: "subscription cancelled"
 	end
 
-	def subscribe
-		@user = User.find_by_id(params[:id])
-		@user.subscribed = true
-		@user.save
-		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
-	end
-
-	def unsubscribe
-		@user = User.find_by_id(params[:id])
-		@user.subscribed = false
-		@user.save
-		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
-	end
-
-	def training_subscribe
-		@user = User.find_by_id(params[:id])
-		@user.training_subscribed = true
-		@user.save
-
-		@current_user_courses = Courseuser.where(user_id: current_user.id)
-		if @current_user_courses.count == 0
-		@courses = Course.all
-
-    @courses.each do |course|
-      @courseuser = Courseuser.new
-      @courseuser.user_id = current_user.id
-      @courseuser.course_id = course.id
-      @courseuser.save
-
-      course.chapters.each do |chapter|
-       @chapteruser = Chapteruser.new
-       @chapteruser.user_id = current_user.id
-       @chapteruser.course_id = course.id
-       @chapteruser.chapter_id = chapter.id
-       @chapteruser.save
-
-       chapter.lessons.each do |lesson|
-        @lessonuser = Lessonuser.new
-        @lessonuser.user_id = current_user.id
-        @lessonuser.course_id = course.id
-        @lessonuser.chapter_id = chapter.id
-        @lessonuser.lesson_id = lesson.id
-        @lessonuser.save
-       end
-      end
-    end
-  end
-		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
-	end
-
-	def untraining_subscribe
-		@user = User.find_by_id(params[:id])
-		@user.training_subscribed = false
-		@user.save
-		redirect_to :controller => 'admin_dashboard', :action => 'show_user', :id => @user.id
-	end
 
 	def make_admin
 		@user = User.find_by_id(params[:id])
@@ -112,15 +46,13 @@ class AdminDashboardController < ApplicationController
   	@user = User.find_by_id(params[:user_id])
   	@program = Program.find_by_id(params[:program_id])
   	@program_processor = Processor.find_by_id(@program.processor_id)
-
-
-  	@users = User.where(subscribed: true)
+  	@users = User.all
   end
 
 
 	def show_user
 		@user = User.find_by_id(params[:id])
-    date = @user.created_at
+    	date = @user.created_at
 		date = date.to_s[0,10]
 		date = date.split("-")
 		timeyear = date[0]

@@ -5,7 +5,7 @@
 <div class="clearfix"></div>
 
     <%= form_for(Programuser.new) do |f| %>
-            <%= collection_select( :programuser, :user_id, User.where(subscribed: true), :id, :email, {}, { :multiple => false }) %>
+            <%= collection_select( :programuser, :user_id, User.all, :id, :email, {}, { :multiple => false }) %>
             <%= f.hidden_field :program_id, value: @program.id %><div class="clearfix" style="margin-bottom: 5px !important;"></div>
                 <div class="checkbox" style='margin: 0px !important; margin-right: 40px !important; display: inline !important; vertical-align: 0px !important; width: 50px !important;'>
                     <label style="font-size: 1em" class="no-padding">
