@@ -124,6 +124,8 @@ class StatementsController < ApplicationController
     @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
     @statement.ds_fees = @fees
 
+    @statement.save
+
   end
 
   # POST /statements
