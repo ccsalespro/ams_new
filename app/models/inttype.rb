@@ -6,7 +6,9 @@ class Inttype < ActiveRecord::Base
 	default_scope -> { order(id: :asc) }
 	def self.import(file)
 		CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
-			Inttype.create! row.to_hash
+			inttype_hash = row.to_hash
+			inttype = Inttype.find_by_id(inttype_hash["id"])
+			inttype.update_attributes(row.to_hash)
 		end	
 	end
 
