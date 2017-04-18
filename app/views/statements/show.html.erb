@@ -1,96 +1,268 @@
-<h3 class="text-center"><b>Interchange Summary</b></h3>
+<h3 class="text-center"><b>Interchange Calculator</b></h3><br />
 <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
   
+  <%= link_to(content_tag(:button, 'Compare >>', :class => 'btn btn-lg btn-primary pull-right'), prospect_statement_comparisons_path(@prospect, @statement)) %>
+  <span class="pull-left"><%= link_to "<< Statement", edit_prospect_statement_path(@prospect, @statement), class: 'btn btn-primary pull-left btn-lg' %></span><br /><br /><br />
+  <div id="interchangeForm">
+    <%= form_for([@prospect, @statement]) do |f| %>
+    <div class="well clearfix" id="interchange-adjust">
+      <div class="col-xs-4 interchange-box">
+        <div class="form-group">
+          <p class="bold program-form-margin text-center">Current</p>
+          <div class="input-group" id="interchangeField">
+            <div class="input-group-addon">$</div>
+                <%= f.text_field(:current_interchange, :class => "form-control input-lg", value: number_with_precision(@statement.current_interchange, precision: 0), id: "currentInterchangeFormField") %>
+          </div>
+        </div>
+        <div class="current-interchange-alert hidden" id="currentInterchangeAlertOne">
+          <div class="alert alert-success text-center">
+              <strong>VERY LIKELY</strong>
+          </div>
+        </div>
+        <div class="current-interchange-alert hidden" id="currentInterchangeAlertTwo">
+          <div class="alert alert-info text-center">
+            <strong>LESS LIKELY</strong>
+          </div>
+        </div>
+        <div class="current-interchange-alert hidden" id="currentInterchangeAlertThree">
+          <div class="alert alert-warning text-center">
+            <strong>NOT LIKELY</strong>
+          </div>
+        </div>
+        <div class="current-interchange-alert hidden" id="currentInterchangeAlertFour">
+          <div class="alert alert-danger text-center">
+            <strong>INCORRECT</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 interchange-box">
+        <div class="form-group">
+          <p class="bold program-form-margin text-center">Proposed</p>
+          <div class="input-group" id="interchangeField">
+            <div class="input-group-addon">$</div>
+                <%= f.text_field(:vmd_interchange, :class => "form-control input-lg", value: number_with_precision(@statement.vmd_interchange, precision: 0), id: "interchangeFormField") %>
+          </div>
+        </div>
+        <div class="interchange-alert hidden" id="interchangeAlertOne">
+          <div class="alert alert-success text-center">
+              <strong>VERY LIKELY</strong>
+          </div>
+        </div>
+        <div class="interchange-alert hidden" id="interchangeAlertTwo">
+          <div class="alert alert-info text-center">
+            <strong>LESS LIKELY</strong>
+          </div>
+        </div>
+        <div class="interchange-alert hidden" id="interchangeAlertThree">
+          <div class="alert alert-warning text-center">
+            <strong>NOT LIKELY</strong>
+          </div>
+        </div>
+        <div class="interchange-alert hidden" id="interchangeAlertFour">
+          <div class="alert alert-danger text-center">
+            <strong>INCORRECT</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 interchange-box">
+        <div class="form-group">
+          <p class="bold program-form-margin text-center">Savings</p>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input class="form-control input-lg" id="interchangeSavingsField" />
+          </div>
+        </div>
+        <div id="interchangeButtonDiv">
+          <%= button_tag("Save", :class => 'btn btn-primary btn-lg btn-block', :id => 'interchangeButton') %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <br />
 
-
-<%= link_to(content_tag(:button, 'Compare Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-<span class="pull-right hideme"><%= link_to "Statement Wizard", edit_prospect_statement_path(@prospect, @statement), class: 'btn btn-primary pull-right hidden' %></span>
-
-<table class="table table-striped table-bordered table-responsive">
-  <tr class="total white">
-  <th>Type</th>
-  <th>Volume</th>
-  <th>Items</th>
-  <th>Costs</th>
-</tr>
-<tr>
-  <td>VS</td>
-  <td><%= number_to_currency(@statement.vs_volume) %></td>
-  <td><%=number_with_precision(@statement.vs_transactions, precision: 0) %></td>
-  <td><%= number_to_currency(@statement.vs_fees) %></td>
-</tr>
-<tr>
-  <td>MC</td>
-  <td><%= number_to_currency(@statement.mc_volume) %></td>
-  <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
-  <td><%= number_to_currency(@statement.mc_fees) %></td>
-</tr>
-<tr class="bold-line">
-  <td>DS</td>
-  <td><%= number_to_currency(@statement.ds_volume) %></td>
-  <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
-  <td><%= number_to_currency(@statement.ds_fees) %></td>
-</tr>
-<tr class="bold-font">
-  <td class="grey-back">Total</td>
-  <% @total = @statement.vs_volume + @statement.mc_volume + @statement.ds_volume %>
-  <% @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions %>
-  <% @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees %>
-  <td class="grey-back" colspan="1"><%= number_to_currency(@total) %></td>
-  <td class="grey-back" colspan="1"><%=number_with_precision(@transactions, precision: 0) %></td>
-    <td class="grey-back" colspan="1"><%= number_to_currency(@statement.vmd_interchange) %></td>
-</tr>
-</table>
+  <table class="table table-striped table-bordered table-responsive">
+    <tr class="total white">
+      <th>Type</th>
+      <th>Volume</th>
+      <th>Items</th>
+      <th>Costs</th>
+    </tr>
+    <tr>
+      <td>VS</td>
+      <td><%= number_to_currency(@statement.vs_volume) %></td>
+      <td><%=number_with_precision(@statement.vs_transactions, precision: 0) %></td>
+      <td><%= number_to_currency(@statement.vs_fees) %></td>
+    </tr>
+    <tr>
+      <td>MC</td>
+      <td><%= number_to_currency(@statement.mc_volume) %></td>
+      <td><%= number_with_precision(@statement.mc_transactions, precision: 0) %></td>
+      <td><%= number_to_currency(@statement.mc_fees) %></td>
+    </tr>
+    <tr class="bold-line">
+      <td>DS</td>
+      <td><%= number_to_currency(@statement.ds_volume) %></td>
+      <td><%= number_with_precision(@statement.ds_transactions, precision: 0) %></td>
+      <td><%= number_to_currency(@statement.ds_fees) %></td>
+    </tr>
+    <tr class="bold-font">
+      <td class="grey-back">Total</td>
+      <td class="grey-back" colspan="1"><%= number_to_currency(@total.round(0)) %></td>
+      <td class="grey-back" colspan="1"><%=number_with_precision(@transactions, precision: 0) %></td>
+        <td class="grey-back" colspan="1"><%= number_to_currency(@statement.vmd_interchange) %></td>
+    </tr>
+  </table>
 </div>
-
-<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-<h3 class="text-center"><b>Interchange Assumptions</b></h3>
-<table class="table table-striped table-bordered table-responsive">
-  <tr class="total white">
-    <th>Type</th>
-    <th>Volume</th>
-    <th>%</th>
-    <th></th>    
-  </tr>
-  <tr>
-    <td><b>Downgrades</b></td>
-    <td><%= number_to_currency(@statement.downgrade_vol) %></td>
-    <td><%= number_with_precision(@statement.downgrade_percentage, precision: 1) %>%</td>
-    <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'downgrade_edit', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-  <tr>
-    <td><b>Keyed / MOTO</b></td>
-    <td><%= number_to_currency(@statement.moto_vol) %></td>
-    <td><%= number_with_precision(@statement.moto_percentage, precision: 1) %>%</td>
-     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'moto_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-   <tr>
-    <td><b>Business Cards</b></td>
-    <td><%= number_to_currency(@statement.btob_vol) %></td>
-    <td><%= number_with_precision(@statement.btob_percentage, precision: 1) %>%</td>
-     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'btob_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-  <tr>
-    <td><b>eCommerce</b></td>
-    <td><%= number_to_currency(@statement.ecomm_vol) %></td>
-    <td><%= number_with_precision(@statement.ecomm_percentage, precision: 1) %>%</td>
-     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'ecomm_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-  <tr>
-    <td><b>Reg Check Cards</b></td>
-    <td><%= number_to_currency(@statement.check_card_vol) %></td>
-    <td><%= number_with_precision(@statement.check_card_percentage, precision: 1) %>%</td>
-     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'regulated_check_card_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-  <tr>
-    <td><b>Un-Reg Check Cards</b></td>
-    <td><%= number_to_currency(@statement.unreg_debit_vol) %></td>
-    <td><%= number_with_precision(@statement.unreg_debit_percentage, precision: 1) %>%</td>
-     <td><%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'unregulated_check_card_update', :id => @statement.id, :prospect_id => @prospect.id}) %></td>
-  </tr>
-</table>
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"><div class="clearfix"></div>
+  <h3 class="text-center"><b>Interchange Assumptions</b></h3>
+    <div class="col-sm-6">
+      <div class="panel panel-primary text-center">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Method Assumptions</b>
+            </h3>
+        </div>
+        <table class="table table-striped table-bordered table-responsive">
+          <tr class="total white">
+            <th>Type</th>
+            <th>Volume</th>
+            <th>%</th>   
+          </tr>
+          <tr>
+            <td><b>Swiped</b></td>
+            <td><%= number_to_currency(@statement.swiped_vol) %></td>
+            <td><%= number_with_precision(@statement.swiped_percent, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Keyed / EComm</b></td>
+            <td><%= number_to_currency(@statement.moto_vol) %></td>
+            <td><%= number_with_precision(@statement.moto_percentage, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Total Volume</b></td>
+            <td><%= number_to_currency(@statement.vmd_vol) %></td>
+            <td>100%</td>
+          </tr>
+        </table>
+        <div class="panel-footer">
+          <%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'method_edit', :id => @statement.id, :prospect_id => @prospect.id}) %><br><br>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-primary text-center">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Check Card Assumptions</b>
+            </h3>
+        </div>
+        <table class="table table-striped table-bordered table-responsive">
+        <tr class="total white">
+          <th>Type</th>
+          <th>Volume</th>
+          <th>%</th>   
+        </tr>
+        <tr>
+          <td><b>Regulated</b></td>
+          <td><%= number_to_currency(@statement.check_card_vol) %></td>
+          <td><%= number_with_precision(@statement.check_card_percentage, precision: 1) %>%</td>
+        </tr>
+        <tr>
+          <td><b>Unregulated</b></td>
+          <td><%= number_to_currency(@statement.unreg_debit_vol) %></td>
+          <td><%= number_with_precision(@statement.unreg_debit_percentage, precision: 1) %>%</td>
+        </tr>
+        <tr>
+          <td><b>Credit Cards</b></td>
+          <td><%= number_to_currency(@statement.credit_volume) %></td>
+          <td><%= number_with_precision(@statement.credit_percent, precision: 1) %>%</td>
+        </tr>
+      </table>
+        <div class="panel-footer">
+          <%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'check_card_edit', :id => @statement.id, :prospect_id => @prospect.id}) %><br><br>
+        </div>
+      </div>
+    </div>
+  <div class="col-sm-6">
+    <div class="panel panel-primary text-center">
+      <div class="panel-heading">
+          <h3 class="panel-title">
+              <b>Brand Assumptions</b>
+          </h3>
+      </div>
+      <table class="table table-striped table-bordered table-responsive">
+          <tr class="total white">
+            <th>Type</th>
+            <th>Volume</th>
+            <th>%</th>   
+          </tr>
+          <tr>
+            <td><b>Visa</b></td>
+            <td><%= number_to_currency(@statement.vs_volume) %></td>
+            <td><%= number_with_precision(@statement.vs_percent, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Mastercard</b></td>
+            <td><%= number_to_currency(@statement.mc_volume) %></td>
+            <td><%= number_with_precision(@statement.mc_percent, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Discover</b></td>
+            <td><%= number_to_currency(@statement.ds_volume) %></td>
+            <td><%= number_with_precision(@statement.ds_percent, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Total VMD Volume</b></td>
+            <td><%= number_to_currency(@statement.vmd_vol) %></td>
+            <td>100%</td>
+          </tr>
+        </table>
+      <div class="panel-footer">
+        <%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'brand_edit', :id => @statement.id, :prospect_id => @prospect.id}) %><br><br>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-6">
+      <div class="panel panel-primary text-center">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Card Type Assumptions</b>
+            </h3>
+        </div>
+        <table class="table table-striped table-bordered table-responsive">
+          <tr class="total white">
+            <th>Type</th>
+            <th>Volume</th>
+            <th>%</th>   
+          </tr>
+          <tr>
+            <td><b>Downgrades</b></td>
+            <td><%= number_to_currency(@statement.downgrade_vol) %></td>
+            <td><%= number_with_precision(@statement.downgrade_percentage, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Business Cards</b></td>
+            <td><%= number_to_currency(@statement.btob_vol) %></td>
+            <td><%= number_with_precision(@statement.btob_percentage, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Rewards Cards</b></td>
+            <td><%= number_to_currency(@statement.rewards_volume) %></td>
+            <td><%= number_with_precision(@statement.rewards_percent, precision: 1) %>%</td>
+          </tr>
+          <tr>
+            <td><b>Standard Cards</b></td>
+            <td><%= number_to_currency(@statement.basic_volume) %></td>
+            <td><%= number_with_precision(@statement.basic_percent, precision: 1) %>%</td>
+          </tr>
+        </table>
+        <div class="panel-footer">
+          <%= link_to(content_tag(:button, 'Adjust', :class => 'btn btn-primary pull-left btn-block'), {:controller => 'statements', :action => 'card_type_edit', :id => @statement.id, :prospect_id => @prospect.id}) %><br><br>
+        </div>
+      </div>
+    </div>
 </div>
-
 
 <div class="clearfix"></div>
 <h3 class="text-center"><b>Interchange Table</b></h3>
@@ -106,19 +278,27 @@
      <th>Fees</th>
    </tr>
 
-<% @inttableitems = Inttableitem.where(statement_id: @statement.id) %>
 <% @inttableitems.each do |item| %>
   <% @inttype = Inttype.find_by_id(item.inttype_id) %>
   <tr>
     <td><%= truncate(@inttype.description, :length => 30) %></td>
     <td><%= number_to_percentage(@inttype.percent*100, precision: 2)  %></td>
     <td><%= number_to_currency(@inttype.per_item) %></td>
-    <td><%= item.transactions %></td>
+    <td><%= number_with_precision(item.transactions, precision: 0) %></td>
     <td><%= number_to_currency(item.volume) %></td>
     <td><%= number_to_currency(item.avg_ticket) %></td>
     <td><%= number_to_currency(item.costs) %></td>
   </tr>
 <% end %>
+  <tr>
+    <td>Other Misc</td>
+    <td><%= number_to_percentage(@low_value_percent_cost)  %></td>
+    <td></td>
+    <td><%= number_with_precision(@low_value_transactions, precision: 0) %></td>
+    <td><%= number_to_currency(@low_value_volume) %></td>
+    <td><%= number_to_currency(@low_value_avg_ticket) %></td>
+    <td><%= number_to_currency(@low_value_costs) %></td>
+  </tr>
 </table>
 
 </div>
@@ -132,7 +312,6 @@
      <th>Fees</th>
    </tr>
 
-<% @inttableitems = Inttableitem.where(statement_id: @statement.id) %>
 <% @inttableitems.each do |item| %>
   <% @inttype = Inttype.find_by_id(item.inttype_id) %>
   <tr>
@@ -142,7 +321,86 @@
   </tr>
 <% end %>
 </table>
-
-<%= link_to(content_tag(:button, 'Adjust Interchange', :class => 'btn btn-primary pull-left'), {:controller => 'statements', :action => 'interchange_update', :id => @statement.id, :prospect_id => @prospect.id}) %>
-
 </div>
+
+<script>
+var interchangeFormField = document.getElementById("interchangeFormField");
+var currentInterchangeFormField = document.getElementById("currentInterchangeFormField");
+var interchangeButton = document.getElementById("interchangeButton");
+var plusIcon = document.getElementById("plusIcon");
+var minusIcon = document.getElementById("minusIcon");
+var interchangeSavingsField = document.getElementById("interchangeSavingsField");
+var cVmdInterchange = <%= @statement.c_vmd_interchange %>;
+var totalVmdVolume = <%= @statement.vmd_vol %>;
+
+function calculateInterchangeSavings(){
+  interchangeSavingsField.value = (parseFloat(currentInterchangeFormField.value) - 
+    parseFloat(interchangeFormField.value)).toFixed(0);
+};
+
+function displayProposedInterchangeMessage(){
+  var proposedVolumeDiff = Math.abs(parseFloat(interchangeFormField.value) - cVmdInterchange);
+  var proposedPercentDiff = (proposedVolumeDiff / totalVmdVolume) * 10000;
+
+  $(".interchange-alert").addClass("hidden");
+
+  if (proposedPercentDiff > 17.99 && proposedPercentDiff < 36.00){
+    $("#interchangeAlertTwo").removeClass("hidden");
+  } else if (proposedPercentDiff > 35.99 && proposedPercentDiff < 54.00){
+    $("#interchangeAlertThree").removeClass("hidden");
+  } else if (proposedPercentDiff > 53.99){
+    $("#interchangeAlertFour").removeClass("hidden");
+  } else {
+    $("#interchangeAlertOne").removeClass("hidden");
+  }
+};
+
+function displayCurrentInterchangeMessage(){
+  var currentVolumeDiff = Math.abs(parseFloat(currentInterchangeFormField.value) - cVmdInterchange);
+  var currentPercentDiff = (currentVolumeDiff / totalVmdVolume) * 10000;
+
+  $(".current-interchange-alert").addClass("hidden");
+
+  if (currentPercentDiff > 17.99 && currentPercentDiff < 36.00){
+    $("#currentInterchangeAlertTwo").removeClass("hidden");
+  } else if (currentPercentDiff > 35.99 && currentPercentDiff < 54.00){
+    $("#currentInterchangeAlertThree").removeClass("hidden");
+  } else if (currentPercentDiff > 53.99){
+    $("#currentInterchangeAlertFour").removeClass("hidden");
+  } else {
+    $("#currentInterchangeAlertOne").removeClass("hidden");
+  }
+};
+
+$("document").ready(function() {
+  $("#interchangeSavingsField").prop('disabled', true);
+  $("#currentInterchangeFormField").prop('disabled', true);
+
+  resizeBoxWidth()
+
+  $(window).resize(function(){
+    resizeBoxWidth();
+  });
+
+  calculateInterchangeSavings();
+  displayProposedInterchangeMessage();
+  displayCurrentInterchangeMessage();
+
+
+
+  interchangeFormField.oninput = function() {
+    calculateInterchangeSavings();
+    displayProposedInterchangeMessage();
+  }
+
+  currentInterchangeFormField.oninput = function() {
+    calculateInterchangeSavings();
+    displayCurrentInterchangeMessage();
+
+  }
+});
+</script>
+
+
+
+

@@ -20,35 +20,35 @@
 					<b>VMD Basis Points</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">BP</div>
-						<%= f.text_field :bp_mark_up, class: 'form-control' %><br>
+						<%= f.text_field :bp_mark_up, value: number_with_precision(@comparison.bp_mark_up, precision: 0) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 						<b>Per Item</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :per_item_fee, class: 'form-control' %><br>
+						<%= f.text_field :per_item_fee, value: number_with_precision(@comparison.per_item_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div><div class="clearfix"></div><br>
 				<div class="col-sm-6">
 					<b>AMEX Basis Points</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">BP</div>
-						<%= f.text_field :amex_bp_mark_up, class: 'form-control' %><br>
+						<%= f.text_field :amex_bp_mark_up, value: number_with_precision(@comparison.amex_bp_mark_up, precision: 0) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<b>AMEX Per Item</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :amex_per_item_fee, class: 'form-control' %><br>
+						<%= f.text_field :amex_per_item_fee, value: number_with_precision(@comparison.amex_per_item_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div><div class="clearfix"></div><br>
 				<div class="col-sm-12">
 					<b>Pin Debit Per Item</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :pin_debit_per_item_fee, class: 'form-control' %><br>
+						<%= f.text_field :pin_debit_per_item_fee, value: number_with_precision(@comparison.pin_debit_per_item_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div><div class="clearfix"></div><br>
 				</div>
 				<a id="stepone_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -59,56 +59,56 @@
 					<b>Monthly Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :monthly_fees, class: 'form-control' %><br>
+						<%= f.text_field :monthly_fees, value: number_with_precision(@comparison.monthly_fees, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<b>Batch Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :per_batch_fee, class: 'form-control' %><br>
+						<%= f.text_field :per_batch_fee, value: number_with_precision(@comparison.per_batch_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div><div class="clearfix"></div><br>
 				<div class="col-sm-6">
 					<b>Monthly PCI Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :monthly_pci_fees, class: 'form-control' %><br>
+						<%= f.text_field :monthly_pci_fees, value: number_with_precision(@comparison.monthly_pci_fees, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<b>Annual Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :annual_pci_fees, class: 'form-control' %><br>
+						<%= f.text_field :annual_pci_fees, value: number_with_precision(@comparison.annual_pci_fees, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div><div class="clearfix"></div><br>
 				<div class="col-sm-6">
 					<b>Application Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :application_fee, class: 'form-control' %><br>
+						<%= f.text_field :application_fee, value: number_with_precision(@comparison.application_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<b>Annual Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :annual_fee, class: 'form-control' %><br>
+						<%= f.text_field :annual_fee, value: number_with_precision(@comparison.annual_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div><div class="clearfix"></div><br>
 				<div class="col-sm-6">
 					<b>Monthly Pin Debit Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :monthly_debit_fee, class: 'form-control' %><br>
+						<%= f.text_field :monthly_debit_fee, value: number_with_precision(@comparison.monthly_debit_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<b>Next Day Funding Fee</b><br>
 					<div class="input-group">
 						<div class="input-group-addon">$</div>
-						<%= f.text_field :next_day_funding_fee, class: 'form-control' %><br>
+						<%= f.text_field :next_day_funding_fee, value: number_with_precision(@comparison.next_day_funding_fee, precision: 2) || 0, class: 'form-control' %><br>
 					</div>
 				</div>
 

@@ -41,21 +41,21 @@
             </p>
             <%= collection_select( :prospect, :stage_id, Stage.all, :id, :name, {}, { :multiple => false }) %>
         </div>
+        <%= f.hidden_field(:description_id) %>
+        <%= f.hidden_field(:description_primary) %>
+        <%= f.hidden_field(:description_secondary) %>
+        <%= f.hidden_field(:amex_business_type) %>
+        <br>
         <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important;">
             <span class="pull-right">
                 <%= f.submit "Save", :class => 'btn btn-primary' %>
-                <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
-                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary'), new_prospect_statement_path(@prospect)) %>
+     <% end %>
+                <%= link_to 'Delete', prospect_path(@prospect), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
+                <%= link_to 'Quote', new_prospect_statement_path(@prospect), class: 'btn btn-primary' %>
             </span>
         </div>
     </div>
     <div class="clearfix"></div>
-    <%= f.hidden_field(:description_id) %>
-    <%= f.hidden_field(:description_primary) %>
-    <%= f.hidden_field(:description_secondary) %>
-    <%= f.hidden_field(:amex_business_type) %>
-    <br>
-    <% end %>
 
     <div>
         <b><%= "Business Type: #{@prospect.description_secondary}" %></b>
@@ -204,9 +204,9 @@
         </div>
         <div class="col-xs-8 margin-top-edit-prospect-btns no-padding" style="padding-right: 15px !important; margin-top: 18px !important;">
             <span class="pull-right">
-                <%= f.submit "Save", :class => 'btn btn-primary btn-sm' %>
-                <%= link_to(content_tag(:button, 'Delete', :class => 'btn btn-primary btn-sm'), @prospect, method: :delete, data: { confirm: 'Are You Sure?' }) %>
-                <%= link_to(content_tag(:button, 'Quote', :class => 'btn btn-primary btn-sm'), new_prospect_statement_path(@prospect)) %>
+                <%= f.submit "Save", :class => 'btn btn-primary' %>
+                <%= link_to 'Delete', prospect_path(@prospect), method: :delete, data: { confirm: 'Are You Sure?' }, class: 'btn btn-primary' %>
+                <%= link_to 'Quote', new_prospect_statement_path(@prospect), class: 'btn btn-primary' %>
             </span>
         </div>
     </div>
@@ -344,9 +344,9 @@
     <h4 class="text-center">Statements</h4>
     <% @prospect.statements.each do |statement| %>
     <div class="well statements-well delete">
-        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_path(@prospect, statement), :class => 'black' %>
+        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), edit_prospect_statement_path(@prospect, statement), :class => 'black' %>
         <span class="pull-right">
-          <%= link_to prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, remote: true, class: 'delete-statement' do %>
+          <%= link_to edit_prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, remote: true, class: 'delete-statement' do %>
             <i class="fa fa-trash big-fa black" aria-hidden="true"></i>
           <% end -%>
           </span>

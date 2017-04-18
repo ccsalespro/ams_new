@@ -1,0 +1,93 @@
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <div class="well clearfix">
+      <div class="col-xs-6 center" id="graph-container">
+      <div class="bar-graph" id="bar-graph-2"></div>
+      <div class="bar-graph" id="bar-graph-4"></div>
+      </div>
+      <div class="col-xs-6">
+      <%= form_for([@prospect, @statement]) do |f| %>
+        <div class="form-group">
+             <p class="bold program-form-margin text-center">Not Present</p>
+              <div class="input-group">
+             <%= f.text_field :moto_percentage, value: number_with_precision(@statement.moto_percentage, precision: 1), :class => "form-control", :data => { type: 'number' }, :id => "fieldTwo" %>
+             <span class="input-group-addon" id="add-on-2">%</span>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+             <p class="bold program-form-margin text-center">Card Present</p>
+              <div class="input-group">
+             <%= f.text_field :swiped_percent, value: number_with_precision(@statement.swiped_percent, precision: 1), :class => "form-control", :data => { type: 'number' }, :id => "fieldOne" %>
+             <span class="input-group-addon" id="add-on-4">%</span>
+            </div>
+        </div>
+        <br>
+        <%= button_tag("Adjust", :class => 'btn btn-primary btn-lg btn-block') %>
+        <br><br>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+var fieldOne = document.getElementById("fieldOne");
+var fieldTwo = document.getElementById("fieldTwo");
+
+
+  var barHeight = 250;
+  var animationSpeed = 400;
+  var barTwo = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+  var barFour = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+
+$("document").ready(function() {
+  $("#bar-graph-2").animate({height: barTwo}, 0)
+  $("#bar-graph-4").animate({height: barFour}, 0)
+});
+
+
+fieldOne.onblur = function() {
+  $("#bar-graph-4").css({ width : "75px", marginLeft : "30px"});
+  $("#bar-graph-4").removeClass("bar-shadow");
+
+  fieldTwo.value = ( 100 - parseFloat(fieldOne.value) ).toFixed(1);
+  var barFour = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barTwo = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+
+  $("document").ready(function() {
+    $("#bar-graph-2").animate({height: barTwo}, animationSpeed)
+    $("#bar-graph-4").animate({height: barFour}, animationSpeed)
+  });
+};
+
+fieldTwo.onblur = function() {
+  $("#bar-graph-2").css({ width : "75px", marginLeft : "30px"});
+  $("#bar-graph-2").removeClass("bar-shadow");
+  fieldOne.value = 100 - parseFloat(fieldTwo.value).toFixed(1);
+  var barFour = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barTwo = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+
+  $("document").ready(function() {
+    $("#bar-graph-2").animate({height: barTwo}, animationSpeed)
+    $("#bar-graph-4").animate({height: barFour}, animationSpeed)
+  });
+};
+
+$("document").ready(function() {
+  fieldOne.onfocus = function() {
+    $("#bar-graph-4").css({ width : "81px", marginLeft : "27px"});
+    $("#bar-graph-4").addClass("bar-shadow")
+  };
+
+  fieldTwo.onfocus = function() {
+    $("#bar-graph-2").css({ width : "81px", marginLeft : "27px"});
+    $("#bar-graph-2").addClass("bar-shadow")
+  };
+});
+
+</script>

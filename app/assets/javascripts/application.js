@@ -12,11 +12,24 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.turbolinks
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require jquery.datetimepicker
 //= require jquery.datetimepicker/init
 //= require raphael
 //= require morris
-//= require_tree .
+//= require metisMenu.min
+//= require resizeBoxWidth
+//= require edit_form/setTotalFeesIfZero
+//= require edit_form/calculateTotalPassthrough
+//= require edit_form/remainingFeesCalculation
+//= require edit_form/adjustRemainingToInterchange
+//= require edit_form/calculateTotalsFields
+//= require edit_form/setVmdFieldValues
+//= require edit_form/resetFieldsFunctions
+//= require edit_form/initialFeesAlgorithm
+//= require edit_form/simpleCalculations
+//= require edit_form/generateAlertMessages
+//= require edit_form/recursionAlgorithm
+//= require edit_form/dynamicCalculations
+//= require edit_form/changeTotalPassthrough
+//= require edit_form/resizeFieldWidth

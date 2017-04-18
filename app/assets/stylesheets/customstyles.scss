@@ -4,7 +4,7 @@
 
 /* Sets Background Color */
     body {
-    	background-color: #f2f2f2 !important;
+        background-color: #f2f2f2 !important;
     }
 
     .alert-info { margin: 0px;}
@@ -90,9 +90,9 @@
         background: white !important;
     }
     .stylish-input-group .form-control{
-    	border-right:0;
-    	box-shadow:0 0 0;
-    	border-color:#ccc;
+        border-right:0;
+        box-shadow:0 0 0;
+        border-color:#ccc;
     }
     .stylish-input-group button{
         border:0;
@@ -101,18 +101,18 @@
 
 /* Navbar Styles */
     .nav-custom-styles {
-    	background-color: $main-color !important;
-    	border-bottom: white !important;
+        background-color: $main-color !important;
+        border-bottom: white !important;
         margin-bottom: 0px !important;
     }
 
     .a-tag-for-navbar-links {
-    	color: white !important;
+        color: white !important;
     }
 
     .no-outline, .no-outline:hover {
-    	border: none !important;
-    	background: transparent !important;
+        border: none !important;
+        background: transparent !important;
     }
 
     .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -444,8 +444,6 @@ hr.style-two {
 .btn-primary:hover {
     transform: scale(1.05, 1.05);
     transition: transform 300ms ease-in-out;
-    background-color: $main-color !important; 
-    border: $main-color !important;
 }
 
 .program-menu { font-size: 22px !important; }
@@ -546,4 +544,186 @@ hr.style-two {
     padding: 10px !important;
     max-width: 50% !important;
     color: white;
+}
+
+.statement-edit-header {
+    margin-top: 15px;
+}
+
+.statement-edit-field {
+    margin-top: 0px;
+}
+
+.one-margin-field {
+    margin-bottom: 10px !important;
+}
+
+.statement-text-lable {
+
+}
+.bar-graph {
+  margin-left: 30px;
+  height: 0px;
+  width: 75px;
+}
+#graph-container {
+  margin-top: 4px;
+}
+#bar-graph-1 {
+  background-color: #F7D466;
+}
+#add-on-1 {
+  background-color: #F7D466;
+  color: white;
+}
+#bar-graph-2 {
+  background-color: #51A39D;
+}
+#add-on-2 {
+  background-color: #51A39D;
+  color: white;
+}
+#bar-graph-3 {
+  background-color: #814374;
+}
+#add-on-3 {
+  background-color: #814374;
+  color: white;
+}
+#bar-graph-4 {
+  background-color: #002D64;
+}
+#add-on-4 {
+  background-color: #002D64;
+  color: white;
+}
+.bar-shadow {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+
+#interchangeField {
+    margin-top: 5px;
+}
+
+#interchangeIncreaseButton {
+    float: left;
+    margin-right: 10px;
+}
+#interchangeDecreaseButton {
+    float: left;
+    margin-left: 10px;
+}
+
+.fa-plus-circle {
+    color: #002D64;
+}
+
+.fa-minus-circle {
+    color: #002D64;
+}
+
+#interchangeMessage {
+    padding-top: 0px;
+    color: #002D64;
+}
+
+#interchangeForm {
+    text-align: center;
+}
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.dropdown-block {
+  height: 45px;
+  background-color: $main-color;
+  margin-left: 12px;
+}
+
+.nav-pill-div {
+    margin-top: 25px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 25px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.tab-box-li {
+    font-size: 18px;
+}
+
+.th-blank {
+    background-color: #f2f2f2;
+    border: 0px !important;
+}
+
+.top-row-no-border {
+    border: 0px !important;
+}
+
+.tab-box-li > a {
+    cursor: pointer;
+}
+
+.fa-chevron-circle-down {
+    color: #03af52;
+    cursor: pointer;
+}
+
+.fa-chevron-circle-up {
+    color: #03af52;
+    cursor: pointer;
+}
+
+.brand-table-data {
+    vertical-align: middle !important;
+    font-size: 16px !important;
+    text-align: center;
+}
+
+.brand-table-header {
+    vertical-align: middle !important;
+    font-size: 20px !important;
+}
+
+.icon-table-data {
+    width: 50px;
+}
+
+.brand-subtable-header {
+    vertical-align: middle !important;
+    font-size: 17px !important;
+}
+
+.brand-subtable-data {
+    vertical-align: middle !important;
+    font-size: 15px !important;
+    text-align: left;
+}
+
+.incomeDiv {
+    margin-bottom: 23px !important;
+}
+
+#incomeListDiv{
+    padding-bottom: 13px;
+}
+
+.team-process {
+    font-size: 13px;
 }

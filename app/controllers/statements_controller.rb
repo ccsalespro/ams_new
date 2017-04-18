@@ -1,72 +1,71 @@
 class StatementsController < ApplicationController
-  before_action :set_statement, only: [:show, :edit, :update, :destroy, :unregulated_check_card_update, :regulated_check_card_update, :downgrade_edit, :check_card_update, :btob_update, :moto_update, :interchange_update, :ecomm_update]
+  before_action :set_statement, only: [:volume_update, :increase_interchange, :decrease_interchange, :show, :edit, :method_edit, :brand_edit, :card_type_edit, :check_card_edit, :update, :destroy, :unregulated_check_card_update, :regulated_check_card_update, :downgrade_edit, :check_card_update, :btob_update, :moto_update, :interchange_update, :ecomm_update]
   before_filter :load_prospect, except: [:downgrade_update]
   before_action :authenticate_user!
-  
-  # GET /statements
-  # GET /statements.json
-  def index
-    @statements = @prospect.statements.all
-  end
-
-  def downgrade_edit
-    @statement.form_name = "downgrade"
-    @statement.form_percentage = @statement.downgrade_percentage
-    @statement.form_volume = @statement.downgrade_vol 
-    @statement.save
-  end
-
-  def moto_update
-    @statement.form_name = "moto" 
-    @statement.form_volume = @statement.moto_vol
-    @statement.form_percentage = @statement.moto_percentage
-    @statement.save
-  end
-
-  def btob_update
-    @statement.form_name = "btob" 
-    @statement.form_volume = @statement.btob_vol
-    @statement.form_percentage = @statement.btob_percentage
-    @statement.save
-  end
-
-  def ecomm_update
-    @statement.form_name = "ecomm" 
-    @statement.form_volume = @statement.ecomm_vol
-    @statement.form_percentage = @statement.ecomm_percentage
-    @statement.save
-  end
-
-  def unregulated_check_card_update
-    @statement.form_name = "unregulated_check_card"
-    @statement.form_volume = @statement.unreg_debit_vol
-    @statement.form_percentage = @statement.unreg_debit_percentage  
-    @statement.save
-  end
-
-  def regulated_check_card_update
-    @statement.form_name = "regulated_check_card"
-    @statement.form_volume = @statement.check_card_vol
-    @statement.form_percentage = @statement.check_card_percentage 
-    @statement.save
-  end
-
-  def interchange_update
-    @statement.form_name = "interchange" 
-    @statement.save
-  end
 
   # GET /statements/1
   # GET /statements/1.json
   def show
-    if @statement.downgrade_vol == nil
-      set_downgrades
-      set_moto
-      set_ecomm
-      set_btob
-      set_unregulated_check_card
-      set_regulated_check_card
+    @total = @statement.vmd_vol
+    @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions
+    @fees = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees
+    @inttableitems = Inttableitem.where(statement_id: @statement.id).where("transactions > ?", 0.99)
+    @low_value_costs = 0
+    @low_value_volume = 0
+    @low_value_transactions = 0
+    @low_value_items = Inttableitem.where(statement_id: @statement.id).where("transactions < ?", 1.0)
+    if @low_value_items.first != nil  
+      @low_value_items.each do |item|
+        @low_value_costs += item.costs
+        @low_value_volume += item.volume 
+        @low_value_transactions += item.transactions
+      end
+
+      @low_value_avg_ticket = @low_value_volume / @low_value_transactions
+      @low_value_percent_cost = ( @low_value_costs / @low_value_volume ) * 100
     end
+    @statement.form_name = "show_edit"
+    @statement.save
+  end
+
+  def reset_old_statements
+    if @statement.created_at < Date.new(2017,3,30)
+        @inttableitems = Inttableitem.where(statement_id: @statement.id)
+        @inttableitems.destroy_all
+        if @statement.total_fees == nil || @statement.total_fees == 0
+          @statement.total_fees = @statement.total_vol * 0.035
+        end
+        @algorithm = Algorithm.new(@statement, @prospect)
+        @algorithm.calculate
+        @statement.form_name = "primary_form"
+        @statement.save
+    end
+  end
+
+#    @stats = DescriptiveStatistics::Stats.new(@percentages)
+#    @stdev = @stats.standard_deviation
+#    @mean = @stats.mean
+#    @median = @stats.median 
+#    @min = @stats.min
+#    @max = @stats.max
+#    @count = @merchants.count
+
+  def increase_interchange
+    @statement.vmd_interchange += (@statement.vmd_vol * 0.00182)
+    @algorithm = UpdateAlgorithm.new(@statement, @prospect)
+    @algorithm.calculate
+    @statement.form_vmd_interchange = @statement.vmd_interchange
+    @statement.save
+    redirect_to prospect_statement_path(@prospect, @statement)
+  end
+
+  def decrease_interchange
+    @statement.vmd_interchange -= (@statement.vmd_vol * 0.00182)
+    @algorithm = UpdateAlgorithm.new(@statement, @prospect)
+    @algorithm.calculate
+    @statement.form_vmd_interchange = @statement.vmd_interchange
+    @statement.save
+    redirect_to prospect_statement_path(@prospect, @statement)
   end
 
   # GET /statements/new
@@ -78,53 +77,70 @@ class StatementsController < ApplicationController
 
   # GET /statements/1/edit
   def edit
+    reset_old_statements
+    @statement.form_volume = @statement.vmd_vol
+    @statement.form_name = "edit"
+    @statement.save
   end
 
   def update 
+    @statement.update(statement_params)
+    @statement.initial_edit_complete = true
+    if @statement.c_batch_fee == nil 
+      @statement.c_batch_fee = 0
+    end
+
+    if @statement.c_number_of_batches == nil 
+      @statement.c_number_of_batches = 0
+    end
+
+    if @statement.c_monthly_fees == nil 
+      @statement.c_monthly_fees = 0
+    end
+
+    if @statement.c_monthly_pci_fee == nil 
+      @statement.c_monthly_pci_fee = 0
+    end
+
+    if @statement.c_monthly_debit_fee == nil 
+      @statement.c_monthly_debit_fee = 0
+    end
+
+    if @statement.c_annual_fee == nil 
+      @statement.c_annual_fee = 0
+    end
+
     respond_to do |format|
-      if @statement.update(statement_params)
-        format.html { redirect_to [@prospect, @statement], notice: 'Statement Was Successfully Updated.' }
+      if @statement.save
+
+        if @statement.form_name == "method_edit"
+          @methods = MethodAlgorithm.new(@statement)
+          @methods.calculate
+        elsif @statement.form_name == "brand_edit"
+          @brands = BrandAlgorithm.new(@statement)
+          @brands.calculate
+        elsif @statement.form_name == "card_type_edit"
+          @card_types = CardTypeAlgorithm.new(@statement)
+          @card_types.calculate
+        elsif @statement.form_name == "check_card_edit"
+          @check_cards = CheckCardAlgorithm.new(@statement)
+          @check_cards.calculate
+        elsif @statement.form_name == "edit"
+          @algorithm = FormUpdateAlgorithm.new(@statement, @prospect)
+          @algorithm.calculate
+        elsif @statement.form_name == "show_edit"
+          @cheat_algorithm = CheatAlgorithm.new(@statement)
+          @cheat_algorithm.calculate
+        end
+        @statement.save
+
+        format.html { redirect_to [@prospect, @statement] }
         format.json { render :show, status: :ok, location: @statement }
       else
         format.html { render :edit }
         format.json { render json: @statement.errors, status: :unprocessable_entity }
       end
     end
-    downgrade_table_adjust
-    moto_table_adjust
-    btob_table_adjust
-    ecomm_table_adjust
-    check_card_table_adjust
-    unreg_debit_table_adjust
-    update_total_vmd_interchange
-
-    @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
-    
-    set_downgrades
-    set_moto
-    set_ecomm
-    set_btob
-    set_unregulated_check_card
-    set_regulated_check_card
-    
-
-    card_type_calculation("VS")
-    @statement.vs_volume = @volume
-    @statement.vs_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.vs_fees = @fees
-
-    card_type_calculation("MC")
-    @statement.mc_volume = @volume
-    @statement.mc_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.mc_fees = @fees
-
-   
-    card_type_calculation("DS")
-    @statement.ds_volume = @volume
-    @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
-    @statement.ds_fees = @fees
-
-    @statement.save
 
   end
 
@@ -133,82 +149,15 @@ class StatementsController < ApplicationController
   def create
 
     @statement = @prospect.statements.new(statement_params)
-
+    
     respond_to do |format|
       if @statement.save
-        @statement.vmd_avg_ticket = @statement.avg_ticket
-        @statement.amex_avg_ticket = @statement.avg_ticket
-        @statement.debit_avg_ticket = @statement.avg_ticket
-        @statement.batches = 30
-        
-          
-        if @statement.amex_vol == nil
-          @statement.amex_vol = 0
-          @statement.amex_trans = 0
-          @statement.amex_interchange = 0
-          @statement.amex_per_item_cost = 0
-          @statement.amex_percentage_cost = 0
-        else
-          @statement.amex_trans = @statement.amex_vol / @statement.amex_avg_ticket
-          amex_cost("amex", @prospect.amex_business_type, @statement.avg_ticket)
-          @statement.amex_interchange = ((@statement.amex_trans * @cost.per_item_value) + (@statement.amex_vol * (@cost.percentage_value/100)))
-          @statement.amex_per_item_cost = @cost.per_item_value
-          @statement.amex_percentage_cost = @cost.percentage_value
-        end
-      
-        if @statement.debit_vol == nil
-          @statement.debit_vol = 0
-          @statement.debit_trans = 0
-          @statement.debit_network_fees = 0
-        else
-          @statement.debit_trans = @statement.debit_vol / @statement.debit_avg_ticket
-          general_cost("debit", @statement.avg_ticket)
-          @statement.debit_network_fees = ((@statement.debit_trans * @cost.per_item_value) + (@statement.debit_vol * (@cost.percentage_value/100)))
-        end
-
-       
-
-          @statement.vmd_vol = @statement.total_vol - @statement.amex_vol - @statement.debit_vol
-          @statement.vmd_trans = @statement.vmd_vol / @statement.vmd_avg_ticket
-          create_intcalcitems(@prospect.description_id)
-          interchange_cost(@intcalcitems, @statement.id,  @statement.vmd_trans, @statement.vmd_vol)
-          @statement.vmd_interchange = @costs
-          set_downgrades
-          set_moto
-          set_ecomm
-          set_btob
-          set_unregulated_check_card
-          set_regulated_check_card
-
-
-        @statement.interchange = @statement.vmd_interchange + @statement.amex_interchange + @statement.debit_network_fees
-        
-        
-
-        card_type_calculation("VS")
-        @statement.vs_volume = @volume
-        @statement.vs_transactions = @volume / @statement.vmd_avg_ticket
-        @statement.vs_fees = @fees
-
-        card_type_calculation("MC")
-        @statement.mc_volume = @volume
-        @statement.mc_transactions = @volume / @statement.vmd_avg_ticket
-        @statement.mc_fees = @fees
-
-       
-        card_type_calculation("DS")
-        @statement.ds_volume = @volume
-        @statement.ds_transactions = @volume / @statement.vmd_avg_ticket
-        @statement.ds_fees = @fees
-
-         if @statement.total_fees == nil
-          @statement.total_fees = 0
-        else
-          @statement.total_fees
-        end
+        @algorithm = Algorithm.new(@statement, @prospect)
+        @algorithm.calculate
+        @statement.form_name = "primary_form"
         @statement.save
         
-        format.html { redirect_to prospect_statement_path(@prospect, @statement), notice: 'Statement was successfully created.' }
+        format.html { redirect_to edit_prospect_statement_path(@prospect, @statement)}
         format.json { render :edit, status: :created, location: @statement }
       else
         format.html { render :new }
@@ -225,6 +174,26 @@ class StatementsController < ApplicationController
     end
   end
 
+  def method_edit
+    @statement.form_name = "method_edit"
+    @statement.save
+  end
+
+  def check_card_edit
+    @statement.form_name = "check_card_edit"
+    @statement.save
+  end
+
+  def brand_edit
+    @statement.form_name = "brand_edit"
+    @statement.save
+  end
+
+  def card_type_edit
+    @statement.form_name = "card_type_edit"
+    @statement.save
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def load_prospect
@@ -237,442 +206,28 @@ class StatementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def statement_params
-      params.require(:statement).permit(:ecomm_vol, :ecomm_percentage, :btob_vol, :btob_percentage, :moto_vol, :moto_percentage, :downgrade_vol, :downgrade_percentage, :total_fees, :bathes, :avg_ticket, :check_card_vol, :amex_trans, :amex_vol, :vmd_trans, :vmd_vol, :debit_trans, :debit_vol, :interchange, :statement_month, :business_id, :business_type, :vmd_avg_ticket, :amex_avg_ticket, :debit_avg_ticket, :check_card_avg_ticket, :check_card_trans, :debit_network_fees, :check_card_interchange, :amex_interchange, :vmd_interchange, :total_vol, :check_card_percentage, :unreg_debit_percentage)
-    end
-    def general_cost(payment_type, avg_ticket)
-      @cost = Cost.where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
-    end
-    def amex_cost(payment_type, business_type, avg_ticket)
-      @cost = Cost.where(["business_type = ?", "#{business_type}"]).where(["payment_type = ?", "#{payment_type}"]).where(["low_ticket <= ?", "#{avg_ticket}"]).where(["high_ticket >= ?", "#{avg_ticket}"]).first
-    end
-   
-    def create_intcalcitems(description_id)
-      #16.72 seconds for auto sales
-      # Find all merchants in the database maching the primary description.
-      @merchants_by_type = Merchant.all.where(["description_id = ?", description_id])
-      
-      @total_transactions = 0
-      @total_volume = 0
-      @number_of_merchants = 0
-      @intcalcitems = []
-      
-      @merchants_by_type.each do |merchant|
-        @number_of_merchants += 1
-      @merchantintitems = merchant.intitems
-        @merchantintitems.each do |item|
-            @total_transactions += item.transactions
-            @total_volume += item.volume
-          if @intcalcitems.any? {|i| i.inttype_id == item.inttype_id}
-            @intcalcitem = @intcalcitems.find {|i| i.inttype_id == item.inttype_id}
-            @intcalcitem.transactions += item.transactions
-            @intcalcitem.volume += item.volume
-          else
-            @intcalcitem = @statement.intcalcitems.build
-            @intcalcitem.prospect_id = @prospect.id
-            @intcalcitem.inttype_id = item.inttype_id
-            @intcalcitem.transactions = item.transactions
-            @intcalcitem.volume = item.volume
-            @intcalcitem.description_id = @prospect.description_id
-            @intcalcitems << @intcalcitem
-          end
-        end
-      end
-        @intcalcitems.each do |item|  
-        item.inttype_percent = item.volume.to_f / @total_volume.to_f
-        @total_avg_ticket = @total_volume.to_f / @total_transactions.to_f
-        @intcalc_avg_ticket = item.volume.to_f / item.transactions.to_f
-        item.avg_ticket_variance = @intcalc_avg_ticket / @total_avg_ticket
-      end
-      return @intcalcitems
-    end
-
-    def interchange_cost(intcalcitems, id, total_transactions, total_vol)
-      @intcalcitems = intcalcitems
-      @inttableitems = []
-         
-     @intcalcitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)   
-        @inttableitem = @statement.inttableitems.build
-        @inttableitem.inttype_id = item.inttype_id
-        @inttableitem.volume = total_vol * item.inttype_percent
-        @total_avg_ticket = total_vol.to_f / total_transactions.to_f
-        @inttableitem.avg_ticket = @total_avg_ticket * item.avg_ticket_variance
-        @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
-        @inttableitem.costs = ( @inttableitem.transactions * @inttype.per_item ) + ( @inttableitem.volume.to_f * @inttype.percent )
-        @inttableitems << @inttableitem
-      end
-      @costs = 0
-      @inttableitems.each do |item|
-        @costs += item.costs
-        item.save
-      end
-      @costs
-    end
-
-    def update_total_vmd_interchange
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @costs = 0
-      @inttableitems.each do |item|
-        @costs += item.costs
-      end
-      @statement.vmd_interchange = @costs
-      @statement.save
+      params.require(:statement).permit(:default_basis_points, :default_per_item_fee, :total_passthrough, :c_opt_blue_fees, :c_network_access_fees, :current_interchange, :c_number_of_batches, :c_debit_bp_mark_up, :debit_total_bp_mark_up, :amex_total_bp_mark_up, 
+        :debit_total_per_item_fees, :amex_total_per_item_fees, :ds_total_bp_mark_up, :mc_total_bp_mark_up, 
+        :vs_total_bp_mark_up, :ds_total_per_item_fees, :mc_total_per_item_fees, :vs_total_per_item_fees, 
+        :ds_bp_mark_up, :mc_bp_mark_up, :vs_bp_mark_up, :ds_per_item_fee, :mc_per_item_fee, :vs_per_item_fee, 
+        :vs_avg_ticket, :mc_avg_ticket, :ds_avg_ticket, :swiped_percent, :form_vmd_interchange, :vs_percent, 
+        :mc_percent, :ds_percent, :credit_percent, :rewards_percent, :basic_percent, :form_percentage, 
+        :c_batch_fee, :batches, :prospect_id, :ecomm_vol, :ecomm_percentage, :btob_vol, :btob_percentage, 
+        :moto_vol, :moto_percentage, :downgrade_vol, :downgrade_percentage, :total_fees, :bathes, :avg_ticket, 
+        :check_card_vol, :amex_trans, :amex_vol, :vmd_trans, :vmd_vol, :debit_trans, :debit_vol, :statement_month, 
+        :business_id, :business_type, :vmd_avg_ticket, :amex_avg_ticket, :debit_avg_ticket, :check_card_trans, 
+        :debit_network_fees, :amex_interchange, :vmd_interchange, :total_vol, :check_card_percentage, 
+        :unreg_debit_percentage, :vs_transactions, :vs_volume, :ds_transactions, :ds_volume, :mc_transactions, 
+        :mc_volume, :amex_per_item_cost, :amex_percentage_cost, :c_vmd_bp_mark_up, :c_vmd_per_item_fee, 
+        :c_amex_per_item_fee, :c_amex_bp_mark_up, :c_debit_per_item_fee, :c_check_card_access_per_item, 
+        :c_check_card_access_percentage, :c_visa_access_per_item, :c_visa_access_percentage, :c_mc_access_per_item, 
+        :c_mc_access_percentage, :c_disc_access_per_item, :c_disc_access_percentage, :c_monthly_fees, :c_monthly_pci_fee, 
+        :c_monthly_debit_fee, :c_annual_fee, :c_monthly_next_day_funding_fee, :c_other_fees)
     end
 
     def new_average_ticket_calc(description_id)
       @description = Description.find_by_id(description_id)
       @avg_ticket_calculation = @description.avg_ticket
     end
-
-    def card_type_calculation(card_type_var)
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @volume = 0
-      @fees = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.card_type == card_type_var 
-          @volume += item.volume
-          @fees += item.costs
-        end
-      end
-      @volume
-      @transactions
-      @fees      
-    end
-
-     def set_regulated_check_card
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-
-      @check_card_vol_assumption = 0
-      @check_card_trans_assumption = 0
-      
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.per_item == 0.22
-        @check_card_vol_assumption += item.volume
-        @check_card_trans_assumption += item.transactions
-        end
-      end
-      @check_card_trans_assumption
-      @check_card_vol_assumption
-      @statement.check_card_trans = @check_card_trans_assumption.round(0)
-      @statement.check_card_vol = @check_card_vol_assumption.round(2)
-      @statement.check_card_percentage = ( ( @check_card_vol_assumption / @statement.vmd_vol) * 100 )
-      @statement.check_card_percentage = @statement.check_card_percentage.round(2)
-      @statement.save
-    end
-
-    def set_downgrades
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @downgrade_volume = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.downgrade == true 
-          @downgrade_volume += item.volume
-        end
-      end
-      @statement.downgrade_vol = @downgrade_volume.round(2)
-      @statement.downgrade_percentage = ( ( @downgrade_volume / @statement.vmd_vol ) * 100 )
-      @statement.downgrade_percentage = @statement.downgrade_percentage.round(2)
-      @statement.save
-    end
-
-    def set_moto
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @moto_volume = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.keyed == true 
-          @moto_volume += item.volume
-        end
-      end
-      @statement.moto_vol = @moto_volume.round(2)
-      @statement.moto_percentage = ( ( @moto_volume / @statement.vmd_vol ) * 100 )
-      @statement.moto_percentage = @statement.moto_percentage.round(2)
-      @statement.save
-    end
-
-    def set_unregulated_check_card
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @unregulated_volume = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.debit == true && @inttype.regulated == false
-          @unregulated_volume += item.volume
-        end
-      end
-      @statement.unreg_debit_vol = @unregulated_volume.round(2)
-      @statement.unreg_debit_percentage = ( ( @unregulated_volume / @statement.vmd_vol ) * 100 )
-      @statement.unreg_debit_percentage = @statement.unreg_debit_percentage.round(2)
-      @statement.save
-    end
-
-    def set_ecomm
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @ecomm_volume = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.ecomm == true
-          @ecomm_volume += item.volume
-        end
-      end
-      @statement.ecomm_vol = @ecomm_volume.round(2)
-      @statement.ecomm_percentage = ( ( @ecomm_volume / @statement.vmd_vol ) * 100 )
-      @statement.ecomm_percentage = @statement.ecomm_percentage.round(2)
-      @statement.save
-    end
-
-    def set_btob
-      @inttableitems = Inttableitem.where(statement_id: @statement.id)
-      @btob_volume = 0
-      @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-        if @inttype.btob == true
-          @btob_volume += item.volume
-        end
-      end
-      @statement.btob_vol = @btob_volume.round(2)
-      @statement.btob_percentage = ( ( @btob_volume / @statement.vmd_vol ) * 100 )
-      @statement.btob_percentage = @statement.btob_percentage.round(2)
-      @statement.save
-    end
-
-    def downgrade_table_adjust
-      if @statement.form_name == "downgrade"
-        if @statement.form_volume == 0
-          @statement.downgrade_vol = ( @statement.vmd_vol * ( @statement.downgrade_percentage / 100) )
-          @statement.save
-          @change = @statement.moto_vol - @statement.form_volume
-          @non_change = (@statement.vmd_vol - @statement.moto_vol) - (@statement.vmd_vol - @statement.form_volume)
-          @inttableitems = Inttableitem.where(statement_id: @statement.id)
-          @inttypes = Inttype.where(id: [35, 44, 76, 77, 150, 204])
-          @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-          @inttableitems.each do |item|
-          @inttype = Inttype.find_by_id(item.inttype_id)
-             item.volume += ( item.volume * @non_percentage_change )
-             item.transactions = item.volume / item.avg_ticket
-             item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-             item.save
-          end
-            @inttypes.each do |type|
-            @inttableitem = Inttableitem.new 
-            @inttableitem.inttype_id = type.id
-            @inttableitem.statement_id = @statement.id
-            @inttableitem.avg_ticket = @statement.avg_ticket
-            @inttableitem.volume = @change / 6
-            @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
-            @inttableitem.costs = ( @inttableitem.volume * type.percent ) + ( @inttableitem.transactions * type.per_item)
-            @inttableitem.save
-          end
-        else
-          @statement.downgrade_vol = ( @statement.vmd_vol * ( @statement.downgrade_percentage / 100) )
-          @statement.save
-          @change = @statement.downgrade_vol - @statement.form_volume
-          @non_downgrade_change = (@statement.vmd_vol - @statement.downgrade_vol) - (@statement.vmd_vol - @statement.form_volume)
-          @inttableitems = Inttableitem.where(statement_id: @statement.id)
-          @downgrade_percentage_change = ( @change / @statement.form_volume )
-          @non_downgrade_percentage_change = ( @non_downgrade_change / (@statement.vmd_vol - @statement.form_volume))
-          @inttableitems.each do |item|
-          @inttype = Inttype.find_by_id(item.inttype_id)
-          if @inttype.downgrade == true
-            item.volume += ( item.volume * @downgrade_percentage_change )
-            item.transactions = item.volume / item.avg_ticket
-            item.costs = ((item.volume * @inttype.percent ) + (item.transactions * @inttype.per_item))
-            item.save
-          else
-             item.volume += ( item.volume * @non_downgrade_percentage_change )
-             item.transactions = item.volume / item.avg_ticket
-             item.costs = ((item.volume * @inttype.percent) + (item.transactions * @inttype.per_item))
-             item.save
-          end
-        end
-      end
-    end
-  end
-
-  def moto_table_adjust
-    if @statement.form_name == "moto"
-      if @statement.form_volume == 0
-        @statement.moto_vol = ( @statement.vmd_vol * ( @statement.moto_percentage / 100) )
-        @statement.save
-        @change = @statement.moto_vol - @statement.form_volume
-        @non_change = (@statement.vmd_vol - @statement.moto_vol) - (@statement.vmd_vol - @statement.form_volume)
-        @inttableitems = Inttableitem.where(statement_id: @statement.id)
-        @inttypes = Inttype.where(id: [57, 58, 59, 146, 164, 165])
-        @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-        @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-           item.volume += ( item.volume * @non_percentage_change )
-           item.transactions = item.volume / item.avg_ticket
-           item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-           item.save
-        end
-        @inttypes.each do |type|
-          @inttableitem = Inttableitem.new 
-          @inttableitem.inttype_id = type.id
-          @inttableitem.statement_id = @statement.id
-          @inttableitem.avg_ticket = @statement.avg_ticket
-          @inttableitem.volume = @change / 6
-          @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
-          @inttableitem.costs = ( @inttableitem.volume * type.percent ) + ( @inttableitem.transactions * type.per_item)
-          @inttableitem.save
-        end
-      else
-        @statement.moto_vol = ( @statement.vmd_vol * ( @statement.moto_percentage / 100) )
-        @statement.save
-        @change = @statement.moto_vol - @statement.form_volume
-        @non_change = (@statement.vmd_vol - @statement.moto_vol) - (@statement.vmd_vol - @statement.form_volume)
-        @inttableitems = Inttableitem.where(statement_id: @statement.id)
-        @percentage_change = ( @change / @statement.form_volume )
-        @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-        @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-          if @inttype.keyed == true
-            item.volume += ( item.volume * @percentage_change )
-            item.transactions = item.volume / item.avg_ticket
-            item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-            item.save
-          else
-             item.volume += ( item.volume * @non_percentage_change )
-             item.transactions = item.volume / item.avg_ticket
-             item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-             item.save
-          end
-        end
-      end
-    end
-  end
-
-   def ecomm_table_adjust
-    if @statement.form_name == "ecomm"
-      if @statement.form_volume == 0
-        @statement.ecomm_vol = ( @statement.vmd_vol * ( @statement.ecomm_percentage / 100) )
-        @statement.save
-        @change = @statement.ecomm_vol - @statement.form_volume
-        @non_change = (@statement.vmd_vol - @statement.ecomm_vol) - (@statement.vmd_vol - @statement.form_volume)
-        @inttableitems = Inttableitem.where(statement_id: @statement.id)
-        @inttypes = Inttype.where(id: [49, 50])
-        @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-        @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-           item.volume += ( item.volume * @non_percentage_change )
-           item.transactions = item.volume / item.avg_ticket
-           item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-           item.save
-        end
-        @inttypes.each do |type|
-          @inttableitem = Inttableitem.new 
-          @inttableitem.inttype_id = type.id
-          @inttableitem.statement_id = @statement.id
-          @inttableitem.avg_ticket = @statement.avg_ticket
-          @inttableitem.volume = @change / 2
-          @inttableitem.transactions = @inttableitem.volume / @inttableitem.avg_ticket
-          @inttableitem.costs = ( @inttableitem.volume * type.percent ) + ( @inttableitem.transactions * type.per_item)
-          @inttableitem.save
-        end
-      else
-        @statement.ecomm_vol = ( @statement.vmd_vol * ( @statement.ecomm_percentage / 100) )
-        @statement.save
-        @change = @statement.ecomm_vol - @statement.form_volume
-        @non_change = (@statement.vmd_vol - @statement.ecomm_vol) - (@statement.vmd_vol - @statement.form_volume)
-        @inttableitems = Inttableitem.where(statement_id: @statement.id)
-        @percentage_change = ( @change / @statement.form_volume )
-        @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-        @inttableitems.each do |item|
-        @inttype = Inttype.find_by_id(item.inttype_id)
-          if @inttype.ecomm == true
-            item.volume += ( item.volume * @percentage_change )
-            item.transactions = item.volume / item.avg_ticket
-            item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-            item.save
-          else
-             item.volume += ( item.volume * @non_percentage_change )
-             item.transactions = item.volume / item.avg_ticket
-             item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-             item.save
-          end
-        end
-      end
-    end
-  end
-
-  def btob_table_adjust
-    if @statement.form_name == "btob"
-      @statement.btob_vol = ( @statement.vmd_vol * ( @statement.btob_percentage / 100) )
-      @statement.save
-      @change = @statement.btob_vol - @statement.form_volume
-      @non_change = (@statement.vmd_vol - @statement.btob_vol) - (@statement.vmd_vol - @statement.form_volume)
-    @inttableitems = Inttableitem.where(statement_id: @statement.id)
-    @percentage_change = ( @change / @statement.form_volume )
-    @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-    @inttableitems.each do |item|
-      @inttype = Inttype.find_by_id(item.inttype_id)
-      if @inttype.btob == true
-        item.volume += ( item.volume * @percentage_change )
-        item.transactions = item.volume / item.avg_ticket
-        item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-        item.save
-      else
-         item.volume += ( item.volume * @non_percentage_change )
-         item.transactions = item.volume / item.avg_ticket
-         item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-         item.save
-      end
-     end
-    end
-  end
-
-  def check_card_table_adjust
-    if @statement.form_name == "regulated_check_card"
-      @statement.check_card_vol = ( @statement.vmd_vol * ( @statement.check_card_percentage / 100) )
-      @statement.save
-      @change = @statement.check_card_vol - @statement.form_volume
-      @non_change = (@statement.vmd_vol - @statement.check_card_vol) - (@statement.vmd_vol - @statement.form_volume)
-    @inttableitems = Inttableitem.where(statement_id: @statement.id)
-    @percentage_change = ( @change / @statement.form_volume )
-    @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-    @inttableitems.each do |item|
-      @inttype = Inttype.find_by_id(item.inttype_id)
-      if @inttype.regulated == true
-        item.volume += ( item.volume * @percentage_change )
-        item.transactions = item.volume / item.avg_ticket
-        item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-        item.save
-      else
-         item.volume += ( item.volume * @non_percentage_change )
-         item.transactions = item.volume / item.avg_ticket
-         item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-         item.save
-      end
-     end
-    end
-  end
-
-  def unreg_debit_table_adjust
-    if @statement.form_name == "unregulated_check_card"
-      @statement.unreg_debit_vol = ( @statement.vmd_vol * ( @statement.unreg_debit_percentage / 100) )
-      @statement.save
-      @change = @statement.unreg_debit_vol - @statement.form_volume
-      @non_change = (@statement.vmd_vol - @statement.unreg_debit_vol) - (@statement.vmd_vol - @statement.form_volume)
-    @inttableitems = Inttableitem.where(statement_id: @statement.id)
-    @percentage_change = ( @change / @statement.form_volume )
-    @non_percentage_change = ( @non_change / (@statement.vmd_vol - @statement.form_volume))
-    @inttableitems.each do |item|
-      @inttype = Inttype.find_by_id(item.inttype_id)
-      if @inttype.regulated == false && @inttype.debit == true
-        item.volume += ( item.volume * @percentage_change )
-        item.transactions = item.volume / item.avg_ticket
-        item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-        item.save
-      else
-         item.volume += ( item.volume * @non_percentage_change )
-         item.transactions = item.volume / item.avg_ticket
-         item.costs = (item.volume * @inttype.percent) + (item.transactions * @inttype.per_item)
-         item.save
-      end
-     end
-    end
-  end
-
 
 end

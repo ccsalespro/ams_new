@@ -1,4 +1,1454 @@
+<%= form_for [@prospect, @statement], :html => {:id => "editStatement"} do |f| %>
+  <% if @statement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@statement.errors.count, "error") %> prohibited this statement from being saved:</h2>
 
+      <ul>
+      <% @statement.errors.each do |attr, message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %><br>
 <div class="container">
-<%= render 'long_form' %>
+	<div class="col-xs-12">
+	<div class="alert alert-success text-center hidden" id="totalFeesAlert">
+    	<strong>ESTIMATED CURRENT TOTAL FEES</strong>
+    </div>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+    <%= f.submit "Continue >>", class: "btn btn-primary btn-block btn-lg", id: "submitButtonTopForm" %>
+    </div>
+  	<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0"><br />
+  		<div class="panel panel-primary text-center">
+            <div class="panel-heading">
+                <h3 class="panel-title hidden-lg hidden-md hidden-sm">
+                    <b>Current IC+ Rates</b>
+                </h3>
+                <h3 class="panel-title hidden-xs">
+                    <b>Current Interchange Plus Rates / Mark Up</b>
+                </h3>
+            </div>
+            <div class="panel-body">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2 col-lg-offset-1">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">VMD Basis Points</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :default_basis_points, value: number_with_precision(@statement.default_basis_points, precision: 0), :class => "form-control input-lg", :data => { type: 'number' }, :id => "defaultBasisPoints" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">VMD Per Item Fee</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :default_per_item_fee, value: number_with_precision(@statement.default_per_item_fee, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "defaultPerItemFee" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Total Passthrough</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :total_passthrough, value: number_with_precision(@statement.total_passthrough, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "totalPassthroughTop" %>
+			          	</div>
+			      	</div>
+			    </div>
+			   	<div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Total Fees</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :total_fees, value: number_with_precision(@statement.total_fees, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "totalFees" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Remaining Fees</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<input class="form-control input-lg" id="otherFees" />
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 col-md-3 col-lg-2">
+				    <br />
+				    	<div class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">UPDATE</div>
+				</div>
+			    <div class="col-xs-12" id="feeAlertBox">
+				    <div class="alert alert-success text-center fee-alert hidden" id="feeAlertOne">
+				    	<strong>VERY LIKELY</strong>
+				    </div>
+				    <div class="alert alert-warning text-center fee-alert hidden" id="feeAlertTwo">
+				    	<strong>TOTAL FEES SEEM LOW</strong>
+				    </div>
+				    <div class="alert alert-warning text-center fee-alert hidden" id="feeAlertThree">
+				    	<strong>TOTAL FEES ARE LOW</strong>
+				    </div>
+				    <div class="alert alert-danger text-center fee-alert hidden" id="feeAlertFour">
+				    	<strong>TOTAL FEES TOO LOW</strong>
+				    </div>
+				    <div class="alert alert-warning text-center fee-alert hidden" id="feeAlertFive">
+				    	<strong>TOTAL FEES SEEM HIGH</strong>
+				    </div>
+				    <div class="alert alert-warning text-center fee-alert hidden" id="feeAlertSix">
+				    	<strong>TOTAL FEES ARE HIGH</strong>
+				    </div>
+				    <div class="alert alert-danger text-center fee-alert hidden" id="feeAlertSeven">
+				    	<strong>TOTAL FEES VERY HIGH</strong>
+				    </div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0">
+		<div class="panel panel-primary text-center">
+            <div class="panel-heading" id="otherFeesHeading">
+                <h3 class="panel-title">
+                    <span><b>OTHER FEES<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="otherFeesSaved" style="float:right;">Saved</i></b></span>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="otherFeesPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Monthly Fees</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :c_monthly_fees, value: number_with_precision(@statement.c_monthly_fees, precision: 2) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "monthlyFees" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Batch Fee</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :c_batch_fee, value: number_with_precision(@statement.c_batch_fee, precision: 0) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "batchFee" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    
+			    <div id="otherFeesDropDown">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center"># of Batches</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :batches, value: number_with_precision(@statement.c_number_of_batches, precision: 2) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "numberOfBatches" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Monthly PCI Fee</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_monthly_pci_fee, value: number_with_precision(@statement.c_monthly_pci_fee, precision: 2) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "monthlyPciFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Annual Fee</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_annual_fee, value: number_with_precision(@statement.c_annual_fee, precision: 0) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "annualFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Monthly Debit Fee</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_monthly_debit_fee, value: number_with_precision(@statement.c_monthly_debit_fee, precision: 0) || 0, :class => "other-fees-field form-control input-lg", :data => { type: 'number' }, :id => "monthlyDebitFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary text-center" id="editAmexSection">
+            <div class="panel-heading" id="amexHeading">
+                <h3 class="panel-title">
+                    <b>AMEX<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="amexSaved" style="float:right;">Saved</i></b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="amexPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Volume</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :amex_vol, value: number_with_precision(@statement.amex_vol, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "amexVolume" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Transactions</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :amex_trans, value: number_with_precision(@statement.amex_trans, precision: 0), :class => "form-control input-lg", :data => { type: 'number' }, :id => "amexTransactions" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="amexCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="amexCaretDown"></i></div>
+			    </div>
+			    <div id="amexDropDown" class="hidden-xs hidden-sm">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_amex_per_item_fee, value: number_with_precision(@statement.c_amex_per_item_fee, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "amexPerItemFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :amex_total_per_item_fees, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "amexTotalPerItemFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				     <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Basis Points</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :c_amex_bp_mark_up, value: number_with_precision(@statement.c_amex_bp_mark_up, precision: 0), :class => "form-control input-lg", :data => { type: 'number' }, :id => "amexBpMarkUp" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Mark Up Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :amex_total_bp_mark_up, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "amexTotalMarkUpFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Avg Ticket</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :amex_avg_ticket, value: number_with_precision(@statement.amex_avg_ticket, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "amexAvgTicket" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+				    <br />
+				    	<div id="amexResetButton" class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">Reset Fields</div>
+				    </div>
+				</div>
+			</div>
+        </div>
+        <div class="panel panel-primary text-center" id="editDebitSection">
+            <div class="panel-heading" id="debitHeading">
+                <h3 class="panel-title">
+                    <b>PIN DEBIT<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="debitSaved" style="float:right;">Saved</i></b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="debitPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Volume</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :debit_vol, value: number_with_precision(@statement.debit_vol, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "debitVolume" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Transactions</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :debit_trans, value: number_with_precision(@statement.debit_trans, precision: 0), :class => "form-control input-lg", :data => { type: 'number' }, :id => "debitTransactions" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="debitCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="debitCaretDown"></i></div>
+			    </div>
+			    <div id="debitDropDown" class="hidden-xs hidden-sm">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_debit_per_item_fee, value: number_with_precision(@statement.c_debit_per_item_fee, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "debitPerItemFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :debit_total_per_item_fees, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "debitTotalPerItemFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				     <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Basis Points</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :c_debit_bp_mark_up, value: number_with_precision(@statement.c_debit_bp_mark_up, precision: 0), :class => "form-control input-lg", :data => { type: 'number' }, :id => "debitBpMarkUp" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Mark Up Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :debit_total_bp_mark_up, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "debitTotalMarkUpFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Avg Ticket</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :debit_avg_ticket, value: number_with_precision(@statement.debit_avg_ticket, precision: 2), :class => "form-control input-lg", :data => { type: 'number' }, :id => "debitAvgTicket" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+				    <br />
+				    	<div id="debitResetButton" class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">Reset Fields</div>
+				    </div>
+				</div>
+			</div>
+        </div>
+        <div class="panel panel-primary text-center">
+            <div class="panel-heading" id="vsHeading">
+                <h3 class="panel-title">
+                    <b>VISA<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="vsSaved" style="float:right;">Saved</i></b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="vsPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Volume</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :vs_volume, value: number_with_precision(@statement.vs_volume, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "vsVolume" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Transactions</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :vs_transactions, value: number_with_precision(@statement.vs_transactions, precision: 0), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "vsTransactions" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="vsCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="vsCaretDown"></i></div>
+			    </div>
+			    <div id="visaDropDown" class="hidden-xs hidden-sm">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :vs_per_item_fee, value: number_with_precision(@statement.vs_per_item_fee, precision: 2), :class => "processing-fields vmd-per-item form-control input-lg", :data => { type: 'number' }, :id => "vsPerItemFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :vs_total_per_item_fees, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "vsTotalPerItemFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Basis Points</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :vs_bp_mark_up, value: number_with_precision(@statement.vs_bp_mark_up, precision: 0), :class => "processing-fields vmd-markup form-control input-lg", :data => { type: 'number' }, :id => "vsBpMarkUp" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Mark Up Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :vs_total_bp_mark_up, value: number_with_precision(@statement.vs_total_bp_mark_up, precision: 0), :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "vsTotalMarkUpFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Avg Ticket</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :vs_avg_ticket, value: number_with_precision(@statement.vs_avg_ticket, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "vsAvgTicket" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+				    <br />
+				    	<div id="vsResetButton" class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">Reset Fields</div>
+				    </div>
+				</div>
+			</div>
+        </div>
+        <div class="panel panel-primary text-center">
+            <div class="panel-heading" id="mcHeading">
+                <h3 class="panel-title">
+                    <b>MASTERCARD<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="mcSaved" style="float:right;">Saved</i></b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="mcPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Volume</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :mc_volume, value: number_with_precision(@statement.mc_volume, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "mcVolume" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Transactions</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :mc_transactions, value: number_with_precision(@statement.mc_transactions, precision: 0), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "mcTransactions" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="mcCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="mcCaretDown"></i></div>
+			    </div>
+			    <div id="mcDropDown" class="hidden-xs hidden-sm">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :mc_per_item_fee, value: number_with_precision(@statement.mc_per_item_fee, precision: 2), :class => "processing-fields vmd-per-item form-control input-lg", :data => { type: 'number' }, :id => "mcPerItemFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :mc_total_per_item_fees, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "mcTotalPerItemFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				     <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Basis Points</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :mc_bp_mark_up, value: number_with_precision(@statement.mc_bp_mark_up, precision: 0), :class => "processing-fields vmd-markup form-control input-lg", :data => { type: 'number' }, :id => "mcBpMarkUp" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Mark Up Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :mc_total_bp_mark_up, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "mcTotalMarkUpFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Avg Ticket</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :mc_avg_ticket, value: number_with_precision(@statement.mc_avg_ticket, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "mcAvgTicket" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+				    <br />
+				    	<div id="mcResetButton" class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">Reset Fields</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary text-center">
+            <div class="panel-heading" id="dsHeading">
+                <h3 class="panel-title">
+                    <b>DISCOVER<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="dsSaved" style="float:right;">Saved</i></b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="dsPanelBody">
+	            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Volume</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :ds_volume, value: number_with_precision(@statement.ds_volume, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "dsVolume" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Transactions</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">#</span>
+				           	<%= f.text_field :ds_transactions, value: number_with_precision(@statement.ds_transactions, precision: 0), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "dsTransactions" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="dsCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="dsCaretDown"></i></div>
+			    </div>
+			    <div id="dsDropDown" class="hidden-xs hidden-sm">
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :ds_per_item_fee, value: number_with_precision(@statement.ds_per_item_fee, precision: 2), :class => "processing-fields vmd-per-item form-control input-lg", :data => { type: 'number' }, :id => "dsPerItemFee" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Per Item Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :ds_total_per_item_fees, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "dsTotalPerItemFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Basis Points</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">#</span>
+					           	<%= f.text_field :ds_bp_mark_up, value: number_with_precision(@statement.ds_bp_mark_up, precision: 0), :class => "processing-fields vmd-markup form-control input-lg", :data => { type: 'number' }, :id => "dsBpMarkUp" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Mark Up Fees</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :ds_total_bp_mark_up, :class => "totals-field form-control input-lg", :data => { type: 'number' }, :id => "dsTotalMarkUpFees" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Avg Ticket</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :ds_avg_ticket, value: number_with_precision(@statement.ds_avg_ticket, precision: 2), :class => "processing-fields form-control input-lg", :data => { type: 'number' }, :id => "dsAvgTicket" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2 hidden-lg">
+				    <br />
+				    	<div id="dsResetButton" class="btn btn-primary btn-lg btn-block" style="margin-top: 6px;">Reset Fields</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary text-center">
+            <div class="panel-heading" id="passthroughHeading">
+                <h3 class="panel-title">
+                    <b>PASSTHROUGH<i class="fa fa-bars fa-fw" aria-hidden="true" style="float:right;margin-left:10px;"></i><i class="hidden" id="passthroughSaved" style="float:right;">Saved</i>
+</b>
+                </h3>
+            </div>
+            <div class="panel-body hidden" id="passthroughPanelBody">
+            	<div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Interchange</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<%= f.text_field :current_interchange, value: number_with_precision(@statement.current_interchange, precision: 4) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "currentInterchange" %>
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+	                <div class="form-group">
+			           <p class="bold program-form-margin text-center">Total Passthrough</p>
+			          	<div class="input-group">
+				            <span class="input-group-addon">$</span>
+				           	<input class="form-control input-lg" id="totalPassthrough" />
+			          	</div>
+			      	</div>
+			    </div>
+			    <div class="col-xs-12 hidden-md hidden-lg text-center">
+			    	<div id="passCaretDownButton" class="btn btn-primary btn-block"><i class="fa fa-caret-down fa-2x" aria-hidden="true" id="passCaretDown"></i></div>
+			    </div>
+			    <div id="passDropDown" class="hidden-xs hidden-sm">
+		            <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">VS NABU</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_visa_access_per_item, value: number_with_precision(@statement.c_visa_access_per_item, precision: 4) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "vsNabu" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">VS %</p>
+				          	<div class="input-group">
+					           	<%= f.text_field :c_visa_access_percentage, value: number_with_precision(@statement.c_visa_access_percentage, precision: 0) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "vsAccess" %>
+					           	<span class="input-group-addon">BP</span>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">VS Check</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_check_card_access_per_item, value: number_with_precision(@statement.c_check_card_access_per_item, precision: 4) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "vsCheckNabu" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">VS Check %</p>
+				          	<div class="input-group">
+					           	<%= f.text_field :c_check_card_access_percentage, value: number_with_precision(@statement.c_check_card_access_percentage, precision: 0) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "vsCheckAccess" %>
+					           	<span class="input-group-addon">BP</span>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">MC NABU</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_mc_access_per_item, value: number_with_precision(@statement.c_mc_access_per_item, precision: 4) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "mcNabu" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">MC %</p>
+				          	<div class="input-group">
+					           	<%= f.text_field :c_mc_access_percentage, value: number_with_precision(@statement.c_mc_access_percentage, precision: 0) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "mcAccess" %>
+					           	<span class="input-group-addon">BP</span>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">DS NABU</p>
+				          	<div class="input-group">
+					            <span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_disc_access_per_item, value: number_with_precision(@statement.c_disc_access_per_item, precision: 4) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "dsNabu" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">DS %</p>
+				          	<div class="input-group">
+					           	<%= f.text_field :c_disc_access_percentage, value: number_with_precision(@statement.c_disc_access_percentage, precision: 0) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "dsAccess" %>
+					           	<span class="input-group-addon">BP</span>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">AMEX Opt Blue</p>
+				          	<div class="input-group">
+					           	<span class="input-group-addon">$</span>         	
+					           	<%= f.text_field :c_opt_blue_fees, value: number_with_precision(@statement.c_opt_blue_fees, precision: 2) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "optBlue" %>
+				          	</div>
+				      	</div>
+				    </div>
+				    <div class="form-field-div col-xs-6 col-md-3 col-lg-2">
+		                <div class="form-group">
+				           <p class="bold program-form-margin text-center">Debit Network</p>
+				          	<div class="input-group">
+				          	<span class="input-group-addon">$</span>
+					           	<%= f.text_field :c_network_access_fees, value: number_with_precision(@statement.c_network_access_fees, precision: 2) || 0, :class => "passthrough-field form-control input-lg", :data => { type: 'number' }, :id => "debitNetworkAccess" %>
+				          	</div>
+				      	</div>
+				    </div>
+			    </div>
+			</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+        <%= f.submit "Continue >>", class: "btn btn-primary btn-block btn-lg", id: "submitButtonBottomForm" %>
+        </div>
+    </div>
 </div>
+<div class="field">
+    <%= f.hidden_field(:prospect_id) %>
+</div>
+<% end %>
+
+<script>
+
+//Visa variables.
+	var vsTotalPerItemFees = document.getElementById("vsTotalPerItemFees");
+	var vsTotalMarkUpFees = document.getElementById("vsTotalMarkUpFees");
+	var vsPerItemFee = document.getElementById("vsPerItemFee");
+	var vsBpMarkUp = document.getElementById("vsBpMarkUp");
+	var vsAvgTicket = document.getElementById("vsAvgTicket");
+	var vsVolume = document.getElementById("vsVolume");
+	var vsTransactions = document.getElementById("vsTransactions");
+	var vsCaretDownButton = document.getElementById("vsCaretDownButton");
+	var vsResetButton = document.getElementById("vsResetButton");
+
+//Mastercard variables.
+	var mcTotalPerItemFees = document.getElementById("mcTotalPerItemFees");
+	var mcTotalMarkUpFees = document.getElementById("mcTotalMarkUpFees");
+	var mcPerItemFee = document.getElementById("mcPerItemFee");
+	var mcBpMarkUp = document.getElementById("mcBpMarkUp");
+	var mcAvgTicket = document.getElementById("mcAvgTicket");
+	var mcVolume = document.getElementById("mcVolume");
+	var mcTransactions = document.getElementById("mcTransactions");
+	var mcCaretDownButton = document.getElementById("mcCaretDownButton");
+	var mcResetButton = document.getElementById("mcResetButton");
+
+//Discover variables.
+	var dsTotalPerItemFees = document.getElementById("dsTotalPerItemFees");
+	var dsTotalMarkUpFees = document.getElementById("dsTotalMarkUpFees");
+	var dsPerItemFee = document.getElementById("dsPerItemFee");
+	var dsBpMarkUp = document.getElementById("dsBpMarkUp");
+	var dsAvgTicket = document.getElementById("dsAvgTicket");
+	var dsVolume = document.getElementById("dsVolume");
+	var dsTransactions = document.getElementById("dsTransactions");
+	var dsCaretDownButton = document.getElementById("dsCaretDownButton");
+	var dsResetButton = document.getElementById("dsResetButton");
+
+//Amex variables.
+	var amexTotalPerItemFees = document.getElementById("amexTotalPerItemFees");
+	var amexTotalMarkUpFees = document.getElementById("amexTotalMarkUpFees");
+	var amexPerItemFee = document.getElementById("amexPerItemFee");
+	amexPerItemFee.highFee = 0.35;
+	amexPerItemFee.maxFee = 0.50;
+	amexPerItemFee.lowFee = 0.20;
+	amexPerItemFee.minFee = 0.10;
+	var amexBpMarkUp = document.getElementById("amexBpMarkUp");
+	amexBpMarkUp.highFee = 60;
+	amexBpMarkUp.maxFee = 100;
+	amexBpMarkUp.lowFee = 30;
+	amexBpMarkUp.minFee = 20;
+	var amexAvgTicket = document.getElementById("amexAvgTicket");
+	var amexVolume = document.getElementById("amexVolume");
+	var amexTransactions = document.getElementById("amexTransactions");
+	var amexCaretDownButton = document.getElementById("amexCaretDownButton");
+	var amexResetButton = document.getElementById("amexResetButton");
+
+//Debit variables.
+	var debitTotalPerItemFees = document.getElementById("debitTotalPerItemFees");
+	var debitTotalMarkUpFees = document.getElementById("debitTotalMarkUpFees");
+	var debitBpMarkUp = document.getElementById("debitBpMarkUp");
+	debitBpMarkUp.highFee = 40;
+	debitBpMarkUp.maxFee = 80;
+	debitBpMarkUp.minFee = 0;
+	var debitPerItemFee = document.getElementById("debitPerItemFee");
+	debitPerItemFee.highFee = 0.35;
+	debitPerItemFee.maxFee = 0.65;
+	debitPerItemFee.lowFee = 0.10;
+	debitPerItemFee.minFee = 0.06;
+	var debitAvgTicket = document.getElementById("debitAvgTicket");
+	var debitVolume = document.getElementById("debitVolume");
+	var debitTransactions = document.getElementById("debitTransactions");
+	var debitCaretDownButton = document.getElementById("debitCaretDownButton");
+	var debitResetButton = document.getElementById("debitResetButton");
+
+//Other Fees Variables
+	var otherFeesResetButton = document.getElementById("otherFeesResetButton");
+	var monthlyDebitFee = document.getElementById("monthlyDebitFee");
+	monthlyDebitFee.highFee = 10;
+	monthlyDebitFee.maxFee = 14.95;
+	var annualFee = document.getElementById("annualFee");
+	var monthlyPciFee = document.getElementById("monthlyPciFee");
+	var numberOfBatches = document.getElementById("numberOfBatches");
+	var batchFee = document.getElementById("batchFee");
+	var monthlyFees = document.getElementById("monthlyFees");
+	monthlyFees.highFee = 30;
+	monthlyFees.maxFee = 60;
+	
+//Variables for all three brands and shared functions.
+	var defaultBasisPoints = document.getElementById("defaultBasisPoints");
+	var defaultPerItemFee = document.getElementById("defaultPerItemFee");
+	var totalFees = document.getElementById("totalFees");
+	var otherFees = document.getElementById("otherFees");
+
+//Variables for Passthrough costs
+	var currentInterchange = document.getElementById("currentInterchange");
+	var currentInterchangeTwentyBp = parseFloat(currentInterchange.value) * 0.2;
+	currentInterchange.highFee = (parseFloat(currentInterchange.value) + currentInterchangeTwentyBp);
+	currentInterchange.maxFee = parseFloat(currentInterchange.value) + (currentInterchangeTwentyBp * 2);
+	currentInterchange.minFee = parseFloat(currentInterchange.value) - currentInterchangeTwentyBp;
+	var optBlue = document.getElementById("optBlue");
+	var debitNetworkAccess = document.getElementById("debitNetworkAccess");
+	var dsAccess = document.getElementById("dsAccess");
+	var mcAccess = document.getElementById("mcAccess");
+	var vsAccess = document.getElementById("vsAccess");
+	var accessHighFee = 16;
+	var accessMaxFee = 19;
+	var vsNabu = document.getElementById("vsNabu");
+	var mcNabu = document.getElementById("mcNabu");
+	var dsNabu = document.getElementById("dsNabu");
+	var nabuHighFee = 0.03
+	var nabuMaxFee = 0.039
+	var vsCheckAccess = document.getElementById("vsCheckAccess");
+	var vsCheckNabu = document.getElementById("vsCheckNabu");
+	var totalPassthrough = document.getElementById("totalPassthrough");
+	var passCaretDownButton = document.getElementById("passCaretDownButton");
+	var totalPassthroughTop = document.getElementById("totalPassthroughTop");
+	var passthroughHeading = document.getElementById("passthroughHeading");
+	var amexHeading = document.getElementById("amexHeading");
+	var debitHeading = document.getElementById("debitHeading");
+	var otherFeesHeading = document.getElementById("otherFeesHeading");
+	var vsHeading = document.getElementById("vsHeading");
+	var mcHeading = document.getElementById("mcHeading");
+	var dsHeading = document.getElementById("dsHeading");
+
+	var dollarValueFields = [vsTotalPerItemFees, vsTotalMarkUpFees, mcTotalPerItemFees, mcTotalMarkUpFees, dsTotalPerItemFees, dsTotalMarkUpFees, amexTotalPerItemFees, amexTotalMarkUpFees, debitTotalMarkUpFees, debitTotalPerItemFees, monthlyDebitFee, annualFee, monthlyPciFee, monthlyFees];
+
+//Set Initial Values
+
+	var totalMarkUp = 0;
+	var perItemFee = 0;
+	var transactions = 0;
+	var avgTicket = 0;
+	var remainingFees = 0;
+	var interchange = <%= @statement.interchange %>;
+	var submitButtonBottomForm = document.getElementById("submitButtonBottomForm");
+	var submitButtonTopForm = document.getElementById("submitButtonTopForm");
+
+//ERB Variables for Calculations
+
+	var statementCreditPercent = <%= @statement.credit_percent %>;
+	
+	var statementVsTransactions = <%= @statement.vs_transactions %>;
+	var statementVsVolume = <%= @statement.vs_volume %>;
+
+	var statementMcTransactions = <%= @statement.mc_transactions %>;
+	var statementMcVolume = <%= @statement.mc_volume %>;
+
+	var statementDsTransactions = <%= @statement.ds_transactions %>;
+	var statementDsVolume = <%= @statement.ds_volume %>;
+
+	var statementAmexTransactions = <%= @statement.amex_trans %>;
+	var statementAmexVolume = <%= @statement.amex_vol %>;
+
+	var statementDebitTransactions = <%= @statement.debit_trans %>;
+	var statementDebitVolume = <%= @statement.debit_vol %>;
+	
+	var totalVolumeValue = <%= @statement.total_vol %>;
+	var totalTransactionValue = statementVsTransactions + statementMcTransactions + statementDsTransactions + statementAmexTransactions + statementDebitTransactions;
+
+	var initialEditComplete = <%= @statement.initial_edit_complete %>;
+
+function resetPropDisabled(){
+	$(".processing-fields").prop('disabled', false);
+};
+
+function hideAmexDebit(){
+	if (parseFloat(debitVolume.value) <= 0){
+		$("#editDebitSection").addClass("hidden");
+	}
+	if (parseFloat(amexVolume.value) <= 0){
+		$("#editAmexSection").addClass("hidden");
+	}
+};
+
+function setNilToZero(field){
+	if (field.value == ""){
+		field.value = 0;
+	}
+}
+
+$("document").ready(function(){
+
+	resizeFieldWidth();
+
+	$(window).resize(function(){
+		resizeFieldWidth();
+	});
+
+	if (initialEditComplete == true){
+		totalPassthrough.value = totalPassthroughTop.value;
+	} else {
+		defaultPerItemFee.value = 0;
+		defaultBasisPoints.value = 0;
+		hideAmexDebit();
+		resetAllFields();
+		calculateTotalPassthrough();
+		setTotalFeesIfZero(parseFloat(totalFees.value), totalVolumeValue, totalTransactionValue);
+		calculateValues();
+		feesAlgorithm();
+		recursionAlgorithm();
+		adjustRemainingToInterchange();
+		
+
+		totalPassthroughTop.value = totalPassthrough.value;	
+	};
+
+		totalPassthroughTop.onblur = function(){
+			setNilToZero(totalPassthroughTop);
+			changeTotalPassthrough();
+		};
+
+	$(".totals-field").prop('disabled', true);
+	$("#totalPassthrough").prop('disabled', true);
+	$("#otherFees").prop('disabled', true);
+
+	$(".vmd-markup, #defaultBasisPoints").on('keypress', function(){
+		defaultBasisPoints.locked = true;
+	});
+
+	$(".vmd-per-item, #defaultPerItemFee").on('keypress', function(){
+		defaultPerItemFee.locked = true;
+	});
+
+	$("#currentInterchange").on('keypress', function(){
+		currentInterchange.locked = true;
+	});
+
+	$("#debitPerItemFee").on('keypress', function(){
+		debitPerItemFee.locked = true;
+	});
+
+	$("#debitBpMarkUp").on('keypress', function(){
+		debitBpMarkUp.locked = true;
+	});
+
+	$("#amexBpMarkUp").on('keypress', function(){
+		amexBpMarkUp.locked = true;
+	});
+	
+	totalFees.onblur = function(){
+		setNilToZero(totalFees);
+		trueUpRemainingFees();	
+	};
+
+	defaultBasisPoints.onfocus = function(){
+		$(".vmd-markup").prop('disabled', true);
+	};
+
+	defaultPerItemFee.onfocus = function(){
+		$(".vmd-per-item").prop('disabled', true);
+	};
+
+	defaultBasisPoints.onblur = function(){
+		setNilToZero(defaultBasisPoints);
+
+		$(".vmd-markup").prop('disabled', false);
+		setVmdFieldValues(defaultBasisPoints.value, defaultPerItemFee.value);
+		trueUpRemainingFees();
+	};
+
+	defaultPerItemFee.onblur = function(){
+		setNilToZero(defaultPerItemFee);
+		$(".vmd-per-item").prop('disabled', false);
+		setVmdFieldValues(defaultBasisPoints.value, defaultPerItemFee.value);
+		trueUpRemainingFees();
+	};
+
+	$(".passthrough-field").on("blur", function(){
+		calculateTotalPassthrough();
+		trueUpRemainingFees();
+	});
+
+	// Section Drop Downs
+
+	passthroughHeading.onclick = function(){
+		if ($('#passthroughPanelBody').is(':visible')){
+		$("#passthroughSaved").fadeIn(1000);
+		$("#passthroughSaved").removeClass("hidden");
+		$("#passthroughSaved").fadeOut(1000);
+		};
+		$("#passthroughPanelBody").toggleClass("hidden");
+	};
+
+	amexHeading.onclick = function(){
+		if ($('#amexPanelBody').is(':visible')){
+		$("#amexSaved").fadeIn(1000);
+		$("#amexSaved").removeClass("hidden");
+		$("#amexSaved").fadeOut(1000);
+		};
+		$("#amexPanelBody").toggleClass("hidden");
+	};
+
+	debitHeading.onclick = function(){
+		if ($('#debitPanelBody').is(':visible')){
+		$("#debitSaved").fadeIn(1000);
+		$("#debitSaved").removeClass("hidden");
+		$("#debitSaved").fadeOut(1000);
+		};
+		$("#debitPanelBody").toggleClass("hidden");
+	};
+
+	otherFeesHeading.onclick = function(){
+		if ($('#otherFeesPanelBody').is(':visible')){
+		$("#otherFeesSaved").fadeIn(1000);
+		$("#otherFeesSaved").removeClass("hidden");
+		$("#otherFeesSaved").fadeOut(1000);
+		};
+		$("#otherFeesPanelBody").toggleClass("hidden");
+	};
+
+	vsHeading.onclick = function(){
+		if ($('#vsPanelBody').is(':visible')){
+		$("#vsSaved").fadeIn(1000);
+		$("#vsSaved").removeClass("hidden");
+		$("#vsSaved").fadeOut(1000);
+		};
+		$("#vsPanelBody").toggleClass("hidden");
+	};
+
+	mcHeading.onclick = function(){
+		if ($('#mcPanelBody').is(':visible')){
+		$("#mcSaved").fadeIn(1000);
+		$("#mcSaved").removeClass("hidden");
+		$("#mcSaved").fadeOut(1000);
+		};
+		$("#mcPanelBody").toggleClass("hidden");
+	};
+
+	dsHeading.onclick = function(){
+		if ($('#dsPanelBody').is(':visible')){
+		$("#dsSaved").fadeIn(1000);
+		$("#dsSaved").removeClass("hidden");
+		$("#dsSaved").fadeOut(1000);
+		};
+		$("#dsPanelBody").toggleClass("hidden");
+	};
+
+	//Visa code.
+
+	vsResetButton.onclick = function() {
+		resetVsValues();
+		calculateRemainingFees();
+	};
+	
+	vsCaretDownButton.onclick = function() {
+		$("#visaDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#vsCaretDown").toggleClass("fa-caret-down");
+		$("#vsCaretDown").toggleClass("fa-caret-up");
+	};
+
+	vsBpMarkUp.onfocus = function(){
+		$("#vsVolume").prop('disabled', true);
+	};
+
+	vsBpMarkUp.onblur = function(){
+		setNilToZero(vsBpMarkUp);
+		resetPropDisabled();
+		calculateValues();
+		trueUpRemainingFees();
+	};
+
+	vsVolume.onfocus = function(){
+		$("#vsAvgTicket").prop('disabled', true);
+		$("#vsBpMarkUp").prop('disabled', true);
+	};
+
+	vsVolume.onblur = function(){
+		setNilToZero(vsVolume);
+		resetPropDisabled();
+		calculateValues();
+		trueUpRemainingFees();
+	};
+
+	vsAvgTicket.onfocus = function(){
+		$("#vsTransactions").prop('disabled', true);
+	};
+
+	vsAvgTicket.onblur = function(){
+		setNilToZero(vsAvgTicket);
+		vsTransactions.value = calculateTransactions(parseFloat(vsVolume.value), parseFloat(vsAvgTicket.value));
+		$("#vsTransactions").prop('disabled', false);
+		vsTotalPerItemFees.value = calculatePerItemFees(parseFloat(vsTransactions.value), parseFloat(vsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	vsTransactions.onfocus = function(){
+		$("#vsAvgTicket").prop('disabled', true);
+	};
+
+	vsTransactions.onblur = function(){
+		setNilToZero(vsTransactions);
+		$("#vsAvgTicket").prop('disabled', false);
+		vsAvgTicket.value = calculateAvgTicket(parseFloat(vsVolume.value), parseFloat(vsTransactions.value));
+		vsTotalPerItemFees.value = calculatePerItemFees(parseFloat(vsTransactions.value), parseFloat(vsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	vsPerItemFee.onfocus = function(){
+		$("#vsTransactions").prop('disabled', true);
+	};
+
+	vsPerItemFee.onblur = function(){
+		setNilToZero(vsPerItemFee);
+		$("#vsTransactions").prop('disabled', false);
+		vsTotalPerItemFees.value = calculatePerItemFees(parseFloat(vsTransactions.value), parseFloat(vsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	//Mastercard code.
+
+	mcResetButton.onclick = function() {
+		resetMcValues();
+		calculateRemainingFees();
+	};
+	
+	mcCaretDownButton.onclick = function() {
+		$("#mcDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#mcCaretDown").toggleClass("fa-caret-down");
+		$("#mcCaretDown").toggleClass("fa-caret-up");
+	};
+
+	mcBpMarkUp.onfocus = function(){
+		$("#mcVolume").prop('disabled', true);
+	};
+
+	mcBpMarkUp.onblur = function(){
+		setNilToZero(mcBpMarkUp);
+		$("#mcVolume").prop('disabled', false);
+		mcTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(mcBpMarkUp.value), parseFloat(mcVolume.value));
+		trueUpRemainingFees();
+	};
+
+
+	mcVolume.onfocus = function(){
+		$("#mcAvgTicket").prop('disabled', true);
+	};
+
+	mcVolume.onblur = function(){
+		setNilToZero(mcVolume);
+		$("#mcAvgTicket").prop('disabled', false);
+		mcTransactions.value = calculateTransactions(parseFloat(mcVolume.value), parseFloat(mcAvgTicket.value));
+		mcTotalPerItemFees.value = calculatePerItemFees(parseFloat(mcTransactions.value), parseFloat(mcPerItemFee.value));
+		mcTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(mcBpMarkUp.value), parseFloat(mcVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+	mcAvgTicket.onfocus = function(){
+		$("#mcTransactions").prop('disabled', true);
+	};
+
+	mcAvgTicket.onblur = function(){
+		setNilToZero(mcAvgTicket);
+		$("#mcTransactions").prop('disabled', false);
+		mcTransactions.value = calculateTransactions(parseFloat(mcVolume.value), parseFloat(mcAvgTicket.value));
+		mcTotalPerItemFees.value = calculatePerItemFees(parseFloat(mcTransactions.value), parseFloat(mcPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	mcTransactions.onfocus = function(){
+		$("#mcAvgTicket").prop('disabled', true);
+	};
+
+	mcTransactions.onblur = function(){
+		setNilToZero(mcTransactions);
+		$("#mcAvgTicket").prop('disabled', false);
+		mcAvgTicket.value = calculateAvgTicket(parseFloat(mcVolume.value), parseFloat(mcTransactions.value));
+		mcTotalPerItemFees.value = calculatePerItemFees(parseFloat(mcTransactions.value), parseFloat(mcPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	mcPerItemFee.onfocus = function(){
+		$("#mcTransactions").prop('disabled', true);
+	};
+
+	mcPerItemFee.onblur = function(){
+		setNilToZero(mcPerItemFee);
+		$("#mcTransactions").prop('disabled', false);
+		mcTotalPerItemFees.value = calculatePerItemFees(parseFloat(mcTransactions.value), parseFloat(mcPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	//Discover code.
+
+	dsResetButton.onclick = function() {
+		resetDsValues();
+		calculateRemainingFees();
+	};
+	
+	dsCaretDownButton.onclick = function() {
+		$("#dsDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#dsCaretDown").toggleClass("fa-caret-down");
+		$("#dsCaretDown").toggleClass("fa-caret-up");
+	};
+
+	dsBpMarkUp.onfocus = function(){
+		$("#dsVolume").prop('disabled', true);
+	};
+
+	dsBpMarkUp.onblur = function(){
+		setNilToZero(dsBpMarkUp);
+		$("#dsVolume").prop('disabled', false);
+		dsTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(dsBpMarkUp.value), parseFloat(dsVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+
+	dsVolume.onfocus = function(){
+		$("#dsAvgTicket").prop('disabled', true);
+	};
+
+	dsVolume.onblur = function(){
+		setNilToZero(dsVolume);
+		$("#dsAvgTicket").prop('disabled', false);
+		dsTransactions.value = calculateTransactions(parseFloat(dsVolume.value), parseFloat(dsAvgTicket.value));
+		dsTotalPerItemFees.value = calculatePerItemFees(parseFloat(dsTransactions.value), parseFloat(dsPerItemFee.value));
+		dsTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(dsBpMarkUp.value), parseFloat(dsVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+	dsAvgTicket.onfocus = function(){
+		$("#dsTransactions").prop('disabled', true);
+	};
+
+	dsAvgTicket.onblur = function(){
+		setNilToZero(dsAvgTicket);
+		$("#dsTransactions").prop('disabled', false);
+		dsTransactions.value = calculateTransactions(parseFloat(dsVolume.value), parseFloat(dsAvgTicket.value));
+		dsTotalPerItemFees.value = calculatePerItemFees(parseFloat(dsTransactions.value), parseFloat(dsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	dsTransactions.onfocus = function(){
+		$("#dsAvgTicket").prop('disabled', true);
+	};
+
+	dsTransactions.onblur = function(){
+		setNilToZero(dsTransactions);
+		$("#dsAvgTicket").prop('disabled', false);
+		dsAvgTicket.value = calculateAvgTicket(parseFloat(dsVolume.value), parseFloat(dsTransactions.value));
+		dsTotalPerItemFees.value = calculatePerItemFees(parseFloat(dsTransactions.value), parseFloat(dsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	dsPerItemFee.onfocus = function(){
+		$("#dsTransactions").prop('disabled', true);
+	};
+
+	dsPerItemFee.onblur = function(){
+		setNilToZero(dsPerItemFee);
+		$("#dsTransactions").prop('disabled', false);
+		dsTotalPerItemFees.value = calculatePerItemFees(parseFloat(dsTransactions.value), parseFloat(dsPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	//Amex code.
+
+	amexResetButton.onclick = function() {
+		resetAmexValues();
+		calculateRemainingFees();
+	};
+	
+	amexCaretDownButton.onclick = function() {
+		$("#amexDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#amexCaretDown").toggleClass("fa-caret-down");
+		$("#amexCaretDown").toggleClass("fa-caret-up");
+	};
+
+	amexBpMarkUp.onfocus = function(){
+		$("#amexVolume").prop('disabled', true);
+	};
+
+	amexBpMarkUp.onblur = function(){
+		setNilToZero(amexBpMarkUp);
+		$("#amexVolume").prop('disabled', false);
+		amexTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(amexBpMarkUp.value), parseFloat(amexVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+
+	amexVolume.onfocus = function(){
+		$("#amexAvgTicket").prop('disabled', true);
+	};
+
+	amexVolume.onblur = function(){
+		setNilToZero(amexVolume);
+		$("#amexAvgTicket").prop('disabled', false);
+		amexTransactions.value = calculateTransactions(parseFloat(amexVolume.value), parseFloat(amexAvgTicket.value));
+		amexTotalPerItemFees.value = calculatePerItemFees(parseFloat(amexTransactions.value), parseFloat(amexPerItemFee.value));
+		amexTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(amexBpMarkUp.value), parseFloat(amexVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+	amexAvgTicket.onfocus = function(){
+		$("#amexTransactions").prop('disabled', true);
+	};
+
+	amexAvgTicket.onblur = function(){
+		setNilToZero(amexAvgTicket);
+		$("#amexTransactions").prop('disabled', false);
+		amexTransactions.value = calculateTransactions(parseFloat(amexVolume.value), parseFloat(amexAvgTicket.value));
+		amexTotalPerItemFees.value = calculatePerItemFees(parseFloat(amexTransactions.value), parseFloat(amexPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	amexTransactions.onfocus = function(){
+		$("#amexAvgTicket").prop('disabled', true);
+	};
+
+	amexTransactions.onblur = function(){
+		setNilToZero(amexTransactions);
+		$("#amexAvgTicket").prop('disabled', false);
+		amexAvgTicket.value = calculateAvgTicket(parseFloat(amexVolume.value), parseFloat(amexTransactions.value));
+		amexTotalPerItemFees.value = calculatePerItemFees(parseFloat(amexTransactions.value), parseFloat(amexPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	amexPerItemFee.onfocus = function(){
+		$("#amexTransactions").prop('disabled', true);
+	};
+
+	amexPerItemFee.onblur = function(){
+		setNilToZero(amexPerItemFee);
+		$("#amexTransactions").prop('disabled', false);
+		amexTotalPerItemFees.value = calculatePerItemFees(parseFloat(amexTransactions.value), parseFloat(amexPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	//Debit code.
+
+	debitResetButton.onclick = function() {
+		resetDebitValues();
+		calculateRemainingFees();
+	};
+	
+	debitCaretDownButton.onclick = function() {
+		$("#debitDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#debitCaretDown").toggleClass("fa-caret-down");
+		$("#debitCaretDown").toggleClass("fa-caret-up");
+	};
+
+	debitBpMarkUp.onfocus = function(){
+		$("#debitVolume").prop('disabled', true);
+	};
+
+	debitBpMarkUp.onblur = function(){
+		setNilToZero(debitBpMarkUp);
+		$("#debitVolume").prop('disabled', false);
+		debitTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(debitBpMarkUp.value), parseFloat(debitVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+
+	debitVolume.onfocus = function(){
+		$("#debitAvgTicket").prop('disabled', true);
+	};
+
+	debitVolume.onblur = function(){
+		setNilToZero(debitVolume);
+		$("#debitAvgTicket").prop('disabled', false);
+		debitTransactions.value = calculateTransactions(parseFloat(debitVolume.value), parseFloat(debitAvgTicket.value));
+		debitTotalPerItemFees.value = calculatePerItemFees(parseFloat(debitTransactions.value), parseFloat(debitPerItemFee.value));
+		debitTotalMarkUpFees.value = calculateMarkUpFees(parseFloat(debitBpMarkUp.value), parseFloat(debitVolume.value));
+
+		trueUpRemainingFees();
+	};
+
+	debitAvgTicket.onfocus = function(){
+		$("#debitTransactions").prop('disabled', true);
+	};
+
+	debitAvgTicket.onblur = function(){
+		setNilToZero(debitAvgTicket);
+		$("#debitTransactions").prop('disabled', false);
+		debitTransactions.value = calculateTransactions(parseFloat(debitVolume.value), parseFloat(debitAvgTicket.value));
+		debitTotalPerItemFees.value = calculatePerItemFees(parseFloat(debitTransactions.value), parseFloat(debitPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	debitTransactions.onfocus = function(){
+		$("#debitAvgTicket").prop('disabled', true);
+	};
+
+	debitTransactions.onblur = function(){
+		setNilToZero(debitTransactions);
+		$("#debitAvgTicket").prop('disabled', false);
+		debitAvgTicket.value = calculateAvgTicket(parseFloat(debitVolume.value), parseFloat(debitTransactions.value));
+		debitTotalPerItemFees.value = calculatePerItemFees(parseFloat(debitTransactions.value), parseFloat(debitPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	debitPerItemFee.onfocus = function(){
+		$("#debitTransactions").prop('disabled', true);
+	};
+
+	debitPerItemFee.onblur = function(){
+		setNilToZero(debitPerItemFee);
+		$("#debitTransactions").prop('disabled', false);
+		debitTotalPerItemFees.value = calculatePerItemFees(parseFloat(debitTransactions.value), parseFloat(debitPerItemFee.value));
+
+		trueUpRemainingFees();
+	};
+
+	//Other Fees Functions
+
+	$(".other-fees-field").on("blur", function(){
+		setNilToZero(this);
+		trueUpRemainingFees();
+	});
+
+	passCaretDownButton.onclick = function() {
+		$("#passDropDown").toggleClass("hidden-xs hidden-sm");
+		$("#passCaretDown").toggleClass("fa-caret-down");
+		$("#passCaretDown").toggleClass("fa-caret-up");
+	};
+
+	submitButtonTopForm.onclick = function(){
+		$(".totals-field").prop('disabled', false);
+	};
+
+	submitButtonBottomForm.onclick = function(){
+		$(".totals-field").prop('disabled', false);
+	};
+});
+</script>

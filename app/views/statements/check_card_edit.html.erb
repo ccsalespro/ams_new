@@ -1,0 +1,212 @@
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <div class="well clearfix">
+      <div class="col-xs-6 center" id="graph-container">
+      <div class="bar-graph" id="bar-graph-2"></div>
+      <div class="bar-graph" id="bar-graph-3"></div>
+      <div class="bar-graph" id="bar-graph-4"></div>
+      </div>
+      <div class="col-xs-6">
+      <%= form_for([@prospect, @statement]) do |f| %>
+
+        <div class="form-group">
+             <p class="bold program-form-margin text-center">Regulated</p>
+              <div class="input-group">
+             <%= f.text_field :check_card_percentage, value: number_with_precision(@statement.check_card_percentage, precision: 1), :class => "form-control", :data => { type: 'number' }, :id => "fieldOne" %>
+             <span class="input-group-addon" id="add-on-2">%</span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+             <p class="bold program-form-margin text-center">Unregulated</p>
+              <div class="input-group">
+             <%= f.text_field :unreg_debit_percentage, value: number_with_precision(@statement.unreg_debit_percentage, precision: 1), :class => "form-control", :data => { type: 'number' }, :id => "fieldTwo" %>
+             <span class="input-group-addon" id="add-on-3">%</span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+             <p class="bold program-form-margin text-center">Credit</p>
+              <div class="input-group">
+             <%= f.text_field :credit_percent, value: number_with_precision(@statement.credit_percent, precision: 1), :class => "form-control", :data => { type: 'number' }, :id => "fieldThree" %>
+             <span class="input-group-addon" id="add-on-4">%</span>
+            </div>
+        </div>
+        <br>
+        <%= button_tag("Adjust", :class => 'btn btn-primary btn-lg btn-block') %>
+        <br><br>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var fieldOne = document.getElementById("fieldOne");
+  var fieldTwo = document.getElementById("fieldTwo");
+  var fieldThree = document.getElementById("fieldThree");
+  var allFields = [fieldOne, fieldTwo, fieldThree];
+  var totalValues = 0
+
+  var barHeight = 323;
+  var animationSpeed = 400;
+  var barTwo = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barThree = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+  var barFour = ( parseFloat(fieldThree.value) / 100 ) * barHeight;
+
+$("document").ready(function() {
+  $("#bar-graph-2").animate({height: barTwo}, 0)
+  $("#bar-graph-3").animate({height: barThree}, 0)
+  $("#bar-graph-4").animate({height: barFour}, 0)
+});
+
+function calculateTotal(){
+  for (var i = 0; i < allFields.length; i++) {
+      allFields[i].locked = false;
+      totalValues += parseFloat(allFields[i].value);
+  }
+};
+
+window.onload = function(){
+  calculateTotal();
+}; 
+
+fieldOne.onblur = function() {
+  $("#bar-graph-2").css({ width : "75px", marginLeft : "30px"});
+  $("#bar-graph-2").removeClass("bar-shadow");
+  var currentField = fieldOne;
+  fieldOne.locked = true;
+
+  if (fieldTwo.locked == true && fieldThree.locked == true) {
+    fieldTwo.locked = false;
+    fieldThree.locked = false;
+  };
+
+  var unlockedFields = [];
+  var currentValues = 0
+
+  for (var i = 0, unlockedValues = 0; i < allFields.length; i++) {
+    currentValues += parseFloat(allFields[i].value);
+    if (allFields[i].locked == false && allFields[i] != currentField) {
+      unlockedFields.push(allFields[i]);
+      unlockedValues += parseFloat(allFields[i].value);
+    }
+  };
+
+  var currentFieldChangeAmount = 100 - currentValues;
+
+  for (var i = 0, change = 0.0; i < unlockedFields.length; i++) {
+    change = parseFloat(unlockedFields[i].value) / unlockedValues;
+    var newFieldValue = parseFloat(unlockedFields[i].value) + ( currentFieldChangeAmount * change );
+    unlockedFields[i].value = newFieldValue.toFixed(1);
+  };
+  var barTwo = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barThree = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+  var barFour = ( parseFloat(fieldThree.value) / 100 ) * barHeight;
+
+  $("document").ready(function() {
+    $("#bar-graph-2").animate({height: barTwo}, animationSpeed)
+    $("#bar-graph-3").animate({height: barThree}, animationSpeed)
+    $("#bar-graph-4").animate({height: barFour}, animationSpeed)
+  });
+};
+
+fieldTwo.onblur = function() {
+  $("#bar-graph-3").css({ width : "75px", marginLeft : "30px"});
+  $("#bar-graph-3").removeClass("bar-shadow");
+  var currentField = fieldTwo;
+  fieldTwo.locked = true;
+
+  if (fieldOne.locked == true && fieldThree.locked == true) {
+    fieldOne.locked = false;
+    fieldThree.locked = false;
+  };
+
+  var unlockedFields = [];
+  var currentValues = 0
+
+  for (var i = 0, unlockedValues = 0; i < allFields.length; i++) {
+    currentValues += parseFloat(allFields[i].value);
+    if (allFields[i].locked == false && allFields[i] != currentField) {
+      unlockedFields.push(allFields[i]);
+      unlockedValues += parseFloat(allFields[i].value);
+    }
+  };
+
+  var currentFieldChangeAmount = 100 - currentValues;
+
+  for (var i = 0, change = 0.0; i < unlockedFields.length; i++) {
+    change = parseFloat(unlockedFields[i].value) / unlockedValues;
+    var newFieldValue = parseFloat(unlockedFields[i].value) + ( currentFieldChangeAmount * change );
+    unlockedFields[i].value = newFieldValue.toFixed(1);
+  };
+  var barTwo = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barThree = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+  var barFour = ( parseFloat(fieldThree.value) / 100 ) * barHeight;
+
+  $("document").ready(function() {
+    $("#bar-graph-2").animate({height: barTwo}, animationSpeed)
+    $("#bar-graph-3").animate({height: barThree}, animationSpeed)
+    $("#bar-graph-4").animate({height: barFour}, animationSpeed)
+  });
+};
+
+fieldThree.onblur = function() {
+  $("#bar-graph-4").css({ width : "75px", marginLeft : "30px"});
+  $("#bar-graph-4").removeClass("bar-shadow");
+  var currentField = fieldThree;
+  fieldThree.locked = true;
+
+  if (fieldOne.locked == true && fieldTwo.locked == true) {
+    fieldOne.locked = false;
+    fieldTwo.locked = false;
+  };
+
+  var unlockedFields = [];
+  var currentValues = 0
+
+  for (var i = 0, unlockedValues = 0; i < allFields.length; i++) {
+    currentValues += parseFloat(allFields[i].value);
+    if (allFields[i].locked == false && allFields[i] != currentField) {
+      unlockedFields.push(allFields[i]);
+      unlockedValues += parseFloat(allFields[i].value);
+    }
+  };
+
+  var currentFieldChangeAmount = 100 - currentValues;
+
+  for (var i = 0, change = 0.0; i < unlockedFields.length; i++) {
+    change = parseFloat(unlockedFields[i].value) / unlockedValues;
+    var newFieldValue = parseFloat(unlockedFields[i].value) + ( currentFieldChangeAmount * change );
+    unlockedFields[i].value = newFieldValue.toFixed(1);
+  };
+  var barTwo = ( parseFloat(fieldOne.value) / 100 ) * barHeight;
+  var barThree = ( parseFloat(fieldTwo.value) / 100 ) * barHeight;
+  var barFour = ( parseFloat(fieldThree.value) / 100 ) * barHeight;
+
+  $("document").ready(function() {
+    $("#bar-graph-2").animate({height: barTwo}, animationSpeed)
+    $("#bar-graph-3").animate({height: barThree}, animationSpeed)
+    $("#bar-graph-4").animate({height: barFour}, animationSpeed)
+  });
+};
+
+$("document").ready(function() {
+  fieldOne.onfocus = function() {
+    $("#bar-graph-2").css({ width : "81px", marginLeft : "27px"});
+    $("#bar-graph-2").addClass("bar-shadow")
+  };
+
+  fieldTwo.onfocus = function() {
+    $("#bar-graph-3").css({ width : "81px", marginLeft : "27px"});
+    $("#bar-graph-3").addClass("bar-shadow")
+  };
+
+  fieldThree.onfocus = function() {
+    $("#bar-graph-4").css({ width : "81px", marginLeft : "27px"});
+    $("#bar-graph-4").addClass("bar-shadow")
+  };
+});
+</script>

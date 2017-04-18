@@ -152,6 +152,144 @@ class ComparisonsController < ApplicationController
   def show
     @program = Program.find_by_id(@comparison.program_id)
     @statement = Statement.find_by_id(@comparison.statement_id)
+
+    @vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees)
+    @total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees)
+    @mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees)
+    @total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees)
+    @ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees)
+    @total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
+    
+    if @statement.debit_vol > 0
+      @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee))
+    else
+      @total_debit_fees = 0
+    end
+
+    if @statement.amex_vol > 0
+    @amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 ) )
+    @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up)
+    else
+    @amex_mark_up = 0
+    @total_amex_fees = 0
+    end
+
+    @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans
+    @total_cost = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees + @statement.debit_network_fees + @statement.amex_interchange
+    @total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
+    @total_credit_card_vol = (@statement.total_vol - (@statement.debit_vol + @statement.check_card_vol + @statement.unreg_debit_vol))
+    
+    @other_fees = ( @comparison.total_program_fees - (@total_amex_fees + @total_debit_fees + @total_visa_fees + @total_mc_fees + @total_ds_fees))
+    @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans  
+    @total_credit_card_vol = (@statement.total_vol - (@statement.debit_vol + @statement.check_card_vol + @statement.unreg_debit_vol))
+
+    #Side by Side Passthrough Variables
+    @visa_credit_volume = (@statement.vs_volume * (@statement.credit_percent / 100)) 
+    @visa_check_card_volume = (@statement.vs_volume * ((100 - @statement.credit_percent) / 100)) 
+    
+    @current_vs_da = (@visa_credit_volume * (@statement.c_visa_access_percentage / 10000)) + 
+    ((@visa_credit_volume / @statement.vs_avg_ticket) * @statement.c_visa_access_per_item) +
+    (@visa_check_card_volume * (@statement.c_check_card_access_percentage / 10000)) +
+    ((@visa_check_card_volume / @statement.vs_avg_ticket) * @statement.c_check_card_access_per_item)
+    
+    @current_mc_da = @statement.mc_volume * (@statement.c_mc_access_percentage / 10000) +
+      @statement.mc_transactions * @statement.c_mc_access_per_item
+    @current_ds_da = @statement.ds_volume * (@statement.c_disc_access_percentage / 10000) +
+      @statement.ds_transactions * @statement.c_disc_access_per_item
+
+    @total_current_access_fees = @current_vs_da + @current_mc_da + @current_ds_da
+
+    @total_current_pass_through = @statement.current_interchange + 
+    @statement.c_network_access_fees + 
+    @statement.c_opt_blue_fees +
+    @total_current_access_fees
+
+    @total_proposed_pass_through = @statement.vmd_interchange + 
+    @statement.debit_network_fees + 
+    @statement.amex_interchange + 
+    @total_access_fees
+
+    @passthrough_savings = @total_current_pass_through - @total_proposed_pass_through
+
+    #Side by Side Processing Variables
+    @total_current_processing = @statement.vs_total_per_item_fees + @statement.mc_total_per_item_fees + @statement.ds_total_per_item_fees +
+      @statement.vs_total_bp_mark_up + @statement.mc_total_bp_mark_up + @statement.ds_total_bp_mark_up + @statement.amex_total_per_item_fees +
+      @statement.debit_total_per_item_fees + @statement.amex_total_bp_mark_up + @statement.debit_total_bp_mark_up
+    
+    @total_proposed_processing = ( @statement.vmd_trans * @comparison.per_item_fee ) + (@statement.vmd_vol * ( @comparison.bp_mark_up.to_f / 10000) ) + 
+      @comparison.debit_trans_fees + @comparison.amex_trans_fees + @comparison.amex_mark_up_fees
+
+    @processing_savings = @total_current_processing - @total_proposed_processing
+
+    #Side by Side Other Fees Variables
+    @total_current_other_fees = (@statement.c_batch_fee * @statement.batches) + 
+    @statement.c_monthly_fees +
+    @statement.c_monthly_pci_fee + 
+    @statement.c_monthly_debit_fee + 
+    @statement.c_annual_fee
+
+    @other_fees_savings = @total_current_other_fees - @other_fees
+
+    #Side by Side Totals Summary
+    @total_current = @statement.total_fees
+    @total_proposed = @comparison.total_program_fees
+    @total_savings = @comparison.total_program_savings
+
+    #Side by Side Processing Fees
+    @vs_current_processing_fees = @statement.vs_total_per_item_fees + @statement.vs_total_bp_mark_up
+    @vs_proposed_processing_fees = @comparison.vs_mark_up_fees + @comparison.vs_trans_fees
+    @vs_processing_savings = @vs_current_processing_fees - @vs_proposed_processing_fees
+
+    @mc_current_processing_fees = @statement.mc_total_per_item_fees + @statement.mc_total_bp_mark_up
+    @mc_proposed_processing_fees = @comparison.mc_mark_up_fees + @comparison.mc_trans_fees
+    @mc_processing_savings = @mc_current_processing_fees - @mc_proposed_processing_fees
+
+    @ds_current_processing_fees = @statement.ds_total_per_item_fees + @statement.ds_total_bp_mark_up
+    @ds_proposed_processing_fees = @comparison.ds_mark_up_fees + @comparison.ds_trans_fees
+    @ds_processing_savings = @ds_current_processing_fees - @ds_proposed_processing_fees
+
+    @amex_current_processing_fees = @statement.amex_total_bp_mark_up + @statement.amex_total_per_item_fees
+    @amex_proposed_processing_fees = @comparison.amex_trans_fees + @comparison.amex_mark_up_fees
+    @amex_processing_savings = @amex_current_processing_fees - @amex_proposed_processing_fees
+
+    @debit_current_processing_fees = @statement.debit_total_bp_mark_up + @statement.debit_total_per_item_fees
+    @debit_proposed_processing_fees = @comparison.debit_trans_fees
+    @debit_processing_savings = @debit_current_processing_fees - @debit_proposed_processing_fees
+
+    @vs_mark_up_savings = @statement.vs_total_bp_mark_up - (@statement.vs_volume * (@comparison.bp_mark_up.to_f / 10000))
+    @vs_per_item_savings = @statement.vs_total_per_item_fees - (@statement.vs_transactions * @comparison.per_item_fee)
+
+    @mc_mark_up_savings = @statement.mc_total_bp_mark_up - (@statement.mc_volume * (@comparison.bp_mark_up.to_f / 10000))
+    @mc_per_item_savings = @statement.mc_total_per_item_fees - (@statement.mc_transactions * @comparison.per_item_fee)
+
+    @ds_mark_up_savings = @statement.ds_total_bp_mark_up - (@statement.ds_volume * (@comparison.bp_mark_up.to_f / 10000))
+    @ds_per_item_savings = @statement.ds_total_per_item_fees - (@statement.ds_transactions * @comparison.per_item_fee)
+
+    @amex_mark_up_savings = @statement.amex_total_bp_mark_up - (@statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000))
+    @amex_per_item_savings = @statement.amex_total_per_item_fees - (@statement.amex_trans * @comparison.amex_per_item_fee)
+
+    @type = CustomFieldType.find_by_slug_string("pin_volume_bp")
+    @fields = @program.custom_fields.where(custom_field_type_id: @type.id)
+    if @fields != nil
+      @debit_bp_mark_up = 0
+      @fields.each do |field|
+      @debit_bp_mark_up += field.amount
+
+      end
+      @debit_mark_up_savings = @statement.debit_total_bp_mark_up - (@statement.debit_vol * (@debit_bp_mark_up.to_f / 10000))
+    else
+      @debit_mark_up_savings = @statement.debit_total_bp_mark_up - 0
+    end
+
+    @debit_per_item_savings = @statement.debit_total_per_item_fees - (@statement.debit_trans * @comparison.pin_debit_per_item_fee)
+    @current_monthly_fees = @statement.c_monthly_fees + @statement.c_monthly_pci_fee + @statement.c_monthly_debit_fee + ( @statement.c_annual_fee / 12 )
+    @proposed_monthly_fees = @comparison.monthly_fees + @comparison.monthly_pci_fees + @comparison.custom_monthly_fees
+    @monthly_fee_savings = @current_monthly_fees - @proposed_monthly_fees
+
+    @current_batch_fees = @statement.c_batch_fee * @statement.batches
+    @proposed_batch_fees = @comparison.per_batch_fee * @statement.batches
+    @batch_fee_savings = @current_batch_fees - @proposed_batch_fees
+
     @statement.presented_program = @program.name
     @statement.save
     respond_to do |format| 

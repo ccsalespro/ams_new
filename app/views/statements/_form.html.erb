@@ -5,7 +5,7 @@
       <h2><%= pluralize(@statement.errors.count, "error") %> prohibited this statement from being saved:</h2>
 
       <ul>
-      <% @statement.errors.full_messages.each do |message| %>
+      <% @statement.errors.each do |attr, message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -61,8 +61,8 @@
       </div>
   </div><br>
   <center>
-  <%= button_tag("Create", :class => 'btn btn-primary', :id => 'statementFormButton') %>
-  <%= link_to(content_tag(:button, 'Cancel', :class => 'btn btn-primary'), prospects_path) %><br><br>
+  <%= button_tag("Create", :class => 'btn btn-primary btn-lg btn-block', :id => 'statementFormButton') %><br /><br />
+  <%= link_to 'Cancel', prospects_path %><br><br>
 </center>
   <div class="field">
       <%= f.hidden_field(:prospect_id) %>
