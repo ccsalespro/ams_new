@@ -12,45 +12,52 @@ class ComparisonsController < ApplicationController
       if @programs.first == nil
         redirect_to programs_path, notice: 'Please Add at Least 1 Processor / Program'
       else
-      @comparisons = []
-      @programs.each do |program|
-        @comparison = Comparison.new
-        set_comparison_references(@comparison, @statement, program)
-        set_all_custom_field_c_values_to_zero(@comparison)
-        set_custom_fields(        @comparison, @statement, program)
-        set_other_fees(           @comparison, @statement, program)    
-        set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
-        set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up) 
-        set_vmd_access_fees(      @comparison, @statement)
-        set_amex_fees(            @comparison, @statement)
-        set_debit_fees(           @comparison, @statement)      
-        set_total_fees(           @comparison, @statement)     
-        set_vmd_costs(            @comparison, @statement, program)
-        set_amex_costs(           @comparison, @statement, program)
-        set_debit_costs(          @comparison, @statement, program)
-        set_other_costs(          @comparison, @statement, program)
-        set_total_costs(          @comparison, @statement, program)
-        set_compensation(         @comparison, program)
-        set_conditional_savings(  @comparison, @statement)
-        set_fixed_values(         @comparison)
+        @comparisons = []
+        @programs.each do |program|
+          @comparison = Comparison.new
+          set_comparison_references(@comparison, @statement, program)
+          set_all_custom_field_c_values_to_zero(@comparison)
+          set_custom_fields(        @comparison, @statement, program)
+          set_other_fees(           @comparison, @statement, program)    
+          set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
+          set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up) 
+          set_vmd_access_fees(      @comparison, @statement)
+          set_amex_fees(            @comparison, @statement)
+          set_debit_fees(           @comparison, @statement)      
+          set_total_fees(           @comparison, @statement)     
+          set_vmd_costs(            @comparison, @statement, program)
+          set_amex_costs(           @comparison, @statement, program)
+          set_debit_costs(          @comparison, @statement, program)
+          set_other_costs(          @comparison, @statement, program)
+          set_total_costs(          @comparison, @statement, program)
+          set_compensation(         @comparison, program)
+          set_conditional_savings(  @comparison, @statement)
+          set_fixed_values(         @comparison)
+          
+          set_per_item_change(      @comparison, @statement)
+          set_bp_change(            @comparison, @statement, @comparison.per_item_change)
+          set_starting_fees(        @comparison)
         
-        set_per_item_change(      @comparison, @statement)
-        set_bp_change(            @comparison, @statement, @comparison.per_item_change)
-        set_starting_fees(        @comparison)
-        
-        set_vmd_per_item_fees(    @comparison, @statement, @comparison.starting_per_item )
-        set_vmd_mark_up(          @comparison, @statement, @comparison.starting_bp)
-        set_total_fees(           @comparison, @statement)
-        set_total_savings(        @comparison, @statement)
-        set_compensation(         @comparison, program)
-        
-        @comparison.save
-        create_cc_fields(         @comparison, program)
+          set_vmd_per_item_fees(    @comparison, @statement, @comparison.starting_per_item )
+          set_vmd_mark_up(          @comparison, @statement, @comparison.starting_bp)
+          set_total_fees(           @comparison, @statement)
+          set_total_savings(        @comparison, @statement)
+          set_compensation(         @comparison, program)
+          
+          @comparison.save
+          create_cc_fields(         @comparison, program)
 
-        @comparisons << @comparison
+          @comparisons << @comparison
+        end
+        @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
+        if Programuser.where(user_id: current_user.id).where(default_program: true).present?
+          @program_user = Programuser.where(user_id: current_user.id).where(default_program: true).first
+          @comparison = @comparisons.find {|c| c.program_id == @program_user.program_id}
+          if @comparison != nil
+            redirect_to prospect_statement_comparison_path(@prospect, @statement, @comparison)
+          end
+        end
       end
-      @comparisons = @comparisons.sort_by { |x| -x[:total_program_savings] }
-    end
     end
   end
 
@@ -183,6 +190,7 @@ class ComparisonsController < ApplicationController
     @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans  
     @total_credit_card_vol = (@statement.total_vol - (@statement.debit_vol + @statement.check_card_vol + @statement.unreg_debit_vol))
 
+    if @statement.vs_total_per_item_fees != nil
     #Side by Side Passthrough Variables
     @visa_credit_volume = (@statement.vs_volume * (@statement.credit_percent / 100)) 
     @visa_check_card_volume = (@statement.vs_volume * ((100 - @statement.credit_percent) / 100)) 
@@ -289,7 +297,8 @@ class ComparisonsController < ApplicationController
     @current_batch_fees = @statement.c_batch_fee * @statement.batches
     @proposed_batch_fees = @comparison.per_batch_fee * @statement.batches
     @batch_fee_savings = @current_batch_fees - @proposed_batch_fees
-
+  end
+  
     @statement.presented_program = @program.name
     @statement.save
     respond_to do |format| 

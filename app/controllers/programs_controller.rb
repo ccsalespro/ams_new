@@ -1,5 +1,7 @@
 class ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :edit, :update, :destroy, :clone]
+
+
+  before_action :set_program, only: [:show, :edit, :update, :destroy, :clone, :set_default_program]
   before_filter :load_processor, except: [:index]
   before_action :authenticate_user!
   before_action :require_program_ownership, only: [:edit, :destroy]
@@ -27,6 +29,24 @@ class ProgramsController < ApplicationController
       end
     end
   end
+  end
+
+  def set_default_program
+    @programuser = Programuser.where(program_id: @program.id).where(user_id: current_user.id).first
+    @programuser.default_program = true
+    @programuser.save
+
+    @programusers = Programuser.where(user_id: current_user.id)
+    @programusers.each do |pu|
+      if pu.id == @programuser.id
+        pu.default_program = true
+      else
+        pu.default_program = false
+      end
+      pu.save
+    end
+
+    redirect_to programs_path
   end
 
   def import

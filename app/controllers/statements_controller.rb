@@ -71,8 +71,7 @@ class StatementsController < ApplicationController
   # GET /statements/new
   def new
     @statement = @prospect.statements.new
-    new_average_ticket_calc(@prospect.description_id)
-    @statement.avg_ticket = @avg_ticket_calculation
+    @statement.avg_ticket = new_average_ticket_calc(@prospect.description_id)
   end
 
   # GET /statements/1/edit
@@ -157,7 +156,7 @@ class StatementsController < ApplicationController
         @statement.form_name = "primary_form"
         @statement.save
         
-        format.html { redirect_to edit_prospect_statement_path(@prospect, @statement)}
+        format.html { redirect_to prospect_statement_comparisons_path(@prospect, @statement)}
         format.json { render :edit, status: :created, location: @statement }
       else
         format.html { render :new }

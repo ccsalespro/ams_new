@@ -1,12 +1,15 @@
+    <br /><div class="text-center">
+      <%= link_to "Adjust Fees", edit_prospect_statement_path(@prospect, @statement), :class => 'btn btn-primary btn-lg' %>
+    </div>
     <div id="navPillDiv" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 nav-pill-div">
       <ul class="nav nav-tabs nav-justified">
-      <li class="tab-box-li" id="detailButton"><a style="padding: 7px !important;" class="black">Detail View</a></li>
+      <li class="tab-box-li active" id="detailButton"><a style="padding: 7px !important;" class="black">Detail View</a></li>
       <li class="tab-box-li" id="summaryButton"><a style="padding: 7px !important;" class="black">Summary View</a></li>
-      <li class="tab-box-li active" id="sideBySideButton"><a style="padding: 7px !important;" class="black">Side By Side</a></li>
+      <li class="tab-box-li" id="sideBySideButton"><a style="padding: 7px !important;" class="black">Side By Side</a></li>
       </ul>
     </div>
 
-<div id="detailTab" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hidden tab-content">
+<div id="detailTab" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 tab-content">
   <%= link_to(content_tag(:button, '< Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
   <span class="pull-right hideme" style=""><%= link_to("PDF", savings_detail_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %>  <%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
 
@@ -438,12 +441,14 @@
   </table>
 </div>
 
-<div id="sideBySideTab" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 tab-content">
+<div id="sideBySideTab" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 hidden tab-content">
   <%= link_to(content_tag(:button, '< Programs', :class => 'btn btn-primary pull-left'), prospect_statement_comparisons_path(@prospect, @statement)) %>
-  <span class="pull-right hideme" style=""><%= link_to("PDF", savings_detail_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %>  <%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
+  <span class="pull-right hideme" style=""><%= link_to("PDF", savings_summary_prospect_statement_comparison_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary', style: 'margin-right: 5px !important;' ) %><%= link_to "Pricing Wizard", edit_prospect_statement_comparison_path(@prospect, @statement, @comparison), class: 'btn btn-primary pull-right' %></span>
 
-  <% if @statement.total_fees == 0 %>
-    <p> Please Enter Current Fees </p>
+  <% if @statement.total_fees == 0 || @statement.vs_total_per_item_fees == nil%><br /><br /><br /><br />
+    <div class="text-center">
+    <%= link_to "Create Side by Side", edit_prospect_statement_path(@prospect, @statement), :class => 'btn btn-primary btn-lg' %>
+    </div><br /><br />
   <% else %>
   <% if @statement.total_fees > 0 %>
   <div class="clearfix"></div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418124936) do
+ActiveRecord::Schema.define(version: 20170617001856) do
 
   create_table "cc_fields", force: :cascade do |t|
     t.integer  "comparison_id"
@@ -499,6 +499,7 @@ ActiveRecord::Schema.define(version: 20170418124936) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.boolean  "edit_permission", default: false
+    t.boolean  "default_program", default: false
   end
 
   add_index "programusers", ["program_id"], name: "index_programusers_on_program_id"

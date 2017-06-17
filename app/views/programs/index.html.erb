@@ -10,6 +10,7 @@
   <thead>
     <tr class="white total">
       <th>Processor</th>
+      <th>Default</th>
       <th>Name</th>
       <th>Min</th>
       <th>Max</th>
@@ -26,6 +27,12 @@
     <% @sorted_programs.each do |program| %>
       <tr>
         <% @processor = Processor.find_by_id(program.processor_id) %>
+        <% @programuser = Programuser.where(program_id: program.id).where(user_id: current_user.id).first %>
+        <% if @programuser.default_program == true %>
+          <td><b>Default Program</b></td>
+        <% else %>
+          <td><%= link_to("Set Default", set_default_program_processor_program_path(@processor, program), class: "btn btn-primary") %></td>
+        <% end %>
         <td><%= @processor.name %></td>
         <td class="hidden-sm"><span class="hidden-md"><%= program.name %></span><span class="visible-md"><%= truncate(program.name, length: 30) %></span></td>
         <td><%= number_to_currency(program.min_volume) %></td>

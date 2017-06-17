@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :team_types
   resources :team_users
   devise_for :users, controllers: {:registrations => 'registrations', :invitations => 'users/invitations'}
-  resources :custom_field_types
   resources :courseusers
   resources :systems
   resources :structures
@@ -18,6 +17,10 @@ Rails.application.routes.draw do
   resources :images
   resource :subscription
   resource :card
+
+  resources :custom_field_types do
+    collection {post :import}
+  end
 
   resources :teams do 
     resources :team_users, path: :users
@@ -79,6 +82,9 @@ Rails.application.routes.draw do
   resources :processors do
     resources :programs do
       collection { post :import }
+      member do 
+        get 'set_default_program'
+      end
     end
   end
 
