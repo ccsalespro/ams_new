@@ -8,6 +8,11 @@ class CustomFieldTypesController < ApplicationController
     @custom_field_types = CustomFieldType.all
   end
 
+  def import
+    CustomFieldType.import(params[:file])
+    redirect_to custom_field_types_path, notice: "Field Types Imported"
+  end
+
   # GET /custom_field_types/1
   # GET /custom_field_types/1.json
   def show

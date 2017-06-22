@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy, :complete]
-  before_action :load_chapter
-  before_action :load_course
+  before_action :load_chapter, except: [:index, :import]
+  before_action :load_course, except: [:index, :import]
   before_action :require_admin, only: [:new, :create, :update, :edit, :destroy, :index]
 
 
@@ -9,6 +9,11 @@ class LessonsController < ApplicationController
   # GET /lessons.json
   def index
     @lessons = Lesson.all
+  end
+
+  def import
+    Lesson.import(params[:file])
+    redirect_to lessons_path, notice: "lessons Imported"
   end
 
   # GET /lessons/1

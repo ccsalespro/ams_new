@@ -8,7 +8,11 @@ class Inttype < ActiveRecord::Base
 		CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
 			inttype_hash = row.to_hash
 			inttype = Inttype.find_by_id(inttype_hash["id"])
-			inttype.update_attributes(row.to_hash)
+			if inttype != nil
+				inttype.update_attributes(row.to_hash)
+			else
+				Inttype.create! row.to_hash
+			end
 		end	
 	end
 

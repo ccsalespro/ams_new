@@ -10,6 +10,11 @@ class CoursesController < ApplicationController
     @courses = @search.result
   end
 
+  def import
+    Course.import(params[:file])
+    redirect_to courses_path, notice: "Courses Imported"
+  end
+
   # GET /courses/1
   # GET /courses/1.json
   def show

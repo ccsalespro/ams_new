@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
 
   root to: 'prospects#index'
+  resources :courses do
+    collection { post :import }
+  end
 
+  resources :lessons do
+    collection { post :import }
+  end
+
+  resources :chapters do
+    collection { post :import }
+  end
   resources :team_user_roles
   resources :team_types
   resources :team_users

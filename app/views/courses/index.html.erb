@@ -1,7 +1,15 @@
 <br><br>
 
 <div class="container">
+<% if user_signed_in? && current_user.admin? %>
 
+    <%= form_tag import_courses_path, multipart: true do %>
+
+      <%= file_field_tag :file, style: 'margin-bottom: 5px !important;', id: 'import_field' %>
+      <%= submit_tag "Import", :class => 'btn btn-primary', id: 'import_btn' %>
+    <% end %>
+
+<% end %>
 <div class="col-md-8 col-md-offset-2 col-lg-12 col-lg-offset-0">
 <%= search_form_for @search do |f| %>
   <div class="input-group stylish-input-group clearfix">

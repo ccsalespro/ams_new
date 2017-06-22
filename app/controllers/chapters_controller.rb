@@ -1,12 +1,17 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :edit, :update, :destroy]
-  before_action :load_course
+  before_action :load_course, except: [:index, :import]
   before_action :require_admin, only: [:new, :create, :update, :edit, :destroy, :index]
   
   # GET /chapters
   # GET /chapters.json
   def index
     @chapters = Chapter.all
+  end
+
+  def import
+    Chapter.import(params[:file])
+    redirect_to chapters_path, notice: "Chapters Imported"
   end
 
   # GET /chapters/1
