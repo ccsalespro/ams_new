@@ -31,7 +31,9 @@
         <tr class="white total">
             <th class="statement-name">Name</th>
             <th><span class="hidden-xs">Bonus</span><span class="visible-xs">B</span></th>
-            <th><span class="hidden-xs">Residual</span><span class="visible-xs">R</span></th>
+            <% if current_user.admin %>
+              <th><span class="hidden-xs">Residual</span><span class="visible-xs">R</span></th>
+            <% end %>
             <th><span class="hidden-xs">Basis Points</span><span class="visible-xs">BP</span></th>
             <th><span class="hidden-xs">Trans Fee</span><span class="visible-xs">TF</span></th>
             <% if @statement.total_fees != 0 %>
