@@ -205,14 +205,6 @@ ActiveRecord::Schema.define(version: 20170617001856) do
   add_index "courseusers", ["course_id"], name: "index_courseusers_on_course_id"
   add_index "courseusers", ["user_id"], name: "index_courseusers_on_user_id"
 
-  create_table "custom_comparison_field_types", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "slug_string"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "custom_field_types", force: :cascade do |t|
     t.string   "name"
     t.string   "description"

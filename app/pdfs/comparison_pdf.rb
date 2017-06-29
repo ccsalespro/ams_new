@@ -7,7 +7,7 @@ class ComparisonPdf < Prawn::Document
 		@comparison = comparison
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/retriever-logo.png", :height => 40
+		image "#{Rails.root}/app/assets/images/ibp-logo.png", :height => 40
 		company_info
 		prospect_name
 		user_labels
@@ -23,8 +23,8 @@ class ComparisonPdf < Prawn::Document
 
 	def company_info
 		move_down 10
-		text "Phone:  877-599-3875", size: 15, style: :bold, align: :left
-		text "Website:  rmsnpc.com", size: 15, style: :bold, align: :left
+		text "Phone:  (888) 930-9057", size: 15, style: :bold, align: :left
+		text "Website:  ibpinfo.biz", size: 15, style: :bold, align: :left
 	end
 
 	def prospect_name
@@ -54,7 +54,7 @@ class ComparisonPdf < Prawn::Document
 			columns(1..3).width = 125
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -123,7 +123,7 @@ class ComparisonPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 150
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 

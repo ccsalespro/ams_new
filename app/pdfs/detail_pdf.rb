@@ -8,7 +8,7 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/retriever-logo.png", :height => 40
+		image "#{Rails.root}/app/assets/images/ibp-logo.png", :height => 40
 		company_info
 		prospect_name
 		user_labels
@@ -36,8 +36,8 @@ class DetailPdf < Prawn::Document
 
 	def company_info
 		move_down 10
-		text "Phone:  877-599-3875", size: 15, style: :bold, align: :left
-		text "Website:  rmsnpc.com", size: 15, style: :bold, align: :left
+		text "Phone:  (888) 930-9057", size: 15, style: :bold, align: :left
+		text "Website:  ibpinfo.biz", size: 15, style: :bold, align: :left
 	end
 
 	def card_type_title
@@ -81,7 +81,7 @@ class DetailPdf < Prawn::Document
 				columns(4).width = 65
 				self.row_colors = ["f2f2f2", "FFFFFF"]
 				self.header = true
-				self.row(0).background_color = '03af52'
+				self.row(0).background_color = 'CA892B'
 				self.row(0).text_color = 'FFFFFF'
 				self.position = :center
 			end
@@ -114,7 +114,7 @@ class DetailPdf < Prawn::Document
 			columns(4).width = 65
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -403,7 +403,7 @@ class DetailPdf < Prawn::Document
 			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -487,7 +487,7 @@ class DetailPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 171.666
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
@@ -507,7 +507,7 @@ class DetailPdf < Prawn::Document
 			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = '03af52'
+			self.row(0).background_color = 'CA892B'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
