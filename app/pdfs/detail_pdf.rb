@@ -8,7 +8,7 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/ipb-logo.png", :height => 40
+		image "#{Rails.root}/app/assets/images/ibp-logo-lg.png", :height => 50
 		company_info
 		prospect_name
 		user_labels

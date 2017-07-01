@@ -7,7 +7,7 @@ class ComparisonPdf < Prawn::Document
 		@comparison = comparison
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/ipb-logo.png", :height => 40
+		image "#{Rails.root}/app/assets/images/ibp-logo-lg.png", :height => 40
 		company_info
 		prospect_name
 		user_labels
