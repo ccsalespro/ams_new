@@ -54,7 +54,9 @@
      <td class="visible-sm"><%= truncate(@program.name, length: 30) %></td>
      <td class="visible-md visible-lg"><%= truncate(@program.name, length: 80) %></td>
        <td class="text-left">$<%= number_with_precision(comparison.total_program_bonus, precision: 0) %></td>
-       <td class="text-left">$<%= number_with_precision(comparison.total_program_residuals, precision: 0) %></td>
+       <% if current_user.admin %>
+        <td class="text-left">$<%= number_with_precision(comparison.total_program_residuals, precision: 0) %></td>
+       <% end %>
        <% if comparison.bp_mark_up < 10 %>
         <td><%= number_with_precision(comparison.bp_mark_up, precision: 1) %></td>
        <% else %>
