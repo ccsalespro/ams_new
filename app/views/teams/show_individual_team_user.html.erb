@@ -206,18 +206,6 @@
                                             <% else %>
                                                 <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
                                             <% end -%>
-                                            <span class="pull-right text-muted small"><em>
-                                                <% if user.confirmed_at == nil %>
-                                                        <span class="label label-danger">Unconfirmed</span>
-                                                    <% elsif user.confirmed_at != nil && user.stripe_subscription_id == nil %>
-                                                        <span class="label label-primary">Trial User</span>
-                                                    <% elsif user.confirmed_at != nil && user.stripe_subscription_id != nil %>
-                                                        <span class="label label-success">Active</span>
-                                                    <% else %>
-                                                        <span class="label label-info">Unknown Status</span>
-                                                <% end %>
-                                            </em>
-                                            </span>
                                         <% end -%>
                                     <% else %>
                                         <%= link_to team_show_individual_team_user_path(:user_id => user.id, :team_id => @team.id), class: 'list-group-item', style: 'margin-right: 5px;' do %>
@@ -226,18 +214,6 @@
                                             <% else %>
                                                 <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
                                             <% end -%>
-                                            <span class="pull-right text-muted small"><em>
-                                                <% if user.confirmed_at == nil %>
-                                                        <span class="label label-danger">Unconfirmed</span>
-                                                    <% elsif user.confirmed_at != nil && user.stripe_subscription_id == nil %>
-                                                        <span class="label label-primary">Trial User</span>
-                                                    <% elsif user.confirmed_at != nil && user.stripe_subscription_id != nil %>
-                                                        <span class="label label-success">Active</span>
-                                                    <% else %>
-                                                        <span class="label label-info">Unknown Status</span>
-                                                <% end %>
-                                            </em>
-                                            </span>
                                         <% end -%>
                                     <% end -%>
                             <% end -%>

@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-	default to: "support@rmsuniversity.com"
+	default to: "altoonayouth@gmail.com"
 
 
 	def mandrill_client

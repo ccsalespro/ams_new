@@ -169,18 +169,8 @@
                                         <% else %>
                                             <i class="fa fa-user" style="margin-right: 10px;"></i> <%= user.first_name %> <%= user.last_name %>
                                         <% end -%>
-                                        <span class="pull-right text-muted small"><em>
-                                            <% if user.trial_end_date > Time.now %>
-                                                    <span class="label label-primary">Trial User</span>
-                                                <% elsif user.stripe_subscription_id != nil %>
-                                                    <span class="label label-success">Active</span>
-                                                <% else %>
-                                                    <span class="label label-info">Unknown Status</span>
-                                            <% end %>
-                                        </em>
-                                        </span>
                                     <% end -%>
-                            <% end -%>
+                                <% end -%>
                             </div>
                         </div>
                         <!-- /.panel-body -->
