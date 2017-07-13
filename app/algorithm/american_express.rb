@@ -16,7 +16,7 @@ class AmericanExpress
 
 	def set_amex_avg_ticket
 		if @statement.amex_vol > 0
-			@statement.amex_avg_ticket = @statement.avg_ticket + (@statement.avg_ticket * 0.5)
+			@statement.amex_avg_ticket = @statement.avg_ticket + @statement.avg_ticket
 			if @statement.amex_vol < @statement.amex_avg_ticket
 				@statement.amex_avg_ticket = @statement.amex_vol
 			end

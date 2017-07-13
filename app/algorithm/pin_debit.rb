@@ -12,7 +12,7 @@ class PinDebit
 
 	def set_debit_avg_ticket
 		if @statement.debit_vol > 0
-			@statement.debit_avg_ticket = (@statement.avg_ticket * 0.8)
+			@statement.debit_avg_ticket = @statement.avg_ticket 
 			if @statement.debit_vol < @statement.debit_avg_ticket
 				@statement.debit_avg_ticket = @statement.debit_vol
 			end
