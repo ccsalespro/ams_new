@@ -12,6 +12,7 @@ class DetailPdf < Prawn::Document
 		company_info
 		prospect_name
 		user_labels
+		proposal_note
 		if @statement.total_fees > 0
 			savings_amounts_table
 		end
@@ -21,7 +22,6 @@ class DetailPdf < Prawn::Document
 		individual_cost_table
 		individual_fields_table
 		one_time_fees_table
-		proposal_note
 	end
 
 	def proposal_note

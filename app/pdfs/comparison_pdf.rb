@@ -11,9 +11,9 @@ class ComparisonPdf < Prawn::Document
 		company_info
 		prospect_name
 		user_labels
+		proposal_note
 		card_types
 		savings_amounts
-		proposal_note
 	end
 
 	def proposal_note
