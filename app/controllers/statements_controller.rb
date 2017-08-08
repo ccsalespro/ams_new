@@ -1,8 +1,16 @@
 class StatementsController < ApplicationController
   before_action :set_statement, only: [:volume_update, :increase_interchange, :decrease_interchange, :show, :edit, :method_edit, :brand_edit, :card_type_edit, :check_card_edit, :update, :destroy, :unregulated_check_card_update, :regulated_check_card_update, :downgrade_edit, :check_card_update, :btob_update, :moto_update, :interchange_update, :ecomm_update]
-  before_filter :load_prospect, except: [:downgrade_update]
+  before_filter :load_prospect, except: [:index, :import, :downgrade_update]
   before_action :authenticate_user!
 
+  def index
+    @statements = Statement.all
+  end
+
+  def import
+    Statement.import(params[:file])
+    redirect_to statements_path, notice: "Items imported"
+  end
   # GET /statements/1
   # GET /statements/1.json
   def show

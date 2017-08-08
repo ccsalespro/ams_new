@@ -1,4 +1,13 @@
 <p id="notice"><%= notice %></p>
+
+<% if user_signed_in? && current_user.admin? %>
+
+    <%= form_tag import_statements_path, multipart: true do %>
+
+      <%= file_field_tag :file, style: 'margin-bottom: 5px !important;', id: 'import_field' %>
+      <%= submit_tag "Import", :class => 'btn btn-primary', id: 'import_btn' %>
+    <% end %>
+<% end %>
 <center>
 <h1>Listing Statements</h1>
 <div class="container">
@@ -6,7 +15,6 @@
   <thead>
     <tr>
       <th class="description-row">Month</th>
-      <th class="description-row">Trans Fee</th>
       <th class="description-row">Prospect</th>
     </tr>
   </thead>
@@ -15,17 +23,13 @@
     <% @statements.each do |statement| %>
       <tr>
         <td class="description-row"><%= statement.statement_month %></td>
-        <td class="description-row"><%= statement.prospect %></td>
-        <td class="description-row  text-right"><%= link_to(content_tag(:button, 'Show', :class => 'btn btn-primary'), prospect_statement_path(@prospect, statement)) %>
-        <%= link_to(content_tag(:button, 'Edit', :class => 'btn btn-primary'), edit_prospect_statement_path(@prospect, statement)) %>
-        <%= link_to(content_tag(:button, 'Destroy', :class => 'btn btn-primary'), [@prospect, statement], method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+        <td class="description-row"><%= statement.prospect.id %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
 
-<%= link_to(content_tag(:button, 'New Statement', :class => 'btn btn-primary'), new_prospect_statement_path(@prospect)) %>
 </center>
 
 

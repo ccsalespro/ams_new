@@ -10,4 +10,10 @@ class Statement < ActiveRecord::Base
   validates :total_fees, allow_nil: true, numericality: true
   validates :avg_ticket, presence: true, numericality: true
   default_scope -> { order(created_at: :desc) }
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
+      Statement.create! row.to_hash
+    end 
+  end
 end

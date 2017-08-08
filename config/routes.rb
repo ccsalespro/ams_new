@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   root to: 'prospects#index'
+  resources :statements do
+    collection { post :import }
+  end
   resources :courses do
     collection { post :import }
   end
