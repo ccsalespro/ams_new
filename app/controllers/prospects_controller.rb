@@ -16,6 +16,11 @@ class ProspectsController < ApplicationController
     @unread_messages = InternalContact.where(read: false).count
   end
 
+  def import
+    Prospect.import(params[:file])
+    redirect_to prospects_path, notice: "Items imported"
+  end
+
   # GET /prospects/1
   # GET /prospects/1.json
   def show

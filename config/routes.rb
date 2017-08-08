@@ -89,6 +89,10 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  resources :prospects do 
+    collection {post :import}
+  end
+
   resources :processors do
     resources :programs do
       collection { post :import }
