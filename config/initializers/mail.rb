@@ -8,5 +8,6 @@ MANDRILL_API_KEY = "19QIoNGfBDfbfwlo_H1ayg"
     authentication: "login"
   }
 
+
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.default charset: "utf-8"
