@@ -52,6 +52,7 @@ gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'
+gem 'pg'
 
 
 # Use ActiveModel has_secure_password
@@ -75,7 +76,6 @@ group :development do
 end
 
 group :production do
-	gem 'pg'
 	gem 'rails_12factor'
 end
 
