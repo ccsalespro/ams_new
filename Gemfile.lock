@@ -253,7 +253,7 @@ DEPENDENCIES
   jquery-turbolinks
   mandrill-api (~> 1.0, >= 1.0.53)
   morrisjs-rails
-  pg
+  pg (~> 0.18.4)
   prawn
   prawn-table
   rails (= 4.2.6)
@@ -272,4 +272,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.15.1
+   1.16.0
