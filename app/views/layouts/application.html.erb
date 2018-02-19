@@ -46,14 +46,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <%= link_to root_path do %>
-                    <%= image_tag('ibp-logo-white.png', :class => 'logo xs-logo') %>
+                    <%= image_tag('new_ipb_logo.png', :class => 'logo xs-logo') %>
                 <% end %>
 
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                   
+
                     <% if user_signed_in? %>
                     <li>
                         <%= link_to("Prospects", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
