@@ -35,12 +35,12 @@ Rails.application.routes.draw do
     collection {post :import}
   end
 
-  resources :teams do 
+  resources :teams do
     resources :team_users, path: :users
     get 'show_individual_team_user'
     resources :chats
   end
-  
+
   resources :lessonusers do
     member do
       patch :complete
@@ -92,14 +92,14 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  resources :prospects do 
+  resources :prospects do
     collection {post :import}
   end
 
   resources :processors do
     resources :programs do
       collection { post :import }
-      member do 
+      member do
         get 'set_default_program'
       end
     end
@@ -125,7 +125,7 @@ Rails.application.routes.draw do
 
     resources :prospects do
       resources :statements do
-        resources :comparisons do 
+        resources :comparisons do
           member do
             get 'savings_summary'
             get 'savings_detail'
@@ -152,7 +152,11 @@ Rails.application.routes.draw do
 
     root to: "users#index"
   end
-  
+
+  namespace :marketing do
+    get '/quote' => 'descriptions#choose'
+  end
+
   get 'lessonusers/link_complete'
   get 'tasks/index'
   get 'comparisons/show'
