@@ -7,7 +7,7 @@ class ComparisonPdf < Prawn::Document
 		@comparison = comparison
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/ibp-logo-lg.png", :height => 90
+		image "#{Rails.root}/app/assets/images/williams_transparent.png", :height => 90
 		company_info
 		prospect_name
 		user_labels
@@ -54,7 +54,7 @@ class ComparisonPdf < Prawn::Document
 			columns(1..3).width = 125
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -69,21 +69,21 @@ class ComparisonPdf < Prawn::Document
 		total_transactions
 
 		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_totals
 		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_amex_row +
 			card_type_totals
 		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_debit_row +
 			card_type_totals
 		else
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_amex_row +
 			card_type_debit_row +
@@ -123,7 +123,7 @@ class ComparisonPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 150
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
@@ -131,7 +131,7 @@ class ComparisonPdf < Prawn::Document
 	end
 
 	def savings_row
-		[["Monthly Savings", "Annual Savings", "3 Year Savings"], 
+		[["Monthly Savings", "Annual Savings", "3 Year Savings"],
 		[to_currency(@comparison.total_program_savings), to_currency(@comparison.total_program_savings * 12), to_currency(@comparison.total_program_savings * 36)]]
 
 	end
@@ -183,4 +183,4 @@ class ComparisonPdf < Prawn::Document
 	end
 end
 
- 
+

@@ -1,4 +1,4 @@
-* { 
+* {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -12,7 +12,7 @@
 .alert { border-radius: 0px !important; }
 
 // Main Color Var
-  $main-color: #CA892B;
+  $main-color: #1B427D;
   .btn-primary { background-color: $main-color; border: $main-color; }
   .panel-primary .panel-heading { background-color: $main-color !important;}
   .panel-primary { border: 1px solid $main-color;}
@@ -681,12 +681,12 @@ hr.style-two {
 }
 
 .fa-chevron-circle-down {
-    color: #CA892B;
+    color: #1B427D;
     cursor: pointer;
 }
 
 .fa-chevron-circle-up {
-    color: #CA892B;
+    color: #1B427D;
     cursor: pointer;
 }
 

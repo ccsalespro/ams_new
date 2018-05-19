@@ -8,7 +8,7 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/ibp-logo-lg.png", :height => 90
+		image "#{Rails.root}/app/assets/images/william_transparent.png", :height => 90
 		company_info
 		prospect_name
 		user_labels
@@ -81,7 +81,7 @@ class DetailPdf < Prawn::Document
 				columns(4).width = 65
 				self.row_colors = ["f2f2f2", "FFFFFF"]
 				self.header = true
-				self.row(0).background_color = 'CA892B'
+				self.row(0).background_color = '1B427D'
 				self.row(0).text_color = 'FFFFFF'
 				self.position = :center
 			end
@@ -114,7 +114,7 @@ class DetailPdf < Prawn::Document
 			columns(4).width = 65
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -157,7 +157,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << "1"
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(fee.amount)
 				@monthly_fee_array << @array
 			end
@@ -173,7 +173,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << "1"
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(fee.amount)
 				@annual_fee_array << @array
 			end
@@ -189,7 +189,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << "1"
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(fee.amount)
 				@one_time_array << @array
 			end
@@ -205,7 +205,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_integer(@statement.vmd_trans)
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(@statement.vmd_trans * fee.amount)
 				@build_array << @array
 			end
@@ -221,7 +221,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_currency(@statement.vmd_vol)
-				@array << "#{to_integer(fee.amount)} BP" 
+				@array << "#{to_integer(fee.amount)} BP"
 				@array << to_currency(@statement.vmd_vol * (fee.amount.to_f / 10000))
 				@build_array << @array
 			end
@@ -237,7 +237,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_integer(@statement.amex_trans)
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(@statement.amex_trans * fee.amount)
 				@build_array << @array
 			end
@@ -253,7 +253,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_currency(@statement.amex_vol)
-				@array << "#{to_integer(fee.amount)} BP" 
+				@array << "#{to_integer(fee.amount)} BP"
 				@array << to_currency(@statement.amex_vol * (fee.amount.to_f / 10000))
 				@build_array << @array
 			end
@@ -269,7 +269,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_integer(@statement.debit_trans)
-				@array << to_currency(fee.amount) 
+				@array << to_currency(fee.amount)
 				@array << to_currency(@statement.debit_trans * fee.amount)
 				@build_array << @array
 			end
@@ -285,7 +285,7 @@ class DetailPdf < Prawn::Document
 				@array << fee.name
 				@array << "#{fee.custom_field_type.name}"
 				@array << to_currency(@statement.debit_vol)
-				@array << "#{to_integer(fee.amount)} BP" 
+				@array << "#{to_integer(fee.amount)} BP"
 				@array << to_currency(@statement.debit_vol * (fee.amount.to_f / 10000))
 				@build_array << @array
 			end
@@ -296,7 +296,7 @@ class DetailPdf < Prawn::Document
 	def one_time_field_rows
 		custom_field_arrays
 		@field_rows = []
-		@field_rows << one_time_field_header		
+		@field_rows << one_time_field_header
 		if @one_time_fields != nil
 			@field_rows += custom_one_time_fee_rows
 		end
@@ -368,25 +368,25 @@ class DetailPdf < Prawn::Document
 		@custom_fields.each do |cf|
 			case cf.custom_field_type.slug_string
 				when "monthly_fee"
-					@monthly_fee_fields << cf 
+					@monthly_fee_fields << cf
 				when "annual_fee"
-					@annual_fee_fields << cf 
+					@annual_fee_fields << cf
 				when "one_time_fee"
-					@one_time_fields << cf 
+					@one_time_fields << cf
 				when "vmd_per_item"
 					@vmd_per_item_fields << cf
 				when "vmd_volume_bp"
-					@vmd_vol_bp_fields << cf 
+					@vmd_vol_bp_fields << cf
 				when "amex_per_item"
-					@amex_per_item_fields << cf 
+					@amex_per_item_fields << cf
 				when "amex_volume_bp"
-					@amex_vol_bp_fields << cf 
+					@amex_vol_bp_fields << cf
 				when "pin_per_item"
-					@debit_per_item_fields << cf 
+					@debit_per_item_fields << cf
 				when "pin_volume_bp"
 					@debit_vol_bp_fields << cf
 			end
-	  	end	
+	  	end
 	end
 
 	def card_types_table
@@ -403,7 +403,7 @@ class DetailPdf < Prawn::Document
 			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -421,24 +421,24 @@ class DetailPdf < Prawn::Document
 		other_fees_total
 
 		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			other_fees_row +
 			card_type_totals
 		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_amex_row +
 			other_fees_row +
 			card_type_totals
 		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_debit_row +
 			other_fees_row +
 			card_type_totals
 		else
-			card_type_header + 
+			card_type_header +
 			card_type_vmd_rows +
 			card_type_amex_row +
 			card_type_debit_row +
@@ -476,7 +476,7 @@ class DetailPdf < Prawn::Document
 	def other_fees_total
     	@other_fees = ( @comparison.total_program_fees - (@total_amex_fees + @total_debit_fees + @total_visa_fees + @total_mc_fees + @total_ds_fees))
     end
- 
+
 	def savings_amounts_table
 		move_down 20
 		table savings_row do
@@ -487,7 +487,7 @@ class DetailPdf < Prawn::Document
 			row(0).align = :center
 			columns(0..3).width = 171.666
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 
@@ -507,7 +507,7 @@ class DetailPdf < Prawn::Document
 			columns(3..5).width = 85
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
-			self.row(0).background_color = 'CA892B'
+			self.row(0).background_color = '1B427D'
 			self.row(0).text_color = 'FFFFFF'
 			self.position = :center
 		end
@@ -524,20 +524,20 @@ class DetailPdf < Prawn::Document
 		total_transactions
 		total_program_costs
 		total_access_fees
-		
+
 		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			individual_cost_header + 
+			individual_cost_header +
 			vmd_rows
 		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			individual_cost_header + 
+			individual_cost_header +
 			vmd_rows +
 			amex_rows
 		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			individual_cost_header + 
+			individual_cost_header +
 			vmd_rows +
 			debit_rows
 		else
-			individual_cost_header + 
+			individual_cost_header +
 			vmd_rows +
 			amex_rows +
 			debit_rows
@@ -560,7 +560,7 @@ class DetailPdf < Prawn::Document
 	end
 
 	def savings_row
-		[["Monthly Savings", "Annual Savings", "3 Year Savings"], 
+		[["Monthly Savings", "Annual Savings", "3 Year Savings"],
 		[to_currency(@comparison.total_program_savings), to_currency(@comparison.total_program_savings * 12), to_currency(@comparison.total_program_savings * 36)]]
 	end
 
