@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   after_create :add_programs, :subscribe
 
   def add_programs
-    @programs = Program.all.where(personal: false)
+    @programs = Program.all
     @programs.each do |program|
       @programuser = Programuser.new
       @programuser.user_id = self.id
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       @programuser.save!
     end
 
-    @processors = Processor.all.where(personal: false)
+    @processors = Processor.all
     @processors.each do |processor|
       @processoruser = Processoruser.new
       @processoruser.user_id = self.id
@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
       csv << column_names
       all.each do |user|
         csv << user.attributes.values_at(*column_names)
-      end 
+      end
     end
   end
 end

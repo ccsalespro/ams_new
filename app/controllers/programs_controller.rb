@@ -6,7 +6,7 @@ class ProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_program_ownership, only: [:edit, :destroy]
   before_action :require_edit_permission, only: [:edit, :destroy]
-  
+
   # GET /programs
   # GET /programs.json
   def index
@@ -112,7 +112,7 @@ class ProgramsController < ApplicationController
       @custom_field.name = c.name
       @custom_field.custom_field_type_id = c.custom_field_type_id
       @custom_field.amount = c.amount
-      @custom_field.cost = c.cost 
+      @custom_field.cost = c.cost
       @custom_field.save
     end
 
@@ -137,7 +137,7 @@ class ProgramsController < ApplicationController
   # POST /programs.json
   def create
     @program = @processor.programs.new(program_params)
-    
+
     no_nils(@program)
 
     respond_to do |format|
@@ -149,11 +149,17 @@ class ProgramsController < ApplicationController
         format.json { render json: @program.errors, status: :unprocessable_entity }
       end
     end
-    @programuser = Programuser.new
-    @programuser.user_id = current_user.id
-    @programuser.program_id = @program.id
-    @programuser.edit_permission = true
-    @programuser.save
+    User.all.each do |user|
+      @programuser = Programuser.new
+      @programuser.user_id = user.id
+      @programuser.program_id = @program.id
+      if user.id == current_user.id
+        @programuser.edit_permission = true
+      else
+        @programuser.edit_permission = false
+      end
+      @programuser.save
+    end
   end
 
   # PATCH/PUT /programs/1
