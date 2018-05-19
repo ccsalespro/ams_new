@@ -8,7 +8,7 @@ class DetailPdf < Prawn::Document
 		@program = Program.find_by_id(@comparison.program_id)
 		@view = view
 		@user = user
-		image "#{Rails.root}/app/assets/images/william_transparent.png", :height => 90
+		image "#{Rails.root}/app/assets/images/williams_transparent.png", :height => 90
 		company_info
 		prospect_name
 		user_labels
@@ -36,8 +36,8 @@ class DetailPdf < Prawn::Document
 
 	def company_info
 		move_down 10
-		text "Phone:  (888) 930-9057", size: 15, style: :bold, align: :left
-		text "Website:  ibpinfo.biz", size: 15, style: :bold, align: :left
+		text "Phone:  (919) 556-3616", size: 15, style: :bold, align: :left
+		text "williamspaymentsolutions.com", size: 15, style: :bold, align: :left
 	end
 
 	def card_type_title

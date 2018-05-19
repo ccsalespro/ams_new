@@ -23,8 +23,8 @@ class ComparisonPdf < Prawn::Document
 
 	def company_info
 		move_down 10
-		text "Phone:  (888) 930-9057", size: 15, style: :bold, align: :left
-		text "Website:  ibpinfo.biz", size: 15, style: :bold, align: :left
+		text "Phone:  (919) 556-3616", size: 15, style: :bold, align: :left
+		text "williamspaymentsolutions.com", size: 15, style: :bold, align: :left
 	end
 
 	def prospect_name
