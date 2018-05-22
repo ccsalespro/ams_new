@@ -1,0 +1,200 @@
+  <div class="header-wrapper">
+    <div class="col-xl-6 col-xl-offset-3" id="header-image-div">
+      <%= image_tag("williams_transparent.png", class: "img-responsive", id: "header-image-logo") %>
+    </div>
+    <h2 class="my-section-heading text-center">What is your industry?</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="ecommButton">ECOMMERCE <i id="ecommIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="ecommDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">B2B</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 22, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">B2C</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 7, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line-short"></div>
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="healthButton">HEALTHCARE <i id="healthIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="healthDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">DOCTORS</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 9, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">DENTISTS</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 10, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">VETS</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 11, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line-short"></div>
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="retailButton">RETAIL <i id="retailIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="retailDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">CLOTHING</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 17, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">LIQUOR STORE</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 16, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">CONVENIENCE STORE</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 19, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">ELECTRONICS</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 18, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">OTHER / GENERAL</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 20, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line-short"></div>
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="foodButton">HOSPITALITY <i id="foodIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="foodDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">FULL SERVICE</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 12, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">QUICK SERVICE</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 13, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">BAR</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 21, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">HOTEL/LODGING</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 5, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line-short"></div>
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="otherButton">SERVICE BASED <i id="otherIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="otherDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">PROFESSIONAL SERVICES</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 6, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">HOME SERVICES</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 4, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">SALON/SPA</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 24, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+            <div class="horizontal-line-descriptions"></div>
+            <div class="description-item">
+              <div class="sub-description">AUTOMOTIVE</div>
+              <div class="pull-right choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 2, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-line-short"></div>
+      <div class="container">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+          <div class="description-header" id="generalButton">OTHER <i id="generalIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+          <div id="generalDiv" class="hidden">
+            <div class="horizontal-line-descriptions top-line"></div>
+            <div class="description-item">
+              <div class="sub-description">GENERAL</div>
+              <div class="choose-button"><%= link_to('SELECT', edit_marketing_description_prospect_path(description_id: 21, id: @prospect.id), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+var retailButton = document.getElementById("retailButton");
+var retailDiv = document.getElementById("retailDiv");
+
+var foodButton = document.getElementById("foodButton");
+var foodDiv = document.getElementById("foodDiv");
+
+var otherButton = document.getElementById("otherButton");
+var otherDiv = document.getElementById("otherDiv");
+
+var ecommButton = document.getElementById("ecommButton");
+var ecommDiv = document.getElementById("ecommDiv");
+
+var healthButton = document.getElementById("healthButton");
+var healthDiv = document.getElementById("healthDiv");
+
+var generalButton = document.getElementById("generalButton");
+var generalDiv = document.getElementById("generalDiv");
+
+retailButton.onclick = function(){
+  $("#retailDiv").toggleClass("hidden");
+  $("#retailIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+
+foodButton.onclick = function(){
+  $("#foodDiv").toggleClass("hidden");
+  $("#foodIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+
+otherButton.onclick = function(){
+  $("#otherDiv").toggleClass("hidden");
+  $("#otherIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+ecommButton.onclick = function(){
+  $("#ecommDiv").toggleClass("hidden");
+  $("#ecommIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+healthButton.onclick = function(){
+  $("#healthDiv").toggleClass("hidden");
+  $("#healthIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+generalButton.onclick = function(){
+  $("#generalDiv").toggleClass("hidden");
+  $("#generalIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+};
+</script>
+

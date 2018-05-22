@@ -1,2 +1,36 @@
-<h1>Layout</h1>
-<%= yield %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Williams Payment Solutions</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Williams Payment Solutions">
+    <meta name="author" content="Williams Payment Solutions">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <%= stylesheet_link_tag    'marketing', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'marketing', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+<body style="background-color: #1B427D;">
+  <% if flash[:notice] %>
+    <div class="">
+        <div class="alert alert-info alert-message flyover">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <center><strong><%= flash[:notice] %></strong></center>
+        </div>
+    </div>
+  <% end %>
+  <div class="pull-right" style="background-color: #eeeeee; padding: 10px;">
+      <% if user_signed_in? %>
+        <%= link_to('Dashboard', prospects_path, :class => 'btn btn-primary float-right') %>
+      <% else %>
+        <%= link_to('Sign In', new_user_session_path, :class => 'btn btn-primary float-right') %>
+      <% end %>
+  </div>
+  <%= yield %>
+</body>
+</html>

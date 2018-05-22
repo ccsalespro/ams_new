@@ -10,8 +10,10 @@ class DetailPdf < Prawn::Document
 		@user = user
 		image "#{Rails.root}/app/assets/images/williams_transparent.png", :height => 90
 		company_info
-		prospect_name
-		user_labels
+		if @user
+			prospect_name
+			user_labels
+		end
 		proposal_note
 		if @statement.total_fees > 0
 			savings_amounts_table

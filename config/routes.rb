@@ -1,6 +1,21 @@
 Rails.application.routes.draw do
+  root :to => 'marketing/descriptions#quote'
 
-  root to: 'prospects#index'
+  namespace :marketing do
+    get '/quote' => 'descriptions#quote'
+    resources :descriptions, only: [] do
+      resources :prospects, only: [:edit]
+    end
+
+    resources :prospects, only: [] do
+      resources :statements, only: [:new, :create] do
+        resources :comparisons, only: [:index, :show, :create] do
+          get 'savings_detail'
+        end
+      end
+    end
+  end
+
   resources :statements do
     collection { post :import }
   end
@@ -139,23 +154,6 @@ Rails.application.routes.draw do
     resources :users do
       resources :tickets
     end
-
-  namespace :admin do
-    resources :users
-    resources :costs
-    resources :descriptions
-    resources :merchants
-    resources :processors
-    resources :programs
-    resources :prospects
-    resources :statements
-
-    root to: "users#index"
-  end
-
-  namespace :marketing do
-    get '/quote' => 'descriptions#choose'
-  end
 
   get 'lessonusers/link_complete'
   get 'tasks/index'

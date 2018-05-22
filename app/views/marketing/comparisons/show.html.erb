@@ -1,0 +1,90 @@
+<% if @statement.total_fees.to_i == 0 %>
+  <div class="header-wrapper">
+    <div class="col-xl-6 col-xl-offset-3" id="header-image-div">
+      <%= image_tag("williams_transparent.png", class: "img-responsive", id: "header-image-logo") %>
+    </div>
+
+    <h2 class="my-section-heading text-center">Proposal</h2>
+  </div>
+  <div class="container">
+    <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+      <div class="description-header" id="programsButtonFee"><%= truncate(@program.name, length: 20) %> <i id="programsIconFee" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+      <div id="programsDivFee" class="hidden">
+
+        <% @statement.comparisons.each do |c| %>
+        <% p = Program.find(c.program_id) %>
+          <div class="horizontal-line-descriptions"></div>
+          <div class="description-item">
+            <div class="sub-description"><%= truncate(p.name, length: 20) %></div>
+            <div class="choose-button"><%= link_to('CHOOSE', marketing_prospect_statement_comparison_path(@prospect, @statement, c), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div><br />
+  <div class="text-center white savings-amount-text">Approx Fees:</div>
+    <h2 class="text-center savings-amount"><%= number_to_currency((@comparison.total_program_fees), precision: 0) %></h2><br />
+  <div class="text-center white savings-amount-text">PER MONTH</div><br />
+  <div class="text-center">
+    <%= link_to("PDF Proposal", marketing_prospect_statement_comparison_savings_detail_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary btn-lg' ) %>
+  </div><br />
+
+<% else %>
+  <div class="header-wrapper">
+    <div class="col-xl-6 col-xl-offset-3" id="header-image-div">
+      <%= image_tag("williams_transparent.png", class: "img-responsive", id: "header-image-logo") %>
+    </div>
+
+    <h2 class="my-section-heading text-center">SAVINGS REPORT</h2>
+  </div>
+  <div class="container">
+    <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 well well-new">
+      <div class="description-header" id="programsButton"><%= truncate(@program.name, length: 20) %> <i id="programsIcon" class="chevron-icon fa fa-chevron-circle-down pull-right" aria-hidden="true"></i></div>
+      <div id="programsDiv" class="hidden">
+
+        <% @statement.comparisons.each do |c| %>
+        <% p = Program.find(c.program_id) %>
+          <div class="horizontal-line-descriptions"></div>
+          <div class="description-item">
+            <div class="sub-description"><%= truncate(p.name, length: 20) %></div>
+            <div class="choose-button"><%= link_to('CHOOSE', marketing_prospect_statement_comparison_path(@prospect, @statement, c), class: 'choose-button-text btn btn-round-xs btn-xs btn-primary') %></div>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+  <div class="text-center white savings-amount-text">YOU COULD SAVE</div>
+    <h2 class="text-center savings-amount"><%= number_to_currency((@comparison.total_program_savings * 12), precision: 0) %></h2><br />
+  <div class="text-center white savings-amount-text">PER YEAR</div><br />
+  <div class="text-center">
+    <%= link_to("PDF Proposal", marketing_prospect_statement_comparison_savings_detail_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary btn-lg' ) %>
+  </div>
+
+<% end %>
+
+<script>
+var programsButton = document.getElementById("programsButton");
+var programsDiv = document.getElementById("programsDiv");
+
+var programsButtonFee = document.getElementById("programsButtonFee");
+var programsDivFee = document.getElementById("programsDivFee");
+
+if (programsButton){
+  programsButton.onclick = function(){
+    $("#programsDiv").toggleClass("hidden");
+    $("#programsIcon").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+  };
+}
+
+if (programsButtonFee){
+  programsButtonFee.onclick = function(){
+    $("#programsDivFee").toggleClass("hidden");
+    $("#programsIconFee").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
+  };
+}
+</script>
+
