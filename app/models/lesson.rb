@@ -4,9 +4,9 @@ class Lesson < ActiveRecord::Base
   has_many :lessonusers, dependent: :destroy
 
   	def self.import(file)
-		CSV.foreach(file.path, headers: true, :encoding => 'windows-1251:utf-8') do |row|
+		CSV.foreach(file.path, headers: true) do |row|
 			Lesson.create! row.to_hash
-		end	
+		end
 	end
 
 	def completed?
