@@ -10,25 +10,7 @@ class ProgramsController < ApplicationController
   # GET /programs
   # GET /programs.json
   def index
-    @programusers = Programuser.where(user_id: current_user.id)
-    if @programusers.first == nil
-      @sorted_programs = []
-    else
-    @programs = []
-    @programusers.each do |programuser|
-      @program = Program.find_by_id(programuser.program_id)
-      @programs << @program
-    end
-    @sorted_programs = @programs.sort do |x, y|
-      if x[:personal] == y[:personal]
-        0
-      elsif x[:personal] == true
-        -1
-      elsif x[:personal] == false
-        1
-      end
-    end
-  end
+    @programs = Program.all
   end
 
   def set_default_program

@@ -28,7 +28,7 @@ def toggle_edit_permission
       @programuser.edit_permission = true
      end
    @programuser.save
-   
+
    if @programuser.edit_permission == true
      redirect_to :back, notice: 'Edit Permission Given'
     else
@@ -76,9 +76,13 @@ end
   # DELETE /programusers/1
   # DELETE /programusers/1.json
   def destroy
-    @programuser.destroy
+    program = Program.find(@programuser.program_id)
+    Comparison.where(program_id: program).destroy_all
+    Programuser.where(program_id: program).destroy_all
+    program.delete
+
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'program relationship was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'program was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
