@@ -79,6 +79,7 @@ end
     program = Program.find(@programuser.program_id)
     Comparison.where(program_id: program).destroy_all
     Programuser.where(program_id: program).destroy_all
+    CustomField.where(program_id: program).destroy_all
     program.delete
 
     respond_to do |format|
