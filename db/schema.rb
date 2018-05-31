@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617001856) do
+ActiveRecord::Schema.define(version: 20180531164600) do
 
   create_table "cc_fields", force: :cascade do |t|
     t.integer  "comparison_id"
@@ -400,6 +400,13 @@ ActiveRecord::Schema.define(version: 20170617001856) do
   add_index "notes", ["prospect_id"], name: "index_notes_on_prospect_id"
   add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
+  create_table "pricing_structures", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "interchange"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "processors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                      null: false
@@ -481,8 +488,10 @@ ActiveRecord::Schema.define(version: 20170617001856) do
     t.decimal  "vs_check_card_per_item"
     t.integer  "vs_check_card_access_percentage"
     t.decimal  "keyed_flat_rate"
+    t.integer  "pricing_structure_id"
   end
 
+  add_index "programs", ["pricing_structure_id"], name: "index_programs_on_pricing_structure_id"
   add_index "programs", ["processor_id"], name: "index_programs_on_processor_id"
 
   create_table "programusers", force: :cascade do |t|

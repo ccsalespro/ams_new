@@ -80,6 +80,7 @@ class ProgramsController < ApplicationController
     @clone.vs_check_card_per_item = @program.vs_check_card_per_item
     @clone.vs_check_card_access_percentage = @program.vs_check_card_access_percentage
     @clone.personal = true
+    @clone.pricing_structure_id = @program.pricing_structure_id
     @clone.save
 
     @programuser = Programuser.new
@@ -119,6 +120,7 @@ class ProgramsController < ApplicationController
   # POST /programs.json
   def create
     @program = @processor.programs.new(program_params)
+    @program.update! pricing_structure_id: 1
 
     no_nils(@program)
 
