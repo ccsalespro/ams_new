@@ -20,6 +20,10 @@
     <h2 class="text-center no-margin">Step 1: Primary Fields</h2><hr>
 <div class="col-sm-12">
     <div class="form-group">
+      <%= f.label :pricing_structure %><br>
+      <%= collection_select( :program, :pricing_structure_id, PricingStructure.all, :id, :name, {}, { :multiple => false }) %>
+    </div>
+    <div class="form-group">
       <center><%= f.label :name %></center>
       <%= f.text_field :name, class: "form-control", placeholder: 'Name Your Program' %>
     </div>
@@ -212,7 +216,7 @@
        <p class="bold ">Discover Access BP</p>
       <%= f.select(:disc_access_percentage, options_for_select([['0', 0], ['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5], ['6', 6], ['7', 7], ['8', 8], ['9', 9], ['10', 10], ['11', 11], ['12', 12], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18], ['19', 19], ['20', 20]], ['13', 13]), class: 'form-control' ) %>
     </div><div class="clearfix"></div>
-    
+
   <center>
     <a id="backto_steptwo_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
      <a id="stepthree_btn" class="btn btn-primary">Next Step <i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -243,7 +247,7 @@
       </div>
     </div>
     </center>
-  
+
     <div class="form-group col-sm-6">
       <%= f.label :next_day_funding_monthly_fee %><br>
       <div class="input-group">
@@ -299,7 +303,7 @@
      <a id="backto_stepthree_btn" class="btn btn-primary"><i class="fa fa-angle-left" aria-hidden="true"></i> Last Step</a>
      <%= f.submit "Save", class: "btn btn-primary" %>
   </center>
-</div>  
+</div>
 
 </div>
 
@@ -312,7 +316,7 @@
 
 
 <script type="text/javascript">
-  
+
 
 stepone_btn.onclick = function() {
 
@@ -385,7 +389,7 @@ no_max.onclick = function() {
   } else {
   	no_max_form.value = value
   }
-  
+
 }
 
 </script>

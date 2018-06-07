@@ -1,3 +1,10 @@
+<div class="pull-right" style="background-color: #eeeeee; padding: 10px;">
+    <% if user_signed_in? %>
+      <%= link_to('Edit', prospect_statement_comparisons_path(@prospect, @statement), :class => 'btn btn-primary float-right') %>
+    <% else %>
+      <%= link_to('Sign In', new_user_session_path, :class => 'btn btn-primary float-right') %>
+    <% end %>
+</div>
 <% if @statement.total_fees.to_i == 0 %>
   <div class="header-wrapper">
     <div class="col-xl-6 col-xl-offset-3" id="header-image-div">

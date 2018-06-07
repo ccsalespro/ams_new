@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :marketing do
     get '/quote' => 'descriptions#quote'
     resources :descriptions, only: [] do
-      resources :prospects, only: [:edit]
+      resources :prospects, only: [:new]
     end
 
     resources :prospects, only: [] do

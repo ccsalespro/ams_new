@@ -344,7 +344,7 @@
     <h4 class="text-center">Statements</h4>
     <% @prospect.statements.each do |statement| %>
     <div class="well statements-well delete">
-        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), edit_prospect_statement_path(@prospect, statement), :class => 'black' %>
+        <%= link_to statement.statement_month + " | Volume: " + number_to_currency(statement.total_vol), prospect_statement_comparisons_path(@prospect, statement), :class => 'black' %>
         <span class="pull-right">
           <%= link_to edit_prospect_statement_path(@prospect, statement), method: :delete, data: { confirm: 'Are You Sure?' }, remote: true, class: 'delete-statement' do %>
             <i class="fa fa-trash big-fa black" aria-hidden="true"></i>

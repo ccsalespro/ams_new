@@ -10,6 +10,7 @@
   <thead>
     <tr class="white total">
       <th>Processor</th>
+      <th>Pricing</th>
       <th>Default</th>
       <th>Name</th>
       <th>Min</th>
@@ -18,7 +19,6 @@
       <th>Split</th>
       <th>Basis Points</th>
       <th>Trans Fee</th>
-      <th>Terminal</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -34,6 +34,7 @@
           <td><%= link_to("Set Default", set_default_program_processor_program_path(@processor, program), class: "btn btn-primary") %></td>
         <% end %>
         <td><%= @processor.name %></td>
+        <td><%= program.pricing_structure.name %>
         <td class="hidden-sm"><span class="hidden-md"><%= program.name %></span><span class="visible-md"><%= truncate(program.name, length: 30) %></span></td>
         <td><%= number_to_currency(program.min_volume) %></td>
         <td>
@@ -47,7 +48,6 @@
         <td><%= program.residual_split %></td>
         <td><%= program.min_bp_mark_up %></td>
         <td><%= number_to_currency(program.min_per_item_fee) %></td>
-        <td><%= program.system.name %></td>
         <td class="text-center" style="min-width: 130px !important;">
               <% @programuser = Programuser.where(user_id: current_user.id).where(program_id: program.id).last %>
               <% if @programuser.edit_permission == true %>

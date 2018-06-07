@@ -24,13 +24,6 @@
         </div>
     </div>
   <% end %>
-  <div class="pull-right" style="background-color: #eeeeee; padding: 10px;">
-      <% if user_signed_in? %>
-        <%= link_to('Dashboard', prospects_path, :class => 'btn btn-primary float-right') %>
-      <% else %>
-        <%= link_to('Sign In', new_user_session_path, :class => 'btn btn-primary float-right') %>
-      <% end %>
-  </div>
   <%= yield %>
 </body>
 </html>

@@ -11,6 +11,7 @@ module Marketing
       @prospect = Prospect.find(params[:prospect_id])
 
       @statement = @prospect.statements.new(statement_params)
+      @statement.statement_month = Date.today.strftime("%m")
 
       @algorithm = Algorithm.new(@statement, @prospect)
       @inttableitems = @algorithm.calculate

@@ -1,7 +1,6 @@
 module Marketing
   class DescriptionsController < BaseController
     def quote
-      @prospect = Prospect.create! stage: Stage.first
       @retail_descriptions = Description.where(business_type_primary: "Retail")
       @restaurant_descriptions = Description.where(business_type_primary: "Restaurant")
       @auto_descriptions = Description.where(business_type_primary: "Auto")

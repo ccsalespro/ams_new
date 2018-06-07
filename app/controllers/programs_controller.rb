@@ -39,6 +39,7 @@ class ProgramsController < ApplicationController
   def clone
     @clone = @processor.programs.new
     @clone.name = "#{@program.name} || CLONE"
+    @clone.pricing_structure_id = @program.pricing_structure_id
     @clone.min_volume = @program.min_volume
     @clone.max_volume = @program.max_volume
     @clone.up_front_bonus = @program.up_front_bonus
@@ -120,7 +121,6 @@ class ProgramsController < ApplicationController
   # POST /programs.json
   def create
     @program = @processor.programs.new(program_params)
-    @program.update! pricing_structure_id: 1
 
     no_nils(@program)
 
@@ -332,7 +332,7 @@ class ProgramsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
-      params.require(:program).permit(:vs_check_card_access_percentage, :vs_check_card_per_item, :processor_id, :min_per_batch_fee, :per_batch_cost, :name, :min_volume, :max_volume, :up_front_bonus, :residual_split, :min_bp_mark_up, :min_per_item_fee, :cost_structure, :terminal_type, :terminal_ownership_type, :per_item_cost, :bin_sponsorship, :visa_access_per_item, :visa_access_percentage, :mc_access_per_item, :mc_access_percentage, :disc_access_per_item, :disc_access_percentage, :min_monthly_fees, :monthly_fee_costs, :monthly_pci_fee, :monthly_pci_cost, :annual_pci_fee, :annual_pci_cost, :min_pin_debit_per_item_fee, :pin_debit_per_item_cost, :monthly_debit_fee_cost, :min_monthly_debit_fee, :next_day_funding_monthly_cost, :next_day_funding_monthly_fee, :amex_per_item_cost, :min_amex_per_item_fee, :amex_bp_cost, :min_amex_bp_fee, :application_fee_cost, :min_application_fee, :system_id)
+      params.require(:program).permit(:vs_check_card_access_percentage, :vs_check_card_per_item, :processor_id, :min_per_batch_fee, :per_batch_cost, :name, :min_volume, :max_volume, :up_front_bonus, :residual_split, :min_bp_mark_up, :min_per_item_fee, :cost_structure, :terminal_type, :pricing_structure, :terminal_ownership_type, :per_item_cost, :bin_sponsorship, :visa_access_per_item, :visa_access_percentage, :mc_access_per_item, :mc_access_percentage, :disc_access_per_item, :disc_access_percentage, :min_monthly_fees, :monthly_fee_costs, :monthly_pci_fee, :monthly_pci_cost, :annual_pci_fee, :annual_pci_cost, :min_pin_debit_per_item_fee, :pin_debit_per_item_cost, :monthly_debit_fee_cost, :min_monthly_debit_fee, :next_day_funding_monthly_cost, :next_day_funding_monthly_fee, :amex_per_item_cost, :min_amex_per_item_fee, :amex_bp_cost, :min_amex_bp_fee, :application_fee_cost, :min_application_fee, :system_id, :pricing_structure_id)
     end
 
     def require_program_ownership
