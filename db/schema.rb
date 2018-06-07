@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180607161408) do
+ActiveRecord::Schema.define(version: 20180607212855) do
 
   create_table "cc_fields", force: :cascade do |t|
     t.integer  "comparison_id"
@@ -175,6 +175,12 @@ ActiveRecord::Schema.define(version: 20180607161408) do
     t.decimal  "total_surcharge_amount"
     t.decimal  "service_fee"
     t.decimal  "service_fees"
+    t.decimal  "interchange"
+    t.decimal  "debit_network_fees"
+    t.decimal  "amex_interchange"
+    t.decimal  "ds_fees"
+    t.decimal  "mc_fees"
+    t.decimal  "vs_fees"
   end
 
   add_index "comparisons", ["program_id"], name: "index_comparisons_on_program_id"

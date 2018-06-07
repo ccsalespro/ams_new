@@ -19,6 +19,7 @@ class ComparisonsController < ApplicationController
           set_all_custom_field_c_values_to_zero(@comparison)
           set_custom_fields(        @comparison, @statement, program)
           set_other_fees(           @comparison, @statement, program)
+          set_interchange(          @comparison, @statement, program)
           set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
           set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up)
           set_vmd_access_fees(      @comparison, @statement)
@@ -171,11 +172,11 @@ class ComparisonsController < ApplicationController
     @statement = Statement.find_by_id(@comparison.statement_id)
 
     @vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees)
-    @total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees)
+    @total_visa_fees = (@comparison.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees)
     @mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees)
-    @total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees)
+    @total_mc_fees = (@comparison.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees)
     @ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees)
-    @total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
+    @total_ds_fees = (@comparison.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
 
     if @statement.debit_vol > 0
       @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee))
@@ -185,14 +186,14 @@ class ComparisonsController < ApplicationController
 
     if @statement.amex_vol > 0
     @amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 ) )
-    @total_amex_fees = (@statement.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up)
+    @total_amex_fees = (@comparison.amex_interchange + (@statement.amex_trans * @comparison.amex_per_item_fee) + @amex_mark_up)
     else
     @amex_mark_up = 0
     @total_amex_fees = 0
     end
 
     @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans
-    @total_cost = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees + @statement.debit_network_fees + @statement.amex_interchange
+    @total_cost = @comparison.vs_fees + @comparison.mc_fees + @comparison.ds_fees + @comparison.debit_network_fees + @comparison.amex_interchange
     @total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
     @total_credit_card_vol = (@statement.total_vol - (@statement.debit_vol + @statement.check_card_vol + @statement.unreg_debit_vol))
 
@@ -429,6 +430,24 @@ private
       c.annual_fee = 0
   end
 
+  def set_interchange(c, s, p)
+    if p.pricing_structure.interchange
+      c.interchange = s.interchange
+      c.debit_network_fees = s.debit_network_fees
+      c.amex_interchange = s.amex_interchange
+      c.vs_fees = s.vs_fees
+      c.mc_fees = s.mc_fees
+      c.ds_fees = s.ds_fees
+    else
+      c.interchange = 0
+      c.debit_network_fees = 0
+      c.amex_interchange = 0
+      c.vs_fees = 0
+      c.mc_fees = 0
+      c.ds_fees = 0
+    end
+  end
+
   def set_vmd_per_item_fees(c, s, per_item_fee)
     c.per_item_fee = per_item_fee.round(2)
 
@@ -543,11 +562,6 @@ private
   end
 
    def set_total_fees(c, s)
-    if c.program.pricing_structure.interchange
-      interchange = s.interchange
-    else
-      interchange = 0
-    end
     c.batch_fees = (
         s.batches *
         c.per_batch_fee )
@@ -556,7 +570,7 @@ private
     c.monthly_pci_fees +
     ( c.annual_pci_fees / 12 ) +
     ( c.annual_fee / 12 ) +
-    interchange +
+    c.interchange +
     c.total_vmd_mark_up_fees +
     c.batch_fees +
     c.amex_mark_up_fees +
