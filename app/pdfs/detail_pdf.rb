@@ -548,8 +548,13 @@ class DetailPdf < Prawn::Document
 
 	def prospect_name
 		move_up 80
-		text "Proposal: #{@prospect.business_name}", size: 20, style: :bold, align: :right
-		move_down 5
+		if @prospect.business_name.length < 17
+			text "Proposal: #{@prospect.business_name}", size: 20, style: :bold, align: :right
+			move_down 5
+		else
+			move_down 28
+		end
+
 	end
 
 	def user_labels
