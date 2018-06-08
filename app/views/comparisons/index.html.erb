@@ -15,9 +15,9 @@
                 <i class="fa fa-angle-left" aria-hidden="true"></i> Increase Margin
               <% end -%>
 
-               <% c = @comparisons.first %>
+              <% c = @comparisons.first %>
               <% p = Program.find_by_id(c.program_id) %>
-              <% if c.bp_mark_up > p.min_bp_mark_up %>
+              <% if c.bp_mark_up > 0 %>
                 <%= link_to({:controller => 'comparisons', :action => 'decrease_margin', :prospect_id => @prospect.id, :statement_id => @statement.id}, class: 'btn btn-primary') do %>
                   Decrease Margin <i class="fa fa-angle-right" aria-hidden="true"></i>
                 <% end -%>

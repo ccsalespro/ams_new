@@ -17,11 +17,12 @@ class ComparisonsController < ApplicationController
           @comparison = Comparison.new
           set_comparison_references(@comparison, @statement, program)
           set_all_custom_field_c_values_to_zero(@comparison)
+          comparison_no_nil(        @comparison)
           set_custom_fields(        @comparison, @statement, program)
           set_other_fees(           @comparison, @statement, program)
-          set_interchange(          @comparison, @statement, program)
           set_vmd_per_item_fees(    @comparison, @statement, program.min_per_item_fee)
           set_vmd_mark_up(          @comparison, @statement, program.min_bp_mark_up)
+          set_interchange(          @comparison, @statement, program)
           set_vmd_access_fees(      @comparison, @statement)
           set_amex_fees(            @comparison, @statement)
           set_debit_fees(           @comparison, @statement)
@@ -179,7 +180,7 @@ class ComparisonsController < ApplicationController
     @total_ds_fees = (@comparison.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
 
     if @statement.debit_vol > 0
-      @total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee))
+      @total_debit_fees = (@comparison.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee) + (@statement.debit_vol * (@comparison.debit_bp_mark_up.to_f / 10000)))
     else
       @total_debit_fees = 0
     end
@@ -438,6 +439,7 @@ private
       c.vs_fees = s.vs_fees
       c.mc_fees = s.mc_fees
       c.ds_fees = s.ds_fees
+      c.debit_bp_mark_up = 0
     else
       c.interchange = 0
       c.debit_network_fees = 0
@@ -445,6 +447,8 @@ private
       c.vs_fees = 0
       c.mc_fees = 0
       c.ds_fees = 0
+      c.amex_bp_mark_up = c.bp_mark_up
+      c.debit_bp_mark_up = c.bp_mark_up
     end
   end
 
@@ -553,11 +557,18 @@ private
     c.pin_debit_per_item_fee )
 
     if s.debit_trans > 0
+      c.debit_bp_mark_up_fees =
+        (c.debit_bp_mark_up.to_f / 10000) *
+        s.debit_vol
+
       c.total_debit_fees = (
       c.debit_trans_fees +
-      c.monthly_debit_fee)
+      c.monthly_debit_fee +
+      c.debit_bp_mark_up_fees
+      )
     else
       c.total_debit_fees = 0
+      c.debit_bp_mark_up_fees = 0
     end
   end
 
@@ -700,7 +711,8 @@ private
   def set_total_savings(c, s)
       c.total_program_savings = (
         s.total_fees -
-        c.total_program_fees )
+        c.total_program_fees +
+        c.service_fees )
 
       if c.total_program_savings < 0 && c.total_program_savings > -0.01
         c.total_program_savings = 0
@@ -955,6 +967,8 @@ private
     if c.next_day_funding_fee == nil
       c.next_day_funding_fee = 0
     end
-
+    if c.service_fees == nil
+      c.service_fees = 0
+    end
   end
 end
