@@ -32,7 +32,7 @@
     </div>
   </div><br />
   <div class="text-center white savings-amount-text">Approx Fees:</div>
-    <h2 class="text-center savings-amount"><%= number_to_currency((@comparison.total_program_fees), precision: 0) %></h2><br />
+    <h2 class="text-center savings-amount"><%= number_to_currency((@comparison.total_program_fees - @comparison.service_fees), precision: 0) %></h2><br />
   <div class="text-center white savings-amount-text">PER MONTH</div><br />
   <div class="text-center">
     <%= link_to("PDF Proposal", marketing_prospect_statement_comparison_savings_detail_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary btn-lg' ) %>
