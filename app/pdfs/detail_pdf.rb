@@ -399,10 +399,12 @@ class DetailPdf < Prawn::Document
 			row(-1).font_style = :bold
 			columns(0..3).align = :left
 			row(0).align = :center
-			columns(0).width = 75
+			columns(0).width = 85
 			columns(1).width = 100
-			columns(2).width = 85
-			columns(3..5).width = 85
+			columns(2).width = 70
+			columns(3).width = 90
+			columns(4).width = 90
+			columns(5).width = 80
 			self.row_colors = ["f2f2f2", "FFFFFF"]
 			self.header = true
 			self.row(0).background_color = '1B427D'
@@ -421,58 +423,47 @@ class DetailPdf < Prawn::Document
 		total_program_costs
 		total_access_fees
 		other_fees_total
+		total_processing_fees
 
-		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			card_type_header +
-			card_type_vmd_rows +
-			other_fees_row +
-			card_type_totals
-		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			card_type_header +
-			card_type_vmd_rows +
-			card_type_amex_row +
-			other_fees_row +
-			card_type_totals
-		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			card_type_header +
-			card_type_vmd_rows +
-			card_type_debit_row +
-			other_fees_row +
-			card_type_totals
-		else
-			card_type_header +
-			card_type_vmd_rows +
-			card_type_amex_row +
-			card_type_debit_row +
-			other_fees_row +
-			card_type_totals
-		end
+	rows = card_type_header + card_type_vmd_rows
+	rows += card_type_amex_row if @statement.amex_vol > 0.01
+	rows += card_type_debit_row if @statement.debit_vol > 0.01
+	rows += other_fees_row if @other_fees > 0.01
+	rows += service_fees_row if @comparison.service_fees > 0.01
+	rows += card_type_totals
+	rows
+
+
 	end
 
 	def card_type_header
-		[["Type", "Volume", "Items", "Costs", "Access", "Fees"]]
+		[["Type", "Volume", "Items", "Passthrough", "Processing", "Fees"]]
 	end
 
 	def card_type_vmd_rows
-		[["VS", to_currency(@statement.vs_volume), to_integer(@statement.vs_transactions), to_currency(@statement.vs_fees), to_currency(@comparison.total_vs_access_fees), to_currency(@total_visa_fees)],
-		["MC", to_currency(@statement.mc_volume), to_integer(@statement.mc_transactions), to_currency(@statement.mc_fees), to_currency(@comparison.total_mc_access_fees), to_currency(@total_mc_fees)],
-		["DS", to_currency(@statement.ds_volume), to_integer(@statement.ds_transactions), to_currency(@statement.ds_fees), to_currency(@comparison.total_ds_access_fees), to_currency(@total_ds_fees)]]
+		[["VS", to_currency(@statement.vs_volume), to_integer(@statement.vs_transactions), to_currency(@comparison.vs_fees + @comparison.total_vs_access_fees), to_currency(@comparison.vs_trans_fees + @comparison.vs_mark_up_fees), to_currency(@total_visa_fees)],
+		["MC", to_currency(@statement.mc_volume), to_integer(@statement.mc_transactions), to_currency(@comparison.mc_fees + @comparison.total_mc_access_fees), to_currency(@comparison.mc_trans_fees + @comparison.mc_mark_up_fees), to_currency(@total_mc_fees)],
+		["DS", to_currency(@statement.ds_volume), to_integer(@statement.ds_transactions), to_currency(@comparison.ds_fees + @comparison.total_ds_access_fees), to_currency(@comparison.ds_trans_fees + @comparison.ds_mark_up_fees), to_currency(@total_ds_fees)]]
 	end
 
 	def card_type_totals
-		[["Totals", to_currency(@statement.total_vol), to_integer(@transactions), to_currency(@total_cost), to_currency(@total_access_fees), to_currency(@comparison.total_program_fees)]]
+		[["Totals", to_currency(@statement.total_vol), to_integer(@transactions), to_currency(@total_cost), to_currency(@total_processing_fees), to_currency(@comparison.total_program_fees - @comparison.service_fees)]]
 	end
 
 	def card_type_debit_row
-		[["Debit", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@statement.debit_network_fees), "N/A", to_currency(@total_debit_fees)]]
+		[["Debit", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@comparison.debit_network_fees), to_currency(@comparison.debit_bp_mark_up_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee)), to_currency(@total_debit_fees)]]
 	end
 
 	def card_type_amex_row
-		[["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@statement.amex_interchange), "N/A", to_currency(@total_amex_fees)]]
+		[["Amex", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_interchange), to_currency(@comparison.amex_mark_up_fees + @comparison.amex_trans_fees), to_currency(@total_amex_fees)]]
 	end
 
 	def other_fees_row
-		[["Other Fees", "-", "-", "-", "-", to_currency(@other_fees)]]
+			[["Other Fees", "-", "-", "-", to_currency(@other_fees), to_currency(@other_fees)]]
+	end
+
+	def service_fees_row
+		[["#{@comparison.service_fee / 100}% Fee", to_currency(@statement.total_vol), "-", "-", "(#{to_currency(@comparison.service_fees)})", "(#{to_currency(@comparison.service_fees)})"]]
 	end
 
 	def other_fees_total
@@ -527,23 +518,13 @@ class DetailPdf < Prawn::Document
 		total_program_costs
 		total_access_fees
 
-		if @statement.amex_vol == 0 && @statement.debit_vol == 0
-			individual_cost_header +
-			vmd_rows
-		elsif @statement.amex_vol > 0 && @statement.debit_vol == 0
-			individual_cost_header +
-			vmd_rows +
-			amex_rows
-		elsif @statement.amex_vol == 0 && @statement.debit_vol > 0
-			individual_cost_header +
-			vmd_rows +
-			debit_rows
-		else
-			individual_cost_header +
-			vmd_rows +
-			amex_rows +
-			debit_rows
-		end
+		rows = individual_cost_header + vmd_fees_row
+		rows += vmd_costs_row if @program.pricing_structure.interchange
+		rows += amex_fees_row if @statement.amex_vol > 0.01
+		rows += amex_costs_row if @statement.amex_vol > 0.01 && @program.pricing_structure.interchange
+		rows += debit_fees_row if @statement.debit_vol > 0.01
+		rows += debit_costs_row if @statement.debit_vol > 0.01 && @program.pricing_structure.interchange
+		rows
 	end
 
 	def prospect_name
@@ -575,18 +556,27 @@ class DetailPdf < Prawn::Document
 		[["Description", "Volume", "Qty", "Per Item", "Percent", "Amount"]]
 	end
 
-	def vmd_rows
-		[["VMD Fees", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), to_currency(@comparison.per_item_fee), to_percent_two(@comparison.bp_mark_up.to_f / 100), to_currency(@comparison.total_vmd_trans_fees + @comparison.total_vmd_mark_up_fees)]] +
+	def vmd_fees_row
+		[["VMD Fees", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), to_currency(@comparison.per_item_fee), to_percent_two(@comparison.bp_mark_up.to_f / 100), to_currency(@comparison.total_vmd_trans_fees + @comparison.total_vmd_mark_up_fees)]]
+	end
+
+	def vmd_costs_row
 		[["VMD Interchange", to_currency(@statement.vmd_vol), to_integer(@statement.vmd_trans), "Varies", "Varies", to_currency(@statement.vmd_interchange)]]
 	end
 
-	def amex_rows
-		[["Amex Fees", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_per_item_fee), to_percent_two(@comparison.amex_bp_mark_up.to_f / 100), to_currency(@amex_mark_up)]] +
+	def amex_fees_row
+		[["Amex Fees", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_per_item_fee), to_percent_two(@comparison.amex_bp_mark_up.to_f / 100), to_currency(@amex_mark_up)]]
+	end
+
+	def amex_costs_row
 		[["Amex Opt Blue", to_currency(@statement.amex_vol), to_integer(@statement.amex_trans), to_currency(@comparison.amex_per_item_cost), to_percent_two(@comparison.amex_percentage_cost), to_currency(@comparison.amex_total_opt_blue)]]
 	end
 
-	def debit_rows
-		[["Debit Fees", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@comparison.pin_debit_per_item_fee), to_percent_two(0), to_currency(@comparison.pin_debit_per_item_fee * @statement.debit_trans)]] +
+	def debit_fees_row
+		[["Debit Fees", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), to_currency(@comparison.pin_debit_per_item_fee), to_percent_two(@comparison.debit_bp_mark_up / 100), to_currency((@comparison.pin_debit_per_item_fee * @statement.debit_trans) + @comparison.debit_bp_mark_up_fees)]]
+	end
+
+	def debit_costs_row
 		[["Debit Network Fees", to_currency(@statement.debit_vol), to_integer(@statement.debit_trans), "Varies", "Varies", to_currency(@statement.debit_network_fees)]]
 	end
 
@@ -618,34 +608,38 @@ class DetailPdf < Prawn::Document
 
 	def total_vs_fees
 		@vs_access_fees = (@comparison.vs_access_per_item_fees) + (@comparison.vs_access_percentage_fees)
-  		@total_visa_fees = (@statement.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees)
+  	@total_visa_fees = (@comparison.vs_fees + @comparison.vs_trans_fees + @vs_access_fees + @comparison.vs_mark_up_fees)
 	end
 
 	def total_mc_fees
 		@mc_access_fees = (@comparison.mc_access_per_item_fees) + (@comparison.mc_access_percentage_fees)
-  		@total_mc_fees = (@statement.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees)
+  	@total_mc_fees = (@comparison.mc_fees + @comparison.mc_trans_fees + @mc_access_fees + @comparison.mc_mark_up_fees)
 	end
 
 	def total_ds_fees
 		@ds_access_fees = (@comparison.ds_access_per_item_fees) + (@comparison.ds_access_percentage_fees)
-  		@total_ds_fees = (@statement.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
+  	@total_ds_fees = (@comparison.ds_fees + @comparison.ds_trans_fees + @ds_access_fees + @comparison.ds_mark_up_fees)
 	end
 
 	def total_amex_fees
 		@amex_mark_up = ( @statement.amex_vol * (@comparison.amex_bp_mark_up.to_f / 10000 )) + (@statement.amex_trans * @comparison.amex_per_item_fee)
-		@total_amex_fees = (@statement.amex_interchange + @amex_mark_up)
+		@total_amex_fees = (@comparison.amex_interchange + @amex_mark_up)
 	end
 
 	def total_debit_fees
-		@total_debit_fees = (@statement.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee))
+		@total_debit_fees = (@comparison.debit_network_fees + (@statement.debit_trans * @comparison.pin_debit_per_item_fee) + @comparison.debit_bp_mark_up_fees)
 	end
 
 	def total_program_costs
-		@total_cost = @statement.vs_fees + @statement.mc_fees + @statement.ds_fees + @statement.debit_network_fees + @statement.amex_interchange
+		@total_cost = @comparison.vs_fees + @comparison.mc_fees + @comparison.ds_fees + @comparison.debit_network_fees + @comparison.amex_interchange + @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
 	end
 
 	def total_access_fees
 		@total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
+	end
+
+	def total_processing_fees
+		@total_processing_fees = ( @statement.vmd_trans * @comparison.per_item_fee ) + (@statement.vmd_vol * ( @comparison.bp_mark_up.to_f / 10000) ) + @comparison.debit_trans_fees + @comparison.debit_bp_mark_up_fees + @comparison.amex_trans_fees + @comparison.amex_mark_up_fees - @comparison.service_fees + @other_fees
 	end
 
 end

@@ -194,8 +194,8 @@ class ComparisonsController < ApplicationController
     end
 
     @transactions = @statement.vs_transactions + @statement.mc_transactions + @statement.ds_transactions + @statement.amex_trans + @statement.debit_trans
-    @total_cost = @comparison.vs_fees + @comparison.mc_fees + @comparison.ds_fees + @comparison.debit_network_fees + @comparison.amex_interchange
     @total_access_fees = @comparison.total_vs_access_fees + @comparison.total_mc_access_fees + @comparison.total_ds_access_fees
+    @total_cost = @comparison.vs_fees + @comparison.mc_fees + @comparison.ds_fees + @comparison.debit_network_fees + @comparison.amex_interchange + @total_access_fees
     @total_credit_card_vol = (@statement.total_vol - (@statement.debit_vol + @statement.check_card_vol + @statement.unreg_debit_vol))
 
     @other_fees = ( @comparison.total_program_fees - (@total_amex_fees + @total_debit_fees + @total_visa_fees + @total_mc_fees + @total_ds_fees))
@@ -235,9 +235,6 @@ class ComparisonsController < ApplicationController
     @total_current_processing = @statement.vs_total_per_item_fees + @statement.mc_total_per_item_fees + @statement.ds_total_per_item_fees +
       @statement.vs_total_bp_mark_up + @statement.mc_total_bp_mark_up + @statement.ds_total_bp_mark_up + @statement.amex_total_per_item_fees +
       @statement.debit_total_per_item_fees + @statement.amex_total_bp_mark_up + @statement.debit_total_bp_mark_up
-
-    @total_proposed_processing = ( @statement.vmd_trans * @comparison.per_item_fee ) + (@statement.vmd_vol * ( @comparison.bp_mark_up.to_f / 10000) ) +
-      @comparison.debit_trans_fees + @comparison.amex_trans_fees + @comparison.amex_mark_up_fees
 
     @processing_savings = @total_current_processing - @total_proposed_processing
 
