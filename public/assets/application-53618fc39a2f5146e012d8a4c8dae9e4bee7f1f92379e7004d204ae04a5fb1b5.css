@@ -12860,29 +12860,29 @@ body {
 
 /* line 16, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .btn-primary {
-  background-color: #1B427D;
-  border: #1B427D;
+  background-color: #C78A2F;
+  border: #C78A2F;
 }
 
 /* line 17, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .panel-primary .panel-heading {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
 }
 
 /* line 18, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .panel-primary {
-  border: 1px solid #1B427D;
+  border: 1px solid #C78A2F;
 }
 
 /* line 19, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .total {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
 }
 
 /* Floating Action Button Styles */
 /* line 22, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .fab-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -12895,7 +12895,7 @@ body {
 
 /* line 34, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .inttype-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   color: white !important;
   transform: scale(1, 1) !important;
   transition: transform 300ms ease-in-out !important;
@@ -12908,7 +12908,7 @@ body {
 
 /* line 45, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .admin-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -12975,7 +12975,7 @@ body {
 /* Navbar Styles */
 /* line 103, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .nav-custom-styles {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-bottom: white !important;
   margin-bottom: 0px !important;
 }
@@ -12993,7 +12993,7 @@ body {
 
 /* line 118, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #1B427D !important;
+  border-color: #C78A2F !important;
 }
 
 /* line 122, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -13096,7 +13096,7 @@ hr.style-two {
 
 /* line 184, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .main-color {
-  color: #1B427D !important;
+  color: #C78A2F !important;
 }
 
 /* line 186, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -13586,8 +13586,8 @@ hr.style-two {
 .btn-primary:hover {
   transform: scale(1.05, 1.05);
   transition: transform 300ms ease-in-out;
-  background-color: #1B427D !important;
-  border: #1B427D !important;
+  background-color: #C78A2F !important;
+  border: #C78A2F !important;
 }
 
 /* line 451, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -13696,7 +13696,7 @@ hr.style-two {
 
 /* line 528, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .chat-bubble-not-user {
-  background: #1B427D !important;
+  background: #C78A2F !important;
   border-radius: 15px !important;
   margin: 3px !important;
   margin-bottom: 0px !important;
@@ -13861,29 +13861,29 @@ body {
 
 /* line 16, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .btn-primary {
-  background-color: #1B427D;
-  border: #1B427D;
+  background-color: #C78A2F;
+  border: #C78A2F;
 }
 
 /* line 17, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .panel-primary .panel-heading {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
 }
 
 /* line 18, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .panel-primary {
-  border: 1px solid #1B427D;
+  border: 1px solid #C78A2F;
 }
 
 /* line 19, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .total {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
 }
 
 /* Floating Action Button Styles */
 /* line 22, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .fab-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -13896,7 +13896,7 @@ body {
 
 /* line 34, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .inttype-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   color: white !important;
   transform: scale(1, 1) !important;
   transition: transform 300ms ease-in-out !important;
@@ -13909,7 +13909,7 @@ body {
 
 /* line 45, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .admin-btn {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -13976,7 +13976,7 @@ body {
 /* Navbar Styles */
 /* line 103, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .nav-custom-styles {
-  background-color: #1B427D !important;
+  background-color: #C78A2F !important;
   border-bottom: white !important;
   margin-bottom: 0px !important;
 }
@@ -13994,7 +13994,7 @@ body {
 
 /* line 118, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #1B427D !important;
+  border-color: #C78A2F !important;
 }
 
 /* line 122, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -14097,7 +14097,7 @@ hr.style-two {
 
 /* line 184, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .main-color {
-  color: #1B427D !important;
+  color: #C78A2F !important;
 }
 
 /* line 186, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -14587,8 +14587,8 @@ hr.style-two {
 .btn-primary:hover {
   transform: scale(1.05, 1.05);
   transition: transform 300ms ease-in-out;
-  background-color: #1B427D !important;
-  border: #1B427D !important;
+  background-color: #C78A2F !important;
+  border: #C78A2F !important;
 }
 
 /* line 451, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
@@ -14697,7 +14697,7 @@ hr.style-two {
 
 /* line 528, /Users/jamesshepherd/Desktop/Sites/retriever/app/assets/stylesheets/customstyles.scss */
 .chat-bubble-not-user {
-  background: #1B427D !important;
+  background: #C78A2F !important;
   border-radius: 15px !important;
   margin: 3px !important;
   margin-bottom: 0px !important;
