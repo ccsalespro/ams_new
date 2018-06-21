@@ -3,6 +3,11 @@ class StagesController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
 
+  def import
+    Stage.import(params[:file])
+    redirect_to stages_path, notice: "Stages Imported"
+  end
+
   # GET /stages
   # GET /stages.json
   def index

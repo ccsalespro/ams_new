@@ -35,11 +35,15 @@ Rails.application.routes.draw do
   resources :team_users
   devise_for :users, controllers: {:registrations => 'registrations', :invitations => 'users/invitations'}
   resources :courseusers
-  resources :systems
+  resources :systems do
+    collection {post :import}
+  end
   resources :structures
   resources :internal_contacts
   resources :processorusers
-  resources :stages
+  resources :stages do
+    collection {post :import}
+  end
   resources :notes
   resources :comments
   resources :images

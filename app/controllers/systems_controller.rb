@@ -2,6 +2,11 @@ class SystemsController < ApplicationController
   before_action :set_system, only: [:show, :edit, :update, :destroy]
   before_action :require_admin
 
+  def import
+    System.import(params[:file])
+    redirect_to systems_path, notice: "Systems Imported"
+  end
+
   # GET /systems
   # GET /systems.json
   def index

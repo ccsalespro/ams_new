@@ -1,429 +1,4 @@
-.xdsoft_datetimepicker{
-	box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
-	background: #FFFFFF;
-	border-bottom: 1px solid #BBBBBB;
-	border-left: 1px solid #CCCCCC;
-	border-right: 1px solid #CCCCCC;
-	border-top: 1px solid #CCCCCC;
-	color: #333333;
-	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-	padding: 8px;
-	padding-left: 0;
-	padding-top: 2px;
-	position: absolute;
-	z-index: 9999;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	display:none;
-}
-
-.xdsoft_datetimepicker iframe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 75px;
-    height: 210px;
-    background: transparent;
-    border:none;
-}
-/*For IE8 or lower*/
-.xdsoft_datetimepicker button {
-    border:none !important;
-}
-
-.xdsoft_noselect{
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-.xdsoft_noselect::selection { background: transparent; }
-.xdsoft_noselect::-moz-selection { background: transparent; }
-.xdsoft_datetimepicker.xdsoft_inline{
-	display: inline-block;
-	position: static;
-	box-shadow: none;
-}
-.xdsoft_datetimepicker *{
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-}
-.xdsoft_datetimepicker .xdsoft_datepicker, .xdsoft_datetimepicker  .xdsoft_timepicker{
-	display:none;
-}
-.xdsoft_datetimepicker .xdsoft_datepicker.active, .xdsoft_datetimepicker  .xdsoft_timepicker.active{
-	display:block;
-}
-.xdsoft_datetimepicker .xdsoft_datepicker{
-	width: 224px;
-	float:left;
-	margin-left:8px;
-}
-.xdsoft_datetimepicker.xdsoft_showweeks .xdsoft_datepicker{
-	width: 256px;
-}
-.xdsoft_datetimepicker  .xdsoft_timepicker{
-	width: 58px;
-	float:left;
-	text-align:center;
-	margin-left:8px;
-	margin-top: 0;
-}
-.xdsoft_datetimepicker  .xdsoft_datepicker.active+.xdsoft_timepicker{
-	margin-top:8px;
-	margin-bottom:3px
-}
-.xdsoft_datetimepicker  .xdsoft_mounthpicker{
-	position: relative;
-	text-align: center;
-}
-
-.xdsoft_datetimepicker .xdsoft_label i,
-.xdsoft_datetimepicker  .xdsoft_prev,
-.xdsoft_datetimepicker  .xdsoft_next,
-.xdsoft_datetimepicker  .xdsoft_today_button{
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);
-}
-
-.xdsoft_datetimepicker .xdsoft_label i{
-	opacity:0.5;
-	background-position:-92px -19px;
-	display: inline-block;
-	width: 9px;
-	height: 20px;
-	vertical-align: middle;
-}
-
-.xdsoft_datetimepicker  .xdsoft_prev{
-    float: left;
-	background-position:-20px 0;
-}
-.xdsoft_datetimepicker  .xdsoft_today_button{
-    float: left;
-	background-position:-70px 0;
-	margin-left:5px;
-}
-
-.xdsoft_datetimepicker  .xdsoft_next{
-    float: right;
-	background-position: 0 0;
-}
-
-.xdsoft_datetimepicker  .xdsoft_next,
-.xdsoft_datetimepicker  .xdsoft_prev ,
-.xdsoft_datetimepicker  .xdsoft_today_button{
-	background-color: transparent;
-	background-repeat: no-repeat;
-	border: 0 none currentColor;
-	cursor: pointer;
-	display: block;
-	height: 30px;
-	opacity: 0.5;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	outline: medium none currentColor;
-	overflow: hidden;
-	padding: 0;
-	position: relative;
-	text-indent: 100%;
-	white-space: nowrap;
-	width: 20px;
-}
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_prev,
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_next{
-	float:none;
-	background-position:-40px -15px;
-	height: 15px;
-	width: 30px;
-	display: block;
-	margin-left:14px;
-	margin-top:7px;
-}
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_prev{
-	background-position:-40px 0;
-	margin-bottom:7px;
-	margin-top: 0;
-}
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box{
-	height:151px;
-	overflow:hidden;
-	border-bottom:1px solid #DDDDDD;
-}
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div{
-	background: #F5F5F5;
-	border-top:1px solid #DDDDDD;
-	color: #666666;
-	font-size: 12px;
-	text-align: center;
-	border-collapse:collapse;
-	cursor:pointer;
-	border-bottom-width: 0;
-	height:25px;
-	line-height:25px;
-}
-
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div > div:first-child{
- border-top-width: 0;
-}
-.xdsoft_datetimepicker  .xdsoft_today_button:hover,
-.xdsoft_datetimepicker  .xdsoft_next:hover,
-.xdsoft_datetimepicker  .xdsoft_prev:hover {
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-}
-.xdsoft_datetimepicker  .xdsoft_label{
-	display: inline;
-    position: relative;
-    z-index: 9999;
-    margin: 0;
-    padding: 5px 3px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: bold;
-    background-color: #fff;
-	float:left;
-	width:182px;
-	text-align:center;
-	cursor:pointer;
-}
-.xdsoft_datetimepicker  .xdsoft_label:hover>span{
-	text-decoration:underline;
-}
-.xdsoft_datetimepicker  .xdsoft_label:hover i{
-	opacity:1.0;
-}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select{
-	border:1px solid #ccc;
-	position:absolute;
-	right: 0;
-	top:30px;
-	z-index:101;
-	display:none;
-	background:#fff;
-	max-height:160px;
-	overflow-y:hidden;
-}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select.xdsoft_monthselect{right:-7px;}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select.xdsoft_yearselect{right:2px;}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover{
-	color: #fff;
-    background: #ff8000;
-}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select > div > .xdsoft_option{
-	padding:2px 10px 2px 5px;
-	text-decoration:none !important;
-}
-.xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current{
-	background: #33AAFF;
-	box-shadow: #178FE5 0 1px 3px 0 inset;
-	color:#fff;
-	font-weight: 700;
-}
-.xdsoft_datetimepicker  .xdsoft_month{
-	width:100px;
-	text-align:right;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar{
-	clear:both;
-}
-.xdsoft_datetimepicker  .xdsoft_year{
-	width: 48px;
-	margin-left: 5px;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar table{
-	border-collapse:collapse;
-	width:100%;
-
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td > div{
-	padding-right:5px;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar th{
-	height: 25px;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td,.xdsoft_datetimepicker  .xdsoft_calendar th{
-	width:14.2857142%;
-	background: #F5F5F5;
-	border:1px solid #DDDDDD;
-	color: #666666;
-	font-size: 12px;
-	text-align: right;
-	vertical-align: middle;
-	padding: 0;
-	border-collapse:collapse;
-	cursor:pointer;
-	height: 25px;
-}
-.xdsoft_datetimepicker.xdsoft_showweeks  .xdsoft_calendar td,.xdsoft_datetimepicker.xdsoft_showweeks  .xdsoft_calendar th{
-	width:12.5%;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar th{
-	background: #F1F1F1;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_today{
-	color:#33AAFF;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_default,
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_current,
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current{
-	background: #33AAFF;
-	box-shadow: #178FE5 0 1px 3px 0 inset;
-	color:#fff;
-	font-weight: 700;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_other_month,
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_disabled,
-.xdsoft_datetimepicker  .xdsoft_time_box >div >div.xdsoft_disabled{
-	opacity:0.5;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled{
-	opacity:0.2;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td:hover,
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div:hover{
-	color: #fff !important;
-    background: #ff8000 !important;
-    box-shadow: none !important;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_disabled:hover,
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_disabled:hover{
-	color: inherit	!important;
-    background: inherit !important;
-    box-shadow: inherit !important;
-}
-.xdsoft_datetimepicker  .xdsoft_calendar th{
-	font-weight: 700;
-	text-align: center;
-	color: #999;
-	cursor:default;
-}
-.xdsoft_datetimepicker  .xdsoft_copyright{ color:#ccc !important; font-size:10px;clear:both;float:none;margin-left:8px;}
-.xdsoft_datetimepicker  .xdsoft_copyright a{ color:#eee !important;}
-.xdsoft_datetimepicker  .xdsoft_copyright a:hover{ color:#aaa !important;}
-
-
-.xdsoft_time_box{
-	position:relative;
-	border:1px solid #ccc;
-}
-.xdsoft_scrollbar >.xdsoft_scroller{
-	background:#ccc !important;
-	height:20px;
-	border-radius:3px;
-}
-.xdsoft_scrollbar{
-	position:absolute;
-	width:7px;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	cursor:pointer;
-}
-.xdsoft_scroller_box{
-position:relative;
-}
-
-
-.xdsoft_datetimepicker.xdsoft_dark{
-	box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.506);
-	background: #000000;
-	border-bottom: 1px solid #444444;
-	border-left: 1px solid #333333;
-	border-right: 1px solid #333333;
-	border-top: 1px solid #333333;
-	color: #cccccc;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_timepicker .xdsoft_time_box{
-	border-bottom:1px solid #222222;
-}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_timepicker .xdsoft_time_box >div >div{
-	background: #0a0a0a;
-	border-top:1px solid #222222;
-	color: #999999;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label{
-    background-color: #000;
-}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label > .xdsoft_select{
-	border:1px solid #333;
-	background:#000;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover{
-	color: #000;
-    background: #007fff;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current{
-	background: #cc5500;
-	box-shadow: #b03e00 0 1px 3px 0 inset;
-	color:#000;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label i,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_prev,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_next,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_today_button{
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUExQUUzOTA0M0UyMTFFNDlBM0FFQTJENTExRDVBODYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUExQUUzOTE0M0UyMTFFNDlBM0FFQTJENTExRDVBODYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQTFBRTM4RTQzRTIxMUU0OUEzQUVBMkQ1MTFENUE4NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQTFBRTM4RjQzRTIxMUU0OUEzQUVBMkQ1MTFENUE4NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pp0VxGEAAAIASURBVHja7JrNSgMxEMebtgh+3MSLr1T1Xn2CHoSKB08+QmR8Bx9A8e7RixdB9CKCoNdexIugxFlJa7rNZneTbLIpM/CnNLsdMvNjM8l0mRCiQ9Ye61IKCAgZAUnH+mU3MMZaHYChBnJUDzWOFZdVfc5+ZFLbrWDeXPwbxIqrLLfaeS0hEBVGIRQCEiZoHQwtlGSByCCdYBl8g8egTTAWoKQMRBRBcZxYlhzhKegqMOageErsCHVkk3hXIFooDgHB1KkHIHVgzKB4ADJQ/A1jAFmAYhkQqA5TOBtocrKrgXwQA8gcFIuAIO8sQSA7hidvPwaQGZSaAYHOUWJABhWWw2EMIH9QagQERU4SArJXo0ZZL18uvaxejXt/Em8xjVBXmvFr1KVm/AJ10tRe2XnraNqaJvKE3KHuUbfK1E+VHB0q40/y3sdQSxY4FHWeKJCunP8UyDdqJZenT3ntVV5jIYCAh20vT7ioP8tpf6E2lfEMwERe+whV1MHjwZB7PBiCxcGQWwKZKD62lfGNnP/1poFAA60T7rF1UgcKd2id3KDeUS+oLWV8DfWAepOfq00CgQabi9zjcgJVYVD7PVzQUAUGAQkbNJTBICDhgwYTjDYD6XeW08ZKh+A4pYkzenOxXUbvZcWz7E8ykRMnIHGX1XPl+1m2vPYpL+2qdb8CDAARlKFEz/ZVkAAAAABJRU5ErkJggg==);
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar td,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar th{
-	background: #0a0a0a;
-	border:1px solid #222222;
-	color: #999999;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar th{
-	background: #0e0e0e;
-}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar td.xdsoft_today{
-	color:#cc5500;
-}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar td.xdsoft_default,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar td.xdsoft_current,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current{
-	background: #cc5500;
-	box-shadow: #b03e00 0 1px 3px 0 inset;
-	color:#000;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar td:hover,
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_timepicker .xdsoft_time_box >div >div:hover{
-	color: #000 !important;
-    background: #007fff !important;
-}
-
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_calendar th{
-	color: #666;
-}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_copyright{ color:#333 !important;}
-.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_copyright a{ color:#111 !important;}
-.xdsoft_datetimepicker.xdsoft_dark .xdsoft_copyright a:hover{ color:#555 !important;}
-
-
-.xdsoft_dark .xdsoft_time_box{
-	border:1px solid #333;
-}
-.xdsoft_dark .xdsoft_scrollbar >.xdsoft_scroller{
-	background:#333 !important;
-}
-.morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
-.morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}
 @charset "UTF-8";
-/*
-
-
-
-*/
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -9217,107 +8792,6 @@ button.close {
   }
 }
 /*!
- * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-/* Global Styles */
-/* line 9, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-html,
-body {
-  height: 100%;
-}
-
-/* line 14, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-body {
-  padding-top: 50px;
-  /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
-
-/* line 18, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.img-portfolio {
-  margin-bottom: 30px;
-}
-
-/* line 22, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.img-hover:hover {
-  opacity: 0.8;
-}
-
-/* Home Page Carousel */
-/* line 28, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-header.carousel {
-  height: 50%;
-}
-
-/* line 32, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-header.carousel .item,
-header.carousel .item.active,
-header.carousel .carousel-inner {
-  height: 100%;
-}
-
-/* line 38, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-header.carousel .fill {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-}
-
-/* 404 Page Styles */
-/* line 47, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.error-404 {
-  font-size: 100px;
-}
-
-/* Pricing Page Styles */
-/* line 53, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.price {
-  display: block;
-  font-size: 50px;
-  line-height: 50px;
-}
-
-/* line 59, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.price sup {
-  top: -20px;
-  left: 2px;
-  font-size: 20px;
-}
-
-/* line 65, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-.period {
-  display: block;
-  font-style: italic;
-}
-
-/* Footer Styles */
-/* line 72, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-footer {
-  margin: 50px 0;
-}
-
-/* Responsive Styles */
-@media (max-width: 991px) {
-  /* line 79, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-  .customer-img,
-  .img-related {
-    margin-bottom: 30px;
-  }
-}
-@media (max-width: 767px) {
-  /* line 86, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-  .img-portfolio {
-    margin-bottom: 15px;
-  }
-
-  /* line 90, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/modern-business.scss */
-  header.carousel .carousel {
-    height: 70%;
-  }
-}
-/*!
  *  Font Awesome 4.6.2 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
@@ -12836,1172 +12310,367 @@ footer {
   clip: auto;
 }
 
-/* line 1, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-* {
-  font-family: 'Open Sans', sans-serif;
-}
-
-/* Sets Background Color */
-/* line 6, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-body {
-  background-color: #f2f2f2 !important;
-}
-
-/* line 10, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.alert-info {
-  margin: 0px;
-}
-
-/* line 12, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.alert {
-  border-radius: 0px !important;
-}
-
-/* line 16, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.btn-primary {
-  background-color: #1D73BE;
-  border: #1D73BE;
-}
-
-/* line 17, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.panel-primary .panel-heading {
-  background-color: #1D73BE !important;
-}
-
-/* line 18, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.panel-primary {
-  border: 1px solid #1D73BE;
-}
-
-/* line 19, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.total {
-  background-color: #1D73BE !important;
-}
-
-/* Floating Action Button Styles */
-/* line 22, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fab-btn {
-  background-color: #1D73BE !important;
-  border-radius: 50px !important;
-  height: 50px;
-  width: 50px;
-  float: right;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-}
-
-/* line 34, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.inttype-btn {
-  background-color: #1D73BE !important;
-  color: white !important;
-  transform: scale(1, 1) !important;
-  transition: transform 300ms ease-in-out !important;
-}
-/* line 39, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.inttype-btn:hover {
-  transform: scale(1.02, 1.02) !important;
-  transition: transform 300ms ease-in-out !important;
-}
-
-/* line 45, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.admin-btn {
-  background-color: #1D73BE !important;
-  border-radius: 50px !important;
-  height: 50px;
-  width: 50px;
-  float: left;
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-}
-
-/* line 57, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.back-fab {
-  float: left;
-  display: inline-block;
-  margin-left: 20px;
-  margin-right: 10px;
-  margin-top: 20px;
-}
-
-/* line 65, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fab-btn:hover {
-  transform: rotate(360deg);
-  box-shadow: 0px 0px 5px 5px #9F9F9F !important;
-  transition: box-shadow 200ms ease-in-out, transform 300ms linear;
-}
-
-/* line 71, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fab-btn:not(:hover) {
-  transform: rotate(0deg);
-  box-shadow: 0px 0px 5px 3px #BFBFBF !important;
-  transition: box-shadow 200ms ease-in-out, transform 300ms linear;
-}
-
-/* line 77, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fab-plus {
-  margin-top: 12px;
-}
-
-/* line 81, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.admin-plus {
-  margin-top: 8px;
-  font-size: 20px;
-}
-
-/* Search Bar Styles */
-/* line 89, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.stylish-input-group .input-group-addon {
-  background: white !important;
-}
-
-/* line 92, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.stylish-input-group .form-control {
-  border-right: 0;
-  box-shadow: 0 0 0;
-  border-color: #ccc;
-}
-
-/* line 97, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.stylish-input-group button {
-  border: 0;
-  background: transparent;
-}
-
-/* Navbar Styles */
-/* line 103, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nav-custom-styles {
-  background-color: #1D73BE !important;
-  border-bottom: white !important;
-  margin-bottom: 0px !important;
-}
-
-/* line 109, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.a-tag-for-navbar-links {
-  color: white !important;
-}
-
-/* line 113, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-outline, .no-outline:hover {
-  border: none !important;
-  background: transparent !important;
-}
-
-/* line 118, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #1D73BE !important;
-}
-
-/* line 122, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.dropdown-toggle {
-  background: transparent !important;
-}
-
-/* line 126, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nav-font {
-  font-size: 15px !important;
-}
-
-/* line 128, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.logo {
-  height: 40px;
-  margin-top: 5px;
-  padding-left: 5px !important;
-}
-
-/* Styles For 'hr' In The Programs Panel */
-/* line 131, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.programs-hr {
-  border-color: #999999;
-}
-
-/* Sets The Size Of The Form For The Body When You Create A New Blog */
-/* line 137, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.form-size {
-  height: 500px !important;
-  width: 50% !important;
-}
-
-/* Sets The Font Awesome Icon Size On The About Page */
-/* line 144, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.big-icon {
-  font-size: 50px;
-}
-
-/* Sets The Height Of The Social Media Boxes On The About Page */
-/* line 150, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.thumb-height {
-  height: 190.8px;
-}
-
-/* Sets The Margins For The Header On The Top Of The Blogs Show Page */
-/* line 154, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-margin {
-  margin-top: 5px !important;
-}
-
-/* line 156, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.margin-right {
-  margin-right: 5px !important;
-}
-
-/* Makes The Text Areas Not Resizable */
-/* line 160, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-textarea {
-  resize: none;
-}
-
-/* Styles The HR Tag In The Comments */
-/* line 164, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-hr.style-two {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.75), transparent);
-}
-
-/* Formats Text */
-/* line 172, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.black {
-  color: black !important;
-}
-
-/* line 174, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.grey {
-  color: #8c8c8c !important;
-}
-
-/* line 176, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.white {
-  color: white !important;
-}
-
-/* line 178, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.break {
-  word-break: break-all !important;
-}
-
-/* line 180, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.green, .green:hover {
-  color: #04ba00;
-}
-
-/* line 182, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.red, .red:hover {
-  color: #fa0c0c !important;
-}
-
-/* line 184, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.main-color {
-  color: #1D73BE !important;
-}
-
-/* line 186, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bold {
-  font-weight: bold;
-}
-
-/* line 188, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.price-info {
-  font-size: 20px !important;
-}
-
-/* Styles For The Prospects Modal */
-/* line 192, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-margin-bottom {
-  margin-bottom: 0px !important;
-}
-
-/* line 194, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-padding {
-  padding: 0px !important;
-}
-
-/* line 196, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.clickme {
-  cursor: pointer !important;
-}
-
-/* line 198, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.be-gone {
-  margin: 0px !important;
-  margin-top: 8px !important;
-  margin-right: 5px !important;
-}
-
-/* Formatting For Prospects Notes And Actions */
-/* line 202, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#left {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  overflow-y: scroll;
-  width: 50%;
-  padding-right: 15px !important;
-  height: 100%;
-  padding-top: 80px !important;
-}
-
-/* line 213, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#right {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  overflow-y: scroll;
-  width: 50%;
-  padding-right: 15px !important;
-  height: 100%;
-}
-
-/* line 223, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.notes_title {
-  margin: 0px !important;
-  margin-bottom: 5px !important;
-}
-
-/* line 225, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.notes-margin {
-  padding-top: 5px !important;
-}
-
-/* line 227, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.next-task-well {
-  padding-top: 10px !important;
-  padding-bottom: 0px !important;
-}
-
-/* line 229, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.delete-btn-action {
-  margin-top: 1px !important;
-}
-
-/* line 231, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.action-dateselect-top {
-  margin-top: 10px !important;
-  padding-right: 0px !important;
-}
-
-/* line 233, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.action-submit-top {
-  margin-top: 10px !important;
-  padding-left: 0px !important;
-}
-
-/* line 235, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.margin-bottom-actions {
-  margin-bottom: 20px !important;
-}
-
-/* line 237, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-margin {
-  margin: 0px !important;
-}
-
-/* line 239, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.margin-top-edit-prospect-btns {
-  margin-top: 15px !important;
-}
-
-/* line 241, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.cta {
-  margin-top: 5px !important;
-}
-
-/* Forms */
-/* line 245, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.small-margin {
-  margin-bottom: 5px !important;
-}
-
-/* line 247, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.xs-padding-remember {
-  margin-top: 10px !important;
-}
-
-/* line 249, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.pricing-fa {
-  font-size: 8px;
-}
-
-/* line 251, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.lgi-custom {
-  font-size: 12px;
-}
-
-/* line 256, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox label:after,
-.radio label:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-/* line 263, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox .cr,
-.radio .cr {
-  position: relative;
-  display: inline-block;
-  border: 1px solid #a9a9a9;
-  border-radius: .25em;
-  width: 1.3em;
-  height: 1.3em;
-  float: left;
-  margin-right: .5em;
-}
-
-/* line 275, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.radio .cr {
-  border-radius: 50%;
-}
-
-/* line 279, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox .cr .cr-icon,
-.radio .cr .cr-icon {
-  position: absolute;
-  font-size: .8em;
-  line-height: 0;
-  top: 50%;
-  left: 20%;
-}
-
-/* line 288, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.radio .cr .cr-icon {
-  margin-left: 0.04em;
-}
-
-/* line 292, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox label input[type="checkbox"],
-.radio label input[type="radio"] {
-  display: none;
-}
-
-/* line 297, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox label input[type="checkbox"] + .cr > .cr-icon,
-.radio label input[type="radio"] + .cr > .cr-icon {
-  transform: scale(3) rotateZ(-20deg);
-  opacity: 0;
-  transition: all .3s ease-in;
-}
-
-/* line 304, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
-.radio label input[type="radio"]:checked + .cr > .cr-icon {
-  transform: scale(1) rotateZ(0deg);
-  opacity: 1;
-}
-
-/* line 310, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.checkbox label input[type="checkbox"]:disabled + .cr,
-.radio label input[type="radio"]:disabled + .cr {
-  opacity: .5;
-}
-
-/* line 318, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.cust-marg {
-  padding: 30px !important;
-}
-
-/* line 320, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bold-line {
-  border-bottom: 3px solid #9F9F9F;
-}
-
-/* line 322, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bold-line-top {
-  border-top: 3px solid #9F9F9F;
-}
-
-/* line 324, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bold-font {
-  font-weight: bold;
-}
-
-/* line 326, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.welly {
-  max-width: 60%;
-}
-
-@media screen and (max-width: 768px) {
-  /* line 329, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .welly {
-    max-width: 100%;
-  }
-}
-/* line 332, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.welly-lg {
-  margin-left: 50px;
-}
-
-/* line 334, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.welly-sm {
-  margin-left: 0px;
-}
-
-@media screen and (max-width: 450px) {
-  /* line 338, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .cta-font-size {
-    font-size: 12px !important;
-  }
-}
-@media screen and (max-width: 372px) {
-  /* line 341, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .cta-font-size {
-    font-size: 10px !important;
-    margin-top: 20px;
-  }
-}
-/* line 344, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.pricing-top-margin {
-  margin-top: 15px !important;
-}
-
-/* line 346, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fixed-width-td {
-  width: 100px !important;
-}
-
-@media screen and (max-width: 451px) {
-  /* line 349, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .custom-font-size-state {
-    font-size: 13px !important;
-  }
-}
-/* line 352, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.contact-img {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-/* line 354, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.contact-info-margin {
-  display: block;
-  margin-top: 55px !important;
-  text-align: center;
-}
-
-/* line 356, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.contact-info-padding {
-  padding-top: 0px !important;
-}
-
-/* line 358, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.statements-well {
-  padding: 5px;
-  margin: 5px;
-}
-
-/* line 360, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.task-complete {
-  font-size: 40px;
-  margin-left: 5px !important;
-}
-
-/* line 362, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.task-not-complete {
-  font-size: 40px;
-  margin-right: 5px;
-  margin-left: 5px !important;
-}
-
-/* line 364, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.task-well {
-  padding: 5px;
-  margin: 5px;
-  padding-left: 10px;
-}
-
-/* line 366, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.task-delete {
-  font-size: 37px;
-  vertical-align: top;
-}
-
-/* line 368, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.delete-task {
-  text-decoration: none !important;
-}
-
-/* line 370, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.small-pad {
+/* Primary Divs */
+/* line 7, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.well-main {
+  width: 500px !important;
+  padding-top: 5px;
   padding-bottom: 5px;
+  margin: 0 auto;
+  background-color: #333;
+  border: 1px solid #eeeeee;
 }
 
-@media screen and (max-width: 495px) {
-  /* line 373, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-delete {
-    margin-right: 5px;
-  }
-}
-/* line 376, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.lesson-title {
-  margin-top: 0px !important;
+/* line 16, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.well-new {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #333;
+  border: 1px solid #eeeeee;
 }
 
-/* line 378, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.course-title {
-  margin: 0px !important;
-  font-size: 50px !important;
+/* line 24, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.sub-title {
+  font-size: 28px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-weight: 400;
+  color: #eeeeee;
+  letter-spacing: 3px;
 }
 
-/* line 380, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.course-length {
-  margin: 0px !important;
-  margin-top: 5px !important;
+/* line 34, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.description-item {
+  height: 55px;
+  padding: 10px;
 }
 
-@media screen and (max-width: 550px) {
-  /* line 383, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-complete {
-    font-size: 30px;
-    margin-left: 2px !important;
-  }
-
-  /* line 384, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-not-complete {
-    font-size: 30px;
-    margin-right: 5px;
-    margin-left: 2px !important;
-  }
-
-  /* line 385, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-delete {
-    font-size: 27px;
-    vertical-align: top;
-  }
-}
-@media screen and (max-width: 400px) {
-  /* line 389, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-complete {
-    font-size: 21px;
-    margin-left: 2px !important;
-  }
-
-  /* line 390, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-not-complete {
-    font-size: 21px;
-    margin-right: 5px;
-    margin-left: 2px !important;
-  }
-
-  /* line 391, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .task-delete {
-    font-size: 20px;
-    vertical-align: 2px;
-  }
-}
-/* line 394, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.video-padding {
-  padding-right: 0px !important;
+/* line 39, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.button-margin-box {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-/* line 396, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.description-padding {
-  padding-left: 0px !important;
-  padding-right: 40px !important;
+/* line 43, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.description-header {
+  font-size: 16px;
+  padding-left: 44px;
+  text-align: center;
+  letter-spacing: 3px;
+  height: 35px;
+  line-height: 35px;
+  color: #eeeeee;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-@media screen and (max-width: 1200px) {
-  /* line 399, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .description-padding {
-    padding-right: 20px !important;
-  }
-}
-@media screen and (max-width: 992px) {
-  /* line 403, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .description-padding {
-    padding-left: 20px !important;
-  }
-}
-/* line 406, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+/* line 55, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.sub-description {
+  margin-top: 8px;
+  font-size: 13px;
+  float: left;
+  letter-spacing: 3px;
+  color: #eeeeee;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-/* line 412, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.time-font {
+/* line 65, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.description-header-solo {
+  font-size: 16px;
+  padding-left: 5px;
+  float: left;
+  letter-spacing: 3px;
+  height: 35px;
+  line-height: 35px;
+}
+
+/* line 74, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.description-title {
+  width: 75%;
+  margin: 0 auto;
+  font-weight: 400;
+  letter-spacing: 3px;
+}
+
+/* line 81, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.icon-title {
+  width: 25%;
+  float: right;
+  display: inline-block;
+}
+
+/* line 87, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.calculator-icon {
+  padding-top: 20px;
+  width: 60px;
+  margin: 0 auto;
+}
+
+/* line 93, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.margin-box-holder {
+  padding: 10px;
+}
+
+/* line 97, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.title-lg {
+  margin-top: 15px;
+  font-size: 16px !important;
+  padding: 10px;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+/* line 105, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.title-sm {
+  margin-top: 10px;
+  font-size: 14px !important;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+/* line 112, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.title-brand {
+  font-size: 16px !important;
+  font-weight: 200;
+  letter-spacing: 3px;
+}
+
+/* line 118, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.title-currency {
   font-size: 20px !important;
-  margin-top: 10px !important;
+  font-weight: 200;
+  letter-spacing: 2px;
 }
 
-/* line 414, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.course-panel-height {
-  height: 150px !important;
+/* line 124, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.savings-amount {
+  font-size: 50px !important;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: white;
 }
 
-/* line 416, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.special-footer {
-  background: transparent !important;
-  border-top: none !important;
-}
-
-/* line 418, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.no-dec {
-  text-decoration: none !important;
-  list-style-type: none !important;
-  display: inline-block !important;
-}
-
-/* line 420, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.menu {
+/* line 131, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.savings-amount-text {
   font-size: 30px !important;
+  font-weight: 600;
+  letter-spacing: 3px;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-/* line 422, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.open > .course-dropdown {
-  position: absolute;
-  top: 0;
-  left: -165px;
-  display: inline-block !important;
-  z-index: 20000 !important;
+/* line 139, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.chevron-icon {
+  font-size: 34px;
 }
 
-/* line 430, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.program-form-margin {
-  margin-bottom: 5px !important;
-}
-
-/* line 434, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#no_max {
-  margin-top: 5px !important;
-}
-
-/* line 436, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.programs-step-title {
-  margin-bottom: 10px !important;
-}
-
-/* line 438, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
+/* -------------------------- */
+/* Buttons */
+/* line 145, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
 .btn-primary {
-  transform: scale(1, 1);
-  transition: transform 300ms ease-in-out;
-  font-weight: bolder !important;
+  background-color: #333 !important;
+  border-color: #eeeeee !important;
+  color: #eeeeee !important;
 }
 
-/* line 444, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.btn-primary:hover {
-  transform: scale(1.05, 1.05);
-  transition: transform 300ms ease-in-out;
+/* line 151, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.btn-blue {
+  background-color: #00A7E0 !important;
+  border-color: #00A7E0 !important;
+  color: #eeeeee;
 }
 
-/* line 449, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.program-menu {
-  font-size: 22px !important;
+/* line 157, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.btn-blue:hover {
+  color: #eeeeee;
 }
 
-/* line 451, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.panel-view-programs {
-  margin-left: 15px !important;
+/* line 161, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.btn-round-xs {
+  border-radius: 11px;
+  padding-left: 14px;
+  padding-right: 10px;
 }
 
-/* line 453, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.processor-new {
-  background: none !important;
-  border: none !important;
+/* line 167, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.choose-button {
+  margin-top: 5px;
+  float: right;
 }
 
-/* line 458, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.buy-courses-btn {
-  padding-top: 10px !important;
+/* line 172, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.choose-button-text {
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 
-/* line 460, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.statement-wizard-well {
-  padding-top: 0px !important;
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-  padding-bottom: 15px !important;
-  margin: 0px !important;
+/* line 177, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.btn-lg, .btn-group-lg > .btn {
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 
-/* line 468, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nothing {
-  padding: 0px !important;
-  margin: 0px !important;
-  border: 0px solid black  !important;
-  background: none !important;
-  outline: 0px !important;
+/* line 182, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.btn-container {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 25px;
 }
 
-/* line 476, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fiftythree {
-  min-width: 53px !important;
+/* Lines */
+/* line 189, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.horizontal-line-descriptions {
+  height: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #eeeeee;
 }
 
-/* line 478, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.statement-name {
-  min-width: 115px !important;
+/* line 196, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.vertical-line-short {
+  height: 6px;
+  width: 6px;
+  background-color: #eeeeee;
+  margin: 0 auto;
+  border-radius: 3px;
+  margin-bottom: 9px;
+  margin-top: -7px !important;
 }
 
-/* Background Image Full Class */
-/* line 481, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.full {
-  background: url(/assets/light-grey-background-f4198450dc3d4b0538bd4f8642b2500caf45b48fb9eefb0e9b8d3d942622dc5c.png) no-repeat center center fixed !important;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  background-size: cover !important;
-  -o-background-size: cover !important;
+/* line 206, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.vertical-line-long {
+  height: 25px;
+  width: 4px;
+  background-color: #eeeeee;
+  margin: 0 auto;
+  border-radius: 4px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-/* line 489, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.hover {
-  transform: scale(1, 1) !important;
-  transition: transform 300ms ease-in-out !important;
-}
-/* line 492, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.hover:hover {
-  transform: scale(1.05, 1.05) !important;
-  transition: transform 300ms ease-in-out !important;
+/* line 216, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.vertical-top-line {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
-/* line 498, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.modal-header {
-  background-color: #f5f5f5 !important;
-  border-top-left-radius: 5px !important;
-  border-top-right-radius: 5px !important;
+/* line 221, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.horizontal-line-orange {
+  height: 4px;
+  width: 100px;
+  background-color: #F36B21;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
-/* line 504, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nothing {
-  padding: 0px !important;
-  margin: 0px !important;
-  background: none !important;
-  border: none !important;
-  font-weight: bold !important;
-}
-
-/* line 512, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.custom-field {
-  display: none !important;
-}
-
-@media screen and (max-width: 400px) {
-  /* line 515, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-  .custom-field {
-    display: block !important;
-    margin: 2.5px !important;
-  }
-}
-/* line 521, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.overflow {
-  overflow-y: scroll !important;
-  height: 300px;
-}
-
-/* line 526, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.chat-bubble-not-user {
-  background: #1D73BE !important;
-  border-radius: 15px !important;
-  margin: 3px !important;
-  margin-bottom: 0px !important;
-  margin-left: 10px !important;
-  padding: 10px !important;
-  max-width: 50% !important;
-  color: white;
-}
-
-/* line 538, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.chat-bubble-user {
-  background: grey !important;
-  border-radius: 15px !important;
-  margin: 3px !important;
-  margin-bottom: 0px !important;
-  margin-right: 8px !important;
-  padding: 10px !important;
-  max-width: 50% !important;
-  color: white;
-}
-
-/* line 549, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.statement-edit-header {
+/* line 229, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.top-line {
   margin-top: 15px;
 }
 
-/* line 553, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.statement-edit-field {
-  margin-top: 0px;
+/* Colors */
+/* line 235, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.white {
+  color: #eeeeee;
 }
 
-/* line 557, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.one-margin-field {
-  margin-bottom: 10px !important;
+/* line 239, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.blue {
+  color: #00A7E0;
 }
 
-/* line 564, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bar-graph {
-  margin-left: 30px;
-  height: 0px;
-  width: 75px;
-}
-
-/* line 569, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#graph-container {
-  margin-top: 4px;
-}
-
-/* line 572, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#bar-graph-1 {
-  background-color: #F7D466;
-}
-
-/* line 575, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#add-on-1 {
-  background-color: #F7D466;
-  color: white;
-}
-
-/* line 579, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#bar-graph-2 {
-  background-color: #51A39D;
-}
-
-/* line 582, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#add-on-2 {
-  background-color: #51A39D;
-  color: white;
-}
-
-/* line 586, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#bar-graph-3 {
-  background-color: #814374;
-}
-
-/* line 589, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#add-on-3 {
-  background-color: #814374;
-  color: white;
-}
-
-/* line 593, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#bar-graph-4 {
-  background-color: #002D64;
-}
-
-/* line 596, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#add-on-4 {
-  background-color: #002D64;
-  color: white;
-}
-
-/* line 600, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.bar-shadow {
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-}
-
-/* line 604, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#interchangeField {
-  margin-top: 5px;
-}
-
-/* line 608, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#interchangeIncreaseButton {
-  float: left;
-  margin-right: 10px;
-}
-
-/* line 612, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#interchangeDecreaseButton {
-  float: left;
-  margin-left: 10px;
-}
-
-/* line 617, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fa-plus-circle {
-  color: #002D64;
-}
-
-/* line 621, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fa-minus-circle {
-  color: #002D64;
-}
-
-/* line 625, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#interchangeMessage {
-  padding-top: 0px;
-  color: #002D64;
-}
-
-/* line 630, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#interchangeForm {
-  text-align: center;
-}
-
-/* line 634, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.col-centered {
-  float: none;
-  margin: 0 auto;
-}
-
-/* line 639, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.dropdown-block {
-  height: 45px;
-  background-color: #1D73BE;
-  margin-left: 12px;
-}
-
-/* line 645, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nav-pill-div {
-  margin-top: 25px;
-  padding-right: 0px;
-  padding-left: 0px;
-}
-
-/* line 651, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.tab-content {
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-bottom: 0px;
-  margin-bottom: 25px;
-}
-
-/* line 662, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.nav-tabs {
-  margin-bottom: 0;
-}
-
-/* line 666, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.tab-box-li {
-  font-size: 18px;
-}
-
-/* line 670, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.th-blank {
-  background-color: #f2f2f2;
-  border: 0px !important;
-}
-
-/* line 675, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.top-row-no-border {
-  border: 0px !important;
-}
-
-/* line 679, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.tab-box-li > a {
-  cursor: pointer;
-}
-
-/* line 683, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
+/* line 243, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
 .fa-chevron-circle-down {
-  color: #1D73BE;
-  cursor: pointer;
+  color: #eeeeee !important;
 }
 
-/* line 688, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.fa-chevron-circle-up {
-  color: #1D73BE;
-  cursor: pointer;
-}
-
-/* line 693, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.brand-table-data {
-  vertical-align: middle !important;
-  font-size: 16px !important;
-  text-align: center;
-}
-
-/* line 699, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.brand-table-header {
-  vertical-align: middle !important;
-  font-size: 20px !important;
-}
-
-/* line 704, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.icon-table-data {
-  width: 50px;
-}
-
-/* line 708, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.brand-subtable-header {
-  vertical-align: middle !important;
-  font-size: 17px !important;
-}
-
-/* line 713, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.brand-subtable-data {
-  vertical-align: middle !important;
-  font-size: 15px !important;
-  text-align: left;
-}
-
-/* line 719, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.incomeDiv {
-  margin-bottom: 23px !important;
-}
-
-/* line 723, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-#incomeListDiv {
-  padding-bottom: 13px;
-}
-
-/* line 727, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/customstyles.scss */
-.team-process {
-  font-size: 13px;
-}
-
-/* line 1, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar {
-  border-collapse: collapse;
-  width: 90%;
-  border: 1px solid #999;
+/* line 247, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.index-image {
   margin: 0 auto;
-  margin-bottom: 20px;
+  max-width: 280px !important;
+  width: auto !important;
+  height: auto !important;
 }
-/* line 8, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar td, .calendar th {
-  font-family: "Lucida Grande", arial, helvetica, sans-serif;
-  font-size: 10px;
-  padding: 6px;
-  border: 1px solid #717171;
+
+/* line 254, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.yellow-background {
+  background-color: #eeeeee;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 10px;
+  margin-bottom: 35px;
 }
-/* line 15, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar th {
-  background: #bdbdbd;
-  color: black;
-  text-align: center;
-  width: 14.2857142857143%;
-  max-width: 100px;
+
+/* line 263, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+#line-chart {
+  padding-top: 50px;
 }
-/* line 23, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar td {
-  background: #FFF;
-  color: #777;
-  height: 90px;
-  vertical-align: top;
+
+/* line 267, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+#header-image-div {
+  background-color: #eeeeee;
+  margin: 0 auto;
+  width: 350px;
+  padding: 0px;
+}
+
+/* line 274, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.special-field-label {
+  color: #eeeeee;
+  font-weight: 300;
+  letter-spacing: 3px;
   font-size: 16px;
-}
-/* line 31, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar .notmonth {
-  color: #CCC;
-}
-/* line 32, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-.calendar .today {
-  background-color: rgba(221, 221, 221, 0.5);
-  border: 1px solid #717171;
+  margin-bottom: 5px;
+  margin-top: -5px;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-/* line 35, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-#month {
-  padding-bottom: 10px;
-  margin-top: 20px;
-  text-align: center;
-  font-size: 22px;
-}
-/* line 40, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-#month a {
-  text-decoration: none;
-  padding: 0 10px;
-  color: #999;
+/* line 285, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+#header-form-div {
+  margin-top: 25px;
+  padding: 10px;
+  width: 400px;
+  margin: 0 auto;
 }
 
-/* line 47, /home/micahnico22/Desktop/Sites/ibp_new/app/assets/stylesheets/calendar.scss */
-ul {
-  font-size: 11px;
-  padding-left: 20px;
+@media (min-width: 575px) {
+  /* line 293, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+  .header-wrapper {
+    background-color: #eeeeee;
+    height: 310px;
+    margin-bottom: 35px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+@media (max-width: 575px) {
+  /* line 303, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+  .header-wrapper {
+    background-color: #eeeeee;
+    height: 385px;
+    margin-bottom: 35px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+/* line 312, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.field-wrapper {
+  background-color: #333;
+  border: 1px solid #eeeeee;
+  padding: 15px;
+}
+
+/* line 318, /home/micahnico22/Desktop/Sites/ams_new/app/assets/stylesheets/marketing.scss */
+.my-section-heading {
+  color: #333;
+  font-size: 40px;
+  margin-top: 0;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }

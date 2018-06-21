@@ -12860,29 +12860,29 @@ body {
 
 /* line 16, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .btn-primary {
-  background-color: #C78A2F;
-  border: #C78A2F;
+  background-color: #1D73BE;
+  border: #1D73BE;
 }
 
 /* line 17, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .panel-primary .panel-heading {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
 }
 
 /* line 18, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .panel-primary {
-  border: 1px solid #C78A2F;
+  border: 1px solid #1D73BE;
 }
 
 /* line 19, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .total {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
 }
 
 /* Floating Action Button Styles */
 /* line 22, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fab-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -12895,7 +12895,7 @@ body {
 
 /* line 34, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .inttype-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   color: white !important;
   transform: scale(1, 1) !important;
   transition: transform 300ms ease-in-out !important;
@@ -12908,7 +12908,7 @@ body {
 
 /* line 45, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .admin-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -12975,7 +12975,7 @@ body {
 /* Navbar Styles */
 /* line 103, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .nav-custom-styles {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-bottom: white !important;
   margin-bottom: 0px !important;
 }
@@ -12993,7 +12993,7 @@ body {
 
 /* line 118, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #C78A2F !important;
+  border-color: #1D73BE !important;
 }
 
 /* line 122, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
@@ -13096,7 +13096,7 @@ hr.style-two {
 
 /* line 184, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .main-color {
-  color: #C78A2F !important;
+  color: #1D73BE !important;
 }
 
 /* line 186, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
@@ -13694,7 +13694,7 @@ hr.style-two {
 
 /* line 526, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .chat-bubble-not-user {
-  background: #C78A2F !important;
+  background: #1D73BE !important;
   border-radius: 15px !important;
   margin: 3px !important;
   margin-bottom: 0px !important;
@@ -13839,7 +13839,7 @@ hr.style-two {
 /* line 639, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .dropdown-block {
   height: 45px;
-  background-color: #C78A2F;
+  background-color: #1D73BE;
   margin-left: 12px;
 }
 
@@ -13890,13 +13890,13 @@ hr.style-two {
 
 /* line 683, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fa-chevron-circle-down {
-  color: #C78A2F;
+  color: #1D73BE;
   cursor: pointer;
 }
 
 /* line 688, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fa-chevron-circle-up {
-  color: #C78A2F;
+  color: #1D73BE;
   cursor: pointer;
 }
 
@@ -14089,29 +14089,29 @@ body {
 
 /* line 16, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .btn-primary {
-  background-color: #C78A2F;
-  border: #C78A2F;
+  background-color: #1D73BE;
+  border: #1D73BE;
 }
 
 /* line 17, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .panel-primary .panel-heading {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
 }
 
 /* line 18, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .panel-primary {
-  border: 1px solid #C78A2F;
+  border: 1px solid #1D73BE;
 }
 
 /* line 19, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .total {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
 }
 
 /* Floating Action Button Styles */
 /* line 22, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fab-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -14124,7 +14124,7 @@ body {
 
 /* line 34, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .inttype-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   color: white !important;
   transform: scale(1, 1) !important;
   transition: transform 300ms ease-in-out !important;
@@ -14137,7 +14137,7 @@ body {
 
 /* line 45, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .admin-btn {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-radius: 50px !important;
   height: 50px;
   width: 50px;
@@ -14204,7 +14204,7 @@ body {
 /* Navbar Styles */
 /* line 103, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .nav-custom-styles {
-  background-color: #C78A2F !important;
+  background-color: #1D73BE !important;
   border-bottom: white !important;
   margin-bottom: 0px !important;
 }
@@ -14222,7 +14222,7 @@ body {
 
 /* line 118, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  border-color: #C78A2F !important;
+  border-color: #1D73BE !important;
 }
 
 /* line 122, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
@@ -14325,7 +14325,7 @@ hr.style-two {
 
 /* line 184, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .main-color {
-  color: #C78A2F !important;
+  color: #1D73BE !important;
 }
 
 /* line 186, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
@@ -14923,7 +14923,7 @@ hr.style-two {
 
 /* line 526, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .chat-bubble-not-user {
-  background: #C78A2F !important;
+  background: #1D73BE !important;
   border-radius: 15px !important;
   margin: 3px !important;
   margin-bottom: 0px !important;
@@ -15068,7 +15068,7 @@ hr.style-two {
 /* line 639, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .dropdown-block {
   height: 45px;
-  background-color: #C78A2F;
+  background-color: #1D73BE;
   margin-left: 12px;
 }
 
@@ -15119,13 +15119,13 @@ hr.style-two {
 
 /* line 683, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fa-chevron-circle-down {
-  color: #C78A2F;
+  color: #1D73BE;
   cursor: pointer;
 }
 
 /* line 688, /Users/jamesshepherd/Desktop/sites/ipb/app/assets/stylesheets/customstyles.scss */
 .fa-chevron-circle-up {
-  color: #C78A2F;
+  color: #1D73BE;
   cursor: pointer;
 }
 
