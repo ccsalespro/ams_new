@@ -7,7 +7,7 @@
 <div class="container">
   <div class="well" style="max-width: 800px;">
     <% if @lesson.lesson_number != 1 %>
-    <% @lessonuser = Lessonuser.where(lesson_id = @last_lesson.id) %>
+    <% @lessonuser = Lessonuser.where(lesson_id: @last_lesson.id) %>
       <%= link_to 'Previous Lesson', course_chapter_lesson_path(@course, @chapter, @last_lesson), class: 'btn btn-primary pull-left' %>
     <% else %>
       <%= link_to 'Back to Courses', courses_path, class: 'btn btn-primary pull-left' %>
@@ -24,7 +24,7 @@
     <div class="">
       <h1 class="lesson-title text-left">
         <span class="col-xs-11 no-padding hidden-xs" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
-        <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span> 
+        <span class="no-padding visible-xs text-center" style="margin-bottom: 10px !important;"><%= @lesson.title %></span>
         <span class="col-xs-1 no-padding hidden-xs" style="margin-bottom: 10px !important;">
         	  <span class="pull-right time-font no-margin">
 
