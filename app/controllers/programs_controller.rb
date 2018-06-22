@@ -2,7 +2,7 @@ class ProgramsController < ApplicationController
 
 
   before_action :set_program, only: [:show, :edit, :update, :destroy, :clone, :set_default_program]
-  before_filter :load_processor, except: [:index]
+  before_action :load_processor, except: [:index]
   before_action :authenticate_user!
   before_action :require_program_ownership, only: [:edit, :destroy]
   before_action :require_edit_permission, only: [:edit, :destroy]
