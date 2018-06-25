@@ -199,21 +199,7 @@ module Marketing
     end
 
     def load_qualified_programs(s)
-      @programusers = Programuser.where(user_id: current_user.id)
-      @programs = []
-      @programusers.each do |programuser|
-        @program = Program.find_by_id(programuser.program_id)
-        @min = @program.min_volume
-        if @program.max_volume > 0
-          @max = @program.max_volume
-        else
-          @max = 10000000
-        end
-        @vol = s.vmd_vol
-        if @min < @vol && @max > @vol
-        @programs << @program
-        end
-      end
+      @programs = Program.all
     end
 
     def set_comparison_references(c, s, p)
