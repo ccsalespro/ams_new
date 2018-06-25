@@ -38,7 +38,7 @@ class DetailPdf < Prawn::Document
 
 	def company_info
 		move_down 10
-		text "Phone:  (801) 643-8621", size: 15, style: :bold, align: :left
+		text "Phone:  (801) 797-1921 ", size: 15, style: :bold, align: :left
 		text "info@aptusmerchantservices.com", size: 15, style: :bold, align: :left
 	end
 
