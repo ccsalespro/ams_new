@@ -68,7 +68,9 @@
     <h2 class="text-center savings-amount"><%= number_to_currency((@comparison.total_program_savings * 12), precision: 0) %></h2><br />
   <div class="text-center white savings-amount-text">PER YEAR</div><br />
   <div class="text-center">
-    <%= link_to("PDF Proposal", marketing_prospect_statement_comparison_savings_detail_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary btn-lg' ) %>
+    <%= link_to("PDF Proposal", marketing_prospect_statement_comparison_savings_detail_path(@prospect, @statement, @comparison, format: "pdf"), class: 'btn btn-primary btn-lg' ) %><br><br>
+    <%= link_to("Enroll Now", '#', class: 'btn btn-primary btn-lg' ) %>
+    <%= link_to("Talk To a Live or Local Agent", new_internal_contact_path, class: 'btn btn-primary btn-lg' ) %><br><br>
   </div>
 
 <% end %>
