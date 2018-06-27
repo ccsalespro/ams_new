@@ -48,9 +48,11 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <% if user_signed_in? %>
-                      <li class="hidden-xs">
-                       <%= link_to "Admin", admin_dashboard_path, class: 'a-tag-for-navbar-links nav-font' %>
-                     </li>
+                      <% if current_user.admin? %>
+                        <li>
+                         <%= link_to "Admin", admin_dashboard_path, class: 'a-tag-for-navbar-links nav-font' %>
+                       </li>
+                     <% end -%>
                       <li>
                           <%= link_to("Prospects", prospects_path, :class => 'a-tag-for-navbar-links nav-font') %>
                       </li>
