@@ -48,6 +48,7 @@
 			<th class="">Statements</th>
 			<th class="">Last Login</th>
 			<th class="">Login Count</th>
+      <th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -73,6 +74,7 @@
 				<td class=""><%= @statement_count %></td>
 				<td class=""><%= @user_last_sign_in %></td>
 				<td class=""><%= user.sign_in_count %></td>
+        <td><%= link_to "Impersonate", impersonate_engine.impersonate_user_path(user) %></td>
 			</tr>
 		<% end -%>
 	</tbody>
@@ -80,7 +82,7 @@
 </div>
 
 <script type="text/javascript">
-	
+
 more.onclick = function() {
 	more_analytics.classList.toggle('visible');
 	more_analytics.classList.toggle('hidden');

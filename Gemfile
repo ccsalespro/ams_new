@@ -54,6 +54,7 @@ gem 'mandrill-api', '~> 1.0', '>= 1.0.53', require: "mandrill"
 gem 'morrisjs-rails'
 gem 'raphael-rails'
 
+gem 'user_impersonate2', :require => 'user_impersonate'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

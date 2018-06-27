@@ -24,6 +24,11 @@
         </div>
     </div>
   <% end %>
+
+  <% if current_staff_user %>
+    <%= render 'user_impersonate/header' %>
+  <% end %>
+
   <%= yield %>
 </body>
 </html>

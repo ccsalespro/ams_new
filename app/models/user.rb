@@ -43,6 +43,15 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def staff?
+    self.admin
+  end
+
+  # String to represent a user (e-mail, name, etc.)
+  def to_s
+    email
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names

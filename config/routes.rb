@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
   root :to => 'marketing/descriptions#quote'
 
   namespace :marketing do
@@ -209,4 +210,5 @@ Rails.application.routes.draw do
   get 'static/error'
   get 'static/pricing'
   get 'calendars/index'
+  get 'admin_dashboard' => 'users#index', as: :admin_dashboard
 end

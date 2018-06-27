@@ -257,6 +257,8 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (4.1.12)
       execjs (>= 0.3.0, < 3)
+    user_impersonate2 (0.12.0)
+      rails (>= 5.1.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -303,6 +305,7 @@ DEPENDENCIES
   turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)
+  user_impersonate2
   web-console (~> 2.0)
 
 RUBY VERSION
