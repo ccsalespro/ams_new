@@ -380,17 +380,12 @@ private
   def load_qualified_programs(s)
     @programusers = Programuser.where(user_id: current_user.id)
     @programs = []
-    @programusers.each do |programuser|
-      @program = Program.find_by_id(programuser.program_id)
-      @min = @program.min_volume
-      if @program.max_volume > 0
-        @max = @program.max_volume
-      else
-        @max = 10000000
-      end
+    Program.all.uniq.each do |program|
+      @min = program.min_volume
+      @max = if program.max_volume > 0 then program.max_volume else 10000000 end
       @vol = s.vmd_vol
       if @min < @vol && @max > @vol
-      @programs << @program
+       @programs << program
       end
     end
   end

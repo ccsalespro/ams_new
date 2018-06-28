@@ -1,7 +1,8 @@
 class ProcessorsController < ApplicationController
   before_action :set_processor, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  
+  before_action :require_admin
+
   # GET /processors
   # GET /processors.json
 
@@ -13,8 +14,8 @@ class ProcessorsController < ApplicationController
   # GET /processors/new
   def new
     @processor = Processor.new
-    @processors = Processor.all.where(personal: false)
-    @private_processors = current_user.processors.where(personal: true) 
+    @processors = Processor.all.where(personal: false).uniq
+    @private_processors = current_user.processors.where(personal: true).uniq
   end
 
   # GET /processors/1/edit

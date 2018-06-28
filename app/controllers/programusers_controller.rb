@@ -83,7 +83,7 @@ end
     program.delete
 
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'program was successfully destroyed.' }
+      format.html { redirect_to programs_path, notice: 'program was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
