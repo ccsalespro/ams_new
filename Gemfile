@@ -55,6 +55,7 @@ gem 'morrisjs-rails'
 gem 'raphael-rails'
 
 gem 'user_impersonate2', :require => 'user_impersonate'
+gem 'record_tag_helper', '~> 1.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

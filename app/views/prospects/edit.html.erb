@@ -1,4 +1,11 @@
 <br>
+
+<% if current_staff_user %>
+    <style type="text/css">
+        #left, #right {top: 100px; padding-top: 30px !important;}
+    </style>
+<% end -%>
+
 <div class="col-sm-6 hidden-xs" id="left">
     <%= form_for(@prospect) do |f| %>
     <% if @prospect.errors.any? %>
@@ -309,7 +316,6 @@
 <div class="clearfix"></div>
 
 <div class="col-md-6 hidden-xs" id="right">
-    <br><br><br><br>
     <div class="well">
         <h4 class="no-margin text-left">Next Action:
             <% if @uncompleted_tasks.size == 0 %>

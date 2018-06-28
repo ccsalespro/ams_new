@@ -201,7 +201,7 @@ hr.style-two {
 
 #left {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     overflow-y: scroll;
     width: 50%;
@@ -212,12 +212,13 @@ hr.style-two {
 
 #right {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     overflow-y: scroll;
     width: 50%;
     padding-right: 15px !important;
     height:100%;
+    padding-top: 80px !important;
 }
 
 .notes_title { margin: 0px !important;  margin-bottom: 5px !important; }

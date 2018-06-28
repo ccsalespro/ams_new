@@ -207,6 +207,8 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
+    record_tag_helper (1.0.0)
+      actionview (~> 5.x)
     redcarpet (3.4.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -296,6 +298,7 @@ DEPENDENCIES
   rails_12factor
   ransack
   raphael-rails
+  record_tag_helper (~> 1.0)
   redcarpet
   sass-rails
   sdoc (~> 0.4.0)
