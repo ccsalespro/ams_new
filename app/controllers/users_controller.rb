@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	before_action :require_admin
 	def index
-		@users = User.where.not(id: current_user.id).order(:created_at)
+		@users = User.all.order(:created_at)
 		@search = @users.search(params[:q])
     	@users = @search.result
 
