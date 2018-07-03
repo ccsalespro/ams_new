@@ -31,9 +31,7 @@
         <tr class="white total">
             <th class="statement-name">Name</th>
             <th><span class="hidden-xs">Bonus</span><span class="visible-xs">B</span></th>
-            <% if current_user.admin %>
-              <th><span class="hidden-xs">Residual</span><span class="visible-xs">R</span></th>
-            <% end %>
+            <th><span class="hidden-xs">Residual</span><span class="visible-xs">R</span></th>
             <th><span class="hidden-xs">Basis Points</span><span class="visible-xs">BP</span></th>
             <th><span class="hidden-xs">Trans Fee</span><span class="visible-xs">TF</span></th>
             <% if @statement.total_fees != 0 %>
@@ -54,9 +52,7 @@
      <td class="visible-sm"><%= truncate(@program.name, length: 30) %></td>
      <td class="visible-md visible-lg"><%= truncate(@program.name, length: 80) %></td>
        <td class="text-left">$<%= number_with_precision(comparison.total_program_bonus, precision: 0) %></td>
-       <% if current_user.admin %>
-        <td class="text-left">$<%= number_with_precision(comparison.total_program_residuals, precision: 0) %></td>
-       <% end %>
+       <td class="text-left">$<%= number_with_precision(comparison.total_program_residuals, precision: 0) %></td>
        <% if comparison.bp_mark_up < 10 %>
         <td><%= number_with_precision(comparison.bp_mark_up, precision: 1) %></td>
        <% else %>

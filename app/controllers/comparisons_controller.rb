@@ -236,7 +236,7 @@ class ComparisonsController < ApplicationController
       @statement.vs_total_bp_mark_up + @statement.mc_total_bp_mark_up + @statement.ds_total_bp_mark_up + @statement.amex_total_per_item_fees +
       @statement.debit_total_per_item_fees + @statement.amex_total_bp_mark_up + @statement.debit_total_bp_mark_up
 
-    @processing_savings = @total_current_processing - @total_proposed_processing
+    @processing_savings = @total_current_processing - @comparison.total_program_fees
 
     #Side by Side Other Fees Variables
     @total_current_other_fees = (@statement.c_batch_fee * @statement.batches) +
